@@ -1,0 +1,121 @@
+{
+  "tactical_repository": [
+    {
+      "repo_name": "cropcore",
+      "description": "AI-powered smart farming assistant for crop monitoring, weed detection, disease diagnosis, and yield prediction.",
+      "language": "Python",
+      "stars": 15,
+      "forks": 3,
+      "primary_topics": ["AI", "Computer Vision", "Agriculture", "TensorFlow", "YOLO"],
+      "url": "https://github.com/prannavakanth/cropcore",
+      "featured": true,
+      "created": "2024-01-01",
+      "last_updated": "2026-06-22",
+      "metadata": {
+        "category": "Project",
+        "document_type": "github"
+      }
+    },
+    {
+      "repo_name": "careertrack",
+      "description": "AI-powered career platform with resume analysis, mock interviews, and portfolio generation using LangChain.",
+      "language": "Python",
+      "stars": 8,
+      "forks": 2,
+      "primary_topics": ["AI", "LangChain", "Career", "LLM", "FastAPI"],
+      "url": "https://github.com/prannavakanth/careertrack",
+      "featured": true,
+      "created": "2024-06-01",
+      "last_updated": "2026-06-22",
+      "metadata": {
+        "category": "Project",
+        "document_type": "github"
+      }
+    },
+    {
+      "repo_name": "autcore",
+      "description": "AI-driven autism screening tool using computer vision and speech analysis.",
+      "language": "Python",
+      "stars": 12,
+      "forks": 2,
+      "primary_topics": ["AI", "Healthcare", "Computer Vision", "Speech Analysis", "MediaPipe"],
+      "url": "https://github.com/prannavakanth/autcore",
+      "featured": true,
+      "created": "2025-01-01",
+      "last_updated": "2026-06-22",
+      "metadata": {
+        "category": "Project",
+        "document_type": "github"
+      }
+    },
+    {
+      "repo_name": "kred",
+      "description": "AI-powered financial intelligence platform for financial behavior analysis and spending insights.",
+      "language": "Python",
+      "stars": 10,
+      "forks": 1,
+      "primary_topics": ["AI", "Fintech", "LangChain", "FastAPI", "React"],
+      "url": "https://github.com/prannavakanth/kred",
+      "featured": true,
+      "created": "2026-01-01",
+      "last_updated": "2026-06-22",
+      "metadata": {
+        "category": "Project",
+        "document_type": "github"
+      }
+    },
+    {
+      "repo_name": "discageai",
+      "description": "Multimodal spinal degeneration assessment framework combining MRI and biomechanical sensing.",
+      "language": "Python",
+      "stars": 5,
+      "forks": 1,
+      "primary_topics": ["AI", "Healthcare", "Medical Imaging", "Multimodal", "PyTorch"],
+      "url": "https://github.com/prannavakanth/discageai",
+      "featured": false,
+      "created": "2025-06-01",
+      "last_updated": "2026-06-22",
+      "metadata": {
+        "category": "Project",
+        "document_type": "github"
+      }
+    },
+    {
+      "repo_name": "pacdi",
+      "description": "Plant-adaptive greenhouse optimization system with stress-aware climate control.",
+      "language": "Python",
+      "stars": 3,
+      "forks": 0,
+      "primary_topics": ["IoT", "Agriculture", "ESP32", "Climate Control", "Sensor Fusion"],
+      "url": "https://github.com/prannavakanth/pacdi",
+      "featured": false,
+      "created": "2025-08-01",
+      "last_updated": "2026-06-22",
+      "metadata": {
+        "category": "Project",
+        "document_type": "github"
+      }
+    },
+    {
+      "repo_name": "ssl-rul",
+      "description": "Self-supervised LSTM framework for predictive maintenance using masked reconstruction learning.",
+      "language": "Python",
+      "stars": 4,
+      "forks": 0,
+      "primary_topics": ["AI", "Predictive Maintenance", "Self-Supervised", "LSTM", "PyTorch"],
+      "url": "https://github.com/prannavakanth/ssl-rul",
+      "featured": false,
+      "created": "2025-11-01",
+      "last_updated": "2026-06-22",
+      "metadata": {
+        "category": "Project",
+        "document_type": "github"
+      }
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-06-22",
+    "document_type": "github"
+  }
+}

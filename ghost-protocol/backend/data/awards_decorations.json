@@ -1,0 +1,141 @@
+{
+  "decorations": [
+    {
+      "name": "1st Place - AnnamAI Hackathon",
+      "awarding_body": "IIT Ropar",
+      "date_received": "2025-01-01",
+      "category": "Hackathon",
+      "description": "Won 1st place for AI-driven innovation and research solutions at AnnamAI Hackathon, IIT Ropar.",
+      "project": "AI-driven Research Solutions",
+      "metadata": {
+        "document_type": "achievement",
+        "level": "University Level"
+      }
+    },
+    {
+      "name": "1st Place - HackHub'25",
+      "awarding_body": "IEEE & GitHub",
+      "date_received": "2025-01-01",
+      "category": "Hackathon",
+      "description": "Won 1st place for developing an AI-based autism screening system at HackHub'25.",
+      "project": "AutCore - AI-driven Autism Screening Tool",
+      "metadata": {
+        "document_type": "achievement",
+        "level": "International"
+      }
+    },
+    {
+      "name": "1st Place - Vashisht 3.0",
+      "awarding_body": "IIITDM Kancheepuram",
+      "date_received": "2026-01-01",
+      "category": "Hackathon",
+      "description": "Won 1st place for building an AI-powered financial intelligence platform at Vashisht 3.0.",
+      "project": "KRED - AI-powered Financial Intelligence Platform",
+      "metadata": {
+        "document_type": "achievement",
+        "level": "University Level"
+      }
+    },
+    {
+      "name": "Special Recognition - Pitchathon'24",
+      "awarding_body": "Pitchathon",
+      "date_received": "2024-01-01",
+      "category": "Competition",
+      "description": "Received special recognition for CropCore, an AI-powered smart farming assistant.",
+      "project": "CropCore - AI-powered Smart Farming Assistant",
+      "metadata": {
+        "document_type": "achievement",
+        "level": "National"
+      }
+    },
+    {
+      "name": "School Topper",
+      "awarding_body": "P. S. Senior Secondary School",
+      "date_received": "2023-01-01",
+      "category": "Academic",
+      "description": "Science Group topper with a board examination score of 486/500.",
+      "project": null,
+      "metadata": {
+        "document_type": "achievement",
+        "level": "School Level"
+      }
+    },
+    {
+      "name": "Subject Topper - Chemistry",
+      "awarding_body": "P. S. Senior Secondary School",
+      "date_received": "2023-01-01",
+      "category": "Academic",
+      "description": "Secured highest marks in Chemistry.",
+      "project": null,
+      "metadata": {
+        "document_type": "achievement",
+        "level": "School Level"
+      }
+    },
+    {
+      "name": "Subject Topper - Computer Science",
+      "awarding_body": "P. S. Senior Secondary School",
+      "date_received": "2023-01-01",
+      "category": "Academic",
+      "description": "Secured highest marks in Computer Science.",
+      "project": null,
+      "metadata": {
+        "document_type": "achievement",
+        "level": "School Level"
+      }
+    },
+    {
+      "name": "Subject Topper - Physical Education",
+      "awarding_body": "P. S. Senior Secondary School",
+      "date_received": "2023-01-01",
+      "category": "Academic",
+      "description": "Secured highest marks in Physical Education.",
+      "project": null,
+      "metadata": {
+        "document_type": "achievement",
+        "level": "School Level"
+      }
+    },
+    {
+      "name": "TNCA Under-16 Cricketer",
+      "awarding_body": "Tamil Nadu Cricket Association",
+      "date_received": "2020-01-01",
+      "category": "Sports",
+      "description": "Represented the Tamil Nadu Cricket Association in competitive cricket tournaments at under-16 level.",
+      "project": null,
+      "metadata": {
+        "document_type": "achievement",
+        "level": "State Level"
+      }
+    },
+    {
+      "name": "TNCA Under-14 Cricketer",
+      "awarding_body": "Tamil Nadu Cricket Association",
+      "date_received": "2018-01-01",
+      "category": "Sports",
+      "description": "Represented the Tamil Nadu Cricket Association at the junior state level under-14.",
+      "project": null,
+      "metadata": {
+        "document_type": "achievement",
+        "level": "State Level"
+      }
+    },
+    {
+      "name": "Best Technical Club Award",
+      "awarding_body": "VIT Chennai",
+      "date_received": "2026-01-01",
+      "category": "Leadership",
+      "description": "Guided OSPC to win the Best Technical Club Award at VIT Chennai.",
+      "project": null,
+      "metadata": {
+        "document_type": "achievement",
+        "level": "University Level"
+      }
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-06-22",
+    "document_type": "awards"
+  }
+}

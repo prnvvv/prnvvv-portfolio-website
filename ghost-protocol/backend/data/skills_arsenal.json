@@ -1,0 +1,300 @@
+{
+  "arsenal": [
+    {
+      "skill": "Python",
+      "category": "Programming Languages",
+      "proficiency": 95,
+      "rank": "Expert",
+      "years_experience": 4,
+      "keywords": ["Python", "Automation", "AI/ML", "Data Science"],
+      "projects_used_in": ["CropCore", "CareerTrack", "KRED", "AutCore"],
+      "metadata": {
+        "skill_type": "technical",
+        "primary_language": true
+      }
+    },
+    {
+      "skill": "Java",
+      "category": "Programming Languages",
+      "proficiency": 85,
+      "rank": "Advanced",
+      "years_experience": 3,
+      "keywords": ["Java", "OOP", "Backend"],
+      "projects_used_in": [],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "C/C++",
+      "category": "Programming Languages",
+      "proficiency": 85,
+      "rank": "Advanced",
+      "years_experience": 3,
+      "keywords": ["C", "C++", "Data Structures", "Algorithms"],
+      "projects_used_in": [],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "SQL",
+      "category": "Programming Languages",
+      "proficiency": 80,
+      "rank": "Advanced",
+      "years_experience": 3,
+      "keywords": ["SQL", "Database", "Query Optimization"],
+      "projects_used_in": ["KRED"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "R",
+      "category": "Programming Languages",
+      "proficiency": 70,
+      "rank": "Intermediate",
+      "years_experience": 2,
+      "keywords": ["R", "Statistics", "Data Analysis"],
+      "projects_used_in": [],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "TensorFlow",
+      "category": "AI/ML Frameworks",
+      "proficiency": 90,
+      "rank": "Expert",
+      "years_experience": 3,
+      "keywords": ["TensorFlow", "Deep Learning", "Neural Networks"],
+      "projects_used_in": ["CropCore", "DiscAgeAI", "PACDI"],
+      "metadata": {
+        "skill_type": "technical",
+        "framework": "TensorFlow"
+      }
+    },
+    {
+      "skill": "PyTorch",
+      "category": "AI/ML Frameworks",
+      "proficiency": 90,
+      "rank": "Expert",
+      "years_experience": 3,
+      "keywords": ["PyTorch", "Deep Learning", "Research"],
+      "projects_used_in": ["SSL-RUL", "Diagnosis-Aware Encryption"],
+      "metadata": {
+        "skill_type": "technical",
+        "framework": "PyTorch"
+      }
+    },
+    {
+      "skill": "Scikit-learn",
+      "category": "AI/ML Frameworks",
+      "proficiency": 90,
+      "rank": "Expert",
+      "years_experience": 3,
+      "keywords": ["Scikit-learn", "Classical ML", "Data Science"],
+      "projects_used_in": ["CropCore", "CareerTrack"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "Keras",
+      "category": "AI/ML Frameworks",
+      "proficiency": 85,
+      "rank": "Advanced",
+      "years_experience": 2,
+      "keywords": ["Keras", "Deep Learning", "Prototyping"],
+      "projects_used_in": ["CropCore"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "OpenCV",
+      "category": "Computer Vision",
+      "proficiency": 85,
+      "rank": "Advanced",
+      "years_experience": 2,
+      "keywords": ["OpenCV", "Computer Vision", "Image Processing"],
+      "projects_used_in": ["AutCore", "DiscAgeAI"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "YOLO",
+      "category": "Computer Vision",
+      "proficiency": 80,
+      "rank": "Advanced",
+      "years_experience": 2,
+      "keywords": ["YOLO", "Object Detection", "Real-time AI"],
+      "projects_used_in": ["CropCore"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "LangChain",
+      "category": "AI/ML Frameworks",
+      "proficiency": 85,
+      "rank": "Advanced",
+      "years_experience": 2,
+      "keywords": ["LangChain", "LLM", "GenAI", "RAG"],
+      "projects_used_in": ["CareerTrack", "KRED"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "MediaPipe",
+      "category": "Computer Vision",
+      "proficiency": 75,
+      "rank": "Intermediate",
+      "years_experience": 1,
+      "keywords": ["MediaPipe", "Computer Vision", "Real-time"],
+      "projects_used_in": ["AutCore"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "FastAPI",
+      "category": "Backend & Web",
+      "proficiency": 85,
+      "rank": "Advanced",
+      "years_experience": 2,
+      "keywords": ["FastAPI", "Python", "API", "Backend"],
+      "projects_used_in": ["CareerTrack", "KRED"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "Pandas",
+      "category": "Backend & Web",
+      "proficiency": 90,
+      "rank": "Expert",
+      "years_experience": 3,
+      "keywords": ["Pandas", "Data Analysis", "Data Processing"],
+      "projects_used_in": ["CropCore", "KRED"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "NumPy",
+      "category": "Backend & Web",
+      "proficiency": 90,
+      "rank": "Expert",
+      "years_experience": 3,
+      "keywords": ["NumPy", "Scientific Computing", "Arrays"],
+      "projects_used_in": ["CropCore", "DiscAgeAI"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "Docker",
+      "category": "Backend & Web",
+      "proficiency": 80,
+      "rank": "Advanced",
+      "years_experience": 2,
+      "keywords": ["Docker", "Containerization", "DevOps"],
+      "projects_used_in": ["CareerTrack"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "HTML",
+      "category": "Frontend",
+      "proficiency": 70,
+      "rank": "Intermediate",
+      "years_experience": 2,
+      "keywords": ["HTML", "Web Development"],
+      "projects_used_in": ["KRED"],
+      "metadata": {
+        "skill_type": "frontend"
+      }
+    },
+    {
+      "skill": "CSS",
+      "category": "Frontend",
+      "proficiency": 65,
+      "rank": "Intermediate",
+      "years_experience": 2,
+      "keywords": ["CSS", "Web Development", "Styling"],
+      "projects_used_in": ["KRED"],
+      "metadata": {
+        "skill_type": "frontend"
+      }
+    },
+    {
+      "skill": "JavaScript",
+      "category": "Frontend",
+      "proficiency": 75,
+      "rank": "Intermediate",
+      "years_experience": 2,
+      "keywords": ["JavaScript", "Web Development", "React"],
+      "projects_used_in": ["KRED"],
+      "metadata": {
+        "skill_type": "frontend"
+      }
+    },
+    {
+      "skill": "React",
+      "category": "Frontend",
+      "proficiency": 70,
+      "rank": "Intermediate",
+      "years_experience": 1.5,
+      "keywords": ["React", "Frontend", "UI"],
+      "projects_used_in": ["KRED"],
+      "metadata": {
+        "skill_type": "frontend"
+      }
+    },
+    {
+      "skill": "BeautifulSoup",
+      "category": "Backend & Web",
+      "proficiency": 75,
+      "rank": "Intermediate",
+      "years_experience": 2,
+      "keywords": ["BeautifulSoup", "Web Scraping", "Data Extraction"],
+      "projects_used_in": [],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "Matplotlib",
+      "category": "Visualization",
+      "proficiency": 85,
+      "rank": "Advanced",
+      "years_experience": 3,
+      "keywords": ["Matplotlib", "Visualization", "Plots"],
+      "projects_used_in": ["CropCore", "DiscAgeAI"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    },
+    {
+      "skill": "Seaborn",
+      "category": "Visualization",
+      "proficiency": 80,
+      "rank": "Advanced",
+      "years_experience": 2,
+      "keywords": ["Seaborn", "Visualization", "Statistical Plots"],
+      "projects_used_in": ["CropCore"],
+      "metadata": {
+        "skill_type": "technical"
+      }
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-06-22",
+    "document_type": "skills"
+  }
+}

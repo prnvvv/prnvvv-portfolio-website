@@ -1,0 +1,40 @@
+{
+  "education": [
+    {
+      "degree": "Bachelor of Technology in Computer Science & Engineering",
+      "institution": "Vellore Institute of Technology (VIT)",
+      "location": "Chennai",
+      "duration": "2023-2027",
+      "cgpa": "9.06/10",
+      "metadata": {
+        "document_type": "education",
+        "category": "higher_education"
+      }
+    },
+    {
+      "degree": "Higher Secondary Education (Class XII)",
+      "institution": "P. S. Senior Secondary School",
+      "year": "2023",
+      "score": "97.2%",
+      "metadata": {
+        "document_type": "education",
+        "category": "secondary_education"
+      }
+    },
+    {
+      "degree": "Secondary Education (Class X)",
+      "institution": "P. S. Senior Secondary School",
+      "year": "2021",
+      "score": "91.8%",
+      "metadata": {
+        "document_type": "education",
+        "category": "secondary_education"
+      }
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-06-22",
+    "document_type": "education"
+  }
+}

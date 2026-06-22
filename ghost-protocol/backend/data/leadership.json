@@ -1,0 +1,73 @@
+{
+  "leadership_roles": [
+    {
+      "position": "Chairperson",
+      "organization": "Open Source Programming Club (OSPC), VIT Chennai",
+      "location": "Chennai, India",
+      "date_started": "2025-01-01",
+      "date_ended": "2026-12-31",
+      "current": true,
+      "responsibilities": [
+        "Led OSPC as Chairperson",
+        "Guided the club to win the Best Technical Club Award at VIT Chennai",
+        "Organized technical events and workshops",
+        "Managed club operations and member engagement"
+      ],
+      "metadata": {
+        "document_type": "leadership"
+      }
+    },
+    {
+      "position": "Data Science Lead",
+      "organization": "IEEE Robotics and Automation Society, VIT Chennai",
+      "location": "Chennai, India",
+      "date_started": "2026-01-01",
+      "date_ended": "2027-12-31",
+      "current": true,
+      "responsibilities": [
+        "Leading AI/ML initiatives",
+        "Mentoring members on machine learning and data science",
+        "Organizing technical workshops on ML and robotics"
+      ],
+      "metadata": {
+        "document_type": "leadership"
+      }
+    },
+    {
+      "position": "Member Secretary",
+      "organization": "Student Council, VIT Chennai",
+      "location": "Chennai, India",
+      "date_started": "2026-01-01",
+      "date_ended": "2027-12-31",
+      "current": true,
+      "responsibilities": [
+        "Representing students",
+        "Coordinating institutional student initiatives",
+        "Managing student council operations"
+      ],
+      "metadata": {
+        "document_type": "leadership"
+      }
+    },
+    {
+      "position": "Sports Secretary",
+      "organization": "P. S. Senior Secondary School",
+      "location": "Chennai, India",
+      "date_started": "2022-01-01",
+      "date_ended": "2023-12-31",
+      "current": false,
+      "responsibilities": [
+        "Led school sports activities",
+        "Represented the institution as a cricketer and athlete"
+      ],
+      "metadata": {
+        "document_type": "leadership"
+      }
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-06-22",
+    "document_type": "leadership"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "qualifications": [
+    {
+      "name": "Supervised Machine Learning: Regression & Classification",
+      "issuer": "Stanford University",
+      "date_earned": "2025-01-01",
+      "expiration": null,
+      "credential_id": null,
+      "skills_validated": ["Supervised Learning", "Regression", "Classification", "ML Algorithms"],
+      "metadata": {
+        "category": "Machine Learning",
+        "level": "Advanced",
+        "document_type": "certification"
+      }
+    },
+    {
+      "name": "Advanced Machine Learning Algorithms",
+      "issuer": "Stanford University",
+      "date_earned": "2025-06-01",
+      "expiration": null,
+      "credential_id": null,
+      "skills_validated": ["Advanced ML", "Algorithm Design", "Model Optimization"],
+      "metadata": {
+        "category": "Machine Learning",
+        "level": "Advanced",
+        "document_type": "certification"
+      }
+    },
+    {
+      "name": "Machine Learning with Python",
+      "issuer": "IBM",
+      "date_earned": "2024-12-01",
+      "expiration": null,
+      "credential_id": null,
+      "skills_validated": ["Python", "Scikit-learn", "ML Implementation"],
+      "metadata": {
+        "category": "Machine Learning",
+        "level": "Intermediate",
+        "document_type": "certification"
+      }
+    },
+    {
+      "name": "AWS Foundations: Machine Learning Basics",
+      "issuer": "Amazon Web Services (AWS)",
+      "date_earned": "2025-03-01",
+      "expiration": null,
+      "credential_id": null,
+      "skills_validated": ["AWS", "ML Basics", "Cloud ML"],
+      "metadata": {
+        "category": "Cloud/AWS",
+        "level": "Foundational",
+        "document_type": "certification"
+      }
+    },
+    {
+      "name": "Introduction to Generative AI",
+      "issuer": "Google",
+      "date_earned": "2025-08-01",
+      "expiration": null,
+      "credential_id": null,
+      "skills_validated": ["Generative AI", "LLM", "AI Fundamentals"],
+      "metadata": {
+        "category": "Generative AI",
+        "level": "Introductory",
+        "document_type": "certification"
+      }
+    },
+    {
+      "name": "Exploring Data Transformation with Google Cloud",
+      "issuer": "Google Cloud",
+      "date_earned": "2025-09-01",
+      "expiration": null,
+      "credential_id": null,
+      "skills_validated": ["Data Transformation", "Google Cloud", "Data Engineering"],
+      "metadata": {
+        "category": "Cloud/Google",
+        "level": "Intermediate",
+        "document_type": "certification"
+      }
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-06-22",
+    "document_type": "certifications"
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "missions": [
+    {
+      "mission_code": "CROPCORE-001",
+      "name": "CropCore - AI-powered Smart Farming Assistant",
+      "objective": "Develop an AI-driven crop monitoring and smart irrigation system for precision agriculture.",
+      "status": "Completed",
+      "date_started": "2024-01-01",
+      "date_completed": "2024-12-31",
+      "technologies": ["Python", "TensorFlow", "OpenCV", "YOLO", "Scikit-learn", "NumPy", "Pandas", "Matplotlib", "Seaborn"],
+      "team_size": 1,
+      "role": "Lead Developer & AI Engineer",
+      "challenges": ["Weed detection in varying lighting conditions", "Real-time disease diagnosis", "Irrigation optimization"],
+      "learnings": ["End-to-end ML deployment", "Computer vision for agriculture", "Model optimization"],
+      "impact": "95%+ accuracy in disease diagnosis and yield prediction",
+      "description": "CropCore is an AI-powered smart farming assistant that uses machine learning and computer vision for crop monitoring, weed detection, disease diagnosis, and yield prediction. The system integrates with IoT sensors for real-time irrigation optimization.",
+      "key_features": ["Weed Detection", "Disease Diagnosis", "Yield Prediction", "Smart Irrigation", "IoT Integration"],
+      "achievements": [
+        "Patent Published",
+        "Special Recognition - Pitchathon'24"
+      ],
+      "github_repo": "https://github.com/prannavakanth/cropcore",
+      "live_demo": "https://cropcore.demo.com",
+      "metadata": {
+        "category": "Agriculture",
+        "complexity": "High",
+        "document_type": "project",
+        "patent_status": "Published",
+        "impact_score": 95
+      }
+    },
+    {
+      "mission_code": "CAREERTRACK-002",
+      "name": "CareerTrack - AI-powered Career Platform",
+      "objective": "Build an AI-powered career platform with resume analysis, mock interviews, and portfolio generation.",
+      "status": "Completed",
+      "date_started": "2024-06-01",
+      "date_completed": "2024-12-31",
+      "technologies": ["Python", "LangChain", "LangGraph", "FastAPI", "Docker"],
+      "team_size": 1,
+      "role": "Lead Developer",
+      "challenges": ["LLM workflow optimization", "Real-time response generation", "Integration with multiple AI services"],
+      "learnings": ["LangChain & LangGraph workflows", "LLM system architecture", "API design"],
+      "impact": "Prototype ready with live demo available",
+      "description": "CareerTrack is an AI-powered career platform that provides resume analysis, mock interviews, and portfolio generation using advanced LLM workflows built with LangChain and LangGraph.",
+      "key_features": ["Resume Analysis", "Mock Interviews", "Portfolio Generation", "LLM Workflows"],
+      "achievements": [
+        "Live Demo Available",
+        "Prototype Ready"
+      ],
+      "github_repo": "https://github.com/prannavakanth/careertrack",
+      "live_demo": "https://careertrack.demo.com",
+      "metadata": {
+        "category": "Career/Tech",
+        "complexity": "Medium",
+        "document_type": "project"
+      }
+    },
+    {
+      "mission_code": "AUTCORE-003",
+      "name": "AutCore - AI-driven Autism Screening Tool",
+      "objective": "Develop a multimodal AI screening tool for early autism detection using computer vision and speech analysis.",
+      "status": "Completed",
+      "date_started": "2025-01-01",
+      "date_completed": "2025-12-31",
+      "technologies": ["Python", "TensorFlow", "OpenCV", "MediaPipe", "Speech Analysis"],
+      "team_size": 1,
+      "role": "Lead Developer & AI Engineer",
+      "challenges": ["Real-time gaze tracking", "Speech disfluency detection", "Multimodal fusion"],
+      "learnings": ["Multimodal AI", "Computer vision for healthcare", "Speech analysis"],
+      "impact": "64% screening accuracy using gaze tracking and speech-disfluency detection",
+      "description": "AutCore is an AI-driven autism screening tool that uses multimodal analysis combining computer vision for gaze tracking and speech analysis for disfluency detection to provide early autism screening.",
+      "key_features": ["Gaze Tracking", "Speech Analysis", "Multimodal Screening", "Early Detection"],
+      "achievements": [
+        "1st Place - HackHub'25"
+      ],
+      "github_repo": "https://github.com/prannavakanth/autcore",
+      "metadata": {
+        "category": "Healthcare",
+        "complexity": "High",
+        "document_type": "project",
+        "hackathon": "HackHub'25 - 1st Place"
+      }
+    },
+    {
+      "mission_code": "KRED-004",
+      "name": "KRED - AI-powered Financial Intelligence Platform",
+      "objective": "Build an AI platform for financial behavior analysis and long-term spending insights.",
+      "status": "Completed",
+      "date_started": "2026-01-01",
+      "date_completed": "2026-06-22",
+      "technologies": ["Python", "LangChain", "FastAPI", "React", "JavaScript", "HTML", "CSS", "SQL"],
+      "team_size": 1,
+      "role": "Lead Developer & AI Engineer",
+      "challenges": ["Financial behavior modeling", "Long-term spending prediction", "Real-time recommendations"],
+      "learnings": ["Financial AI", "Full-stack development", "LLM integration"],
+      "impact": "AI-powered financial recommendations with real-time insights",
+      "description": "KRED is an AI-powered financial intelligence platform that analyzes financial behavior, provides long-term spending insights, and generates personalized financial recommendations using AI.",
+      "key_features": ["Financial Behavior Analysis", "Spending Insights", "AI Recommendations", "Full-stack Platform"],
+      "achievements": [
+        "1st Place - Vashisht 3.0, IIITDM Kancheepuram"
+      ],
+      "github_repo": "https://github.com/prannavakanth/kred",
+      "live_demo": "https://kred.demo.com",
+      "metadata": {
+        "category": "Fintech",
+        "complexity": "High",
+        "document_type": "project",
+        "hackathon": "Vashisht 3.0 - 1st Place"
+      }
+    },
+    {
+      "mission_code": "DISCAGEAI-005",
+      "name": "DiscAgeAI - Multimodal Spinal Degeneration Assessment",
+      "objective": "Develop a multimodal framework combining spinal MRI and biomechanical sensing for spinal degeneration assessment.",
+      "status": "Completed",
+      "date_started": "2025-06-01",
+      "date_completed": "2026-06-22",
+      "technologies": ["Python", "PyTorch", "OpenCV", "NumPy", "Matplotlib"],
+      "team_size": 1,
+      "role": "Lead Researcher & AI Developer",
+      "challenges": ["Multimodal fusion of MRI and sensor data", "Biomechanical modeling", "Age prediction"],
+      "learnings": ["Medical AI", "Multimodal learning", "Sensor fusion"],
+      "impact": "Achieved R² = 0.70 with 2.58-year MAE using 2.5D CNN sensor fusion",
+      "description": "DiscAgeAI is a multimodal framework that combines spinal MRI and biomechanical sensing to assess spinal degeneration and predict age-related spinal conditions with high accuracy.",
+      "key_features": ["MRI Analysis", "Biomechanical Sensing", "Age Prediction", "2.5D CNN Fusion"],
+      "achievements": [
+        "Patent Filed"
+      ],
+      "github_repo": "https://github.com/prannavakanth/discageai",
+      "metadata": {
+        "category": "Healthcare",
+        "complexity": "High",
+        "document_type": "project",
+        "patent_status": "Filed",
+        "research_paper": "Under Review"
+      }
+    },
+    {
+      "mission_code": "PACDI-006",
+      "name": "PACDI - Plant-Adaptive Greenhouse Optimization",
+      "objective": "Build an adaptive greenhouse system with stress-aware climate control and IoT automation.",
+      "status": "Completed",
+      "date_started": "2025-08-01",
+      "date_completed": "2026-06-22",
+      "technologies": ["Python", "TensorFlow", "ESP32-S3", "IoT", "Sensor Fusion"],
+      "team_size": 1,
+      "role": "Lead Developer & IoT Engineer",
+      "challenges": ["Real-time climate optimization", "Stress-aware control", "IoT integration"],
+      "learnings": ["IoT systems", "Adaptive control", "Climate optimization"],
+      "impact": "Reduced water and energy overuse using ESP32-S3 based optimization",
+      "description": "PACDI is a plant-adaptive greenhouse optimization system that uses stress-aware climate control and IoT automation to optimize plant growth while reducing water and energy consumption.",
+      "key_features": ["Stress-aware Control", "IoT Automation", "Climate Optimization", "ESP32-S3 Integration"],
+      "achievements": [
+        "Patent Filed"
+      ],
+      "github_repo": "https://github.com/prannavakanth/pacdi",
+      "metadata": {
+        "category": "Agriculture",
+        "complexity": "High",
+        "document_type": "project",
+        "patent_status": "Filed"
+      }
+    },
+    {
+      "mission_code": "DIAGENC-007",
+      "name": "Diagnosis-Aware Medical Image Encryption",
+      "objective": "Develop a diagnosis-aware encryption system using fracture detection and selective protection.",
+      "status": "Completed",
+      "date_started": "2025-10-01",
+      "date_completed": "2026-06-22",
+      "technologies": ["Python", "PyTorch", "AES-RSA Encryption", "Computer Vision"],
+      "team_size": 1,
+      "role": "Lead Developer & Security Engineer",
+      "challenges": ["Selective image encryption", "Fracture detection integration", "Lossless encryption"],
+      "learnings": ["Medical image security", "Selective encryption", "Deep learning for medical imaging"],
+      "impact": "100% reconstruction quality with AES-RSA lossless encryption",
+      "description": "Diagnosis-Aware Medical Image Encryption is a system that uses fracture detection to selectively protect medical images with AES-RSA lossless encryption, ensuring both security and image quality.",
+      "key_features": ["Fracture Detection", "Selective Encryption", "AES-RSA Pipeline", "100% Reconstruction"],
+      "achievements": [
+        "Patent Filed"
+      ],
+      "github_repo": "https://github.com/prannavakanth/diag-enc",
+      "metadata": {
+        "category": "Healthcare",
+        "complexity": "High",
+        "document_type": "project",
+        "patent_status": "Filed"
+      }
+    },
+    {
+      "mission_code": "SSLRUL-008",
+      "name": "SSL-RUL - Self-Supervised Predictive Maintenance",
+      "objective": "Develop a self-supervised LSTM framework for predictive maintenance using masked reconstruction learning.",
+      "status": "In Progress",
+      "date_started": "2025-11-01",
+      "date_completed": null,
+      "technologies": ["Python", "PyTorch", "LSTM", "Self-Supervised Learning"],
+      "team_size": 1,
+      "role": "Lead Researcher & AI Developer",
+      "challenges": ["Masked reconstruction learning", "Self-supervised training", "Predictive maintenance modeling"],
+      "learnings": ["Self-supervised learning", "Predictive maintenance", "LSTM architectures"],
+      "impact": "Achieved 48.6% RMSE improvement on C-MAPSS with reduced labeled data",
+      "description": "SSL-RUL is a self-supervised LSTM framework that uses masked reconstruction learning for predictive maintenance, achieving significant improvements on benchmark datasets with minimal labeled data.",
+      "key_features": ["Self-Supervised Learning", "LSTM Framework", "Masked Reconstruction", "Predictive Maintenance"],
+      "achievements": [
+        "Paper Under Review"
+      ],
+      "github_repo": "https://github.com/prannavakanth/ssl-rul",
+      "metadata": {
+        "category": "Predictive Maintenance",
+        "complexity": "High",
+        "document_type": "project",
+        "research_paper": "Under Review"
+      }
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-06-22",
+    "document_type": "projects",
+    "total_missions": 8
+  }
+}
