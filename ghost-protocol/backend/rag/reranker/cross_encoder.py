@@ -2,6 +2,8 @@
 Cross-encoder reranker using sentence-transformers.
 Scores (query, document) pairs directly — much more accurate than bi-encoder
 cosine similarity for short result sets.
+
+Falls back to HuggingFace pipeline if sentence-transformers is unavailable.
 """
 
 import logging
@@ -24,7 +26,8 @@ class CrossEncoderReranker:
     model_name : str
         HuggingFace cross-encoder model identifier.
     max_length : int
-        Maximum token length for the cross-encoder input.
+        Maximum token length for the cross-encoder input (text will be
+        truncated automatically).
     """
 
     def __init__(
@@ -35,6 +38,7 @@ class CrossEncoderReranker:
         self.model_name = model_name
         self.max_length = max_length
         self._model = None
+        self._hf_pipeline = None
         self._available = False
         self._load_model()
 
@@ -78,12 +82,7 @@ class CrossEncoderReranker:
         )
 
         try:
-            pairs = [(query, doc.text) for doc in documents]
-            scores = self._model.predict(
-                pairs,
-                show_progress_bar=False,
-                convert_to_numpy=True,
-            )
+            scores = self._score_pairs(query, [doc.text for doc in documents])
 
             scored_docs: List[Document] = []
             for doc, score in zip(documents, scores):
@@ -102,26 +101,97 @@ class CrossEncoderReranker:
             logger.error("Cross-encoder reranking failed: %s — returning original order.", exc)
             return documents[:top_k] if top_k else documents
 
+    def _score_pairs(self, query: str, texts: List[str]) -> List[float]:
+        """
+        Score (query, text) pairs in batch without creating Document objects.
+
+        Parameters
+        ----------
+        query : str
+            The query string.
+        texts : List[str]
+            Document texts to score against the query.
+
+        Returns
+        -------
+        List[float]
+            Relevance scores, higher = more relevant.
+        """
+        if not texts:
+            return []
+
+        if self._model is not None:
+            pairs = [(query, text) for text in texts]
+            scores = self._model.predict(
+                pairs,
+                show_progress_bar=False,
+                convert_to_numpy=True,
+            )
+            return [float(s) for s in scores]
+
+        if self._hf_pipeline is not None:
+            results = self._hf_pipeline(
+                [(query, text) for text in texts],
+                truncation=True,
+                max_length=self.max_length,
+            )
+            scores = []
+            for result in results:
+                if isinstance(result, list):
+                    relevant = [r for r in result if r.get("label") in ("LABEL_1", "RELEVANT", "1", "true", "positive")]
+                    scores.append(float(relevant[0]["score"]) if relevant else float(result[-1]["score"]))
+                else:
+                    scores.append(float(result.get("score", 0.0)))
+            return scores
+
+        raise RuntimeError("No cross-encoder model loaded.")
+
     # ------------------------------------------------------------------
     # Private helpers
     # ------------------------------------------------------------------
 
     def _load_model(self) -> None:
         """Attempt to load the cross-encoder model."""
+        # Try sentence-transformers first (preferred)
         try:
             from sentence_transformers import CrossEncoder
 
             self._model = CrossEncoder(self.model_name, max_length=self.max_length)
             self._available = True
-            logger.info("CrossEncoder loaded: %s", self.model_name)
+            logger.info("CrossEncoder loaded via sentence-transformers: %s", self.model_name)
+            return
         except ImportError:
-            logger.warning(
-                "sentence-transformers not installed; reranker disabled. "
-                "Run: pip install sentence-transformers"
+            logger.info(
+                "sentence-transformers not installed; will try HuggingFace pipeline."
             )
         except Exception as exc:
             logger.warning(
-                "Could not load cross-encoder model '%s': %s — reranker disabled.",
+                "Could not load cross-encoder model '%s' via sentence-transformers: %s",
+                self.model_name,
+                exc,
+            )
+
+        # Fallback to HuggingFace text-classification pipeline
+        try:
+            from transformers import pipeline
+
+            self._hf_pipeline = pipeline(
+                "text-classification",
+                model=self.model_name,
+                truncation=True,
+                max_length=self.max_length,
+                top_k=None,
+            )
+            self._available = True
+            logger.info("CrossEncoder loaded via HuggingFace pipeline: %s", self.model_name)
+        except ImportError:
+            logger.warning(
+                "transformers not installed; reranker disabled. "
+                "Run: pip install transformers"
+            )
+        except Exception as exc:
+            logger.warning(
+                "Could not load cross-encoder model '%s' via pipeline: %s — reranker disabled.",
                 self.model_name,
                 exc,
             )

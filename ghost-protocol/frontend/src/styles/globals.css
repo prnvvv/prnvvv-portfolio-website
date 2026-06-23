@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-mil-dark: #0a0c0a;
+  --color-mil-darker: #0d110d;
+  --color-mil-panel: #1a2e1a;
+  --color-mil-green: #00ff88;
+  --color-mil-olive: #5a8a6a;
+  --color-mil-light: #c8ffd4;
+  --color-mil-red: #ff3344;
+  --color-mil-yellow: #ffcc00;
+  --font-body: 'Share Tech Mono', monospace;
+  --font-heading: 'Orbitron', sans-serif;
+}
+
+::selection {
+  background: #00ff88;
+  color: #0a0c0a;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #1a2e1a #0a0c0a;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #0a0c0a;
+  color: #c8ffd4;
+  font-family: 'Share Tech Mono', monospace;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0c0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a2e1a;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5a8a6a;
+}

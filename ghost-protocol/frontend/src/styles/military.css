@@ -1,0 +1,194 @@
+@layer components {
+  .crt-overlay {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 255, 136, 0.015) 2px,
+      rgba(0, 255, 136, 0.015) 4px
+    );
+  }
+
+  .crt-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 60%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+  }
+
+  .panel-border {
+    border: 1px solid #1a2e1a;
+    position: relative;
+  }
+
+  .panel-border::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00ff88, transparent);
+    opacity: 0.5;
+  }
+
+  .classified-stamp {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    color: #ff3344;
+    border: 1px solid #ff3344;
+    padding: 1px 6px;
+    display: inline-block;
+    transform: rotate(-3deg);
+    opacity: 0.8;
+  }
+
+  .blinking-dot {
+    width: 6px;
+    height: 6px;
+    background: #00ff88;
+    border-radius: 50%;
+    display: inline-block;
+    animation: blink 1.2s step-end infinite;
+  }
+
+  .progress-bar {
+    height: 2px;
+    background: #1a2e1a;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: #00ff88;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.4);
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 1px); }
+    40% { transform: translate(2px, -1px); }
+    60% { transform: translate(-1px, 2px); }
+    80% { transform: translate(1px, -2px); }
+    100% { transform: translate(0); }
+  }
+
+  .glitch-active {
+    animation: glitch 0.2s ease-in-out 3;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.4s ease-out forwards;
+  }
+
+  @keyframes radar-sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .radar-sweep {
+    animation: radar-sweep 4s linear infinite;
+  }
+
+  .status-active { color: #00ff88; }
+  .status-standby { color: #ffcc00; }
+  .status-mia { color: #ff3344; }
+  .status-completed { color: #5a8a6a; }
+
+  .mil-input {
+    background: #0d110d;
+    border: 1px solid #1a2e1a;
+    color: #c8ffd4;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    outline: none;
+    border-radius: 2px;
+    width: 100%;
+  }
+
+  .mil-input:focus {
+    border-color: #00ff88;
+    box-shadow: 0 0 6px rgba(0, 255, 136, 0.2);
+  }
+
+  .mil-input::placeholder {
+    color: #5a8a6a;
+  }
+
+  .mil-button {
+    background: transparent;
+    border: 1px solid #1a2e1a;
+    color: #00ff88;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+  }
+
+  .mil-button:hover {
+    background: #1a2e1a;
+    border-color: #00ff88;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
+  }
+
+  .mil-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .section-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: #00ff88;
+    text-transform: uppercase;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1a2e1a;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

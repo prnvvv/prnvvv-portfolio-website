@@ -6,8 +6,13 @@ generation for the portfolio AI assistant.
 """
 
 import logging
+import os
 import time
 from typing import Any, Dict, List, Optional
+
+from langchain_core.output_parsers import JsonOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_groq import ChatGroq
 
 from rag.embeddings.embedder import Embedder
 from rag.models.schemas import Document, RAGResponse
@@ -68,6 +73,12 @@ class RAGPipeline:
         HuggingFace cross-encoder model identifier.
     retrieval_mode : str
         Default retrieval mode — "hybrid", "semantic", or "keyword".
+    use_llm : bool
+        Whether to use Groq LLM for response generation.
+    llm_model_name : str
+        Groq model name (e.g. "llama-3.3-70b-versatile").
+    llm_api_key : str | None
+        Groq API key. Falls back to GROQ_API_KEY env var.
     """
 
     def __init__(
@@ -81,11 +92,15 @@ class RAGPipeline:
         use_query_expansion: bool = True,
         cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
         retrieval_mode: str = "hybrid",
+        use_llm: bool = False,
+        llm_model_name: str = "llama-3.3-70b-versatile",
+        llm_api_key: Optional[str] = None,
     ) -> None:
         self.top_k = top_k
         self.use_reranker = use_reranker
         self.use_query_expansion = use_query_expansion
         self.retrieval_mode = retrieval_mode
+        self.use_llm = use_llm
 
         logger.info("Initialising RAGPipeline …")
 
@@ -104,6 +119,12 @@ class RAGPipeline:
         )
 
         self.reranker = CrossEncoderReranker(model_name=cross_encoder_model) if use_reranker else None
+
+        if use_llm:
+            self._init_llm(llm_model_name, llm_api_key)
+        else:
+            self._llm = None
+            self._response_chain = None
 
         logger.info("RAGPipeline ready.")
 
@@ -151,7 +172,13 @@ class RAGPipeline:
         # 2. Query expansion
         retrieval_query = query_text
         if self.use_query_expansion:
-            retrieval_query = self.expander.expand(query_text)
+            if self.use_llm and self._llm:
+                retrieval_query = self.expander.expand_with_llm(
+                    query_text,
+                    lambda p: self._llm.invoke(p).content,
+                )
+            else:
+                retrieval_query = self.expander.expand(query_text)
             logger.debug("Expanded query: %r", retrieval_query)
 
         # 3. Intent detection
@@ -200,6 +227,30 @@ class RAGPipeline:
             total_time_ms=round(total_ms, 2),
             citations=citations,
         ).model_dump()
+
+    # ------------------------------------------------------------------
+    # LLM initialisation
+    # ------------------------------------------------------------------
+
+    def _init_llm(self, model_name: str, api_key: Optional[str]) -> None:
+        """Configure Groq LLM via LangChain for response generation."""
+        key = api_key or os.getenv("GROQ_API_KEY")
+        if not key:
+            raise ValueError("Groq API key not provided and GROQ_API_KEY env var not set.")
+        self._llm = ChatGroq(model_name=model_name, temperature=0.7, api_key=key)
+        parser = JsonOutputParser(pydantic_object={
+            "type": "object",
+            "properties": {
+                "response": {"type": "string"},
+            },
+            "required": ["response"],
+        })
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", "You are a helpful portfolio assistant. Answer the user's question based on the provided context documents.\nReturn your response as JSON with this exact structure:\n{{\n    \"response\": \"your natural language answer here\"\n}}"),
+            ("user", "Context:\n{context}\n\nQuestion: {query}"),
+        ])
+        self._response_chain = prompt | self._llm | parser
+        logger.info("Groq LLM initialised: model=%s", model_name)
 
     # ------------------------------------------------------------------
     # Private helpers
@@ -251,13 +302,14 @@ class RAGPipeline:
         intent: str,
     ):
         """
-        Construct a structured text response and citation list from context documents.
-
-        In a production system this would call an LLM; here we produce a
-        deterministic, well-structured answer from the retrieved context so
-        the pipeline works without an LLM dependency.
+        Construct a response and citation list from context documents.
+        Uses the Groq LLM when enabled, otherwise falls back to a
+        deterministic template.
         """
-        # Build context block
+        if self.use_llm and self._llm:
+            return self._llm_build_response(query, documents)
+
+        # Fallback deterministic response
         context_parts: List[str] = []
         citations: List[str] = []
 
@@ -285,6 +337,26 @@ class RAGPipeline:
 
         response = f"{preamble}\n\n{context_block}"
         return response, citations
+
+    def _llm_build_response(
+        self,
+        query: str,
+        documents: List[Document],
+    ):
+        """Build response via Groq LLM with structured JSON output."""
+        context_parts: List[str] = []
+        citations: List[str] = []
+
+        for i, doc in enumerate(documents, start=1):
+            doc_type = doc.metadata.get("document_type", "")
+            title = doc.metadata.get("title") or doc.metadata.get("name") or f"Source {i}"
+            context_parts.append(f"[{i}] {doc.text.strip()}")
+            citations.append(f"[{i}] {title} ({doc_type})" if doc_type else f"[{i}] {title}")
+
+        context_block = "\n\n".join(context_parts)
+
+        result = self._response_chain.invoke({"context": context_block, "query": query})
+        return result.get("response", ""), citations
 
     # ------------------------------------------------------------------
     # Standard non-success responses

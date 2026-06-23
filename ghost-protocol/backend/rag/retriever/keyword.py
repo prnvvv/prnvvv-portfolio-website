@@ -1,10 +1,11 @@
 """
-Keyword retriever implementing BM25 from scratch.
-No external BM25 library required — pure Python + numpy.
+Keyword retriever using Qdrant's BM25 sparse embedding model.
+Replaces the custom BM25 implementation with a HuggingFace-compatible model
+loaded via FastEmbed (the intended way per the model card, since the
+Qdrant/bm25 repo contains only stopword data — no neural weights).
 """
 
 import logging
-import math
 import re
 import time
 from typing import Any, Dict, List, Optional, Tuple
@@ -16,91 +17,10 @@ from rag.models.schemas import Document, RetrievalResult
 logger = logging.getLogger(__name__)
 
 
-# ---------------------------------------------------------------------------
-# BM25 implementation
-# ---------------------------------------------------------------------------
-
-
-class BM25:
-    """
-    Okapi BM25 scoring.
-
-    Parameters
-    ----------
-    corpus : List[List[str]]
-        Pre-tokenised corpus (list of token lists).
-    k1 : float
-        Term frequency saturation parameter (default 1.5).
-    b : float
-        Length normalisation parameter (default 0.75).
-    """
-
-    def __init__(
-        self, corpus: List[List[str]], k1: float = 1.5, b: float = 0.75
-    ) -> None:
-        self.k1 = k1
-        self.b = b
-        self.corpus = corpus
-        self.doc_count = len(corpus)
-
-        # Document lengths
-        self.doc_lengths = np.array([len(doc) for doc in corpus], dtype=np.float32)
-        self.avg_doc_length = float(self.doc_lengths.mean()) if self.doc_count else 1.0
-
-        # Build inverted index: term -> {doc_idx: term_freq}
-        self._index: Dict[str, Dict[int, int]] = {}
-        for idx, tokens in enumerate(corpus):
-            for token in tokens:
-                if token not in self._index:
-                    self._index[token] = {}
-                self._index[token][idx] = self._index[token].get(idx, 0) + 1
-
-        # IDF cache
-        self._idf_cache: Dict[str, float] = {}
-
-    def _idf(self, term: str) -> float:
-        """Smoothed inverse document frequency."""
-        if term in self._idf_cache:
-            return self._idf_cache[term]
-        df = len(self._index.get(term, {}))
-        idf = math.log((self.doc_count - df + 0.5) / (df + 0.5) + 1)
-        self._idf_cache[term] = idf
-        return idf
-
-    def get_scores(self, query_tokens: List[str]) -> np.ndarray:
-        """
-        Compute BM25 scores for all documents given query tokens.
-
-        Returns
-        -------
-        np.ndarray
-            Score array of shape (doc_count,).
-        """
-        scores = np.zeros(self.doc_count, dtype=np.float32)
-
-        for term in query_tokens:
-            if term not in self._index:
-                continue
-            idf = self._idf(term)
-            for doc_idx, tf in self._index[term].items():
-                dl = self.doc_lengths[doc_idx]
-                numerator = tf * (self.k1 + 1)
-                denominator = tf + self.k1 * (1 - self.b + self.b * dl / self.avg_doc_length)
-                scores[doc_idx] += idf * numerator / denominator
-
-        return scores
-
-
-# ---------------------------------------------------------------------------
-# Retriever
-# ---------------------------------------------------------------------------
-
-
 class KeywordRetriever:
     """
     BM25-based keyword retriever backed by ChromaDB as the document store.
-
-    The BM25 index is built lazily on first use and cached.
+    Uses the Qdrant/bm25 sparse embedding model via FastEmbed for scoring.
 
     Parameters
     ----------
@@ -110,8 +30,9 @@ class KeywordRetriever:
 
     def __init__(self, collection) -> None:
         self.collection = collection
-        self._bm25: Optional[BM25] = None
+        self._bm25_model = None
         self._corpus_docs: List[Document] = []  # mirrors BM25 corpus order
+        self._doc_embeddings: List = []          # pre-computed sparse embeddings
 
     # ------------------------------------------------------------------
     # Public API
@@ -144,9 +65,8 @@ class KeywordRetriever:
 
         try:
             self._build_bm25_index()
-            documents = self._bm25_search(query_text, top_k=top_k * 3)  # over-fetch for filtering
+            documents = self._bm25_search(query_text, top_k=top_k * 3)
 
-            # Post-filter by metadata
             if filters:
                 documents = self._apply_metadata_filter(documents, filters)
 
@@ -171,11 +91,22 @@ class KeywordRetriever:
     # ------------------------------------------------------------------
 
     def _build_bm25_index(self, force_rebuild: bool = False) -> None:
-        """Fetch all docs from ChromaDB and build the BM25 index (cached)."""
-        if self._bm25 is not None and not force_rebuild:
+        """Fetch all docs from ChromaDB and pre-compute BM25 sparse embeddings."""
+        if self._bm25_model is not None and not force_rebuild:
             return
 
-        logger.info("Building BM25 index from ChromaDB collection …")
+        logger.info("Loading Qdrant/bm25 model via FastEmbed …")
+        try:
+            from fastembed import SparseTextEmbedding
+
+            self._bm25_model = SparseTextEmbedding(model_name="Qdrant/bm25")
+        except ImportError:
+            logger.error("fastembed not installed. Run: pip install fastembed")
+            raise
+        except Exception as exc:
+            logger.error("Failed to load Qdrant/bm25 model: %s", exc)
+            raise
+
         try:
             raw = self.collection.get(include=["documents", "metadatas"])
         except Exception as exc:
@@ -187,14 +118,12 @@ class KeywordRetriever:
         metadatas = raw.get("metadatas", [])
 
         self._corpus_docs = []
-        tokenised_corpus: List[List[str]] = []
-
         for doc_id, text, meta in zip(ids, texts, metadatas):
             doc = Document(id=str(doc_id), text=text or "", metadata=meta or {})
             self._corpus_docs.append(doc)
-            tokenised_corpus.append(self._tokenize(text or ""))
 
-        self._bm25 = BM25(tokenised_corpus)
+        doc_texts = [doc.text for doc in self._corpus_docs]
+        self._doc_embeddings = list(self._bm25_model.embed(doc_texts))
         logger.info("BM25 index built: %d documents", len(self._corpus_docs))
 
     # ------------------------------------------------------------------
@@ -203,7 +132,7 @@ class KeywordRetriever:
 
     def _tokenize(self, text: str) -> List[str]:
         """
-        Simple tokeniser:
+        Simple tokeniser used by the fallback path:
         1. Lowercase
         2. Remove punctuation
         3. Split on whitespace
@@ -213,13 +142,49 @@ class KeywordRetriever:
         text = re.sub(r"[^\w\s]", " ", text)
         return [t for t in text.split() if t]
 
+    def _compute_sparse_scores(
+        self,
+        query_indices: np.ndarray,
+        query_values: np.ndarray,
+    ) -> np.ndarray:
+        """
+        Compute dot-product scores between a query sparse vector and all
+        pre-computed document sparse vectors.
+
+        Parameters
+        ----------
+        query_indices : np.ndarray
+            Token indices from the query sparse embedding.
+        query_values : np.ndarray
+            Corresponding weights from the query sparse embedding.
+
+        Returns
+        -------
+        np.ndarray
+            Score array of shape (doc_count,).
+        """
+        scores = np.zeros(len(self._doc_embeddings), dtype=np.float32)
+
+        q_index_to_val = dict(zip(query_indices, query_values))
+
+        for doc_idx, doc_emb in enumerate(self._doc_embeddings):
+            score = 0.0
+            for idx, val in zip(doc_emb.indices, doc_emb.values):
+                q_val = q_index_to_val.get(idx)
+                if q_val is not None:
+                    score += val * q_val
+            scores[doc_idx] = score
+
+        return scores
+
     def _bm25_search(self, query_text: str, top_k: int) -> List[Document]:
-        """Run BM25 scoring and return ranked Documents."""
-        query_tokens = self._tokenize(query_text)
-        if not query_tokens:
+        """Run BM25 scoring via sparse embeddings and return ranked Documents."""
+        query_embs = list(self._bm25_model.embed([query_text]))
+        if not query_embs:
             return []
 
-        scores: np.ndarray = self._bm25.get_scores(query_tokens)
+        query_emb = query_embs[0]
+        scores = self._compute_sparse_scores(query_emb.indices, query_emb.values)
         top_indices = scores.argsort()[::-1][:top_k]
 
         results: List[Document] = []

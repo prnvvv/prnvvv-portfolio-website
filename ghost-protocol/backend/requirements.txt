@@ -1,0 +1,10 @@
+langchain-groq
+langchain-huggingface
+fastembed
+sentence-transformers
+transformers
+groq
+chromadb
+pydantic
+numpy
+torch

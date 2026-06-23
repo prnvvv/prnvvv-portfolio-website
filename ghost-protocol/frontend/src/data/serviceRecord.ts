@@ -1,0 +1,86 @@
+import type { ServiceEntry } from '../types/portfolio'
+
+export const serviceRecord: ServiceEntry[] = [
+  {
+    id: 'exp-1',
+    title: 'Senior Software Engineer',
+    organization: 'Tech Corp',
+    period: '2023 - PRESENT',
+    description: 'Lead development of AI-powered features and cloud-native microservices. Architect and implement full-stack solutions serving 1M+ users.',
+    highlights: [
+      'Architected RAG pipeline with ChromaDB and Claude Sonnet integration',
+      'Led migration to microservices architecture reducing deployment time by 60%',
+      'Built real-time analytics dashboard processing 10M+ events daily',
+      'Mentored 4 junior engineers through structured code review program',
+    ],
+    type: 'work',
+  },
+  {
+    id: 'exp-2',
+    title: 'Full-Stack Developer',
+    organization: 'StartupXYZ',
+    period: '2021 - 2023',
+    description: 'Built and maintained customer-facing web applications. Implemented payment systems, real-time features, and automated testing pipelines.',
+    highlights: [
+      'Developed React-based SaaS platform used by 50K+ customers',
+      'Integrated Stripe payment processing with subscription management',
+      'Implemented WebSocket-based real-time collaboration features',
+      'Reduced bundle size by 45% through code splitting and lazy loading',
+    ],
+    type: 'work',
+  },
+  {
+    id: 'exp-3',
+    title: 'Junior Developer',
+    organization: 'WebAgency Pro',
+    period: '2020 - 2021',
+    description: 'Developed responsive web applications and contributed to internal tooling. Gained foundational experience in modern web technologies.',
+    highlights: [
+      'Built 10+ client websites using React and Next.js',
+      'Created internal component library used across 5 teams',
+      'Implemented automated testing achieving 85% code coverage',
+      'Contributed to open-source projects in the React ecosystem',
+    ],
+    type: 'work',
+  },
+  {
+    id: 'edu-1',
+    title: 'B.Tech in Computer Science',
+    organization: 'University of Engineering',
+    period: '2016 - 2020',
+    description: 'Bachelor of Technology with focus on software engineering, data structures, and artificial intelligence.',
+    highlights: [
+      'Graduated with Distinction',
+      'Published paper on NLP-based code analysis',
+      'Led university tech club with 200+ members',
+      'Won 2 hackathons for AI-powered applications',
+    ],
+    type: 'education',
+  },
+  {
+    id: 'cert-1',
+    title: 'AWS Solutions Architect',
+    organization: 'Amazon Web Services',
+    period: '2024',
+    description: 'Professional certification validating expertise in designing distributed systems on AWS.',
+    highlights: [
+      'Microservices architecture design',
+      'High-availability and fault-tolerant systems',
+      'Cost optimization and security best practices',
+    ],
+    type: 'certification',
+  },
+  {
+    id: 'cert-2',
+    title: 'Deep Learning Specialization',
+    organization: 'DeepLearning.AI / Coursera',
+    period: '2024',
+    description: 'Comprehensive specialization covering neural networks, CNNs, RNNs, transformers, and deployment strategies.',
+    highlights: [
+      'Built transformer-based NLP models',
+      'Implemented RAG systems for question answering',
+      'Deployed ML models to production environments',
+    ],
+    type: 'certification',
+  },
+]

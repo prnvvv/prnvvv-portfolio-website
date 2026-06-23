@@ -1,0 +1,29 @@
+# --- Environment ---
+.env
+.env.local
+.env.*.local
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.python-version
+
+# --- Node / JS ---
+node_modules/
+dist/
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Project-specific ---
+ghost-protocol/backend/chroma_db/
