@@ -4,7 +4,7 @@
   --color-mil-dark: #0a0c0a;
   --color-mil-darker: #0d110d;
   --color-mil-panel: #1a2e1a;
-  --color-mil-green: #00ff88;
+  --color-mil-green: #00e67a;
   --color-mil-olive: #5a8a6a;
   --color-mil-light: #c8ffd4;
   --color-mil-red: #ff3344;
@@ -14,7 +14,7 @@
 }
 
 ::selection {
-  background: #00ff88;
+  background: #00e67a;
   color: #0a0c0a;
 }
 
@@ -22,6 +22,12 @@ html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
   scrollbar-color: #1a2e1a #0a0c0a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {

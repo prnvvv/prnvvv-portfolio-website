@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react'
-import { PARTICLE_COUNT } from '../../../utils/constants'
+import { useEffect, useRef, useState } from 'react'
+import { PARTICLE_COUNT, PARTICLE_COUNT_MOBILE } from '../../../utils/constants'
 
 interface Particle {
   x: number
@@ -15,12 +15,22 @@ export default function ParticleField() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const particlesRef = useRef<Particle[]>([])
   const rafRef = useRef<number>(0)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
+
+    const particleCount = isMobile ? PARTICLE_COUNT_MOBILE : PARTICLE_COUNT
 
     const resize = () => {
       canvas.width = window.innerWidth
@@ -29,7 +39,7 @@ export default function ParticleField() {
     resize()
     window.addEventListener('resize', resize)
 
-    particlesRef.current = Array.from({ length: PARTICLE_COUNT }, () => ({
+    particlesRef.current = Array.from({ length: particleCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * 0.5,
@@ -56,18 +66,19 @@ export default function ParticleField() {
 
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(0, 255, 136, ${p.alpha})`
+        ctx.fillStyle = `rgba(0, 230, 122, ${p.alpha})`
         ctx.fill()
 
+        const connectDist = isMobile ? 80 : 120
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[j].x - p.x
           const dy = particles[j].y - p.y
           const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < 120) {
+          if (dist < connectDist) {
             ctx.beginPath()
             ctx.moveTo(p.x, p.y)
             ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle = `rgba(0, 255, 136, ${0.08 * (1 - dist / 120)})`
+            ctx.strokeStyle = `rgba(0, 230, 122, ${0.08 * (1 - dist / connectDist)})`
             ctx.lineWidth = 0.5
             ctx.stroke()
           }
@@ -81,7 +92,7 @@ export default function ParticleField() {
       window.removeEventListener('resize', resize)
       cancelAnimationFrame(rafRef.current)
     }
-  }, [])
+  }, [isMobile])
 
   return (
     <canvas

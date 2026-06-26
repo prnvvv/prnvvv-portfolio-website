@@ -15,7 +15,7 @@ export const COLORS = {
   dark: '#0a0c0a',
   darker: '#0d110d',
   panel: '#1a2e1a',
-  green: '#00ff88',
+  green: '#00e67a',
   olive: '#5a8a6a',
   light: '#c8ffd4',
   red: '#ff3344',
@@ -24,6 +24,7 @@ export const COLORS = {
 
 export const LOADING_DURATION = 3500
 export const PARTICLE_COUNT = 60
+export const PARTICLE_COUNT_MOBILE = 25
 
 export const API_ENDPOINTS = {
   chat: '/api/chat',

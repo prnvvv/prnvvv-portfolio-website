@@ -47,7 +47,7 @@ export default function CommandIntelligence() {
       <div className="border-b border-[#1a2e1a] px-4 py-2 flex items-center gap-2">
         <span className="blinking-dot" />
         <span
-          className="text-[#00ff88] text-[10px] font-heading tracking-[0.15em]"
+          className="text-[#00e67a] text-[10px] font-heading tracking-[0.15em]"
           style={{ fontFamily: 'Orbitron' }}
         >
           COMMAND INTELLIGENCE // AI CORE
@@ -72,7 +72,7 @@ export default function CommandIntelligence() {
               className={`max-w-[80%] px-3 py-2 text-xs font-body ${
                 msg.role === 'user'
                   ? 'bg-[#1a2e1a] text-[#c8ffd4]'
-                  : 'bg-[#0a0c0a] border border-[#1a2e1a] text-[#00ff88]'
+                  : 'bg-[#0a0c0a] border border-[#1a2e1a] text-[#00e67a]'
               }`}
             >
               <p className="leading-relaxed whitespace-pre-wrap">{msg.content}</p>
@@ -84,7 +84,7 @@ export default function CommandIntelligence() {
         ))}
         {isProcessing && (
           <div className="flex gap-2">
-            <div className="bg-[#0a0c0a] border border-[#1a2e1a] px-3 py-2 text-xs font-body text-[#00ff88]">
+            <div className="bg-[#0a0c0a] border border-[#1a2e1a] px-3 py-2 text-xs font-body text-[#00e67a]">
               <span className="animate-pulse">PROCESSING...</span>
             </div>
           </div>

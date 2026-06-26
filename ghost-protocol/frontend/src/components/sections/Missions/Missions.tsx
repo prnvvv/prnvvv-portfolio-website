@@ -1,22 +1,23 @@
 import { motion } from 'framer-motion'
-import { missions } from '../../../data/missions'
+import { getProjects } from '../../../services/dataService'
 
 const statusConfig: Record<string, { color: string; label: string }> = {
-  ACTIVE: { color: 'text-[#00ff88]', label: 'ACTIVE' },
+  ACTIVE: { color: 'text-[#00e67a]', label: 'ACTIVE' },
   COMPLETED: { color: 'text-[#5a8a6a]', label: 'COMPLETED' },
   'STANDING BY': { color: 'text-[#ffcc00]', label: 'STANDING BY' },
 }
 
 export default function Missions() {
+  const missions = getProjects()
   return (
-    <section id="missions" className="min-h-screen py-24 px-4">
+    <section id="missions" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="section-header">
           <span>⌖</span>
           <span>MISSIONS // OPERATIONS LOG</span>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 sm:space-y-6">
           {missions.map((mission, i) => {
             const status = statusConfig[mission.status] ?? {
               color: 'text-[#5a8a6a]',
@@ -34,7 +35,7 @@ export default function Missions() {
                 <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
                   <div>
                     <h3
-                      className="text-[#00ff88] text-sm font-heading tracking-[0.1em]"
+                      className="text-[#00e67a] text-sm font-heading tracking-[0.1em]"
                       style={{ fontFamily: 'Orbitron' }}
                     >
                       {mission.codename}

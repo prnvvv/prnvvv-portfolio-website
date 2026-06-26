@@ -10,6 +10,7 @@ export default function CommandButton() {
     if (received) return;
     setReceived(true);
     setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
       navigate('/dashboard');
     }, 500);
   }, [received, navigate]);

@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { getProfile } from '../../services/dataService';
+
+const profile = getProfile();
 
 function getZuluTime() {
   const now = new Date();
@@ -46,7 +49,7 @@ export default function StatusBar() {
       </div>
 
       {/* Divider */}
-      <span style={{ color: 'rgba(0,255,65,0.2)', fontSize: '12px' }}>|</span>
+      <span style={{ color: 'rgba(0,230,59,0.2)', fontSize: '12px' }}>|</span>
 
       {/* Secure Channel */}
       <span className="secure-channel-tag">
@@ -54,14 +57,14 @@ export default function StatusBar() {
       </span>
 
       {/* Divider */}
-      <span style={{ color: 'rgba(0,255,65,0.2)', fontSize: '12px' }}>|</span>
+      <span style={{ color: 'rgba(0,230,59,0.2)', fontSize: '12px' }}>|</span>
 
       {/* Zulu Time */}
       <span
         style={{
           fontFamily: "'JetBrains Mono', monospace",
           fontSize: '12px',
-          color: 'rgba(0, 255, 65, 0.55)',
+          color: 'rgba(0, 230, 59, 0.55)',
           letterSpacing: '0.12em',
         }}
       >
@@ -69,20 +72,20 @@ export default function StatusBar() {
       </span>
 
       {/* Divider */}
-      <span style={{ color: 'rgba(0,255,65,0.2)', fontSize: '12px' }}>|</span>
+      <span style={{ color: 'rgba(0,230,59,0.2)', fontSize: '12px' }}>|</span>
 
       {/* Operator tag */}
       <span
         style={{
           fontFamily: "'JetBrains Mono', monospace",
           fontSize: '11px',
-          color: 'rgba(0, 255, 65, 0.7)',
+          color: 'rgba(0, 230, 59, 0.7)',
           letterSpacing: '0.18em',
-          border: '1px solid rgba(0, 255, 65, 0.2)',
+          border: '1px solid rgba(0, 230, 59, 0.2)',
           padding: '2px 8px',
         }}
       >
-        GHOST-01
+        {profile.callSign}-01
       </span>
     </motion.div>
   );

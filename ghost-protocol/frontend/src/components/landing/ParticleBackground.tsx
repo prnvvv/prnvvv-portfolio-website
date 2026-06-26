@@ -91,7 +91,7 @@ export default function ParticleBackground() {
         position: 'fixed',
         inset: 0,
         zIndex: 0,
-        background: 'radial-gradient(ellipse at 50% 50%, rgba(0, 255, 65, 0.04) 0%, #0a0a0f 70%)',
+        background: 'radial-gradient(ellipse at 50% 50%, rgba(0, 230, 59, 0.04) 0%, #0a0a0f 70%)',
       }}
     >
       <Canvas

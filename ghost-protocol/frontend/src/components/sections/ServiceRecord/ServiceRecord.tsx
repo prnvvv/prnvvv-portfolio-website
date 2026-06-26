@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
-import { serviceRecord } from '../../../data/serviceRecord'
+import { getExperience } from '../../../services/dataService'
 
 const typeColors: Record<string, string> = {
-  work: 'text-[#00ff88]',
+  work: 'text-[#00e67a]',
   education: 'text-[#ffcc00]',
   certification: 'text-[#5a8a6a]',
 }
@@ -14,8 +14,9 @@ const typeLabels: Record<string, string> = {
 }
 
 export default function ServiceRecord() {
+  const serviceRecord = getExperience()
   return (
-    <section id="service-record" className="min-h-screen py-24 px-4">
+    <section id="service-record" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="section-header">
           <span>★</span>
@@ -23,9 +24,9 @@ export default function ServiceRecord() {
         </div>
 
         <div className="relative">
-          <div className="absolute left-[15px] top-0 bottom-0 w-px bg-[#1a2e1a]" />
+          <div className="absolute left-[11px] sm:left-[15px] top-0 bottom-0 w-px bg-[#1a2e1a]" />
 
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {serviceRecord.map((entry, i) => (
               <motion.div
                 key={entry.id}
@@ -33,10 +34,10 @@ export default function ServiceRecord() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="relative pl-10"
+                className="relative pl-8 sm:pl-10"
               >
-                <div className="absolute left-[10px] top-1.5 w-3 h-3 rounded-full border-2 border-[#1a2e1a] bg-[#0a0c0a] flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#00ff88]" />
+                <div className="absolute left-[6px] sm:left-[10px] top-1.5 w-3 h-3 rounded-full border-2 border-[#1a2e1a] bg-[#0a0c0a] flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#00e67a]" />
                 </div>
 
                 <div className="panel-border bg-[#0d110d] p-4">
@@ -65,7 +66,7 @@ export default function ServiceRecord() {
                   <ul className="space-y-1">
                     {entry.highlights.map((h, j) => (
                       <li key={j} className="text-[#5a8a6a] text-[10px] font-body flex gap-2">
-                        <span className="text-[#00ff88] shrink-0">&gt;</span>
+                        <span className="text-[#00e67a] shrink-0">&gt;</span>
                         {h}
                       </li>
                     ))}

@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { getProfile } from '../../services/dataService';
 
-interface Line {
-  label: string;
-  value: string;
-  delay: number;
-}
+const profile = getProfile();
 
-const LINES: Line[] = [
-  { label: 'MODEL', value: 'GOING DARK', delay: 1200 },
-  { label: 'STRATEGY', value: '40×1024', delay: 2400 },
-  { label: 'CLEARANCE', value: 'LEVEL 5 — COSMIC TOP SECRET', delay: 3400 },
+const LINES = [
+  { label: 'CALLSIGN', value: profile.callSign, delay: 1200 },
+  { label: 'SPECIALIZATION', value: profile.specialization, delay: 2400 },
+  { label: 'CLEARANCE', value: profile.clearanceLevel, delay: 3400 },
+  { label: 'LOCATION', value: profile.location, delay: 4400 },
 ];
 
 function TypedLine({ label, value, startDelay }: { label: string; value: string; startDelay: number }) {
@@ -56,7 +54,7 @@ function TypedLine({ label, value, startDelay }: { label: string; value: string;
         minHeight: '22px',
       }}
     >
-      <span style={{ color: 'rgba(0, 255, 65, 0.5)', marginRight: '0' }}>
+      <span style={{ color: 'rgba(0, 230, 59, 0.5)', marginRight: '0' }}>
         {text.slice(0, label.length + 2)}
       </span>
       <span style={{ color: '#e8e8e8' }}>

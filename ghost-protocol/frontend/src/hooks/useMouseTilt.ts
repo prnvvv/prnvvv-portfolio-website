@@ -6,7 +6,7 @@ interface TiltValues {
 }
 
 interface UseMouseTiltReturn {
-  ref: React.RefObject<HTMLDivElement>;
+  ref: React.RefObject<HTMLDivElement | null>;
   onMouseMove: (e: React.MouseEvent<HTMLDivElement>) => void;
   onMouseLeave: () => void;
 }

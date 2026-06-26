@@ -72,7 +72,7 @@ export default function LoadingScreen() {
         <div className="w-full max-w-md px-6">
           <div className="text-center mb-12">
             <h1
-              className="text-[#00ff88] text-xl tracking-[0.3em] font-heading mb-2"
+              className="text-[#00e67a] text-lg sm:text-xl tracking-[0.3em] font-heading mb-2"
               style={{ fontFamily: 'Orbitron' }}
             >
               GHOST PROTOCOL
@@ -83,13 +83,13 @@ export default function LoadingScreen() {
               COMMAND CENTER v1.0.0
             </p>
           </div>
-          <div className="space-y-2 mb-8 h-32">
+          <div className="space-y-2 mb-8 h-28 sm:h-32">
             {bootLines.map((line, i) => (
               <motion.p
                 key={i}
                 className="text-xs font-body"
                 style={{
-                  color: i < currentLine ? '#5a8a6a' : i === currentLine ? '#00ff88' : '#1a2e1a',
+                  color: i < currentLine ? '#5a8a6a' : i === currentLine ? '#00e67a' : '#1a2e1a',
                 }}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}

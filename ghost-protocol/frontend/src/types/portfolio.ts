@@ -10,6 +10,10 @@ export interface Operator {
   coordinates: [number, number]
   avatar: string
   bio: string
+  email?: string
+  phone?: string
+  linkedin?: string
+  github?: string
 }
 
 export interface Skill {
@@ -17,6 +21,8 @@ export interface Skill {
   name: string
   proficiency: number
   icon?: string
+  years_experience?: number
+  keywords?: string[]
 }
 
 export interface Mission {
@@ -53,10 +59,14 @@ export interface ServiceEntry {
   id: string
   title: string
   organization: string
+  unit?: string
+  location?: string
   period: string
   description: string
   highlights: string[]
   type: 'work' | 'education' | 'certification'
+  technologies?: string[]
+  current?: boolean
 }
 
 export interface IntelReport {
@@ -68,6 +78,8 @@ export interface IntelReport {
   summary: string
   highlights: string[]
   source?: string
+  type?: string
+  status?: string
 }
 
 export interface ChatMessage {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { intelReports } from '../../../data/intelReports'
+import { getResearch } from '../../../services/dataService'
 
 const classificationColors: Record<string, string> = {
   'TOP SECRET': 'text-[#ff3344] border-[#ff3344]',
@@ -11,16 +11,17 @@ const classificationColors: Record<string, string> = {
 
 export default function IntelReports() {
   const [expanded, setExpanded] = useState<string | null>(null)
+  const intelReports = getResearch()
 
   return (
-    <section id="intel-reports" className="min-h-screen py-24 px-4">
+    <section id="intel-reports" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="section-header">
           <span>▣</span>
           <span>INTEL REPORTS // BRIEFING FILES</span>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3 sm:space-y-4">
           {intelReports.map((report) => (
             <motion.div
               key={report.id}
@@ -31,7 +32,7 @@ export default function IntelReports() {
             >
               <button
                 onClick={() => setExpanded(expanded === report.id ? null : report.id)}
-                className="w-full panel-border bg-[#0d110d] p-4 text-left cursor-pointer hover:border-[#00ff88]/40 transition-colors"
+                className="w-full panel-border bg-[#0d110d] p-4 text-left cursor-pointer hover:border-[#00e67a]/40 transition-colors"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
@@ -73,7 +74,7 @@ export default function IntelReports() {
                       <ul className="mt-2 space-y-1">
                         {report.highlights.map((h, j) => (
                           <li key={j} className="text-[#5a8a6a] text-[10px] font-body flex gap-2">
-                            <span className="text-[#00ff88]">&gt;</span>
+                            <span className="text-[#00e67a]">&gt;</span>
                             {h}
                           </li>
                         ))}

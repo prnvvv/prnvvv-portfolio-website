@@ -1,24 +1,38 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { arsenal } from '../../../data/arsenal'
+import { motion } from 'framer-motion'
+import { getSkillsByCategory, getSkillCategories } from '../../../services/dataService'
+import SkillTag from '../../ui/SkillTag'
+
+const CATEGORY_ICONS: Record<string, string> = {
+  'Programming Languages': '⚡',
+  'AI/ML Frameworks': '🧠',
+  'Computer Vision': '📷',
+  'Backend & Web': '🖥️',
+  Frontend: '🎨',
+  Visualization: '📊',
+  DevOps: '🔧',
+  Cloud: '☁️',
+}
 
 export default function Arsenal() {
-  const [selected, setSelected] = useState<string | null>(null)
-
-  const categories = [...new Set(arsenal.map((w) => w.category))]
+  const skillsByCategory = getSkillsByCategory()
+  const categories = getSkillCategories()
   const [filter, setFilter] = useState<string>('ALL')
 
-  const filtered = filter === 'ALL' ? arsenal : arsenal.filter((w) => w.category === filter)
+  const filteredCategories =
+    filter === 'ALL'
+      ? categories
+      : categories.filter((c) => c === filter)
 
   return (
-    <section id="arsenal" className="min-h-screen py-24 px-4">
+    <section id="arsenal" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="section-header">
           <span>⚔</span>
-          <span>ARSENAL // WEAPONS SYSTEMS</span>
+          <span>SKILLS ARSENAL // TECHNICAL APTITUDE</span>
         </div>
 
-        <div className="flex flex-wrap gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
           <FilterBtn label="ALL" active={filter === 'ALL'} onClick={() => setFilter('ALL')} />
           {categories.map((cat) => (
             <FilterBtn
@@ -30,60 +44,40 @@ export default function Arsenal() {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <AnimatePresence mode="popLayout">
-            {filtered.map((weapon) => (
+        <div className="space-y-8">
+          {filteredCategories.map((category, idx) => {
+            const skills = skillsByCategory[category]
+            if (!skills || skills.length === 0) return null
+
+            return (
               <motion.div
-                key={weapon.id}
-                layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-                onClick={() => setSelected(selected === weapon.id ? null : weapon.id)}
-                className="panel-border bg-[#0d110d] p-4 cursor-pointer hover:border-[#00ff88]/40 transition-colors"
+                key={category}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
               >
-                <div className="flex items-start justify-between mb-2">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-sm opacity-70">
+                    {CATEGORY_ICONS[category] || '▸'}
+                  </span>
                   <h3
-                    className="text-[#00ff88] text-xs font-heading tracking-[0.1em]"
+                    className="text-xs font-heading text-[#00e67a] tracking-[0.2em] uppercase"
                     style={{ fontFamily: 'Orbitron' }}
                   >
-                    {weapon.name}
+                    {category}
                   </h3>
-                  <span
-                    className={`text-[10px] font-body ${
-                      weapon.status === 'ACTIVE' ? 'text-[#00ff88]' : 'text-[#5a8a6a]'
-                    }`}
-                  >
-                    {weapon.status}
-                  </span>
+                  <span className="flex-1 h-px bg-gradient-to-r from-[#00e67a]/30 to-transparent" />
                 </div>
-                <p className="text-[#5a8a6a] text-[10px] font-body mb-1">{weapon.type}</p>
-                <p className="text-[#c8ffd4] text-[11px] font-body">{weapon.spec}</p>
 
-                <AnimatePresence>
-                  {selected === weapon.id && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-[#c8ffd4] text-[11px] font-body mt-3 pt-3 border-t border-[#1a2e1a] leading-relaxed">
-                        {weapon.description}
-                      </p>
-                      <div className="grid grid-cols-2 gap-2 mt-3">
-                        <StatBar label="ACC" value={weapon.stats.accuracy} />
-                        <StatBar label="PWR" value={weapon.stats.power} />
-                        <StatBar label="SPD" value={weapon.stats.speed} />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((skill) => (
+                    <SkillTag key={skill.name} name={skill.name} />
+                  ))}
+                </div>
               </motion.div>
-            ))}
-          </AnimatePresence>
+            )
+          })}
         </div>
       </div>
     </section>
@@ -102,29 +96,15 @@ function FilterBtn({
   return (
     <button
       onClick={onClick}
-      className="px-3 py-1 text-[10px] font-heading tracking-[0.15em] border rounded-sm transition-colors"
+      className="px-3 py-1 text-[10px] font-heading tracking-[0.15em] border rounded-sm transition-all duration-300"
       style={{
         fontFamily: 'Orbitron',
-        color: active ? '#00ff88' : '#5a8a6a',
-        borderColor: active ? '#00ff88' : '#1a2e1a',
-        background: active ? 'rgba(0,255,136,0.05)' : 'transparent',
+        color: active ? '#00e67a' : '#5a8a6a',
+        borderColor: active ? '#00e67a' : '#1a2e1a',
+        background: active ? 'rgba(0,230,122,0.05)' : 'transparent',
       }}
     >
       {label}
     </button>
-  )
-}
-
-function StatBar({ label, value }: { label: string; value: number }) {
-  return (
-    <div>
-      <div className="flex justify-between text-[10px] font-body mb-0.5">
-        <span className="text-[#5a8a6a]">{label}</span>
-        <span className="text-[#c8ffd4]">{value}%</span>
-      </div>
-      <div className="progress-bar">
-        <div className="progress-bar-fill" style={{ width: `${value}%` }} />
-      </div>
-    </div>
   )
 }
