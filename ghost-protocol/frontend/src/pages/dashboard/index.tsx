@@ -6,8 +6,10 @@ import LoadingScreen from '../../components/sections/LoadingScreen/LoadingScreen
 import Navigation from '../../components/layout/Navigation'
 import ParticleField from '../../components/effects/ParticleField/ParticleField'
 import Footer from '../../components/layout/Footer/Footer'
+import { SectionErrorBoundary } from '../../components/SectionErrorBoundary'
 import OperatorDossier from '../../components/sections/OperatorDossier/OperatorDossier'
 import Arsenal from '../../components/sections/Arsenal/Arsenal'
+import Stats from '../../components/sections/Stats/Stats'
 import Missions from '../../components/sections/Missions/Missions'
 import ServiceRecord from '../../components/sections/ServiceRecord/ServiceRecord'
 import IntelReports from '../../components/sections/IntelReports/IntelReports'
@@ -37,10 +39,11 @@ function Dashboard() {
       <main className="relative z-10">
         <OperatorDossier />
         <Arsenal />
+        <Stats />
         <Missions />
-        <ServiceRecord />
-        <IntelReports />
-        <CommsConsole />
+        <SectionErrorBoundary name="SERVICE-RECORD"><ServiceRecord /></SectionErrorBoundary>
+        <SectionErrorBoundary name="INTEL-REPORTS"><IntelReports /></SectionErrorBoundary>
+        <SectionErrorBoundary name="COMMS"><CommsConsole /></SectionErrorBoundary>
       </main>
       <Footer />
       <FloatingChatIcon />

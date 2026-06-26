@@ -12,8 +12,17 @@ function getZuluTime() {
   return `${hh}${mm}${ss}Z`;
 }
 
+function getZuluDate() {
+  const now = new Date();
+  const y = now.getUTCFullYear();
+  const m = String(now.getUTCMonth() + 1).padStart(2, '0');
+  const d = String(now.getUTCDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
 export default function StatusBar() {
   const [time, setTime] = useState(getZuluTime);
+  const [date] = useState(getZuluDate);
 
   useEffect(() => {
     const iv = setInterval(() => setTime(getZuluTime()), 1000);
@@ -21,72 +30,55 @@ export default function StatusBar() {
   }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
+    <motion.header
+      initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 4.5, duration: 0.6 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
       style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
         display: 'flex',
         alignItems: 'center',
-        gap: '20px',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        padding: '10px 24px',
+        background: 'rgba(13, 13, 20, 0.75)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: '1px solid rgba(0, 230, 122, 0.08)',
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: '10px',
+        letterSpacing: '0.1em',
+        userSelect: 'none',
       }}
     >
-      {/* System Online */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <span className="status-dot" />
-        <span
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '12px',
-            color: '#00ff41',
-            letterSpacing: '0.15em',
-          }}
-        >
-          SYSTEM ONLINE
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <span style={{ color: '#00e67a', fontSize: 14 }}>⚔</span>
+        <span style={{ color: '#f0f0f0', letterSpacing: '0.2em', fontWeight: 500, fontFamily: "'Orbitron', monospace" }}>
+          GHOST PROTOCOL
         </span>
+        <span style={{ color: '#4a4a5a', fontSize: 9 }}>v1.0.0</span>
       </div>
 
-      {/* Divider */}
-      <span style={{ color: 'rgba(0,230,59,0.2)', fontSize: '12px' }}>|</span>
-
-      {/* Secure Channel */}
-      <span className="secure-channel-tag">
-        SECURE CHANNEL // AES-256
-      </span>
-
-      {/* Divider */}
-      <span style={{ color: 'rgba(0,230,59,0.2)', fontSize: '12px' }}>|</span>
-
-      {/* Zulu Time */}
-      <span
-        style={{
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: '12px',
-          color: 'rgba(0, 230, 59, 0.55)',
-          letterSpacing: '0.12em',
-        }}
-      >
-        {time}
-      </span>
-
-      {/* Divider */}
-      <span style={{ color: 'rgba(0,230,59,0.2)', fontSize: '12px' }}>|</span>
-
-      {/* Operator tag */}
-      <span
-        style={{
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: '11px',
-          color: 'rgba(0, 230, 59, 0.7)',
-          letterSpacing: '0.18em',
-          border: '1px solid rgba(0, 230, 59, 0.2)',
+      <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+          <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#00e67a', display: 'inline-block' }} />
+          <span style={{ color: '#00e67a' }}>ACTIVE</span>
+        </div>
+        <span style={{ color: '#4a4a5a' }}>|</span>
+        <span style={{ color: '#9a9aaa' }}>{date}</span>
+        <span style={{ color: '#9a9aaa' }}>{time}</span>
+        <span style={{ color: '#4a4a5a' }}>|</span>
+        <span style={{
+          color: '#9a9aaa',
+          border: '1px solid rgba(0, 230, 122, 0.15)',
           padding: '2px 8px',
-        }}
-      >
-        {profile.callSign}-01
-      </span>
-    </motion.div>
+          fontSize: 9,
+        }}>
+          {profile.clearanceLevel}
+        </span>
+      </div>
+    </motion.header>
   );
 }

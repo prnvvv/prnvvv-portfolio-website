@@ -1,58 +1,100 @@
 @import "tailwindcss";
 
 @theme {
-  --color-mil-dark: #0a0c0a;
-  --color-mil-darker: #0d110d;
-  --color-mil-panel: #1a2e1a;
+  --color-mil-dark: #0d0d14;
+  --color-mil-darker: #181825;
+  --color-mil-panel: rgba(24, 24, 37, 0.7);
   --color-mil-green: #00e67a;
+  --color-mil-cyan: #00c4f0;
+  --color-mil-purple: #7b2fff;
   --color-mil-olive: #5a8a6a;
-  --color-mil-light: #c8ffd4;
+  --color-mil-light: #f0f0f0;
+  --color-mil-muted: #9a9aaa;
+  --color-mil-dim: #4a4a5a;
   --color-mil-red: #ff3344;
   --color-mil-yellow: #ffcc00;
   --font-body: 'Share Tech Mono', monospace;
   --font-heading: 'Orbitron', sans-serif;
 }
 
+:root {
+  --bg-primary: #0d0d14;
+  --bg-secondary: #181825;
+  --bg-card: rgba(24, 24, 37, 0.7);
+  --accent-green: #00e67a;
+  --accent-cyan: #00c4f0;
+  --accent-purple: #7b2fff;
+  --text-primary: #eeeee8;
+  --text-muted: #9a9aaa;
+  --text-dim: #4a4a5a;
+  --border-subtle: rgba(0, 230, 122, 0.12);
+  --border-active: rgba(0, 230, 122, 0.35);
+  --glow-green: 0 0 20px rgba(0, 230, 122, 0.25);
+  --glow-cyan: 0 0 20px rgba(0, 196, 240, 0.25);
+  --font-display: 'Orbitron', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+}
+
 ::selection {
-  background: #00e67a;
-  color: #0a0c0a;
+  background: rgba(0, 230, 122, 0.2);
+  color: #f0f0f0;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+h1 { font-size: clamp(1.6rem, 4.5vw, 2.8rem); line-height: 1.1; }
+h2 { font-size: clamp(1.1rem, 3vw, 1.6rem); line-height: 1.2; letter-spacing: 0.08em; }
+h3 { font-size: clamp(0.85rem, 2vw, 1.1rem); line-height: 1.3; letter-spacing: 0.1em; }
+
+body, p, li, span, div:not([class*="font-heading"]):not([class*="font-display"]) {
+  letter-spacing: 0.02em;
+  line-height: 1.6;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   scrollbar-width: thin;
-  scrollbar-color: #1a2e1a #0a0c0a;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  scrollbar-color: #00e67a #0d0d14;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background: #0a0c0a;
-  color: #c8ffd4;
+  background: #0d0d14;
+  color: #f0f0f0;
   font-family: 'Share Tech Mono', monospace;
   overflow-x: hidden;
   min-height: 100vh;
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0c0a;
+  background: #0d0d14;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1a2e1a;
+  background: #00e67a;
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5a8a6a;
+  background: #00c4f0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

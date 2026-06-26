@@ -19,35 +19,14 @@ export default function CommandButton() {
     <motion.button
       className={`cmd-button ${received ? 'received' : ''}`}
       onClick={handleClick}
-      whileHover={{ scale: 1.04 }}
-      whileTap={{ scale: 0.97 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       style={{ cursor: 'pointer', outline: 'none' }}
     >
-      {/* Corner decorations */}
-      <span
-        style={{
-          position: 'absolute',
-          top: -1, left: -1,
-          width: 10, height: 10,
-          borderTop: '2px solid #00ff41',
-          borderLeft: '2px solid #00ff41',
-        }}
-      />
-      <span
-        style={{
-          position: 'absolute',
-          bottom: -1, right: -1,
-          width: 10, height: 10,
-          borderBottom: '2px solid #00ff41',
-          borderRight: '2px solid #00ff41',
-        }}
-      />
-
-      {/* Icon */}
-      <span style={{ marginRight: 12, fontSize: 16, opacity: 0.8 }}>⬤</span>
-
-      {/* Text */}
-      {received ? '// COMMAND RECEIVED' : 'ENTER COMMAND'}
+      <span style={{ letterSpacing: '0.3em' }}>
+        {received ? '// COMMAND RECEIVED' : 'ENTER COMMAND'}
+      </span>
+      <span style={{ marginLeft: 12, opacity: 0.6, fontSize: 14 }}>→</span>
     </motion.button>
   );
 }

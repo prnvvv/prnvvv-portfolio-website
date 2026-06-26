@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import AnimatedSection from '../../animations/AnimatedSection'
 import { getSkillsByCategory, getSkillCategories } from '../../../services/dataService'
 import SkillTag from '../../ui/SkillTag'
 
@@ -25,14 +26,26 @@ export default function Arsenal() {
       : categories.filter((c) => c === filter)
 
   return (
-    <section id="arsenal" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+    <AnimatedSection id="arsenal" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="section-header">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="section-header"
+        >
           <span>⚔</span>
           <span>SKILLS ARSENAL // TECHNICAL APTITUDE</span>
-        </div>
+        </motion.div>
 
-        <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex flex-wrap gap-2 mb-6 sm:mb-8"
+        >
           <FilterBtn label="ALL" active={filter === 'ALL'} onClick={() => setFilter('ALL')} />
           {categories.map((cat) => (
             <FilterBtn
@@ -42,7 +55,7 @@ export default function Arsenal() {
               onClick={() => setFilter(cat)}
             />
           ))}
-        </div>
+        </motion.div>
 
         <div className="space-y-8">
           {filteredCategories.map((category, idx) => {
@@ -55,7 +68,7 @@ export default function Arsenal() {
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-sm opacity-70">
@@ -80,7 +93,7 @@ export default function Arsenal() {
           })}
         </div>
       </div>
-    </section>
+    </AnimatedSection>
   )
 }
 
@@ -100,7 +113,7 @@ function FilterBtn({
       style={{
         fontFamily: 'Orbitron',
         color: active ? '#00e67a' : '#5a8a6a',
-        borderColor: active ? '#00e67a' : '#1a2e1a',
+        borderColor: active ? '#00e67a' : 'rgba(0,230,122,0.12)',
         background: active ? 'rgba(0,230,122,0.05)' : 'transparent',
       }}
     >

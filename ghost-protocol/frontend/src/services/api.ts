@@ -12,11 +12,15 @@ export async function sendChatMessage(
   const response = await fetch(`${API_BASE}/api/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message, conversationHistory }),
+    body: JSON.stringify({
+      query: message,
+      session_id: null,
+    }),
   })
   if (!response.ok) {
     const error = await response.json().catch(() => ({ detail: 'Request failed' }))
     throw new Error(error.detail ?? `HTTP ${response.status}`)
   }
-  return response.json()
+  const data = await response.json()
+  return { content: data.response || data.content || '', error: data.error }
 }

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import AnimatedSection from '../../animations/AnimatedSection'
 import { getProfile, getSkillsByCategory } from '../../../services/dataService'
 import { useGlitch } from '../../../hooks/useGlitch'
 import SkillTag from '../../ui/SkillTag'
@@ -25,20 +26,26 @@ export default function OperatorDossier() {
         : 'text-[#ff3344]'
 
   return (
-    <section id="dossier" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+    <AnimatedSection id="dossier" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="section-header">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="section-header"
+        >
           <span>◆</span>
           <span>OPERATOR DOSSIER // {op.callSign}</span>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className={`panel-border bg-[#0d110d] p-5 ${isGlitching ? 'glitch-active' : ''}`}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className={`panel-border bg-[#181825]/70 p-5 ${isGlitching ? 'glitch-active' : ''}`}
           >
             <div className="flex items-start justify-between mb-4">
               <div>
@@ -68,8 +75,8 @@ export default function OperatorDossier() {
               />
             </div>
 
-            <div className="mt-4 pt-4 border-t border-[#1a2e1a]">
-              <p className="text-[#c8ffd4] text-xs font-body leading-relaxed">{op.bio}</p>
+            <div className="mt-4 pt-4 border-t border-[rgba(0,230,122,0.12)]">
+              <p className="text-[#f0f0f0] text-xs font-body leading-relaxed">{op.bio}</p>
             </div>
           </motion.div>
 
@@ -77,8 +84,8 @@ export default function OperatorDossier() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="panel-border bg-[#0d110d] p-5"
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="panel-border bg-[#181825]/70 p-5"
           >
             <h3
               className="text-[#00e67a] text-xs font-heading tracking-[0.2em] mb-4"
@@ -109,7 +116,7 @@ export default function OperatorDossier() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </AnimatedSection>
   )
 }
 
@@ -117,7 +124,7 @@ function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex gap-2">
       <span className="text-[#5a8a6a] shrink-0 w-20 sm:w-28">{label}:</span>
-      <span className="text-[#c8ffd4]">{value}</span>
+      <span className="text-[#f0f0f0]">{value}</span>
     </div>
   )
 }

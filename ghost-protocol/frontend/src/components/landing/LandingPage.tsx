@@ -5,12 +5,12 @@ import './Landing.css';
 import ParticleBackground from './ParticleBackground';
 import ScanlineOverlay from './ScanlineOverlay';
 import GlitchText from './GlitchText';
-import TypingSubtitle from './TypingSubtitle';
 import CommandButton from './CommandButton';
 import StatusBar from './StatusBar';
 import ScrollIndicator from './ScrollIndicator';
-import { useMouseTilt } from '../../hooks/useMouseTilt';
-import { getProfile, getStats, getSocialLinks, getProjects } from '../../services/dataService';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation'
+import CountUp from '../animations/CountUp'
+import { getProfile, getStats, getSocialLinks } from '../../services/dataService';
 
 const TITLES = [
   'AI/ML Engineer',
@@ -20,11 +20,14 @@ const TITLES = [
 ];
 
 export default function LandingPage() {
-  const { ref, onMouseMove, onMouseLeave } = useMouseTilt(4);
   const profile = getProfile();
   const stats = getStats();
+  const { scale, opacity } = useScrollAnimation({
+    inputRange: [0, 300],
+    scaleRange: [1, 0.95],
+    opacityRange: [1, 0.6],
+  })
   const socialLinks = getSocialLinks();
-  const projects = getProjects();
 
   const [titleIndex, setTitleIndex] = useState(0);
   const [typedTitle, setTypedTitle] = useState('');
@@ -38,15 +41,15 @@ export default function LandingPage() {
       if (typedTitle.length < current.length) {
         timeout = setTimeout(() => {
           setTypedTitle(current.slice(0, typedTitle.length + 1));
-        }, 80);
+        }, 60);
       } else {
-        timeout = setTimeout(() => setIsDeleting(true), 2000);
+        timeout = setTimeout(() => setIsDeleting(true), 3000);
       }
     } else {
       if (typedTitle.length > 0) {
         timeout = setTimeout(() => {
           setTypedTitle(typedTitle.slice(0, -1));
-        }, 40);
+        }, 30);
       } else {
         setIsDeleting(false);
         setTitleIndex((prev) => (prev + 1) % TITLES.length);
@@ -69,334 +72,320 @@ export default function LandingPage() {
         position: 'relative',
         width: '100vw',
         minHeight: '100vh',
-        backgroundColor: '#0a0a0f',
+        backgroundColor: '#0d0d14',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        fontFamily: "'JetBrains Mono', monospace",
       }}
     >
-      {/* Layer 0: Hex grid background */}
       <div className="hex-grid" aria-hidden="true" />
-
-      {/* Layer 1: 3D Particles */}
       <Suspense fallback={null}>
         <ParticleBackground />
       </Suspense>
-
-      {/* Layer 2: Vignette */}
       <div className="vignette" aria-hidden="true" />
-
-      {/* Layer 3: Scanlines */}
       <ScanlineOverlay />
+      <StatusBar />
 
-      {/* Layer 4: Main content */}
-      <div
+      <motion.div
         style={{
           position: 'relative',
           zIndex: 10,
           width: '100%',
-          maxWidth: '960px',
-          padding: 'clamp(24px, 5vw, 40px) clamp(16px, 4vw, 24px)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '0',
+          maxWidth: '1160px',
+          padding: '0 40px',
+          marginTop: 40,
+          scale,
+          opacity,
         }}
       >
-        {/* Top label */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.7 }}
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '11px',
-            color: 'rgba(0, 230, 59, 0.5)',
-            letterSpacing: '0.4em',
-            marginBottom: '28px',
-            textTransform: 'uppercase',
-          }}
-        >
-          [ GHOST PROTOCOL // COMMAND CENTER ]
-        </motion.div>
-
-        {/* Tilt card */}
         <div
-          ref={ref}
-          className="tilt-card"
-          onMouseMove={onMouseMove}
-          onMouseLeave={onMouseLeave}
+          className="landing-grid"
           style={{
-            position: 'relative',
-            width: '100%',
-            padding: 'clamp(28px, 5vw, 44px) clamp(20px, 4vw, 48px) clamp(28px, 5vw, 40px)',
-            background: 'rgba(10, 10, 15, 0.85)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid rgba(0, 230, 59, 0.12)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '28px',
+            display: 'grid',
+            gridTemplateColumns: '1fr 280px',
+            gap: 64,
+            alignItems: 'start',
           }}
         >
-          {/* Corner brackets */}
-          <span className="corner-bracket tl" />
-          <span className="corner-bracket tr" />
-          <span className="corner-bracket bl" />
-          <span className="corner-bracket br" />
-
-          {/* Status banner */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              marginBottom: '-4px',
-            }}
-          >
-            <span className="status-dot" />
-            <span
-              style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: '10px',
-                color: '#00ff41',
-                letterSpacing: '0.3em',
-              }}
+          {/* ─── LEFT COLUMN: Main content ─── */}
+          <div style={{ paddingTop: 48 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              style={{ marginBottom: 24 }}
             >
-              OPERATOR STATUS: ACTIVE
-            </span>
-            <span
-              style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: '10px',
-                color: 'rgba(0, 230, 59, 0.35)',
-                letterSpacing: '0.2em',
-                border: '1px solid rgba(0, 230, 59, 0.2)',
-                padding: '1px 8px',
-              }}
-            >
-              {profile.clearanceLevel}
-            </span>
-          </motion.div>
-
-          {/* Ghost Protocol label */}
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: '11px',
-              color: 'rgba(0, 230, 59, 0.45)',
-              letterSpacing: '0.35em',
-              textTransform: 'uppercase',
-              marginBottom: '-8px',
-            }}
-          >
-            {profile.callSign} // {profile.rank}
-          </motion.div>
-
-          {/* Main name with glitch effect */}
-          <div style={{ textAlign: 'center' }}>
-            <GlitchText
-              text={profile.name}
-              className=""
-            />
-          </div>
-
-          {/* Typing title effect */}
-          <div
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 'clamp(14px, 2.5vw, 20px)',
-              color: '#00d4ff',
-              letterSpacing: '0.2em',
-              minHeight: '28px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '2px',
-            }}
-          >
-            <span style={{ color: 'rgba(0, 212, 255, 0.4)' }}>{'<'}</span>
-            {typedTitle}
-            <span className="typing-cursor" style={{ height: '1.2em' }} />
-            <span style={{ color: 'rgba(0, 212, 255, 0.4)' }}>{'/>'}</span>
-          </div>
-
-          {/* Divider */}
-          <div
-            aria-hidden="true"
-            style={{
-              width: '100%',
-              height: '1px',
-              background: 'linear-gradient(90deg, transparent, rgba(0,230,59,0.3), rgba(0,204,51,0.3), transparent)',
-            }}
-          />
-
-          {/* Real bio / mission statement */}
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.6, duration: 0.8 }}
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 'clamp(12px, 1.6vw, 14px)',
-              color: '#c8ffd4',
-              textAlign: 'center',
-              lineHeight: 1.7,
-              maxWidth: '680px',
-              width: '100%',
-              letterSpacing: '0.05em',
-            }}
-          >
-            {profile.bio}
-          </motion.p>
-
-          {/* Stats Grid */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.0, duration: 0.8 }}
-            className="stats-grid"
-          >
-            <StatItem value={stats.yearsActive} label="YEARS ACTIVE" suffix="+" />
-            <StatItem value={stats.totalProjects} label="MISSIONS" />
-            <StatItem value={stats.activeProjects} label="ACTIVE OPS" />
-            <StatItem value={stats.certifications} label="CERTIFICATIONS" />
-            <StatItem value={stats.skillsCount} label="SKILLS" />
-            <StatItem value={stats.patentsPublished + stats.patentsFiled} label="PATENTS" />
-          </motion.div>
-
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.4, duration: 0.6 }}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '16px',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-            }}
-          >
-            {socialLinks.map((link) => (
-              <motion.a
-                key={link.platform}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                className="social-link"
+              <span
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '8px 18px',
-                  border: '1px solid rgba(0, 230, 59, 0.2)',
-                  color: 'rgba(0, 230, 59, 0.8)',
+                  display: 'inline-block',
                   fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: '12px',
-                  letterSpacing: '0.1em',
-                  textDecoration: 'none',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
+                  fontSize: 9,
+                  color: '#00e67a',
+                  letterSpacing: '0.25em',
+                  border: '1px solid rgba(0, 230, 122, 0.15)',
+                  padding: '3px 10px',
+                  textTransform: 'uppercase',
                 }}
               >
-                <span style={{ fontSize: '14px' }}>{link.icon}</span>
-                {link.label}
-              </motion.a>
-            ))}
-          </motion.div>
+                {profile.clearanceLevel}
+              </span>
+            </motion.div>
 
-          {/* Divider */}
-          <div
-            aria-hidden="true"
-            style={{
-              width: '60%',
-              height: '1px',
-              background: 'linear-gradient(90deg, transparent, rgba(0,230,59,0.15), transparent)',
-            }}
-          />
-
-          {/* CTA Buttons */}
-          <div
-            style={{
-              display: 'flex',
-              gap: '16px',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-            }}
-          >
-            <CommandButton />
-            <motion.button
-              onClick={scrollToDashboard}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              className="cmd-button-secondary"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              style={{ marginBottom: 20 }}
             >
-              <span style={{ marginRight: 8, fontSize: 14, opacity: 0.8 }}>◈</span>
-              OPEN COMMS
-            </motion.button>
+              <h1
+                style={{
+                  fontFamily: "'Orbitron', monospace",
+                  fontSize: 'clamp(36px, 5vw, 56px)',
+                  fontWeight: 700,
+                  color: '#f0f0f0',
+                  letterSpacing: '0.08em',
+                  lineHeight: 1.1,
+                  margin: 0,
+                }}
+              >
+                <GlitchText
+                  text={profile.name}
+                  className=""
+                />
+              </h1>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                marginBottom: 32,
+                minHeight: 28,
+              }}
+            >
+              <span style={{ color: '#4a4a5a', fontSize: 14 }}>{'<'}</span>
+              <span
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: 'clamp(14px, 1.8vw, 18px)',
+                  color: '#9a9aaa',
+                  letterSpacing: '0.12em',
+                }}
+              >
+                {typedTitle}
+              </span>
+              <span className="typing-cursor" style={{ height: '1.2em' }} />
+              <span style={{ color: '#4a4a5a', fontSize: 14 }}>{'/>'}</span>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+              style={{
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: 'clamp(12px, 1.2vw, 13px)',
+                color: '#4a4a5a',
+                lineHeight: 1.8,
+                maxWidth: 520,
+                marginBottom: 40,
+                letterSpacing: '0.03em',
+              }}
+            >
+              {profile.bio}
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+                marginBottom: 48,
+              }}
+            >
+              {socialLinks.map((link) => (
+                <motion.a
+                  key={link.platform}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, color: '#f0f0f0' }}
+                  whileTap={{ scale: 0.95 }}
+                  className="social-link"
+                  aria-label={link.platform}
+                >
+                  {link.icon}
+                </motion.a>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.0, duration: 0.6 }}
+            >
+              <CommandButton />
+            </motion.div>
           </div>
 
-          {/* Status Bar */}
-          <StatusBar />
+          {/* ─── RIGHT COLUMN: Sidebar stats ─── */}
+          <div style={{ paddingTop: 48 }}>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.6, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                background: 'rgba(13, 13, 20, 0.6)',
+                backdropFilter: 'blur(12px)',
+                border: '1px solid rgba(0, 230, 122, 0.08)',
+                padding: '24px 20px',
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "'Orbitron', monospace",
+                  fontSize: 9,
+                  color: '#00e67a',
+                  letterSpacing: '0.3em',
+                  textTransform: 'uppercase',
+                  marginBottom: 16,
+                  paddingBottom: 12,
+                  borderBottom: '1px solid rgba(0, 230, 122, 0.08)',
+                }}
+              >
+                ◆ SIGNAL
+              </div>
+
+              <div className="sidebar-stat">
+                <span className="sidebar-stat-label">Missions</span>
+                <span className="sidebar-stat-value">
+                  <CountUp end={stats.totalProjects} duration={1500} />
+                </span>
+              </div>
+              <div className="sidebar-stat">
+                <span className="sidebar-stat-label">Active Ops</span>
+                <span className="sidebar-stat-value">
+                  <CountUp end={stats.activeProjects} duration={1500} />
+                </span>
+              </div>
+              <div className="sidebar-stat">
+                <span className="sidebar-stat-label">Years Active</span>
+                <span className="sidebar-stat-value">
+                  <CountUp end={stats.yearsActive} duration={1500} suffix="+" />
+                </span>
+              </div>
+              <div className="sidebar-stat">
+                <span className="sidebar-stat-label">Skills</span>
+                <span className="sidebar-stat-value">
+                  <CountUp end={stats.skillsCount} duration={1500} />
+                </span>
+              </div>
+              <div className="sidebar-stat">
+                <span className="sidebar-stat-label">Certifications</span>
+                <span className="sidebar-stat-value">
+                  <CountUp end={stats.certifications} duration={1500} />
+                </span>
+              </div>
+              <div className="sidebar-stat">
+                <span className="sidebar-stat-label">Patents</span>
+                <span className="sidebar-stat-value">
+                  <CountUp end={stats.patentsPublished + stats.patentsFiled} duration={1500} />
+                </span>
+              </div>
+
+              <div
+                style={{
+                  marginTop: 16,
+                  paddingTop: 12,
+                  borderTop: '1px solid rgba(0, 230, 122, 0.08)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: '#00e67a',
+                    display: 'inline-block',
+                    boxShadow: '0 0 8px rgba(0, 230, 122, 0.4)',
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontSize: 10,
+                    color: '#00e67a',
+                    letterSpacing: '0.1em',
+                  }}
+                >
+                  ALL SYSTEMS OPERATIONAL
+                </span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.9, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                marginTop: 12,
+                padding: '16px 20px',
+                border: '1px solid rgba(0, 230, 122, 0.06)',
+                background: 'rgba(13, 13, 20, 0.4)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+              }}
+            >
+              <span style={{ color: '#4a4a5a', fontSize: 10 }}>⌂</span>
+              <span
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: 10,
+                  color: '#4a4a5a',
+                  letterSpacing: '0.1em',
+                }}
+              >
+                {profile.location}
+              </span>
+            </motion.div>
+          </div>
         </div>
 
-        {/* Bottom classification label */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 5.2, duration: 0.8 }}
+          transition={{ delay: 2.0, duration: 0.8 }}
           style={{
-            marginTop: 'clamp(16px, 3vw, 24px)',
+            marginTop: 64,
+            paddingTop: 20,
+            borderTop: '1px solid rgba(0, 230, 122, 0.06)',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
             fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '10px',
-            color: 'rgba(0, 230, 59, 0.35)',
-            letterSpacing: '0.3em',
-            textAlign: 'center',
+            fontSize: 9,
+            color: '#4a4a5a',
+            letterSpacing: '0.15em',
           }}
         >
-          // END-TO-END ENCRYPTED // DELTA ENGINEERING // ALL TRANSMISSIONS LOGGED
+          <span>// END-TO-END ENCRYPTED // ALL TRANSMISSIONS LOGGED</span>
+          <span>DELTA ENGINEERING // {profile.callSign}-01</span>
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* Scroll Indicator */}
       <ScrollIndicator />
-    </div>
-  );
-}
-
-function StatItem({ value, label, suffix = '' }: { value: number; label: string; suffix?: string }) {
-  const [display, setDisplay] = useState(0);
-
-  useEffect(() => {
-    let start = 0;
-    const end = value;
-    const duration = 800;
-    const stepTime = Math.max(Math.floor(duration / end), 16);
-    const iv = setInterval(() => {
-      start += 1;
-      setDisplay(start);
-      if (start >= end) clearInterval(iv);
-    }, stepTime);
-    return () => clearInterval(iv);
-  }, [value]);
-
-  return (
-    <div className="stat-item">
-      <span className="stat-value">
-        {display}{suffix}
-      </span>
-      <span className="stat-label">{label}</span>
     </div>
   );
 }

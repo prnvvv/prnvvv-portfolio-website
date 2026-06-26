@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import AnimatedSection from '../../animations/AnimatedSection'
 import { getExperience } from '../../../services/dataService'
 
 const typeColors: Record<string, string> = {
@@ -16,15 +17,28 @@ const typeLabels: Record<string, string> = {
 export default function ServiceRecord() {
   const serviceRecord = getExperience()
   return (
-    <section id="service-record" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+    <AnimatedSection id="service-record" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="section-header">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="section-header"
+        >
           <span>★</span>
           <span>SERVICE RECORD // DEPLOYMENT HISTORY</span>
-        </div>
+        </motion.div>
 
         <div className="relative">
-          <div className="absolute left-[11px] sm:left-[15px] top-0 bottom-0 w-px bg-[#1a2e1a]" />
+          <motion.div
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformOrigin: 'top' }}
+            className="absolute left-[11px] sm:left-[15px] top-0 bottom-0 w-px bg-[#00e67a]/30"
+          />
 
           <div className="space-y-4 sm:space-y-6">
             {serviceRecord.map((entry, i) => (
@@ -33,18 +47,24 @@ export default function ServiceRecord() {
                 initial={{ opacity: 0, x: -16 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: i * 0.05 }}
+                transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
                 className="relative pl-8 sm:pl-10"
               >
-                <div className="absolute left-[6px] sm:left-[10px] top-1.5 w-3 h-3 rounded-full border-2 border-[#1a2e1a] bg-[#0a0c0a] flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#00e67a]" />
-                </div>
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06 + 0.1, duration: 0.3 }}
+                  className="absolute left-[6px] sm:left-[10px] top-1.5 w-3 h-3 rounded-full border-2 border-[#00e67a]/50 bg-[#0d0d14] flex items-center justify-center"
+                >
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#00e67a] shadow-[0_0_6px_rgba(0,230,122,0.5)]" />
+                </motion.div>
 
-                <div className="panel-border bg-[#0d110d] p-4">
+                <div className="panel-border bg-[#181825]/70 p-4">
                   <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
                     <div>
                       <h3
-                        className="text-[#c8ffd4] text-sm font-heading tracking-[0.1em]"
+                        className="text-[#f0f0f0] text-sm font-heading tracking-[0.1em]"
                         style={{ fontFamily: 'Orbitron' }}
                       >
                         {entry.title}
@@ -59,7 +79,7 @@ export default function ServiceRecord() {
                     </div>
                   </div>
 
-                  <p className="text-[#c8ffd4] text-[11px] font-body leading-relaxed mt-2 mb-2">
+                  <p className="text-[#f0f0f0] text-[11px] font-body leading-relaxed mt-2 mb-2">
                     {entry.description}
                   </p>
 
@@ -77,6 +97,6 @@ export default function ServiceRecord() {
           </div>
         </div>
       </div>
-    </section>
+    </AnimatedSection>
   )
 }

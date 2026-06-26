@@ -12,12 +12,15 @@ export const NAV_TABS = [
 ] as const
 
 export const COLORS = {
-  dark: '#0a0c0a',
-  darker: '#0d110d',
-  panel: '#1a2e1a',
+  dark: '#0d0d14',
+  darker: '#181825',
+  panel: '#181825',
   green: '#00e67a',
+  cyan: '#00c4f0',
   olive: '#5a8a6a',
-  light: '#c8ffd4',
+  light: '#f0f0f0',
+  muted: '#9a9aaa',
+  dim: '#4a4a5a',
   red: '#ff3344',
   yellow: '#ffcc00',
 } as const

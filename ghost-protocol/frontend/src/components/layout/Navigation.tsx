@@ -22,6 +22,29 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting)
+        if (visible.length > 0) {
+          const topMost = visible.reduce((prev, curr) =>
+            curr.boundingClientRect.top < prev.boundingClientRect.top ? curr : prev
+          )
+          setActiveSection(topMost.target.id)
+        }
+      },
+      { threshold: 0.2, rootMargin: '-80px 0px -40% 0px' }
+    )
+
+    const ids = NAV_TABS.map((t) => t.id)
+    ids.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+
+    return () => observer.disconnect()
+  }, [setActiveSection])
+
   const scrollTo = (id: string) => {
     setActiveSection(id)
     if (window.innerWidth < 1024) toggleNav()
@@ -48,7 +71,6 @@ export default function Navigation() {
           : 'bg-black/60 backdrop-blur-2xl'
       } border-b border-[#00e67a]/20`}
     >
-      {/* Scanner line animation */}
       <div className="absolute top-0 left-0 right-0 h-px overflow-hidden opacity-60">
         <motion.div
           className="h-full w-40 bg-gradient-to-r from-transparent via-[#00e67a] to-transparent"
@@ -58,7 +80,6 @@ export default function Navigation() {
       </div>
 
       <div className="flex items-center justify-between px-4 md:px-10 h-16 md:h-20">
-        {/* Logo - Left */}
         <button
           onClick={handleLogoClick}
           className="flex items-center gap-2 group cursor-pointer"
@@ -78,7 +99,6 @@ export default function Navigation() {
           </span>
         </button>
 
-        {/* Desktop Navigation Links - Center */}
         <div className="hidden lg:flex items-center gap-1 md:gap-4 lg:gap-6">
           {NAV_TABS.map((tab) => (
             <NavLink
@@ -91,14 +111,12 @@ export default function Navigation() {
           ))}
         </div>
 
-        {/* Right Section - Status */}
         <div className="flex items-center gap-3 md:gap-4">
           <StatusIndicator />
           <span className="text-[10px] text-gray-500 font-mono hidden md:inline tracking-wider">
             // SECURE
           </span>
 
-          {/* Hamburger Menu Button - Mobile */}
           <button
             onClick={toggleNav}
             className="lg:hidden w-6 h-5 flex flex-col justify-between cursor-pointer relative z-50"
@@ -124,7 +142,6 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
       <MobileMenu
         isOpen={isNavOpen}
         activeSection={activeSection}
