@@ -30,30 +30,33 @@
 }
 
 :root {
-  --g-bg: #020503;
-  --g-bg-alt: #081208;
-  --g-green-primary: #00D46A;
+  --g-bg: #0d0d14;
+  --g-bg-alt: #111122;
+  --g-green-primary: #00e67a;
   --g-green-secondary: #00FF88;
-  --g-green-tertiary: rgba(0, 220, 100, 0.75);
-  --g-green-muted: rgba(0, 255, 120, 0.25);
+  --g-green-tertiary: rgba(0, 230, 122, 0.75);
+  --g-green-muted: rgba(0, 230, 122, 0.25);
   --g-green-deep: #0a1f0a;
-  --g-surface: rgba(0, 25, 10, 0.5);
-  --g-border: rgba(0, 255, 120, 0.2);
-  --g-border-dim: rgba(0, 255, 120, 0.12);
-  --g-border-strong: rgba(0, 255, 120, 0.45);
-  --g-glow-sm: 0 0 12px rgba(0, 255, 120, 0.25);
-  --g-glow-md: 0 0 24px rgba(0, 255, 120, 0.3);
-  --g-glow-lg: 0 0 48px rgba(0, 255, 120, 0.2);
-  --g-panel-bg: rgba(0, 10, 3, 0.8);
-  --g-text-body: rgba(0, 220, 100, 0.75);
-  --g-text-dim: rgba(0, 200, 100, 0.5);
-  --g-text-bright: #EAF7EF;
+  --g-surface: rgba(255, 255, 255, 0.03);
+  --g-border: rgba(255, 255, 255, 0.06);
+  --g-border-dim: rgba(255, 255, 255, 0.08);
+  --g-border-strong: rgba(0, 230, 122, 0.45);
+  --g-glow-sm: 0 0 12px rgba(0, 230, 122, 0.25);
+  --g-glow-md: 0 0 24px rgba(0, 230, 122, 0.3);
+  --g-glow-lg: 0 0 48px rgba(0, 230, 122, 0.2);
+  --g-panel-bg: rgba(13, 13, 20, 0.9);
+  --g-text-body: #a0a0b0;
+  --g-text-dim: rgba(160, 160, 176, 0.5);
+  --g-text-bright: #f0f0f0;
 
   /* ─── Unified Design System ─── */
 
   /* Shared aliases (used by military.css + all components) */
   --font-mono: 'IBM Plex Mono', 'Share Tech Mono', monospace;
   --font-display: 'Space Grotesk', 'Orbitron', sans-serif;
+
+  --g-font-mono: 'IBM Plex Mono', 'Share Tech Mono', monospace;
+  --g-font-display: 'Space Grotesk', 'Orbitron', sans-serif;
 
   /* Typography scale */
   --text-micro: 0.55rem;
@@ -74,19 +77,19 @@
   --accent-yellow: #ffcc00;
   --accent-cyan: #00c4f0;
 
-  --text-primary: #D0F0D8;
-  --text-secondary: rgba(0, 220, 100, 0.75);
-  --text-dim: rgba(0, 200, 100, 0.5);
+  --text-primary: #f0f0f0;
+  --text-secondary: #a0a0b0;
+  --text-dim: rgba(160, 160, 176, 0.5);
   --text-muted: #6AAA7A;
 
-  --bg-primary: #020503;
-  --bg-secondary: rgba(0, 25, 10, 0.55);
-  --bg-surface: rgba(0, 10, 3, 0.8);
-  --bg-panel: rgba(0, 20, 8, 0.55);
+  --bg-primary: #0d0d14;
+  --bg-secondary: rgba(255, 255, 255, 0.03);
+  --bg-surface: rgba(255, 255, 255, 0.03);
+  --bg-panel: rgba(255, 255, 255, 0.03);
 
-  --border-subtle: rgba(0, 255, 120, 0.15);
+  --border-subtle: rgba(255, 255, 255, 0.06);
   --border-green-subtle: rgba(0, 230, 122, 0.2);
-  --border-strong: rgba(0, 255, 120, 0.45);
+  --border-strong: rgba(0, 230, 122, 0.45);
 
   /* Spacing scale */
   --space-xs: 4px;
@@ -119,7 +122,7 @@ body {
   padding: 0;
   background: var(--bg-primary);
   color: var(--text-secondary);
-  font-family: var(--font-mono);
+  font-family: 'Inter', 'Space Grotesk', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   min-height: 100vh;
 }
@@ -563,8 +566,8 @@ body {
 
 .globe-container {
   position: relative;
-  width: 380px;
-  height: 380px;
+  width: 500px;
+  height: 500px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -582,8 +585,8 @@ body {
 .globe-container::before {
   content: '';
   position: absolute;
-  width: 380px;
-  height: 380px;
+  width: 500px;
+  height: 500px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -604,8 +607,8 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 340px;
-  height: 340px;
+  width: 460px;
+  height: 460px;
   transform: translate(-50%, -50%);
   background: conic-gradient(from 0deg, transparent 0%, rgba(0, 255, 120, 0.03) 10%, transparent 20%);
   border-radius: 50%;
@@ -653,7 +656,7 @@ body {
   align-items: center;
   gap: 0;
   width: 100%;
-  max-width: 380px;
+  max-width: 500px;
   border: 1px solid rgba(0, 255, 120, 0.12);
   background: rgba(0, 20, 8, 0.4);
   backdrop-filter: blur(8px);
@@ -789,8 +792,8 @@ body {
     padding-right: 16px;
   }
   .globe-container {
-    width: 320px;
-    height: 320px;
+    width: 440px;
+    height: 440px;
   }
   .hero-name {
     font-size: clamp(2.2rem, 3.5vw, 3rem);
@@ -802,7 +805,7 @@ body {
     font-size: 0.75rem;
   }
   .hero-stats-row {
-    max-width: 300px;
+    max-width: 440px;
   }
 }
 
@@ -828,8 +831,8 @@ body {
     margin-bottom: 6px;
   }
   .globe-container {
-    width: min(300px, 75vw);
-    height: min(300px, 75vw);
+    width: min(380px, 75vw);
+    height: min(380px, 75vw);
   }
   .hero-name {
     font-size: clamp(1.8rem, 7vw, 2.4rem);
@@ -862,8 +865,8 @@ body {
     letter-spacing: -0.01em;
   }
   .globe-container {
-    width: min(240px, 70vw);
-    height: min(240px, 70vw);
+    width: min(300px, 70vw);
+    height: min(300px, 70vw);
   }
   .hero-zone-b {
     padding-right: 0;
@@ -888,8 +891,8 @@ body {
     height: 14px;
   }
   .globe-container::after {
-    width: 240px;
-    height: 240px;
+    width: 260px;
+    height: 260px;
   }
   .cta-button-primary {
     min-width: 140px;
@@ -972,8 +975,8 @@ body {
     gap: 16px;
   }
   .globe-container {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
   }
   .hero-clearance { margin-bottom: 4px; }
   .hero-name-wrap { margin-bottom: 2px; }

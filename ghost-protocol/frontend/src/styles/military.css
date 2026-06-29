@@ -32,6 +32,13 @@
     background: var(--bg-surface);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    border-radius: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .panel-border:hover {
+    border-color: rgba(0, 230, 122, 0.2);
+    box-shadow: 0 0 30px rgba(0, 230, 122, 0.04);
   }
 
   .panel-border::before {
@@ -52,6 +59,13 @@
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border-subtle);
     position: relative;
+    border-radius: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-panel:hover {
+    border-color: rgba(0, 230, 122, 0.2);
+    box-shadow: 0 0 30px rgba(0, 230, 122, 0.04);
   }
 
   .glass-panel::before {
@@ -197,13 +211,13 @@
   /* ─── Section Header ─── */
   .section-header {
     font-family: var(--font-display);
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
     letter-spacing: 0.2em;
     color: var(--accent-green);
     text-transform: uppercase;
-    padding-bottom: 6px;
+    padding-bottom: 8px;
     border-bottom: 1px solid var(--border-green-subtle);
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-lg);
     display: flex;
     align-items: center;
     gap: var(--space-sm);
