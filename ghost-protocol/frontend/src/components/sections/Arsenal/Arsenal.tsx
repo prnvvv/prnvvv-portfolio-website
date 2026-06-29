@@ -78,7 +78,7 @@ export default function Arsenal() {
                       <span className="text-xs opacity-70">{CATEGORY_ICONS[category] || '▸'}</span>
                       <h3
                         className="font-heading text-mil-green tracking-[0.15em] uppercase truncate"
-                        style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-micro)' }}
+                        style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xs)' }}
                       >
                         {category}
                       </h3>

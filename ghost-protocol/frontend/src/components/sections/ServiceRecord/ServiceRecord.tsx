@@ -72,7 +72,7 @@ export default function ServiceRecord() {
                       <p className="text-mil-olive font-body" style={{ fontSize: 'var(--text-xs)' }}>{entry.organization}</p>
                     </div>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      <span className={`font-body ${typeColors[entry.type] ?? 'text-mil-olive'}`} style={{ fontSize: 'var(--text-micro)' }}>
+                      <span className={`font-body ${typeColors[entry.type] ?? 'text-mil-olive'}`} style={{ fontSize: 'var(--text-xs)' }}>
                         {typeLabels[entry.type] ?? entry.type}
                       </span>
                       <span className="text-mil-olive font-body" style={{ fontSize: 'var(--text-xs)' }}>{entry.period}</span>

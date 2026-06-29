@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { MapPin } from 'lucide-react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { getProfile } from '../../services/dataService';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import ClearanceBadge from '../HeroBadge/ClearanceBadge';
@@ -121,6 +122,33 @@ export default function LandingPage() {
         <div className="hero-navbar-brand">
           <span className="hero-navbar-brand-dot" />
           GHOST PROTOCOL
+        </div>
+        <div className="hero-navbar-links">
+          <a
+            href="https://github.com/prannavakhanth"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-navbar-link flex items-center gap-1.5"
+          >
+            <FaGithub size={13} />
+            GITHUB
+          </a>
+          <a
+            href="https://linkedin.com/in/prannavakhanth"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-navbar-link flex items-center gap-1.5"
+          >
+            <FaLinkedin size={13} />
+            LINKEDIN
+          </a>
+          <a
+            href="mailto:prannavakhanth12@gmail.com"
+            className="hero-navbar-link flex items-center gap-1.5"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            EMAIL
+          </a>
         </div>
       </nav>
 

@@ -3,11 +3,9 @@ export const SITE_SUBTITLE = 'COMMAND CENTER'
 export const OPERATOR_CALLSIGN = 'GHOST'
 
 export const NAV_TABS = [
-  { id: 'dossier', label: 'OPERATOR DOSSIER', icon: '◆' },
-  { id: 'arsenal', label: 'ARSENAL', icon: '◆' },
+  { id: 'dossier', label: 'DOSSIER', icon: '◆' },
   { id: 'missions', label: 'MISSIONS', icon: '◆' },
   { id: 'service-record', label: 'SERVICE RECORD', icon: '◆' },
-
   { id: 'comms', label: 'COMMS CONSOLE', icon: '◆' },
 ] as const
 

@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { User, Briefcase, Rocket, Award, MessageCircle } from 'lucide-react'
+import { User, Rocket, Award, MessageCircle } from 'lucide-react'
 import { useUIStore } from '../../store/uiStore'
 
 const NAV_ITEMS = [
   { id: 'dossier', icon: User, label: 'OPERATOR DOSSIER' },
-  { id: 'arsenal', icon: Briefcase, label: 'ARSENAL' },
   { id: 'missions', icon: Rocket, label: 'MISSIONS' },
   { id: 'service-record', icon: Award, label: 'SERVICE RECORD' },
   { id: 'comms', icon: MessageCircle, label: 'COMMS CONSOLE' },

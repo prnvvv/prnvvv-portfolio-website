@@ -19,10 +19,10 @@
   --color-mil-red: #ff3344;
   --color-mil-yellow: #ffcc00;
 
-  --color-mil-light: #c8ffd4;
-  --color-mil-muted: #9a9aaa;
+  --color-mil-light: #f0f0f0;
+  --color-mil-muted: #8a8a9a;
   --color-mil-dim: #4a4a5a;
-  --color-mil-body: rgba(0, 204, 51, 0.8);
+  --color-mil-body: #a0a0b0;
 
   --font-body: 'IBM Plex Mono', 'Share Tech Mono', monospace;
   --font-heading: 'Space Grotesk', 'Orbitron', sans-serif;
@@ -52,17 +52,17 @@
   /* ─── Unified Design System ─── */
 
   /* Shared aliases (used by military.css + all components) */
-  --font-mono: 'IBM Plex Mono', 'Share Tech Mono', monospace;
-  --font-display: 'Space Grotesk', 'Orbitron', sans-serif;
+  --font-mono: 'Share Tech Mono', 'IBM Plex Mono', monospace;
+  --font-display: 'Orbitron', 'Space Grotesk', sans-serif;
 
   --g-font-mono: 'IBM Plex Mono', 'Share Tech Mono', monospace;
   --g-font-display: 'Space Grotesk', 'Orbitron', sans-serif;
 
   /* Typography scale */
-  --text-micro: 0.55rem;
-  --text-xs: 0.65rem;
-  --text-sm: 0.75rem;
-  --text-base: 0.85rem;
+  --text-micro: 0.6rem;
+  --text-xs: 0.7rem;
+  --text-sm: 0.8rem;
+  --text-base: 0.9rem;
   --text-lg: 1rem;
   --text-xl: 1.25rem;
   --text-2xl: 1.5rem;
@@ -72,7 +72,7 @@
   /* Semantic colors */
   --accent-green: #00e67a;
   --accent-green-dim: #00D46A;
-  --accent-olive: #6AAA7A;
+  --accent-olive: #a0a0b0;
   --accent-red: #ff3344;
   --accent-yellow: #ffcc00;
   --accent-cyan: #00c4f0;
@@ -80,7 +80,7 @@
   --text-primary: #f0f0f0;
   --text-secondary: #a0a0b0;
   --text-dim: rgba(160, 160, 176, 0.5);
-  --text-muted: #6AAA7A;
+  --text-muted: #8a8a9a;
 
   --bg-primary: #0d0d14;
   --bg-secondary: rgba(255, 255, 255, 0.03);
@@ -158,9 +158,9 @@ body {
 .hero-bg-base {
   background: radial-gradient(
     ellipse at 65% 45%,
-    #040D08 0%,
-    #020503 55%,
-    #010302 100%
+    #111122 0%,
+    #0d0d14 55%,
+    #0a0a10 100%
   );
 }
 
@@ -210,10 +210,10 @@ body {
   right: 0;
   height: 64px;
   z-index: 50;
-  background: rgba(2, 5, 3, 0.82);
+  background: #0d0d14;
   backdrop-filter: blur(16px) saturate(1.4);
   -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  border-bottom: 1px solid rgba(0, 255, 120, 0.07);
+  border-bottom: 1px solid rgba(0, 230, 122, 0.07);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -292,13 +292,12 @@ body {
 .hero-section {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   background: var(--g-bg);
   overflow: hidden;
   display: flex;
   align-items: center;
-  padding-top: 64px;
-  padding-bottom: 12px;
+  justify-content: center;
 }
 
 .hero-content {
@@ -312,7 +311,6 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 32px;
   align-items: center;
-  min-height: calc(100vh - 64px - 12px);
 }
 
 .hero-zone-a {
@@ -968,9 +966,6 @@ body {
    ═══════════════════════════════════════════ */
 
 @media (max-height: 900px) {
-  .hero-section {
-    padding-top: 40px;
-  }
   .hero-content {
     gap: 16px;
   }

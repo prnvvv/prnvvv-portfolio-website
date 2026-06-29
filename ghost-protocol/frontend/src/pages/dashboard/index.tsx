@@ -10,7 +10,6 @@ import ParticleField from '../../components/effects/ParticleField/ParticleField'
 import Footer from '../../components/layout/Footer/Footer'
 import { SectionErrorBoundary } from '../../components/SectionErrorBoundary'
 import OperatorDossier from '../../components/sections/OperatorDossier/OperatorDossier'
-import Arsenal from '../../components/sections/Arsenal/Arsenal'
 import Missions from '../../components/sections/Missions/Missions'
 import ServiceRecord from '../../components/sections/ServiceRecord/ServiceRecord'
 import CommsConsole from '../../components/sections/CommsConsole/CommsConsole'
@@ -18,7 +17,7 @@ import SocialIcons from '../../components/social/SocialIcons'
 import FloatingChatIcon from '../../components/ai/FloatingChatIcon'
 import ChatWindow from '../../components/ai/ChatWindow'
 
-const SECTION_IDS = ['dossier', 'arsenal', 'missions', 'service-record', 'comms']
+const SECTION_IDS = ['dossier', 'missions', 'service-record', 'comms']
 
 function Dashboard() {
   const { isLoading, setActiveSection } = useUIStore()
@@ -57,7 +56,6 @@ function Dashboard() {
       <VerticalDock />
       <main className="relative z-10" style={{ paddingLeft: '72px' }}>
         <OperatorDossier />
-        <Arsenal />
         <Missions />
         <SectionErrorBoundary name="SERVICE-RECORD"><ServiceRecord /></SectionErrorBoundary>
         <SectionErrorBoundary name="COMMS"><CommsConsole /></SectionErrorBoundary>
