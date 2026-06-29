@@ -39,7 +39,6 @@ export default function ChatWindow() {
               <div>
                 <span
                   className="text-sm font-heading tracking-[0.1em] text-white"
-                  style={{ fontFamily: 'Orbitron' }}
                 >
                   ◈ COMMAND INTELLIGENCE
                 </span>
@@ -118,7 +117,7 @@ export default function ChatWindow() {
           {error && (
             <div className="px-4 py-1.5 bg-[#ff3344]/10 border-t border-[#ff3344]/30">
               <p className="text-[#ff3344] text-[9px] font-mono">
-                ⚠️ COMMS ERROR: {error}
+                COMMS ERROR: {error}
               </p>
             </div>
           )}

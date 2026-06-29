@@ -39,7 +39,7 @@ export default function ChatMessage({ role, content, timestamp, sources, citatio
                   key={s.id || i}
                   className="text-[8px] px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 font-mono"
                 >
-                  📄 {s.metadata?.title || s.metadata?.name || `Source ${i + 1}`}
+                  ▣ {s.metadata?.title || s.metadata?.name || `Source ${i + 1}`}
                 </span>
               ))}
             </div>

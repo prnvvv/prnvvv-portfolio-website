@@ -63,13 +63,13 @@ export function useChat() {
         if (errorMsg.includes('Failed to fetch') || errorMsg.includes('unreachable')) {
           addMessage(
             'assistant',
-            '⚠️ SIGNAL INTERRUPTED — Cannot reach Command Intelligence Core. Ensure the backend is running at localhost:8000.'
+            'SIGNAL INTERRUPTED — Cannot reach Command Intelligence Core. Ensure the backend is running at localhost:8000.'
           )
           setOnline(false)
         } else {
           addMessage(
             'assistant',
-            `⚠️ TRANSMISSION ERROR: ${errorMsg}`
+            `TRANSMISSION ERROR: ${errorMsg}`
           )
         }
       } finally {

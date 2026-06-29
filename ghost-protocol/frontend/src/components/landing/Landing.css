@@ -108,6 +108,11 @@
   50%       { opacity: 0; }
 }
 
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1.0; }
+}
+
 .typing-cursor {
   display: inline-block;
   width: 2px;

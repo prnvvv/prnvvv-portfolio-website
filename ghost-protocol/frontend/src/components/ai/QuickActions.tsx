@@ -4,10 +4,10 @@ interface QuickActionsProps {
 }
 
 const ACTIONS = [
-  { label: 'DOSSIER', query: "Tell me about the operator's profile and skills", icon: '📋' },
-  { label: 'MISSIONS', query: 'What projects have you built?', icon: '⌖' },
-  { label: 'ARSENAL', query: 'What technical skills and technologies do you use?', icon: '⚔' },
-  { label: 'INTEL', query: 'What research and publications have you done?', icon: '📡' },
+  { label: 'DOSSIER', query: "Tell me about the operator's profile and skills", icon: '◆' },
+  { label: 'MISSIONS', query: 'What projects have you built?', icon: '◆' },
+  { label: 'ARSENAL', query: 'What technical skills and technologies do you use?', icon: '◆' },
+  { label: 'INTEL', query: 'What research and publications have you done?', icon: '◈' },
 ]
 
 export default function QuickActions({ onSend, disabled }: QuickActionsProps) {

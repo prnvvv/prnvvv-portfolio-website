@@ -19,7 +19,7 @@ export const githubReposData: GitHubRepoEntry[] = [
     stars: 15,
     forks: 3,
     topics: ['AI', 'Computer Vision', 'Agriculture', 'TensorFlow', 'YOLO'],
-    url: 'https://github.com/prannavakanth/cropcore',
+    url: 'https://github.com/prannavakhanth/cropcore',
     featured: true,
   },
   {
@@ -30,7 +30,7 @@ export const githubReposData: GitHubRepoEntry[] = [
     stars: 8,
     forks: 2,
     topics: ['AI', 'LangChain', 'Career', 'LLM', 'FastAPI'],
-    url: 'https://github.com/prannavakanth/careertrack',
+    url: 'https://github.com/prannavakhanth/careertrack',
     featured: true,
   },
   {
@@ -41,7 +41,7 @@ export const githubReposData: GitHubRepoEntry[] = [
     stars: 12,
     forks: 2,
     topics: ['AI', 'Healthcare', 'Computer Vision', 'Speech Analysis', 'MediaPipe'],
-    url: 'https://github.com/prannavakanth/autcore',
+    url: 'https://github.com/prannavakhanth/autcore',
     featured: true,
   },
   {
@@ -52,7 +52,7 @@ export const githubReposData: GitHubRepoEntry[] = [
     stars: 10,
     forks: 1,
     topics: ['AI', 'Fintech', 'LangChain', 'FastAPI', 'React'],
-    url: 'https://github.com/prannavakanth/kred',
+    url: 'https://github.com/prannavakhanth/kred',
     featured: true,
   },
   {
@@ -63,7 +63,7 @@ export const githubReposData: GitHubRepoEntry[] = [
     stars: 5,
     forks: 1,
     topics: ['AI', 'Healthcare', 'Medical Imaging', 'Multimodal', 'PyTorch'],
-    url: 'https://github.com/prannavakanth/discageai',
+    url: 'https://github.com/prannavakhanth/discageai',
     featured: false,
   },
   {
@@ -74,7 +74,7 @@ export const githubReposData: GitHubRepoEntry[] = [
     stars: 3,
     forks: 0,
     topics: ['IoT', 'Agriculture', 'ESP32', 'Climate Control', 'Sensor Fusion'],
-    url: 'https://github.com/prannavakanth/pacdi',
+    url: 'https://github.com/prannavakhanth/pacdi',
     featured: false,
   },
   {
@@ -85,7 +85,7 @@ export const githubReposData: GitHubRepoEntry[] = [
     stars: 4,
     forks: 0,
     topics: ['AI', 'Predictive Maintenance', 'Self-Supervised', 'LSTM', 'PyTorch'],
-    url: 'https://github.com/prannavakanth/ssl-rul',
+    url: 'https://github.com/prannavakhanth/ssl-rul',
     featured: false,
   },
 ]

@@ -3,9 +3,9 @@ import AnimatedSection from '../../animations/AnimatedSection'
 import { getExperience } from '../../../services/dataService'
 
 const typeColors: Record<string, string> = {
-  work: 'text-[#00e67a]',
-  education: 'text-[#ffcc00]',
-  certification: 'text-[#5a8a6a]',
+  work: 'text-mil-green',
+  education: 'text-mil-yellow',
+  certification: 'text-mil-olive',
 }
 
 const typeLabels: Record<string, string> = {
@@ -17,7 +17,7 @@ const typeLabels: Record<string, string> = {
 export default function ServiceRecord() {
   const serviceRecord = getExperience()
   return (
-    <AnimatedSection id="service-record" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+    <AnimatedSection id="service-record" className="py-8 sm:py-10 lg:py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -26,7 +26,7 @@ export default function ServiceRecord() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="section-header"
         >
-          <span>★</span>
+          <span>◆</span>
           <span>SERVICE RECORD // DEPLOYMENT HISTORY</span>
         </motion.div>
 
@@ -37,56 +37,56 @@ export default function ServiceRecord() {
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
             style={{ transformOrigin: 'top' }}
-            className="absolute left-[11px] sm:left-[15px] top-0 bottom-0 w-px bg-[#00e67a]/30"
+            className="absolute left-[11px] sm:left-[15px] top-0 bottom-0 w-px bg-mil-green/30"
           />
 
-          <div className="space-y-4 sm:space-y-6">
+          <div className="space-y-3">
             {serviceRecord.map((entry, i) => (
               <motion.div
                 key={entry.id}
-                initial={{ opacity: 0, x: -16 }}
+                initial={{ opacity: 0, x: -12 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                className="relative pl-8 sm:pl-10"
+                transition={{ duration: 0.4, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                className="relative pl-7 sm:pl-8"
               >
                 <motion.div
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.06 + 0.1, duration: 0.3 }}
-                  className="absolute left-[6px] sm:left-[10px] top-1.5 w-3 h-3 rounded-full border-2 border-[#00e67a]/50 bg-[#0d0d14] flex items-center justify-center"
+                  transition={{ delay: i * 0.05 + 0.1, duration: 0.25 }}
+                  className="absolute left-[5px] sm:left-[7px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-mil-green/50 bg-mil-dark flex items-center justify-center"
                 >
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#00e67a] shadow-[0_0_6px_rgba(0,230,122,0.5)]" />
+                  <div className="w-1 h-1 rounded-full bg-mil-green shadow-[0_0_4px_rgba(0,230,122,0.5)]" />
                 </motion.div>
 
-                <div className="panel-border bg-[#181825]/70 p-4">
-                  <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
+                <div className="panel-border p-3">
+                  <div className="flex flex-wrap items-start justify-between gap-1 mb-1">
                     <div>
                       <h3
-                        className="text-[#f0f0f0] text-sm font-heading tracking-[0.1em]"
-                        style={{ fontFamily: 'Orbitron' }}
+                        className="text-mil-light font-heading tracking-[0.08em]"
+                        style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-sm)' }}
                       >
                         {entry.title}
                       </h3>
-                      <p className="text-[#5a8a6a] text-[11px] font-body">{entry.organization}</p>
+                      <p className="text-mil-olive font-body" style={{ fontSize: 'var(--text-xs)' }}>{entry.organization}</p>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className={`text-[9px] font-body ${typeColors[entry.type] ?? 'text-[#5a8a6a]'}`}>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <span className={`font-body ${typeColors[entry.type] ?? 'text-mil-olive'}`} style={{ fontSize: 'var(--text-micro)' }}>
                         {typeLabels[entry.type] ?? entry.type}
                       </span>
-                      <span className="text-[#5a8a6a] text-[10px] font-body">{entry.period}</span>
+                      <span className="text-mil-olive font-body" style={{ fontSize: 'var(--text-xs)' }}>{entry.period}</span>
                     </div>
                   </div>
 
-                  <p className="text-[#f0f0f0] text-[11px] font-body leading-relaxed mt-2 mb-2">
+                  <p className="text-mil-light font-body leading-relaxed mb-1.5" style={{ fontSize: 'var(--text-xs)' }}>
                     {entry.description}
                   </p>
 
-                  <ul className="space-y-1">
+                  <ul className="space-y-0.5">
                     {entry.highlights.map((h, j) => (
-                      <li key={j} className="text-[#5a8a6a] text-[10px] font-body flex gap-2">
-                        <span className="text-[#00e67a] shrink-0">&gt;</span>
+                      <li key={j} className="text-mil-olive font-body flex gap-1.5" style={{ fontSize: 'var(--text-xs)' }}>
+                        <span className="text-mil-green shrink-0">&gt;</span>
                         {h}
                       </li>
                     ))}

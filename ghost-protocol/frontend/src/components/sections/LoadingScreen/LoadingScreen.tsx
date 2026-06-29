@@ -73,7 +73,6 @@ export default function LoadingScreen() {
           <div className="text-center mb-12">
             <h1
               className="text-[#00e67a] text-lg sm:text-xl tracking-[0.3em] font-heading mb-2"
-              style={{ fontFamily: 'Orbitron' }}
             >
               GHOST PROTOCOL
             </h1>

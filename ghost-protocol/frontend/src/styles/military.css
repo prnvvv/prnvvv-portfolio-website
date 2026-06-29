@@ -1,4 +1,5 @@
 @layer components {
+  /* ─── CRT Overlay ─── */
   .crt-overlay {
     pointer-events: none;
     position: fixed;
@@ -24,10 +25,11 @@
     );
   }
 
+  /* ─── Panel Border ─── */
   .panel-border {
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-subtle);
     position: relative;
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--bg-surface);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
@@ -43,11 +45,12 @@
     opacity: 0.6;
   }
 
+  /* ─── Glass Panel ─── */
   .glass-panel {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--bg-surface);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-subtle);
     position: relative;
   }
 
@@ -62,8 +65,9 @@
     opacity: 0.6;
   }
 
+  /* ─── Classification Stamp ─── */
   .classified-stamp {
-    font-family: 'Orbitron', sans-serif;
+    font-family: var(--font-display);
     font-size: 0.55rem;
     letter-spacing: 0.15em;
     padding: 1px 6px;
@@ -72,40 +76,46 @@
     opacity: 0.8;
   }
 
+  /* ─── Blinking Dot ─── */
   .blinking-dot {
     width: 6px;
     height: 6px;
-    background: #00e67a;
+    background: var(--accent-green);
     border-radius: 50%;
     display: inline-block;
     animation: blink 1.2s step-end infinite;
   }
 
+  /* ─── Keyframes ─── */
   @keyframes scanlineScroll {
-    0% { transform: translateY(-100%); }
+    0%   { transform: translateY(-100%); }
     100% { transform: translateY(100vh); }
   }
 
   @keyframes blink {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+    50%      { opacity: 0; }
   }
 
   @keyframes gentlePulse {
     0%, 100% {
-      box-shadow: 0 0 10px rgba(0, 230, 122, 0.2), 0 0 20px rgba(0, 230, 122, 0.1);
+      box-shadow:
+        0 0 10px rgba(0, 230, 122, 0.2),
+        0 0 20px rgba(0, 230, 122, 0.1);
     }
     50% {
-      box-shadow: 0 0 18px rgba(0, 230, 122, 0.35), 0 0 36px rgba(0, 230, 122, 0.15);
+      box-shadow:
+        0 0 18px rgba(0, 230, 122, 0.35),
+        0 0 36px rgba(0, 230, 122, 0.15);
     }
   }
 
   @keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 1px); }
-    40% { transform: translate(2px, -1px); }
-    60% { transform: translate(-1px, 2px); }
-    80% { transform: translate(1px, -2px); }
+    0%   { transform: translate(0); }
+    20%  { transform: translate(-2px, 1px); }
+    40%  { transform: translate(2px, -1px); }
+    60%  { transform: translate(-1px, 2px); }
+    80%  { transform: translate(1px, -2px); }
     100% { transform: translate(0); }
   }
 
@@ -115,7 +125,7 @@
 
   @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   .animate-fade-in-up {
@@ -124,23 +134,25 @@
 
   @keyframes radar-sweep {
     from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    to   { transform: rotate(360deg); }
   }
 
   .radar-sweep {
     animation: radar-sweep 4s linear infinite;
   }
 
-  .status-active { color: #00e67a; }
-  .status-standby { color: #ffcc00; }
-  .status-mia { color: #ff3344; }
-  .status-completed { color: #5a8a6a; }
+  /* ─── Status Colors ─── */
+  .status-active    { color: var(--accent-green); }
+  .status-standby   { color: var(--accent-yellow); }
+  .status-mia       { color: var(--accent-red); }
+  .status-completed { color: var(--accent-olive); }
 
+  /* ─── Military Input ─── */
   .mil-input {
-    background: #181825;
-    border: 1px solid rgba(0, 230, 122, 0.12);
-    color: #f0f0f0;
-    font-family: 'Share Tech Mono', monospace;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-green-subtle);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
     font-size: 0.8rem;
     padding: 10px 14px;
     outline: none;
@@ -149,19 +161,20 @@
   }
 
   .mil-input:focus {
-    border-color: #00e67a;
+    border-color: var(--accent-green);
     box-shadow: 0 0 6px rgba(0, 230, 122, 0.2);
   }
 
   .mil-input::placeholder {
-    color: #4a4a5a;
+    color: var(--text-dim);
   }
 
+  /* ─── Military Button ─── */
   .mil-button {
     background: transparent;
     border: 1px solid rgba(0, 230, 122, 0.2);
-    color: #00e67a;
-    font-family: 'Orbitron', sans-serif;
+    color: var(--accent-green);
+    font-family: var(--font-display);
     font-size: 0.65rem;
     letter-spacing: 0.1em;
     padding: 8px 16px;
@@ -172,7 +185,7 @@
 
   .mil-button:hover {
     background: rgba(0, 230, 122, 0.05);
-    border-color: #00e67a;
+    border-color: var(--accent-green);
     box-shadow: 0 0 8px rgba(0, 230, 122, 0.2);
   }
 
@@ -181,35 +194,38 @@
     cursor: not-allowed;
   }
 
+  /* ─── Section Header ─── */
   .section-header {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    color: #00e67a;
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    letter-spacing: 0.2em;
+    color: var(--accent-green);
     text-transform: uppercase;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(0, 230, 122, 0.12);
-    margin-bottom: 24px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border-green-subtle);
+    margin-bottom: var(--space-md);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-sm);
   }
 
   .section {
-    padding-top: 96px;
-    padding-bottom: 96px;
+    padding-top: var(--section-py, 48px);
+    padding-bottom: var(--section-py, 48px);
   }
 
   .section-heading {
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    color: #00e67a;
-    font-family: 'Orbitron', monospace;
-    margin-bottom: 40px;
+    font-size: var(--text-sm);
+    letter-spacing: 0.25em;
+    color: var(--accent-green);
+    font-family: var(--font-display);
+    margin-bottom: var(--space-md);
     opacity: 0.9;
+    text-transform: uppercase;
   }
 }
 
+/* ─── Mobile ─── */
 @media (max-width: 768px) {
   .mobile-grid {
     grid-template-columns: 1fr !important;

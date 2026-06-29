@@ -7,17 +7,20 @@ interface SkillTagProps {
 export default function SkillTag({ name }: SkillTagProps) {
   return (
     <motion.span
-      className="px-3 py-1.5 text-xs font-mono cursor-default select-none"
+      className="font-mono cursor-default select-none inline-block"
       style={{
-        color: '#9a9aaa',
-        background: 'rgba(0, 230, 122, 0.03)',
-        border: '1px solid rgba(0, 230, 122, 0.2)',
-        transition: 'all 0.2s ease',
-        display: 'inline-block',
+        color: 'var(--text-secondary)',
+        background: 'rgba(0, 230, 122, 0.06)',
+        border: '1px solid rgba(0, 230, 122, 0.25)',
+        fontSize: 'var(--text-sm)',
+        padding: '4px 10px',
+        letterSpacing: '0.03em',
+        lineHeight: 1.3,
       }}
       whileHover={{
-        borderColor: 'rgba(0, 230, 122, 0.5)',
-        color: '#f0f0f0',
+        borderColor: 'rgba(0, 230, 122, 0.6)',
+        color: 'var(--accent-green)',
+        background: 'rgba(0, 230, 122, 0.1)',
       }}
     >
       {name}

@@ -54,7 +54,7 @@ export default function StatusBar() {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-        <span style={{ color: '#00e67a', fontSize: 14 }}>⚔</span>
+        <span style={{ color: '#00e67a', fontSize: 14 }}>◆</span>
         <span style={{ color: '#f0f0f0', letterSpacing: '0.2em', fontWeight: 500, fontFamily: "'Orbitron', monospace" }}>
           GHOST PROTOCOL
         </span>

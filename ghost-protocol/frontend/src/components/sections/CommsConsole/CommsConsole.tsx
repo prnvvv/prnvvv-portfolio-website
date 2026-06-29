@@ -40,7 +40,7 @@ export default function CommsConsole() {
   }
 
   return (
-    <AnimatedSection id="comms" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+    <AnimatedSection id="comms" className="py-8 sm:py-10 lg:py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -59,29 +59,29 @@ export default function CommsConsole() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="panel-border bg-[#181825]/70"
+            className="panel-border bg-mil-darker/70"
           >
-            <div className="border-b border-[rgba(0,230,122,0.12)] px-4 py-2 flex items-center gap-2">
+            <div className="border-b border-mil-green/12 px-4 py-2 flex items-center gap-2">
               <span className="blinking-dot" />
               <span
-                className="text-[#00e67a] text-[10px] font-heading tracking-[0.15em]"
-                style={{ fontFamily: 'Orbitron' }}
+                className="text-mil-green font-heading tracking-[0.15em]"
+                style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xs)' }}
               >
                 COMMAND INTELLIGENCE // ACTIVE
               </span>
-              <span className="text-[#5a8a6a] text-[10px] font-body ml-auto">
+              <span className="text-mil-olive font-body ml-auto" style={{ fontSize: 'var(--text-xs)' }}>
                 AI CORE v1.0
               </span>
             </div>
 
-            <div className="h-[300px] sm:h-[400px] md:h-[500px] overflow-y-auto p-4 space-y-3">
+            <div className="min-h-[200px] sm:min-h-[260px] md:min-h-[320px] max-h-[400px] overflow-y-auto p-3 space-y-2">
               <AnimatePresence initial={false}>
                 {messages.length === 0 && (
                   <motion.div
                     key="empty"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-center text-[#5a8a6a] text-xs font-body py-12"
+                    className="text-center text-mil-olive font-body py-12" style={{ fontSize: 'var(--text-xs)' }}
                   >
                     [COMMS CHANNEL OPEN. AWAITING TRANSMISSION...]
                   </motion.div>
@@ -95,14 +95,14 @@ export default function CommsConsole() {
                     className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
                     <div
-                      className={`max-w-[90%] sm:max-w-[80%] lg:max-w-[70%] px-3 py-2 text-xs font-body ${
+                      className={`max-w-[90%] sm:max-w-[80%] lg:max-w-[70%] px-3 py-2 font-body ${
                         msg.role === 'user'
-                          ? 'bg-[rgba(0,230,122,0.08)] text-[#f0f0f0]'
-                          : 'bg-[#181825]/70 border border-[rgba(0,230,122,0.12)] text-[#00e67a]'
-                      }`}
+                          ? 'bg-mil-green/8 text-mil-light'
+                          : 'bg-mil-darker/70 border border-mil-green/12 text-mil-green'
+                      }`} style={{ fontSize: 'var(--text-xs)' }}
                     >
                       <p className="leading-relaxed whitespace-pre-wrap">{msg.content}</p>
-                      <p className="text-[#4a4a5a] text-[9px] mt-1 text-right">
+                      <p className="text-mil-dim mt-1 text-right" style={{ fontSize: 'var(--text-micro)' }}>
                         {formatTimestamp(msg.timestamp)}
                       </p>
                     </div>
@@ -115,7 +115,7 @@ export default function CommsConsole() {
                     animate={{ opacity: 1 }}
                     className="flex gap-2"
                   >
-                    <div className="bg-[#181825]/70 border border-[rgba(0,230,122,0.12)] px-3 py-2 text-xs font-body text-[#00e67a]">
+                    <div className="bg-mil-darker/70 border border-mil-green/12 px-3 py-2 font-body text-mil-green" style={{ fontSize: 'var(--text-xs)' }}>
                       <span className="animate-pulse">TRANSMITTING...</span>
                     </div>
                   </motion.div>
@@ -125,14 +125,14 @@ export default function CommsConsole() {
             </div>
 
             {error && (
-              <div className="px-4 py-2 bg-[#ff3344]/10 border-t border-[#ff3344]/30">
-                <p className="text-[#ff3344] text-[10px] font-body">
+              <div className="px-4 py-2 bg-mil-red/10 border-t border-mil-red/30">
+                <p className="text-mil-red font-body" style={{ fontSize: 'var(--text-xs)' }}>
                   COMMS ERROR: {error}
                 </p>
               </div>
             )}
 
-            <div className="border-t border-[rgba(0,230,122,0.12)] p-3 flex gap-2">
+            <div className="border-t border-mil-green/12 p-3 flex gap-2">
               <input
                 type="text"
                 value={input}
@@ -140,12 +140,14 @@ export default function CommsConsole() {
                 onKeyDown={handleKeyDown}
                 placeholder="TYPE TRANSMISSION..."
                 disabled={isProcessing}
-                className="mil-input flex-1 text-xs"
+                className="mil-input flex-1"
+                style={{ fontSize: 'var(--text-xs)' }}
               />
               <button
                 onClick={handleSend}
                 disabled={!input.trim() || isProcessing}
-                className="mil-button text-xs"
+                className="mil-button"
+                style={{ fontSize: 'var(--text-xs)' }}
               >
                 {isProcessing ? '...' : 'SEND'}
               </button>

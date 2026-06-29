@@ -1,32 +1,30 @@
 import { motion } from 'framer-motion'
 import AnimatedSection from '../../animations/AnimatedSection'
 import { getProfile, getSkillsByCategory } from '../../../services/dataService'
-import { useGlitch } from '../../../hooks/useGlitch'
 import SkillTag from '../../ui/SkillTag'
 
 const CATEGORY_ICONS: Record<string, string> = {
-  'Programming Languages': '⚡',
-  'AI/ML Frameworks': '🧠',
-  'Computer Vision': '📷',
-  'Backend & Web': '🖥️',
-  Frontend: '🎨',
-  Visualization: '📊',
+  'Programming Languages': '▶',
+  'AI/ML Frameworks': '◆',
+  'Computer Vision': '◈',
+  'Backend & Web': '▣',
+  Frontend: '◉',
+  Visualization: '▤',
 }
 
 export default function OperatorDossier() {
-  const { isGlitching } = useGlitch({ enabled: true })
   const op = getProfile()
   const skillsByCategory = getSkillsByCategory()
 
   const statusColor =
     op.status === 'ACTIVE'
-      ? 'text-[#00e67a]'
+      ? 'text-mil-green'
       : op.status === 'STANDBY'
-        ? 'text-[#ffcc00]'
-        : 'text-[#ff3344]'
+        ? 'text-mil-yellow'
+        : 'text-mil-red'
 
   return (
-    <AnimatedSection id="dossier" className="min-h-screen py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+    <AnimatedSection id="dossier" className="py-8 sm:py-10 lg:py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -39,31 +37,31 @@ export default function OperatorDossier() {
           <span>OPERATOR DOSSIER // {op.callSign}</span>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className={`panel-border bg-[#181825]/70 p-5 ${isGlitching ? 'glitch-active' : ''}`}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="panel-border p-4"
           >
-            <div className="flex items-start justify-between mb-4">
+            <div className="flex items-start justify-between mb-3">
               <div>
                 <h2
-                  className="text-[#00e67a] text-lg font-heading tracking-[0.15em]"
-                  style={{ fontFamily: 'Orbitron' }}
+                  className="text-mil-green font-heading tracking-[0.12em]"
+                  style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-base)' }}
                 >
                   {op.callSign}
                 </h2>
-                <p className="text-[#5a8a6a] text-xs font-body mt-1">{op.rank}</p>
+                <p className="text-mil-olive font-body mt-0.5" style={{ fontSize: 'var(--text-xs)' }}>{op.rank}</p>
               </div>
-              <div className="flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full ${statusColor} bg-current`} />
-                <span className={`text-[10px] font-body ${statusColor}`}>{op.status}</span>
+              <div className="flex items-center gap-1.5">
+                <span className={`w-1.5 h-1.5 rounded-full ${statusColor} bg-current`} />
+                <span className={`font-body ${statusColor}`} style={{ fontSize: 'var(--text-xs)' }}>{op.status}</span>
               </div>
             </div>
 
-            <div className="space-y-2 text-xs font-body">
+            <div className="space-y-1 font-body" style={{ fontSize: 'var(--text-xs)' }}>
               <InfoRow label="NAME" value={op.name} />
               <InfoRow label="SPECIALIZATION" value={op.specialization} />
               <InfoRow label="CLEARANCE" value={op.clearanceLevel} />
@@ -75,37 +73,37 @@ export default function OperatorDossier() {
               />
             </div>
 
-            <div className="mt-4 pt-4 border-t border-[rgba(0,230,122,0.12)]">
-              <p className="text-[#f0f0f0] text-xs font-body leading-relaxed">{op.bio}</p>
+            <div className="mt-3 pt-3 border-t border-mil-green/12">
+              <p className="text-mil-light font-body leading-relaxed" style={{ fontSize: 'var(--text-xs)' }}>{op.bio}</p>
             </div>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="panel-border bg-[#181825]/70 p-5"
+            transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="panel-border p-4"
           >
             <h3
-              className="text-[#00e67a] text-xs font-heading tracking-[0.2em] mb-4"
-              style={{ fontFamily: 'Orbitron' }}
+              className="text-mil-green font-heading tracking-[0.18em] mb-3"
+              style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-micro)' }}
             >
               SKILL INVENTORY
             </h3>
-            <div className="space-y-4 max-h-[420px] overflow-y-auto pr-1">
+            <div className="space-y-3 max-h-[360px] overflow-y-auto pr-1">
               {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
                 <div key={category}>
-                  <div className="flex items-center gap-1.5 mb-2">
+                  <div className="flex items-center gap-1 mb-1.5">
                     <span className="text-[10px]">{CATEGORY_ICONS[category] || '▸'}</span>
                     <h4
-                      className="text-[9px] font-heading text-[#5a8a6a] tracking-[0.15em] uppercase"
-                      style={{ fontFamily: 'Orbitron' }}
+                      className="font-heading text-mil-olive tracking-[0.12em] uppercase"
+                      style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-micro)' }}
                     >
                       {category}
                     </h4>
                   </div>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1">
                     {categorySkills.map((skill) => (
                       <SkillTag key={skill.name} name={skill.name} />
                     ))}
@@ -123,8 +121,8 @@ export default function OperatorDossier() {
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex gap-2">
-      <span className="text-[#5a8a6a] shrink-0 w-20 sm:w-28">{label}:</span>
-      <span className="text-[#f0f0f0]">{value}</span>
+      <span className="text-mil-olive shrink-0 w-20 sm:w-28">{label}:</span>
+      <span className="text-mil-light">{value}</span>
     </div>
   )
 }

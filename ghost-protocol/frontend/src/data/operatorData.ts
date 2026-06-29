@@ -2,7 +2,7 @@ import type { Operator, Skill } from '../types/portfolio'
 
 export const operatorData: Operator = {
   callSign: 'PRNVVV',
-  name: 'Prannavakanth',
+  name: 'PRANNAVAKHANTH',
   rank: 'AI/ML Engineer',
   status: 'ACTIVE',
   specialization: 'Agentic AI Specialist',
@@ -12,10 +12,10 @@ export const operatorData: Operator = {
   coordinates: [13.0827, 80.2707],
   avatar: '',
   bio: 'Building agentic AI, generative AI, and data-driven solutions to solve real-world problems. Combining strong DSA fundamentals with end-to-end ML expertise to develop scalable, production-ready systems that drive measurable impact across industries.',
-  email: 'prannavakanth12@gmail.com',
+  email: 'prannavakhanth12@gmail.com',
   phone: '+91 80722 12612',
-  linkedin: 'https://linkedin.com/in/prannavakanth',
-  github: 'https://github.com/prannavakanth',
+  linkedin: 'https://linkedin.com/in/prannavakhanth',
+  github: 'https://github.com/prannavakhanth',
 }
 
 export const skills: Skill[] = [

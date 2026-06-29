@@ -38,13 +38,13 @@ export default function SmoothScrollLink({
         outline: 'none',
       }}
       animate={{
-        color: isActive ? '#00e67a' : '#9a9aaa',
+        color: isActive ? 'var(--accent-green)' : 'var(--text-muted)',
       }}
       transition={{ duration: 0.3, ease: 'easeOut' }}
-      whileHover={{ color: '#f0f0f0' }}
+      whileHover={{ color: 'var(--text-primary)' }}
       aria-label={`Navigate to ${label}`}
     >
-      <span className="text-[11px] font-mono uppercase tracking-[0.15em]">
+      <span className="font-mono uppercase tracking-[0.15em]" style={{ fontSize: 'var(--text-sm)' }}>
         {icon && <span className="mr-1.5">{icon}</span>}
         <motion.span
           style={{
@@ -52,7 +52,7 @@ export default function SmoothScrollLink({
             width: 5,
             height: 5,
             borderRadius: '50%',
-            backgroundColor: '#00e67a',
+            backgroundColor: 'var(--accent-green)',
             marginRight: 6,
             verticalAlign: 'middle',
           }}
@@ -68,7 +68,7 @@ export default function SmoothScrollLink({
           left: 8,
           right: 8,
           height: '1px',
-          background: '#00e67a',
+          background: 'var(--accent-green)',
           boxShadow: isActive ? '0 0 8px rgba(0, 230, 122, 0.6)' : 'none',
         }}
         animate={{ width: isActive ? '100%' : '0%' }}

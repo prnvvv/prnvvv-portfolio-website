@@ -63,7 +63,7 @@ export default function ChatInput({ onSend, isProcessing }: ChatInputProps) {
         >
           {isProcessing ? (
             <span className="flex items-center gap-1">
-              <span className="animate-pulse">⏳</span>
+              <span className="animate-pulse">◆</span>
             </span>
           ) : (
             'SEND'
