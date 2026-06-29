@@ -2,6 +2,15 @@ import { motion } from 'framer-motion'
 import AnimatedSection from '../../animations/AnimatedSection'
 import { getProfile, getSkillsByCategory } from '../../../services/dataService'
 import SkillTag from '../../ui/SkillTag'
+import LogoLoop from '../../ui/LogoLoop'
+import {
+  SiPython, SiJava, SiCplusplus, SiSqlite, SiR,
+  SiTensorflow, SiPytorch, SiScikitlearn, SiKeras, SiLangchain,
+  SiOpencv, SiYolo, SiMediapipe,
+  SiFastapi, SiPandas, SiNumpy, SiDocker, SiBeautifulsoup,
+  SiHtml5, SiCss3, SiJavascript, SiReact,
+  SiMatplotlib, SiSeaborn,
+} from '../../ui/tech-icons'
 
 const CATEGORY_ICONS: Record<string, string> = {
   'Programming Languages': '▶',
@@ -11,6 +20,33 @@ const CATEGORY_ICONS: Record<string, string> = {
   Frontend: '◉',
   Visualization: '▤',
 }
+
+const TECH_LOGOS = [
+  { node: <SiPython />, title: 'Python' },
+  { node: <SiJava />, title: 'Java' },
+  { node: <SiCplusplus />, title: 'C/C++' },
+  { node: <SiSqlite />, title: 'SQL' },
+  { node: <SiR />, title: 'R' },
+  { node: <SiTensorflow />, title: 'TensorFlow' },
+  { node: <SiPytorch />, title: 'PyTorch' },
+  { node: <SiScikitlearn />, title: 'Scikit-learn' },
+  { node: <SiKeras />, title: 'Keras' },
+  { node: <SiLangchain />, title: 'LangChain' },
+  { node: <SiOpencv />, title: 'OpenCV' },
+  { node: <SiYolo />, title: 'YOLO' },
+  { node: <SiMediapipe />, title: 'MediaPipe' },
+  { node: <SiFastapi />, title: 'FastAPI' },
+  { node: <SiPandas />, title: 'Pandas' },
+  { node: <SiNumpy />, title: 'NumPy' },
+  { node: <SiDocker />, title: 'Docker' },
+  { node: <SiBeautifulsoup />, title: 'BeautifulSoup' },
+  { node: <SiHtml5 />, title: 'HTML' },
+  { node: <SiCss3 />, title: 'CSS' },
+  { node: <SiJavascript />, title: 'JavaScript' },
+  { node: <SiReact />, title: 'React' },
+  { node: <SiMatplotlib />, title: 'Matplotlib' },
+  { node: <SiSeaborn />, title: 'Seaborn' },
+]
 
 const AI_STATUS = [
   { label: 'INFERENCE ENGINE', value: 'ONLINE', color: 'var(--accent-green)' },
@@ -155,6 +191,32 @@ export default function OperatorDossier() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* ─── Tech Logo Loop ─── */}
+            <div className="mt-8">
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-xs font-mono text-[#00e67a] uppercase tracking-wider">TECH STACK</span>
+                <div className="flex-1 h-px bg-[#00e67a]/20" />
+              </div>
+              <div
+                className="relative w-full overflow-hidden rounded-lg"
+                style={{
+                  height: '56px',
+                }}
+              >
+                <LogoLoop
+                  logos={TECH_LOGOS}
+                  speed={120}
+                  direction="left"
+                  logoHeight={35}
+                  gap={42}
+                  fadeOut
+                  fadeOutColor="#0d0d14"
+                  scaleOnHover
+                  pauseOnHover
+                />
+              </div>
             </div>
           </motion.div>
         </div>
