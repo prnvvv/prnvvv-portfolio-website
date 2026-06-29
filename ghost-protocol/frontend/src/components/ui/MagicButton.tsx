@@ -31,8 +31,8 @@ export default function MagicButton() {
         ACCESS COMMAND CENTER
       </span>
       <span
-        className="text-sm transition-all duration-500 group-hover:translate-x-1 group-hover:text-black"
-        style={{ color: '#00e67a' }}
+        className="text-sm group-hover:translate-x-1 group-hover:text-black"
+        style={{ color: '#00e67a', transition: 'transform 150ms ease, color 500ms ease' }}
       >
         {'\u2192'}
       </span>

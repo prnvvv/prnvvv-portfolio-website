@@ -20,7 +20,7 @@ export default function NavLink({ icon, label, isActive, onClick }: NavLinkProps
           className={`relative font-mono uppercase tracking-[0.15em] transition-all duration-300 ${
             isActive
               ? 'text-mil-green'
-              : 'text-gray-500 group-hover:text-mil-green'
+              : 'text-white/40 group-hover:text-mil-green'
           }`}
           style={{ fontSize: 'var(--text-sm)' }}
         >

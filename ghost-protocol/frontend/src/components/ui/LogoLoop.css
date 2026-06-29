@@ -2,7 +2,7 @@
   position: relative;
   --logoloop-gap: 42px;
   --logoloop-logoHeight: 35px;
-  --logoloop-fadeColorAuto: #0d0d14;
+  --logoloop-fadeColorAuto: #080c09;
 }
 
 .logoloop--vertical {
@@ -39,7 +39,7 @@
   margin-right: var(--logoloop-gap);
   font-size: var(--logoloop-logoHeight);
   line-height: 1;
-  color: #8888aa;
+  color: rgba(255, 255, 255, 0.5);
   opacity: 0.7;
   transition: color 0.3s ease, opacity 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

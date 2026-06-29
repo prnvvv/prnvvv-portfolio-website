@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { Home, User, Target, Award, MessageCircle } from 'lucide-react'
+import { Home, User, Target, Award, MessageCircle, GraduationCap, ShieldCheck, Medal } from 'lucide-react'
 import { useUIStore } from '../../store/uiStore'
 
 const NAV_ITEMS = [
@@ -9,6 +9,9 @@ const NAV_ITEMS = [
   { id: 'dossier', icon: User, label: 'OPERATOR DOSSIER', action: 'scroll' as const },
   { id: 'missions', icon: Target, label: 'MISSIONS', action: 'scroll' as const },
   { id: 'service-record', icon: Award, label: 'SERVICE RECORD', action: 'scroll' as const },
+  { id: 'education', icon: GraduationCap, label: 'ACADEMY', action: 'scroll' as const },
+  { id: 'certifications', icon: ShieldCheck, label: 'CREDENTIALS', action: 'scroll' as const },
+  { id: 'achievements', icon: Medal, label: 'COMMENDATIONS', action: 'scroll' as const },
   { id: 'comms', icon: MessageCircle, label: 'COMMS CONSOLE', action: 'scroll' as const },
 ]
 
@@ -43,7 +46,7 @@ export default function VerticalDock() {
         translateY: '-50%',
         zIndex: 50,
         width: 64,
-        background: 'rgba(8, 6, 18, 0.88)',
+        background: 'rgba(8, 12, 9, 0.88)',
         backdropFilter: 'blur(28px) saturate(180%)',
         WebkitBackdropFilter: 'blur(28px) saturate(180%)',
         border: '1px solid rgba(255, 255, 255, 0.06)',
@@ -136,7 +139,7 @@ export default function VerticalDock() {
                         ? '#00e67a'
                         : hoveredId === item.id
                           ? 'rgba(0, 230, 122, 0.8)'
-                          : 'rgba(180, 180, 190, 0.45)',
+                          : 'rgba(255, 255, 255, 0.4)',
                       transition: 'color 200ms ease',
                     }}
                   />
@@ -150,7 +153,7 @@ export default function VerticalDock() {
                       left: 'calc(100% + 14px)',
                       top: '50%',
                       transform: 'translateY(-50%)',
-                      background: 'rgba(8, 6, 18, 0.95)',
+                      background: 'rgba(8, 12, 9, 0.95)',
                       backdropFilter: 'blur(16px)',
                       WebkitBackdropFilter: 'blur(16px)',
                       border: '1px solid rgba(0, 230, 122, 0.15)',
@@ -160,7 +163,7 @@ export default function VerticalDock() {
                       fontFamily: "'Share Tech Mono', monospace",
                       fontSize: 10,
                       letterSpacing: '0.12em',
-                      color: isActive ? '#00e67a' : 'rgba(200, 200, 200, 0.75)',
+                      color: isActive ? '#00e67a' : 'rgba(255, 255, 255, 0.6)',
                       pointerEvents: 'none',
                       zIndex: 60,
                       boxShadow: '0 4px 16px rgba(0,0,0,0.5)',
@@ -210,7 +213,7 @@ export default function VerticalDock() {
                 left: 'calc(100% + 14px)',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                background: 'rgba(8, 6, 18, 0.95)',
+                background: 'rgba(8, 12, 9, 0.95)',
                 backdropFilter: 'blur(16px)',
                 WebkitBackdropFilter: 'blur(16px)',
                 border: '1px solid rgba(0, 230, 122, 0.15)',

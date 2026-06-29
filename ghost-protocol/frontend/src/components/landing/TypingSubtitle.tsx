@@ -46,7 +46,7 @@ function TypedLine({ label, value, startDelay }: { label: string; value: string;
       style={{
         fontFamily: "'JetBrains Mono', monospace",
         fontSize: '13px',
-        color: '#e8e8e8',
+        color: 'rgba(255, 255, 255, 0.9)',
         letterSpacing: '0.12em',
         display: 'flex',
         alignItems: 'center',
@@ -54,10 +54,10 @@ function TypedLine({ label, value, startDelay }: { label: string; value: string;
         minHeight: '22px',
       }}
     >
-      <span style={{ color: 'rgba(0, 230, 59, 0.5)', marginRight: '0' }}>
+      <span style={{ color: 'rgba(0, 230, 122, 0.5)', marginRight: '0' }}>
         {text.slice(0, label.length + 2)}
       </span>
-      <span style={{ color: '#e8e8e8' }}>
+      <span style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
         {text.slice(label.length + 2)}
       </span>
       {!done && (

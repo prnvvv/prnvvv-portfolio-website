@@ -40,17 +40,17 @@ export default function CommsConsole() {
   }
 
   return (
-    <AnimatedSection id="comms" className="py-8 sm:py-10 lg:py-12 px-4 sm:px-6 lg:px-8">
+<AnimatedSection id="comms" className="pt-16 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="section-header"
+          className="section-header mb-8"
         >
-          <span>◈</span>
-          <span>COMMS CONSOLE // COMMAND INTELLIGENCE</span>
+          <span>◆</span>
+          <span>COMMS CONSOLE // SECURE CHANNEL</span>
         </motion.div>
 
         <div className="grid md:grid-cols-1 gap-6">
@@ -125,8 +125,8 @@ export default function CommsConsole() {
             </div>
 
             {error && (
-              <div className="px-4 py-2 bg-mil-red/10 border-t border-mil-red/30">
-                <p className="text-mil-red font-body" style={{ fontSize: 'var(--text-xs)' }}>
+              <div className="px-4 py-2 bg-mil-green/10 border-t border-mil-green/30">
+                <p className="text-mil-green font-body" style={{ fontSize: 'var(--text-xs)' }}>
                   COMMS ERROR: {error}
                 </p>
               </div>

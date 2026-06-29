@@ -1,5 +1,6 @@
 import { type ReactNode } from "react"
 import { ArrowRightIcon } from "@radix-ui/react-icons"
+import { Lock } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -16,6 +17,8 @@ interface BentoCardProps {
   description: string
   href: string
   cta: string
+  status?: string
+  statusColor?: string
 }
 
 const BentoGrid = ({ children, className, ...props }: BentoGridProps) => {
@@ -40,6 +43,8 @@ const BentoCard = ({
   description,
   href,
   cta,
+  status,
+  statusColor,
   ...props
 }: BentoCardProps) => (
   <div
@@ -47,7 +52,7 @@ const BentoCard = ({
     className={cn(
       "group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-sm",
       "bg-[var(--g-panel-bg)] border border-[var(--g-border-dim)]",
-      "transform-gpu dark:[box-shadow:0_-20px_80px_-20px_#00ff781f_inset]",
+      "transform-gpu dark:[box-shadow:0_-20px_80px_-20px_#00e67a1f_inset]",
       className,
     )}
     {...props}
@@ -55,7 +60,18 @@ const BentoCard = ({
     <div>{background}</div>
     <div className="p-4">
       <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 transition-all duration-300 lg:group-hover:-translate-y-10">
-        <div className="h-12 w-12 origin-left transform-gpu text-[var(--g-green-primary)] transition-all duration-300 ease-in-out group-hover:scale-75">{icon}</div>
+        <div className="flex items-start justify-between">
+          <div className="h-12 w-12 origin-left transform-gpu text-[var(--g-green-primary)] transition-all duration-300 ease-in-out group-hover:scale-75">{icon}</div>
+          {status && (
+            <span
+              className="flex items-center gap-1 text-[10px] font-mono tracking-wider uppercase px-2 py-0.5 rounded shrink-0"
+              style={{ background: `${statusColor}20`, color: statusColor }}
+            >
+              <Lock size={10} />
+              {status}
+            </span>
+          )}
+        </div>
         <h3 className="text-xl font-semibold text-[var(--g-text-bright)] font-heading">
           {name}
         </h3>
@@ -91,7 +107,7 @@ const BentoCard = ({
       </a>
     </div>
 
-    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/30 group-hover:dark:bg-neutral-800/10" />
+    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/30" />
   </div>
 )
 

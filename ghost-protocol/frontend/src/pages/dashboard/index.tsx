@@ -10,14 +10,17 @@ import ParticleField from '../../components/effects/ParticleField/ParticleField'
 import Footer from '../../components/layout/Footer/Footer'
 import { SectionErrorBoundary } from '../../components/SectionErrorBoundary'
 import OperatorDossier from '../../components/sections/OperatorDossier/OperatorDossier'
+import Education from '../../components/sections/Education/Education'
 import Missions from '../../components/sections/Missions/Missions'
 import ServiceRecord from '../../components/sections/ServiceRecord/ServiceRecord'
+import Certifications from '../../components/sections/Certifications/Certifications'
+import Achievements from '../../components/sections/Achievements/Achievements'
 import CommsConsole from '../../components/sections/CommsConsole/CommsConsole'
 import SocialIcons from '../../components/social/SocialIcons'
 import FloatingChatIcon from '../../components/ai/FloatingChatIcon'
 import ChatWindow from '../../components/ai/ChatWindow'
 
-const SECTION_IDS = ['dossier', 'missions', 'service-record', 'comms']
+const SECTION_IDS = ['dossier', 'education', 'missions', 'service-record', 'certifications', 'achievements', 'comms']
 
 function Dashboard() {
   const { isLoading, setActiveSection } = useUIStore()
@@ -32,7 +35,7 @@ function Dashboard() {
           particleCount: 120,
           spread: 80,
           origin: { y: 0.7 },
-          colors: ['#00e67a', '#5a8a6a', '#00c4f0', '#f0f0f0'],
+          colors: ['#00e67a', '#5a8a6a', '#00e67a', 'rgba(255,255,255,0.9)'],
         })
       }, 600)
       return () => clearTimeout(timer)
@@ -56,8 +59,11 @@ function Dashboard() {
       <VerticalDock />
       <main className="relative z-10" style={{ paddingLeft: '72px' }}>
         <OperatorDossier />
+        <Education />
         <Missions />
         <SectionErrorBoundary name="SERVICE-RECORD"><ServiceRecord /></SectionErrorBoundary>
+        <Certifications />
+        <Achievements />
         <SectionErrorBoundary name="COMMS"><CommsConsole /></SectionErrorBoundary>
       </main>
       <Footer />

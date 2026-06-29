@@ -153,7 +153,7 @@ export default function VerticalNav() {
                 size={20}
                 strokeWidth={1.8}
                 style={{
-                  color: isActive ? '#00e67a' : 'rgba(200, 200, 200, 0.6)',
+                  color: isActive ? '#00e67a' : 'rgba(255, 255, 255, 0.5)',
                   flexShrink: 0,
                   transition: 'color 200ms ease',
                 }}
@@ -163,7 +163,7 @@ export default function VerticalNav() {
                   fontFamily: "'Share Tech Mono', monospace",
                   fontSize: 11,
                   letterSpacing: '0.10em',
-                  color: isActive ? '#00e67a' : 'rgba(200, 200, 200, 0.5)',
+                  color: isActive ? '#00e67a' : 'rgba(255, 255, 255, 0.4)',
                   whiteSpace: 'nowrap',
                   opacity: expanded ? 1 : 0,
                   transition: 'opacity 200ms ease',

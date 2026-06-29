@@ -63,24 +63,24 @@ export default function OperatorDossier() {
     op.status === 'ACTIVE'
       ? 'text-mil-green'
       : op.status === 'STANDBY'
-        ? 'text-mil-yellow'
-        : 'text-mil-red'
+        ? 'text-mil-green'
+        : 'text-mil-green'
 
   const categoryCount = Object.keys(skillsByCategory).length
   const totalSkills = Object.values(skillsByCategory).reduce((sum, arr) => sum + arr.length, 0)
 
   return (
-    <AnimatedSection id="dossier" className="py-8 sm:py-10 lg:py-12 px-4 sm:px-6 lg:px-8">
+<AnimatedSection id="dossier" className="pt-16 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="section-header"
+          className="section-header mb-8"
         >
           <span>◆</span>
-          <span>OPERATOR DOSSIER // {op.callSign}</span>
+          <span>OPERATOR DOSSIER // PERSONNEL FILE</span>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -170,7 +170,7 @@ export default function OperatorDossier() {
                   key={category}
                   className="p-2.5"
                   style={{
-                    background: 'rgba(10, 8, 20, 0.5)',
+                    background: 'rgba(0, 0, 0, 0.4)',
                     border: '1px solid rgba(255, 255, 255, 0.04)',
                     borderRadius: '6px',
                   }}
@@ -207,12 +207,12 @@ export default function OperatorDossier() {
               >
                 <LogoLoop
                   logos={TECH_LOGOS}
-                  speed={120}
+                  speed={90}
                   direction="left"
                   logoHeight={35}
                   gap={42}
                   fadeOut
-                  fadeOutColor="#0d0d14"
+                  fadeOutColor="#080c09"
                   scaleOnHover
                   pauseOnHover
                 />

@@ -13,8 +13,8 @@ const SOCIALS = [
     href: 'https://linkedin.com/in/prannavakhanth',
     icon: FaLinkedin,
     label: 'LinkedIn',
-    iconHover: '#0a66c2',
-    borderHover: 'rgba(10,102,194,0.25)',
+    iconHover: '#00e67a',
+    borderHover: 'rgba(0,230,122,0.25)',
   },
   {
     href: 'mailto:prannavakhanth12@gmail.com',
@@ -63,12 +63,12 @@ export default function SocialIcons() {
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = 'transparent'
                 const icon = e.currentTarget.querySelector('svg')
-                if (icon) icon.style.color = '#9ca3af'
+                if (icon) icon.style.color = 'rgba(255, 255, 255, 0.5)'
               }}
             >
               <Icon
                 size={18}
-                className="text-gray-400 transition-all duration-200"
+                className="text-white/50 transition-all duration-200"
                 style={{ transition: 'color 200ms ease' }}
               />
               <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-[10px] font-mono tracking-wider whitespace-nowrap pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200"

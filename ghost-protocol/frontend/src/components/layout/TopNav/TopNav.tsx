@@ -77,7 +77,7 @@ function MobileNavMenu({
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute top-full left-0 right-0 bg-[#0d110d] border-b border-[#1a2e1a] p-2 sm:p-3"
+          className="absolute top-full left-0 right-0 bg-[#080c09] border-b border-[#1a2e1a] p-2 sm:p-3"
         >
           {NAV_TABS.map((tab) => (
             <button

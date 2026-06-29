@@ -15,8 +15,9 @@ import { leadershipData, type LeadershipEntry } from '../data/leadership'
 import { certificationsData, type CertificationEntry } from '../data/certifications'
 import { awardsData, type AwardEntry } from '../data/awards'
 import { githubReposData, type GitHubRepoEntry } from '../data/github'
+import { achievementsData, type AchievementEntry, type AchievementStats } from '../data/achievements'
 
-export type { EducationEntry, LeadershipEntry, CertificationEntry, AwardEntry, GitHubRepoEntry }
+export type { EducationEntry, LeadershipEntry, CertificationEntry, AwardEntry, GitHubRepoEntry, AchievementEntry, AchievementStats }
 
 // ── Operator Profile ──
 export function getProfile(): Operator {
@@ -91,6 +92,11 @@ export function getAwardsByCategory(): Record<string, AwardEntry[]> {
     grouped[award.category].push(award)
   }
   return grouped
+}
+
+// ── Achievements ──
+export function getAchievements() {
+  return achievementsData
 }
 
 // ── GitHub Repos ──

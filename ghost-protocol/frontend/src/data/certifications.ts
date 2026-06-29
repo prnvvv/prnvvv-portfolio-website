@@ -1,52 +1,66 @@
 export interface CertificationEntry {
   id: string
-  name: string
+  title: string
   issuer: string
-  date_earned: string
-  skills_validated: string[]
+  issuerShort: string
+  platform: string
+  category: string
+  color: string
 }
 
 export const certificationsData: CertificationEntry[] = [
   {
-    id: 'cert-1',
-    name: 'Supervised Machine Learning: Regression & Classification',
+    id: 'CERT-001',
+    title: 'Supervised Machine Learning',
     issuer: 'Stanford University',
-    date_earned: '2025-01',
-    skills_validated: ['Supervised Learning', 'Regression', 'Classification', 'ML Algorithms'],
+    issuerShort: 'STANFORD',
+    platform: 'Coursera',
+    category: 'ML_CORE',
+    color: '#00e67a',
   },
   {
-    id: 'cert-2',
-    name: 'Advanced Machine Learning Algorithms',
+    id: 'CERT-002',
+    title: 'Advanced Learning Algorithms',
     issuer: 'Stanford University',
-    date_earned: '2025-06',
-    skills_validated: ['Advanced ML', 'Algorithm Design', 'Model Optimization'],
+    issuerShort: 'STANFORD',
+    platform: 'Coursera',
+    category: 'ML_CORE',
+    color: '#00e67a',
   },
   {
-    id: 'cert-3',
-    name: 'Machine Learning with Python',
+    id: 'CERT-003',
+    title: 'Machine Learning with Python',
     issuer: 'IBM',
-    date_earned: '2024-12',
-    skills_validated: ['Python', 'Scikit-learn', 'ML Implementation'],
+    issuerShort: 'IBM',
+    platform: 'Coursera',
+    category: 'ML_CORE',
+    color: '#00e67a',
   },
   {
-    id: 'cert-4',
-    name: 'AWS Foundations: Machine Learning Basics',
-    issuer: 'Amazon Web Services (AWS)',
-    date_earned: '2025-03',
-    skills_validated: ['AWS', 'ML Basics', 'Cloud ML'],
+    id: 'CERT-004',
+    title: 'AWS Foundations: ML Basics',
+    issuer: 'Amazon Web Services',
+    issuerShort: 'AWS',
+    platform: 'AWS',
+    category: 'CLOUD',
+    color: '#00e67a',
   },
   {
-    id: 'cert-5',
-    name: 'Introduction to Generative AI',
+    id: 'CERT-005',
+    title: 'Introduction to Generative AI',
     issuer: 'Google',
-    date_earned: '2025-08',
-    skills_validated: ['Generative AI', 'LLM', 'AI Fundamentals'],
+    issuerShort: 'GOOGLE',
+    platform: 'Google',
+    category: 'GEN_AI',
+    color: '#00e67a',
   },
   {
-    id: 'cert-6',
-    name: 'Exploring Data Transformation with Google Cloud',
+    id: 'CERT-006',
+    title: 'Exploring Data Transformation',
     issuer: 'Google Cloud',
-    date_earned: '2025-09',
-    skills_validated: ['Data Transformation', 'Google Cloud', 'Data Engineering'],
+    issuerShort: 'GCP',
+    platform: 'Google Cloud',
+    category: 'CLOUD',
+    color: '#00e67a',
   },
 ]

@@ -23,12 +23,12 @@ export class SectionErrorBoundary extends Component<Props, State> {
         <div
           style={{
             padding: '40px',
-            color: '#ff4444',
+            color: '#00e67a',
             fontFamily: 'monospace',
             fontSize: '12px',
-            border: '1px solid rgba(255,68,68,0.2)',
+            border: '1px solid rgba(0,230,122,0.2)',
             margin: '16px',
-            background: 'rgba(255,68,68,0.05)',
+            background: 'rgba(0,230,122,0.05)',
           }}
         >
           // SECTION ERROR [{this.props.name}]: {this.state.error}

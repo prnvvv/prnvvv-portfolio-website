@@ -9,7 +9,7 @@ export default function SkillTag({ name }: SkillTagProps) {
     <motion.span
       className="font-mono cursor-default select-none inline-block"
       style={{
-        color: '#f0f0f0',
+        color: 'rgba(255, 255, 255, 0.94)',
         background: 'rgba(0, 230, 122, 0.06)',
         border: '1px solid rgba(0, 230, 122, 0.25)',
         fontSize: 'var(--text-xs)',

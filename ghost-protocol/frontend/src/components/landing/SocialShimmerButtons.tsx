@@ -12,7 +12,7 @@ const SOCIAL_LINKS = [
     icon: Globe,
     label: 'LINKEDIN',
     href: 'https://www.linkedin.com/in/prannavakhanth/',
-    shimmerColor: '#00c4f0',
+    shimmerColor: '#00e67a',
   },
   {
     icon: Mail,
@@ -38,7 +38,7 @@ export function SocialShimmerButtons() {
             shimmerSize="0.06em"
             shimmerDuration="2.5s"
             borderRadius="3px"
-            background="rgba(10, 8, 20, 0.85)"
+            background="rgba(0, 0, 0, 0.7)"
             className="flex items-center gap-2 px-4 py-2.5 font-mono text-[10px] tracking-[0.2em] uppercase text-[#00e67a] border border-[rgba(0,230,122,0.25)] hover:border-[rgba(0,230,122,0.5)] transition-colors duration-200"
           >
             <Icon size={13} strokeWidth={1.8} />

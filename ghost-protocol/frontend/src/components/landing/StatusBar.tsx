@@ -44,7 +44,7 @@ export default function StatusBar() {
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: '10px 24px',
-        background: 'rgba(13, 13, 20, 0.75)',
+        background: 'rgba(8, 12, 9, 0.75)',
         backdropFilter: 'blur(20px)',
         borderBottom: '1px solid rgba(0, 230, 122, 0.08)',
         fontFamily: "'JetBrains Mono', monospace",
@@ -55,10 +55,10 @@ export default function StatusBar() {
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
         <span style={{ color: '#00e67a', fontSize: 14 }}>◆</span>
-        <span style={{ color: '#f0f0f0', letterSpacing: '0.2em', fontWeight: 500, fontFamily: "'Orbitron', monospace" }}>
+        <span style={{ color: 'rgba(255, 255, 255, 0.94)', letterSpacing: '0.2em', fontWeight: 500, fontFamily: "'Orbitron', monospace" }}>
           GHOST PROTOCOL
         </span>
-        <span style={{ color: '#4a4a5a', fontSize: 9 }}>v1.0.0</span>
+        <span style={{ color: 'rgba(255, 255, 255, 0.3)', fontSize: 9 }}>v1.0.0</span>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -66,12 +66,12 @@ export default function StatusBar() {
           <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#00e67a', display: 'inline-block' }} />
           <span style={{ color: '#00e67a' }}>ACTIVE</span>
         </div>
-        <span style={{ color: '#4a4a5a' }}>|</span>
-        <span style={{ color: '#9a9aaa' }}>{date}</span>
-        <span style={{ color: '#9a9aaa' }}>{time}</span>
-        <span style={{ color: '#4a4a5a' }}>|</span>
+        <span style={{ color: 'rgba(255, 255, 255, 0.3)' }}>|</span>
+        <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>{date}</span>
+        <span style={{ color: 'rgba(255, 255, 255, 0.6)' }}>{time}</span>
+        <span style={{ color: 'rgba(255, 255, 255, 0.3)' }}>|</span>
         <span style={{
-          color: '#9a9aaa',
+          color: 'rgba(255, 255, 255, 0.6)',
           border: '1px solid rgba(0, 230, 122, 0.15)',
           padding: '2px 8px',
           fontSize: 9,

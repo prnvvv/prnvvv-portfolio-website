@@ -32,10 +32,10 @@ export default function ChatInput({ onSend, isProcessing }: ChatInputProps) {
   }
 
   return (
-    <div className="border-t border-gray-800 p-3">
+    <div className="border-t border-white/10 p-3">
       <div className="flex gap-2">
-        <div className="flex-1 flex items-center bg-gray-900/50 border border-gray-700 rounded px-3 py-2">
-          <span className="text-[#5a8a6a] text-xs font-mono mr-2">&gt;</span>
+        <div className="flex-1 flex items-center bg-black/50 border border-white/20 rounded px-3 py-2">
+          <span className="text-white/40 text-xs font-mono mr-2">&gt;</span>
           <input
             ref={inputRef}
             type="text"
@@ -48,10 +48,10 @@ export default function ChatInput({ onSend, isProcessing }: ChatInputProps) {
             onKeyDown={handleKeyDown}
             placeholder="TYPE TRANSMISSION..."
             disabled={isProcessing}
-            className="bg-transparent border-none outline-none text-white font-mono flex-1 text-xs placeholder:text-gray-500"
+            className="bg-transparent border-none outline-none text-white font-mono flex-1 text-xs placeholder:text-white/40"
             style={{ fontFamily: 'Share Tech Mono' }}
           />
-          <span className="text-[9px] text-gray-600 font-mono ml-2">
+          <span className="text-[9px] text-white/30 font-mono ml-2">
             {input.length}/{MAX_CHARS}
           </span>
         </div>

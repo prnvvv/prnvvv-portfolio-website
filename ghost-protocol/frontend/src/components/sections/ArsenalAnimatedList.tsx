@@ -10,8 +10,8 @@ function getStatus(skill: Skill): 'ACTIVE' | 'PROFICIENT' | 'LEARNING' {
 
 const STATUS_COLORS = {
   ACTIVE: '#00e67a',
-  PROFICIENT: 'rgba(0,196,240,0.9)',
-  LEARNING: 'rgba(255,165,0,0.8)',
+  PROFICIENT: 'rgba(255, 255, 255, 0.6)',
+  LEARNING: 'rgba(255, 255, 255, 0.4)',
 };
 
 const CATEGORY_EMOJI: Record<string, string> = {
@@ -32,7 +32,7 @@ function SkillItem({ entry }: { entry: Skill }) {
         alignItems: 'center',
         gap: '12px',
         padding: '10px 16px',
-        background: 'rgba(10, 8, 20, 0.65)',
+        background: 'rgba(0, 0, 0, 0.5)',
         border: '1px solid rgba(255,255,255,0.06)',
         borderRadius: '3px',
         backdropFilter: 'blur(12px)',
@@ -45,7 +45,7 @@ function SkillItem({ entry }: { entry: Skill }) {
           style={{
             fontFamily: 'Share Tech Mono, monospace',
             fontSize: '12px',
-            color: '#f0f0f0',
+            color: 'rgba(255, 255, 255, 0.94)',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -97,7 +97,7 @@ export function ArsenalAnimatedList() {
           position: 'absolute',
           bottom: 0, left: 0, right: 0,
           height: '80px',
-          background: 'linear-gradient(to bottom, transparent, rgba(8,4,18,0.95))',
+          background: 'linear-gradient(to bottom, transparent, rgba(8,12,9,0.95))',
           pointerEvents: 'none',
         }}
       />

@@ -1,50 +1,47 @@
 export interface EducationEntry {
   id: string
-  degree: string
   institution: string
   location: string
-  duration: string
+  degree: string
+  period: string
   score: string
-  highlights: string[]
+  scoreLabel: string
+  status: string
+  icon: string
 }
 
 export const educationData: EducationEntry[] = [
   {
-    id: 'edu-1',
-    degree: 'Bachelor of Technology in Computer Science & Engineering',
-    institution: 'Vellore Institute of Technology (VIT)',
-    location: 'Chennai',
-    duration: '2023-2027',
-    score: '9.06/10 CGPA',
-    highlights: [
-      'Active in technical clubs and hackathons',
-      'Research focus on AI/ML and healthcare',
-      'Published multiple patents and research papers',
-    ],
+    id: 'EDU-001',
+    institution: 'Vellore Institute of Technology',
+    location: 'Chennai, Tamil Nadu',
+    degree: 'B.Tech — Computer Science & Engineering',
+    period: '2023 — 2027',
+    score: '9.06 / 10',
+    scoreLabel: 'CGPA',
+    status: 'ACTIVE',
+    icon: 'GraduationCap',
   },
   {
-    id: 'edu-2',
-    degree: 'Higher Secondary Education (Class XII)',
-    institution: 'P. S. Senior Secondary School',
-    location: 'Chennai',
-    duration: '2023',
+    id: 'EDU-002',
+    institution: 'P.S. Senior Secondary School',
+    location: 'Chennai, Tamil Nadu',
+    degree: 'Class XII — Science Group',
+    period: '2023',
     score: '97.2%',
-    highlights: [
-      'Science Group Topper - 486/500',
-      'Subject Topper in Chemistry, Computer Science, Physical Education',
-      'Sports Secretary',
-    ],
+    scoreLabel: 'PERCENTAGE',
+    status: 'COMPLETED',
+    icon: 'School',
   },
   {
-    id: 'edu-3',
-    degree: 'Secondary Education (Class X)',
-    institution: 'P. S. Senior Secondary School',
-    location: 'Chennai',
-    duration: '2021',
+    id: 'EDU-003',
+    institution: 'P.S. Senior Secondary School',
+    location: 'Chennai, Tamil Nadu',
+    degree: 'Class X',
+    period: '2021',
     score: '91.8%',
-    highlights: [
-      'TNCA Under-16 Cricketer',
-      'TNCA Under-14 Cricketer',
-    ],
+    scoreLabel: 'PERCENTAGE',
+    status: 'COMPLETED',
+    icon: 'School',
   },
 ]

@@ -10,17 +10,17 @@ export const NAV_TABS = [
 ] as const
 
 export const COLORS = {
-  dark: '#0d0d14',
-  darker: '#181825',
-  panel: '#181825',
+  dark: '#080c09',
+  darker: '#080c09',
+  panel: '#080c09',
   green: '#00e67a',
-  cyan: '#00c4f0',
-  olive: '#5a8a6a',
-  light: '#f0f0f0',
-  muted: '#9a9aaa',
-  dim: '#4a4a5a',
-  red: '#ff3344',
-  yellow: '#ffcc00',
+  cyan: '#00e67a',
+  olive: 'rgba(255, 255, 255, 0.5)',
+  light: 'rgba(255, 255, 255, 0.94)',
+  muted: 'rgba(255, 255, 255, 0.6)',
+  dim: 'rgba(255, 255, 255, 0.3)',
+  red: '#00e67a',
+  yellow: '#00e67a',
 } as const
 
 export const LOADING_DURATION = 3500

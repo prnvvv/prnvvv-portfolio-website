@@ -33,8 +33,8 @@ export default function ChatWindow() {
           <div className="flex items-center justify-between px-4 py-3 border-b border-[#00e67a]/20 shrink-0">
             <div className="flex items-center gap-3">
               <span className="relative flex h-2 w-2">
-                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isOnline ? 'bg-[#00e67a]' : 'bg-[#ff3344]'}`} />
-                <span className={`relative inline-flex rounded-full h-2 w-2 ${isOnline ? 'bg-[#00e67a]' : 'bg-[#ff3344]'}`} />
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isOnline ? 'bg-[#00e67a]' : 'bg-[#00e67a]'}`} />
+                <span className={`relative inline-flex rounded-full h-2 w-2 ${isOnline ? 'bg-[#00e67a]' : 'bg-[#00e67a]'}`} />
               </span>
               <div>
                 <span
@@ -50,14 +50,14 @@ export default function ChatWindow() {
             <div className="flex items-center gap-2">
               <button
                 onClick={clearMessages}
-                className="text-[9px] text-gray-500 font-mono hover:text-gray-300 transition-colors px-2 py-1"
+                className="text-[9px] text-white/40 font-mono hover:text-white/70 transition-colors px-2 py-1"
                 aria-label="Clear conversation"
               >
                 CLEAR
               </button>
               <button
                 onClick={closeChat}
-                className="text-gray-400 hover:text-[#00e67a] transition-colors text-lg leading-none px-1"
+                className="text-white/50 hover:text-[#00e67a] transition-colors text-lg leading-none px-1"
                 aria-label="Close chat"
               >
                 ✕
@@ -74,10 +74,10 @@ export default function ChatWindow() {
                 className="flex flex-col items-center justify-center h-full text-center"
               >
                 <div className="text-2xl mb-3 opacity-50">◈</div>
-                <p className="text-gray-400 text-xs font-mono mb-2">
+                <p className="text-white/50 text-xs font-mono mb-2">
                   Welcome, Operator.
                 </p>
-                <p className="text-gray-500 text-[10px] font-mono max-w-[280px] leading-relaxed">
+                <p className="text-white/40 text-[10px] font-mono max-w-[280px] leading-relaxed">
                   I am the Command Intelligence System. Ask me about the operator's
                   projects, skills, experience, or any portfolio information.
                 </p>
@@ -115,8 +115,8 @@ export default function ChatWindow() {
 
           {/* Error Banner */}
           {error && (
-            <div className="px-4 py-1.5 bg-[#ff3344]/10 border-t border-[#ff3344]/30">
-              <p className="text-[#ff3344] text-[9px] font-mono">
+            <div className="px-4 py-1.5 bg-[#00e67a]/10 border-t border-[#00e67a]/30">
+              <p className="text-[#00e67a] text-[9px] font-mono">
                 COMMS ERROR: {error}
               </p>
             </div>
@@ -129,8 +129,8 @@ export default function ChatWindow() {
           <ChatInput onSend={send} isProcessing={isProcessing} />
 
           {/* Footer */}
-          <div className="px-4 py-1.5 bg-black/40 border-t border-gray-900">
-            <p className="text-[8px] text-gray-600 font-mono text-center tracking-wider">
+          <div className="px-4 py-1.5 bg-black/40 border-t border-white/5">
+            <p className="text-[8px] text-white/30 font-mono text-center tracking-wider">
               GHOST PROTOCOL v1.0.0 // SECURE CHANNEL // AI CORE
             </p>
           </div>

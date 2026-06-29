@@ -18,7 +18,7 @@ export default function QuickActions({ onSend, disabled }: QuickActionsProps) {
           key={action.label}
           onClick={() => onSend(action.query)}
           disabled={disabled}
-          className="text-[9px] font-mono px-2 py-1 rounded border border-gray-700 text-gray-400 hover:text-[#00e67a] hover:border-[#00e67a]/40 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
+          className="text-[9px] font-mono px-2 py-1 rounded border border-white/20 text-white/50 hover:text-[#00e67a] hover:border-[#00e67a]/40 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
         >
           {action.icon} {action.label}
         </button>

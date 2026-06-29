@@ -42,7 +42,7 @@ export default function CommandIntelligence() {
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      className="panel-border bg-[#0d110d]"
+      className="panel-border bg-[#080c09]"
     >
       <div className="border-b border-[#1a2e1a] px-4 py-2 flex items-center gap-2">
         <span className="blinking-dot" />
@@ -71,7 +71,7 @@ export default function CommandIntelligence() {
             <div
               className={`max-w-[80%] px-3 py-2 text-xs font-body ${
                 msg.role === 'user'
-                  ? 'bg-[#1a2e1a] text-[#c8ffd4]'
+                  ? 'bg-[#1a2e1a] text-white/90'
                   : 'bg-[#0a0c0a] border border-[#1a2e1a] text-[#00e67a]'
               }`}
             >
@@ -93,8 +93,8 @@ export default function CommandIntelligence() {
       </div>
 
       {error && (
-        <div className="px-4 py-2 bg-[#ff3344]/10 border-t border-[#ff3344]/30">
-          <p className="text-[#ff3344] text-[10px] font-body">
+        <div className="px-4 py-2 bg-[#00e67a]/10 border-t border-[#00e67a]/30">
+          <p className="text-[#00e67a] text-[10px] font-body">
             ERROR: {error}
           </p>
         </div>
@@ -110,7 +110,7 @@ export default function CommandIntelligence() {
             onKeyDown={handleKeyDown}
             placeholder="ENTER QUERY..."
             disabled={isProcessing}
-            className="bg-transparent border-none outline-none text-[#c8ffd4] font-body flex-1 p-0 text-xs"
+            className="bg-transparent border-none outline-none text-white/90 font-body flex-1 p-0 text-xs"
             style={{ fontFamily: 'Share Tech Mono' }}
           />
         </div>

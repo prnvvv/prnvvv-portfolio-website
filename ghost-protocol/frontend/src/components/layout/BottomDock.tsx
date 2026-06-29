@@ -40,7 +40,7 @@ export default function BottomDock() {
           alignItems: 'center',
           gap: '8px',
           padding: '10px 20px',
-          background: 'rgba(8, 4, 18, 0.90)',
+          background: 'rgba(8, 12, 9, 0.90)',
           backdropFilter: 'blur(28px) saturate(180%)',
           WebkitBackdropFilter: 'blur(28px) saturate(180%)',
           border: '1px solid rgba(255,255,255,0.08)',

@@ -5,7 +5,8 @@ interface HeroStatsProps {
 }
 
 const STATS = [
-  { value: 11, label: 'PROJECTS', suffix: '' },
+  { value: 8, label: 'PROJECTS', suffix: '' },
+  { value: 3, label: 'WINS', suffix: '' },
   { value: 3, label: 'ACTIVE OPS', suffix: '' },
   { value: 4, label: 'YRS EXP', suffix: '+' },
 ]
@@ -15,7 +16,7 @@ function easeOut(t: number): number {
 }
 
 export default function HeroStats({ className = '' }: HeroStatsProps) {
-  const [counts, setCounts] = useState<number[]>([0, 0, 0])
+  const [counts, setCounts] = useState<number[]>([0, 0, 0, 0])
 
   useEffect(() => {
     const duration = 1400

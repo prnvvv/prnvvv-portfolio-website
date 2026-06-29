@@ -23,7 +23,7 @@ export default function ChatMessage({ role, content, timestamp, sources, citatio
       <div
         className={`max-w-[90%] sm:max-w-[85%] md:max-w-[80%] px-3.5 py-2.5 text-xs font-body ${
           isUser
-            ? 'bg-[#00d4ff]/10 border border-[#00d4ff]/30 text-white rounded-l-lg rounded-tr-lg'
+            ? 'bg-[#00e67a]/10 border border-[#00e67a]/30 text-white rounded-l-lg rounded-tr-lg'
             : 'bg-[#00e67a]/10 border border-[#00e67a]/30 text-white rounded-r-lg rounded-tl-lg'
         }`}
       >
@@ -32,12 +32,12 @@ export default function ChatMessage({ role, content, timestamp, sources, citatio
         {/* Sources */}
         {sources && sources.length > 0 && (
           <div className="mt-2 pt-2 border-t border-white/10">
-            <p className="text-[9px] text-gray-500 font-mono mb-1">SOURCES:</p>
+            <p className="text-[9px] text-white/40 font-mono mb-1">SOURCES:</p>
             <div className="flex flex-wrap gap-1">
               {sources.map((s, i) => (
                 <span
                   key={s.id || i}
-                  className="text-[8px] px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 font-mono"
+                  className="text-[8px] px-1.5 py-0.5 rounded bg-white/5 text-white/50 font-mono"
                 >
                   ▣ {s.metadata?.title || s.metadata?.name || `Source ${i + 1}`}
                 </span>
@@ -59,7 +59,7 @@ export default function ChatMessage({ role, content, timestamp, sources, citatio
           </div>
         )}
 
-        <p className="text-[#5a8a6a] text-[9px] mt-1.5 text-right font-mono">
+        <p className="text-white/40 text-[9px] mt-1.5 text-right font-mono">
           {formatTimestamp(timestamp)}
         </p>
       </div>
