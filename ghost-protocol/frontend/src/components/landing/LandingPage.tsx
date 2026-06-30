@@ -64,7 +64,7 @@ export default function LandingPage() {
       {/* ─── Hero Section ─── */}
       <div className="hero-section" style={{ position: 'relative', overflow: 'hidden' }}>
         {/* ─── Dither Background + Overlay ─── */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 opacity-30 md:opacity-100">
           <Dither
             waveColor={[0.0, 0.9, 0.48]}
             disableAnimation={false}
@@ -77,10 +77,10 @@ export default function LandingPage() {
             pixelSize={2}
           />
         </div>
-        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/65 via-black/35 to-black/75 pointer-events-none" />
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/90 via-black/75 to-black/95 md:from-black/70 md:via-black/40 md:to-black/80 pointer-events-none" />
 
         <div className="relative z-[2] w-full h-full flex items-center">
-          <div className="hero-content pt-20">
+          <div className="hero-content pt-24 md:pt-20">
             {/* ─── Left column: Hero text stack ─── */}
             <div className="hero-zone-a">
               <div className="hero-clearance" style={{ minHeight: '24px' }} />
@@ -160,7 +160,7 @@ export default function LandingPage() {
             </div>
 
             {/* ─── Right column: Globe + Stats ─── */}
-              <div className="hero-zone-b hero-right-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
+              <div className="hero-zone-b hero-right-col w-full md:w-auto" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
                 <div className="globe-container" ref={globeContainerRef}>
                   <CobeGlobe
                     reduced={reduced}

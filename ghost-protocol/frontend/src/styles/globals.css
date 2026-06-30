@@ -769,25 +769,41 @@ body {
 }
 
 @media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+    min-height: 100dvh;
+  }
   .hero-content {
     grid-template-columns: 1fr;
     gap: 24px;
-    padding: 72px 20px 0;
+    padding: 80px 20px 40px;
     text-align: center;
   }
   .hero-zone-a {
     padding-left: 0;
     align-items: center;
+    width: 100%;
+    overflow: hidden;
   }
   .hero-zone-b {
     grid-row: 2;
     padding-right: 0;
+    width: 100%;
   }
   .hero-bio {
     max-width: 100%;
   }
   .hero-name-wrap {
     margin-bottom: 6px;
+  }
+  .hero-name {
+    white-space: normal;
+    word-break: break-word;
+  }
+  .hero-name-reserve,
+  .hero-name-animated {
+    white-space: normal;
+    word-break: break-word;
   }
   .globe-container {
     width: min(380px, 75vw);
@@ -816,7 +832,7 @@ body {
     flex-wrap: wrap;
   }
   .hero-navbar-links {
-    display: none;
+    display: flex;
   }
   .hero-stats-row {
     max-width: 100%;
@@ -865,6 +881,10 @@ body {
     width: min(260px, 65vw);
     height: min(260px, 65vw);
   }
+  .hero-zone-a {
+    width: 100%;
+    overflow: hidden;
+  }
   .hero-zone-b {
     padding-right: 0;
   }
@@ -898,6 +918,9 @@ body {
   }
   .hero-stat-block {
     padding: 8px 0;
+  }
+  .hero-navbar-links {
+    gap: 12px;
   }
 }
 
