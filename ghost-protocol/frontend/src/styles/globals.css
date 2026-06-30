@@ -542,12 +542,13 @@ body {
 
 .globe-container {
   position: relative;
-  width: 500px;
-  height: 500px;
+  width: 486px;
+  height: 486px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 100px;
 }
 
 .hero-right-col {
@@ -751,6 +752,7 @@ body {
   .globe-container {
     width: 440px;
     height: 440px;
+    margin-top: 80px;
   }
   .hero-name {
     font-size: clamp(2.2rem, 3.5vw, 3rem);
@@ -790,6 +792,15 @@ body {
   .globe-container {
     width: min(380px, 75vw);
     height: min(380px, 75vw);
+    margin-top: 40px;
+  }
+  .globe-container::before {
+    width: min(420px, 85vw);
+    height: min(420px, 85vw);
+  }
+  .globe-container::after {
+    width: min(370px, 70vw);
+    height: min(370px, 70vw);
   }
   .hero-name {
     font-size: clamp(1.8rem, 7vw, 2.4rem);
@@ -812,6 +823,19 @@ body {
   }
 }
 
+@media (max-width: 580px) {
+  .hero-content {
+    padding: 64px 12px 0;
+    gap: 12px;
+  }
+  .globe-container {
+    margin-top: 10px;
+  }
+  .hero-zone-b {
+    gap: 12px;
+  }
+}
+
 @media (max-width: 480px) {
   .hero-content {
     padding: 64px 12px 0;
@@ -820,10 +844,26 @@ body {
   .hero-name {
     font-size: 1.5rem;
     letter-spacing: -0.01em;
+    white-space: normal;
+    word-break: break-word;
+  }
+  .hero-name-reserve,
+  .hero-name-animated {
+    white-space: normal;
+    word-break: break-word;
   }
   .globe-container {
     width: min(300px, 70vw);
     height: min(300px, 70vw);
+    margin-top: 20px;
+  }
+  .globe-container::before {
+    width: min(340px, 80vw);
+    height: min(340px, 80vw);
+  }
+  .globe-container::after {
+    width: min(260px, 65vw);
+    height: min(260px, 65vw);
   }
   .hero-zone-b {
     padding-right: 0;
@@ -839,10 +879,6 @@ body {
   }
   .hero-bio {
     font-size: 1rem;
-  }
-  .globe-container::after {
-    width: 260px;
-    height: 260px;
   }
   .cta-button-primary {
     min-width: 140px;
@@ -862,6 +898,60 @@ body {
   }
   .hero-stat-block {
     padding: 8px 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-content {
+    padding: 56px 8px 0;
+    gap: 8px;
+  }
+  .hero-name {
+    font-size: 1.2rem;
+  }
+  .globe-container {
+    width: min(220px, 65vw);
+    height: min(220px, 65vw);
+    margin-top: 10px;
+  }
+  .globe-container::before {
+    width: min(260px, 75vw);
+    height: min(260px, 75vw);
+  }
+  .globe-container::after {
+    width: min(210px, 60vw);
+    height: min(210px, 60vw);
+  }
+  .hero-role {
+    font-size: 0.65rem;
+  }
+  .hero-subtitle-line {
+    font-size: 0.85rem;
+  }
+  .hero-bio {
+    font-size: 0.85rem;
+  }
+  .cta-button-primary {
+    min-width: 120px;
+    height: 34px;
+    font-size: 0.6rem;
+    padding: 0 16px;
+  }
+  .hero-social-link {
+    height: 34px;
+    font-size: 0.6rem;
+    min-width: 60px;
+  }
+  .hero-navbar {
+    padding: 0 12px;
+    height: 56px;
+  }
+  .hero-navbar-brand {
+    font-size: 0.6rem;
+  }
+  .hero-section::before,
+  .hero-section::after {
+    top: 64px;
   }
 }
 
@@ -931,4 +1021,52 @@ body {
   .hero-bio-wrap { margin-bottom: 8px; }
   .hero-cta-row { margin-bottom: 6px; }
   .hero-bio { font-size: 1rem; max-width: 34ch; }
+}
+
+/* ═══════════════════════════════════════════
+   GENERAL MOBILE / TABLET IMPROVEMENTS
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  .section-header {
+    font-size: var(--text-xs);
+    word-break: break-word;
+  }
+  .hero-bio {
+    max-width: 100%;
+  }
+  .hero-subtitle-line {
+    max-width: 100%;
+  }
+  .hero-cta-row .cta-button-primary,
+  .hero-cta-row .hero-social-link {
+    font-size: 0.65rem;
+    min-width: auto;
+    padding: 0 14px;
+  }
+  .hero-location {
+    justify-content: center;
+  }
+  .hero-navbar {
+    padding: 0 16px;
+  }
+  .panel-border,
+  .glass-panel {
+    word-break: break-word;
+  }
+  .tactical-tile-inner {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-header {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+  }
+  .hero-section::before,
+  .hero-section::after {
+    width: 14px;
+    height: 14px;
+  }
 }

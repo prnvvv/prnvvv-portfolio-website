@@ -134,7 +134,6 @@ export default function LandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.0, duration: 0.6, ease: [0.22,1,0.36,1] }}
                   className="hero-bio"
-                  style={{ maxWidth: '520px' }}
                 >
                   {profile.bio}
                 </motion.p>
@@ -161,15 +160,15 @@ export default function LandingPage() {
             </div>
 
             {/* ─── Right column: Globe + Stats ─── */}
-            <div className="hero-zone-b hero-right-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
-              <div className="globe-container" ref={globeContainerRef} style={{ width: '486px', height: '486px', marginTop: '100px' }}>
-                <CobeGlobe
-                  reduced={reduced}
-                  interactive={!reduced}
-                  containerRef={globeContainerRef}
-                />
+              <div className="hero-zone-b hero-right-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
+                <div className="globe-container" ref={globeContainerRef}>
+                  <CobeGlobe
+                    reduced={reduced}
+                    interactive={!reduced}
+                    containerRef={globeContainerRef}
+                  />
+                </div>
               </div>
-            </div>
           </div>
         </div>
       </div>

@@ -79,7 +79,7 @@ export default function FloatingDock({ items = DOCK_ITEMS, desktopClassName, mob
 
       <div
         className={cn(
-          "fixed bottom-0 left-0 right-0 z-50 flex md:hidden items-center justify-around px-4 py-3",
+          "fixed bottom-0 left-0 right-0 z-50 flex md:hidden items-center justify-around px-2 py-2 pb-[max(8px,env(safe-area-inset-bottom,8px))]",
           "bg-[rgba(8,12,9,0.95)] backdrop-blur-[28px] border-t border-[rgba(255,255,255,0.06)]",
           mobileClassName
         )}
@@ -88,12 +88,13 @@ export default function FloatingDock({ items = DOCK_ITEMS, desktopClassName, mob
           <button
             key={item.id}
             onClick={() => handleNav(item)}
-            className="flex flex-col items-center gap-0.5"
+            className="flex flex-col items-center gap-0.5 py-2 px-3 min-w-[48px] min-h-[44px] justify-center active:bg-white/5 rounded-lg transition-colors"
+            aria-label={item.title}
           >
             <div className="w-5 h-5 flex items-center justify-center">
               {item.icon}
             </div>
-            <span className="text-[6px] font-mono tracking-widest text-white/40">
+            <span className="text-[7px] font-mono tracking-widest text-white/40 leading-none">
               {item.title.slice(0, 4)}
             </span>
           </button>

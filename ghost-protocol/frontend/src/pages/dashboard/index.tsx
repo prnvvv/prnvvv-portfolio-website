@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti'
 import { useUIStore } from '../../store/uiStore'
@@ -24,9 +24,17 @@ function Dashboard() {
   const { isLoading, setActiveSection } = useUIStore()
   const activeId = useActiveSection(SECTION_IDS)
   const confettiFired = useRef(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    if (!isLoading && !confettiFired.current) {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  useEffect(() => {
+    if (!isLoading && !confettiFired.current && !isMobile) {
       confettiFired.current = true
       const timer = setTimeout(() => {
         confetti({
@@ -38,7 +46,7 @@ function Dashboard() {
       }, 600)
       return () => clearTimeout(timer)
     }
-  }, [isLoading])
+  }, [isLoading, isMobile])
 
   useEffect(() => {
     window.history.scrollRestoration = 'manual'
@@ -56,7 +64,7 @@ function Dashboard() {
       <TacticalFlickeringGrid />
       <ParticleField />
       <FloatingDock />
-      <main className="relative z-10" style={{ paddingLeft: '72px' }}>
+      <main className="relative z-10" style={{ paddingLeft: isMobile ? '0px' : '72px' }}>
         <OperatorDossier />
         <Education />
         <Missions />
