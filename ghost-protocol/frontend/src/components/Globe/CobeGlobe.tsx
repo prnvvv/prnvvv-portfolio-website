@@ -137,7 +137,7 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
       ref={canvasRef}
       className="globe-canvas"
       role="img"
-      aria-label="Holographic Earth globe showing global AI intelligence network"
+      aria-label="Interactive 3D globe showing global presence"
     />
   )
 }

@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import AnimatedSection from '../../animations/AnimatedSection'
 import { getProfile, getSkillsByCategory } from '../../../services/dataService'
@@ -49,13 +49,6 @@ const TECH_LOGOS = [
   { node: <SiReact />, title: 'React' },
   { node: <SiMatplotlib />, title: 'Matplotlib' },
   { node: <SiSeaborn />, title: 'Seaborn' },
-]
-
-const AI_STATUS = [
-  { label: 'INFERENCE ENGINE', value: 'ONLINE', color: 'var(--accent-green)' },
-  { label: 'MODELS LOADED', value: '5 ACTIVE', color: 'var(--accent-green)' },
-  { label: 'UPTIME', value: '99.97%', color: 'var(--accent-green)' },
-  { label: 'LATENCY', value: '12ms', color: 'var(--accent-green)' },
 ]
 
 export default function OperatorDossier() {
@@ -126,24 +119,8 @@ export default function OperatorDossier() {
               <p className="text-mil-light font-body leading-relaxed" style={{ fontSize: 'var(--text-xs)' }}>{op.bio}</p>
             </div>
 
-            {/* ─── AI CORE Status ─── */}
-            <div id="ai-core" className="mt-3 pt-3 border-t border-mil-green/12">
-              <h4
-                className="font-heading text-mil-green tracking-[0.15em] uppercase mb-2"
-                style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xs)' }}
-              >
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-mil-green shadow-[0_0_6px_rgba(0,230,122,0.6)] mr-2 animate-pulse" />
-                AI CORE STATUS
-              </h4>
-              <div className="space-y-1.5">
-                {AI_STATUS.map((stat) => (
-                  <div key={stat.label} className="flex justify-between items-center font-body" style={{ fontSize: 'var(--text-xs)' }}>
-                    <span className="text-mil-olive">{stat.label}</span>
-                    <span style={{ color: stat.color }}>{stat.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            {/* ─── Wisdom ─── */}
+            <WisdomSection />
           </motion.div>
 
           {/* ─── Skill Inventory Card (spans 2 cols) ─── */}
@@ -225,6 +202,40 @@ export default function OperatorDossier() {
         </div>
       </div>
     </AnimatedSection>
+  )
+}
+
+const QUOTES = [
+  '"Any sufficiently advanced technology is indistinguishable from magic." \u2014 Arthur C. Clarke',
+  '"The greatest achievement of technology is not how it changes life, but how it improves it." \u2014 Satya Nadella',
+  '"Technology should do the hard work so people can do the things that make them the happiest in life." \u2014 Larry Page',
+  '"The art challenges the technology, and the technology inspires the art." \u2014 John Lasseter',
+  '"Software is eating the world." \u2014 Steve Jobs',
+]
+
+function WisdomSection() {
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % QUOTES.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [])
+
+  return (
+    <div className="mt-3 pt-3 border-t border-mil-green/12">
+      <h4
+        className="font-heading text-mil-green tracking-[0.15em] uppercase mb-2"
+        style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xs)' }}
+      >
+        <span className="inline-block w-1.5 h-1.5 rounded-full bg-mil-green shadow-[0_0_6px_rgba(0,230,122,0.6)] mr-2 animate-pulse" />
+        WISDOM
+      </h4>
+      <p className="font-mono text-mil-light leading-relaxed" style={{ fontSize: 'var(--text-micro)' }}>
+        {QUOTES[index]}
+      </p>
+    </div>
   )
 }
 

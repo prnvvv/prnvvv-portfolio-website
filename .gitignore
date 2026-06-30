@@ -3,33 +3,6 @@
 .env.*
 !.env.example
 
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*$py.class
-.python-version
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.pytype/
-.tox/
-.nox/
-.coverage
-.coverage.*
-htmlcov/
-*.egg-info/
-.eggs/
-pip-wheel-metadata/
-.ipynb_checkpoints/
-
-# Virtual Environments
-venv/
-.venv/
-env/
-ENV/
-
 # Node / React / Vite
 node_modules/
 .vite/
