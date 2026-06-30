@@ -17,7 +17,7 @@ export const educationData: EducationEntry[] = [
     location: 'Chennai, Tamil Nadu',
     degree: 'B.Tech — Computer Science & Engineering',
     period: '2023 — 2027',
-    score: '9.06 / 10',
+    score: '9.08 / 10',
     scoreLabel: 'CGPA',
     status: 'ACTIVE',
     icon: 'GraduationCap',

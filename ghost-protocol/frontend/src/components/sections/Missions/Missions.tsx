@@ -14,7 +14,7 @@ export default function Missions() {
           className="section-header mb-8"
         >
           <span>◆</span>
-          <span>MISSIONS // OPERATIONS LOG</span>
+          <span>MISSIONS</span>
         </motion.div>
 
         <ProjectsBentoGrid />

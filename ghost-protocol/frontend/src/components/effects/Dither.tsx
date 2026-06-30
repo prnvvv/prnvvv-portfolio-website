@@ -195,12 +195,19 @@ function DitheredWaves({ waveSpeed, waveFrequency, waveAmplitude, waveColor, col
     if (enableMouseInteraction) u.mousePos.value.copy(mouseRef.current);
   });
 
-  const handlePointerMove = (e: any) => {
+  useEffect(() => {
     if (!enableMouseInteraction) return;
-    const rect = gl.domElement.getBoundingClientRect();
+    const canvas = gl.domElement;
     const dpr = gl.getPixelRatio();
-    mouseRef.current.set((e.clientX - rect.left) * dpr, (e.clientY - rect.top) * dpr);
-  };
+
+    const handlePointerMove = (e: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current.set((e.clientX - rect.left) * dpr, (e.clientY - rect.top) * dpr);
+    };
+
+    canvas.addEventListener('pointermove', handlePointerMove);
+    return () => canvas.removeEventListener('pointermove', handlePointerMove);
+  }, [enableMouseInteraction, gl]);
 
   return (
     <>
@@ -211,10 +218,6 @@ function DitheredWaves({ waveSpeed, waveFrequency, waveAmplitude, waveColor, col
       <EffectComposer>
         <RetroEffect colorNum={colorNum} pixelSize={pixelSize} />
       </EffectComposer>
-      <mesh onPointerMove={handlePointerMove} position={[0, 0, 0.01]} scale={[viewport.width, viewport.height, 1]} visible={false}>
-        <planeGeometry args={[1, 1]} />
-        <meshBasicMaterial transparent opacity={0} />
-      </mesh>
     </>
   );
 }

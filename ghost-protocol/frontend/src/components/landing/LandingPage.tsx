@@ -10,7 +10,8 @@ import HeroName from '../HeroText/HeroName';
 import HeroSubtitle from '../HeroText/HeroSubtitle';
 import CobeGlobe from '../Globe/CobeGlobe';
 import Dither from '../effects/Dither';
-import { KineticText } from '@/components/ui/kinetic-text';
+import DecryptText from '../effects/DecryptText';
+import { ROTATING_TITLES } from '../../data/titles';
 import MagicButton from '../ui/MagicButton';
 import SocialIcons from '../social/SocialIcons';
 
@@ -36,12 +37,12 @@ export default function LandingPage() {
         </div>
         <div className="hero-navbar-links">
           <a
-            href="https://github.com/prannavakhanth"
+            href="https://github.com/prnvvv"
             target="_blank"
             rel="noopener noreferrer"
             className="hero-navbar-link flex items-center gap-1.5"
           >
-            <FaGithub size={15} />
+            <FaGithub size={18} />
           </a>
           <a
             href="https://linkedin.com/in/prannavakhanth"
@@ -49,13 +50,13 @@ export default function LandingPage() {
             rel="noopener noreferrer"
             className="hero-navbar-link flex items-center gap-1.5"
           >
-            <FaLinkedin size={15} />
+            <FaLinkedin size={18} />
           </a>
           <a
             href="mailto:prannavakhanth12@gmail.com"
             className="hero-navbar-link flex items-center gap-1.5"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           </a>
         </div>
       </nav>
@@ -68,7 +69,7 @@ export default function LandingPage() {
             waveColor={[0.0, 0.9, 0.48]}
             disableAnimation={false}
             enableMouseInteraction={true}
-            mouseRadius={0.3}
+            mouseRadius={0.35}
             colorNum={4}
             waveAmplitude={0.3}
             waveFrequency={3}
@@ -84,7 +85,7 @@ export default function LandingPage() {
             <div className="hero-zone-a">
               <div className="hero-clearance" style={{ minHeight: '24px' }} />
 
-              <div className="hero-name-wrap" style={{ filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.8))' }}>
+              <div className="hero-name-wrap">
                 <HeroName name={profile.name} />
               </div>
 
@@ -95,8 +96,8 @@ export default function LandingPage() {
                   transition={{ delay: 0.6, duration: 0.5, ease: [0.22,1,0.36,1] }}
                   style={{
                     fontFamily: 'Share Tech Mono, monospace',
-                    fontSize: 'clamp(16px, 2vw, 22px)',
-                    color: 'rgba(0, 230, 122, 0.85)',
+                    fontSize: 'clamp(16.32px, 2.04vw, 22.44px)',
+                    color: '#00e67a',
                     letterSpacing: '0.05em',
                     display: 'flex',
                     alignItems: 'center',
@@ -104,13 +105,11 @@ export default function LandingPage() {
                     marginBottom: '28px',
                   }}
                 >
-                  <span style={{ color: 'rgba(0,230,122,0.4)' }}>{'< '}</span>
-                  <KineticText
-                    text={profile.specialization}
-                    as="span"
-                    className="font-mono text-[#00e67a] [&_span]:transition-all [&_span]:duration-150 hover:[&_span]:text-white"
+                  <DecryptText
+                    texts={ROTATING_TITLES}
+                    interval={4000}
+                    className="font-mono font-bold"
                   />
-                  <span style={{ color: 'rgba(0,230,122,0.4)' }}>{' />'}</span>
                 </motion.div>
               </div>
 
@@ -119,7 +118,7 @@ export default function LandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.5, ease: [0.22,1,0.36,1] }}
               >
-                <div style={{ filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.8))' }}>
+                <div>
                   <HeroSubtitle
                     lines={['Building scalable AI/ML systems & agentic solutions']}
                     initialDelay={800}
@@ -135,7 +134,7 @@ export default function LandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.0, duration: 0.6, ease: [0.22,1,0.36,1] }}
                   className="hero-bio"
-                  style={{ maxWidth: '520px', filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.8))' }}
+                  style={{ maxWidth: '520px' }}
                 >
                   {profile.bio}
                 </motion.p>
@@ -155,7 +154,6 @@ export default function LandingPage() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.4, duration: 0.5 }}
                 className="hero-location"
-                style={{ filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.8))' }}
               >
                 <MapPin size={11} color="rgba(0,230,122,0.4)" />
                 {profile.location}
@@ -164,7 +162,7 @@ export default function LandingPage() {
 
             {/* ─── Right column: Globe + Stats ─── */}
             <div className="hero-zone-b hero-right-col" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
-              <div className="globe-container" ref={globeContainerRef} style={{ width: '472px', height: '472px', marginTop: '100px' }}>
+              <div className="globe-container" ref={globeContainerRef} style={{ width: '486px', height: '486px', marginTop: '100px' }}>
                 <CobeGlobe
                   reduced={reduced}
                   interactive={!reduced}

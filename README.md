@@ -1,31 +1,38 @@
 # prnvvv-portfolio-website
 
-Personal developer portfolio highlighting AI/ML projects, open-source contributions, and technical expertise.
+Personal developer portfolio built with React, TypeScript, and Vite.
 
-## Projects
+The frontend features an interactive 3D globe, animated UI components, and a military/HUD-themed design system.
 
-### Ghost Protocol
-An AI-powered RAG (Retrieval-Augmented Generation) system with a modern React frontend. Features document ingestion, semantic search, and intelligent chat with multi-model support.
-
-- **Backend**: Python, LangChain, ChromaDB, Sentence Transformers, Groq
-- **Frontend**: React, TypeScript, Vite, Tailwind CSS, Framer Motion
-- **Infrastructure**: CI/CD via GitHub Actions, deployment configs for Vercel & Railway
-
-## Getting Started
+## Quickstart
 
 ```bash
-# Backend (Python)
-uv sync
-uv run python main.py
-
-# Frontend (within ghost-protocol)
 cd ghost-protocol/frontend
-npm install
+npm ci
 npm run dev
 ```
 
-Copy `.env.example` files to `.env` and fill in your API keys.
+## Build
+
+```bash
+cd ghost-protocol/frontend
+npm run build
+```
+
+## Structure
+
+- `ghost-protocol/frontend` — React + TypeScript app (Vite, Tailwind CSS, Framer Motion, Three.js).
+
+## Tech Stack
+
+- React 19 + TypeScript
+- Vite 6
+- Tailwind CSS 4
+- Framer Motion 12
+- Three.js / React Three Fiber
+- Zustand (state management)
+- React Router DOM v7
 
 ## License
 
-MIT
+MIT — see `ghost-protocol/LICENSE`.

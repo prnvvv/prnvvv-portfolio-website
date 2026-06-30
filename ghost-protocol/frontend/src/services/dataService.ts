@@ -167,7 +167,7 @@ export interface SocialLink {
 export function getSocialLinks(): SocialLink[] {
   const profile = getProfile()
   return [
-    { platform: 'github', url: profile.github || 'https://github.com/prannavakhanth', icon: '◆', label: 'GitHub' },
+    { platform: 'github', url: profile.github || 'https://github.com/prnvvv', icon: '◆', label: 'GitHub' },
     { platform: 'linkedin', url: profile.linkedin || 'https://linkedin.com/in/prannavakhanth', icon: '◈', label: 'LinkedIn' },
     { platform: 'email', url: `mailto:${profile.email || 'prannavakhanth12@gmail.com'}`, icon: '▣', label: 'Email' },
   ]

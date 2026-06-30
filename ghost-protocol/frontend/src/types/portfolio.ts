@@ -82,13 +82,6 @@ export interface IntelReport {
   status?: string
 }
 
-export interface ChatMessage {
-  id: string
-  role: 'user' | 'assistant'
-  content: string
-  timestamp: number
-}
-
 export interface NavTab {
   id: string
   label: string

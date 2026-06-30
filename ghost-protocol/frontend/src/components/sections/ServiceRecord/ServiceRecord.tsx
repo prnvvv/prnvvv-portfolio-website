@@ -27,7 +27,7 @@ export default function ServiceRecord() {
           className="section-header mb-8"
         >
           <span>◆</span>
-          <span>SERVICE RECORD // DEPLOYMENT HISTORY</span>
+          <span>SERVICE RECORD</span>
         </motion.div>
 
         <div className="relative">
@@ -64,28 +64,28 @@ export default function ServiceRecord() {
                   <div className="flex flex-wrap items-start justify-between gap-1 mb-1">
                     <div>
                       <h3
-                        className="text-mil-light font-heading tracking-[0.08em]"
-                        style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-sm)' }}
+                        className="text-white font-heading tracking-[0.08em]"
+                        style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-base)' }}
                       >
                         {entry.title}
                       </h3>
-                      <p className="text-mil-olive font-body" style={{ fontSize: 'var(--text-xs)' }}>{entry.organization}</p>
+                      <p className="text-white/90 font-body" style={{ fontSize: 'var(--text-sm)' }}>{entry.organization}</p>
                     </div>
                     <div className="flex items-center gap-1.5 shrink-0">
                       <span className={`font-body ${typeColors[entry.type] ?? 'text-mil-olive'}`} style={{ fontSize: 'var(--text-xs)' }}>
                         {typeLabels[entry.type] ?? entry.type}
                       </span>
-                      <span className="text-mil-olive font-body" style={{ fontSize: 'var(--text-xs)' }}>{entry.period}</span>
+                      <span className="text-white/80 font-body" style={{ fontSize: 'var(--text-sm)' }}>{entry.period}</span>
                     </div>
                   </div>
 
-                  <p className="text-mil-light font-body leading-relaxed mb-1.5" style={{ fontSize: 'var(--text-xs)' }}>
+                  <p className="text-white/90 font-body leading-relaxed mb-1.5" style={{ fontSize: 'var(--text-sm)' }}>
                     {entry.description}
                   </p>
 
                   <ul className="space-y-0.5">
                     {entry.highlights.map((h, j) => (
-                      <li key={j} className="text-mil-olive font-body flex gap-1.5" style={{ fontSize: 'var(--text-xs)' }}>
+                      <li key={j} className="text-white/90 font-body flex gap-1.5" style={{ fontSize: 'var(--text-sm)' }}>
                         <span className="text-mil-green shrink-0">&gt;</span>
                         {h}
                       </li>

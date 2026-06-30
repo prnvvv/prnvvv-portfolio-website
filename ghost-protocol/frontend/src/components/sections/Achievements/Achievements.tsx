@@ -26,7 +26,7 @@ export default function Achievements() {
           className="section-header mb-8"
         >
           <span>◆</span>
-          <span>COMMENDATIONS // ACHIEVEMENTS & RECOGNITION</span>
+          <span>COMMENDATIONS</span>
         </motion.div>
 
         <motion.div

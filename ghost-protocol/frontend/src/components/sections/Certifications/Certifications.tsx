@@ -16,7 +16,7 @@ export default function Certifications() {
           className="section-header mb-8"
         >
           <span>◆</span>
-          <span>CREDENTIALS VAULT // CERTIFICATIONS</span>
+          <span>CREDENTIALS VAULT</span>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-stretch">

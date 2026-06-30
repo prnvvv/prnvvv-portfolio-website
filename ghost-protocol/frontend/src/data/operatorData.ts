@@ -15,7 +15,7 @@ export const operatorData: Operator = {
   email: 'prannavakhanth12@gmail.com',
   phone: '+91 80722 12612',
   linkedin: 'https://linkedin.com/in/prannavakhanth',
-  github: 'https://github.com/prannavakhanth',
+  github: 'https://github.com/prnvvv',
 }
 
 export const skills: Skill[] = [

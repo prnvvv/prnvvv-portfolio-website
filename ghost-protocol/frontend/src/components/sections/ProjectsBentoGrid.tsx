@@ -1,6 +1,7 @@
-import { Brain, Cpu, Globe, Database, Shield, Target } from 'lucide-react';
+import { Brain, Cpu, Globe, Database, Shield, Target, Award } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getProjects } from '../../services/dataService';
+import { MagicBento } from '../effects/MagicBento';
 
 const PROJECT_ICONS: Record<string, typeof Brain> = {
   'mission-1': Brain,
@@ -14,21 +15,22 @@ const PROJECT_ICONS: Record<string, typeof Brain> = {
 };
 
 const PROJECT_STATUS: Record<string, { label: string; color: string }> = {
-  'mission-5': { label: 'PATENT FILED', color: '#00e67a' },
-  'mission-6': { label: 'PATENT FILED', color: '#00e67a' },
-  'mission-7': { label: 'PATENT FILED', color: '#00e67a' },
-  'mission-8': { label: 'UNDER REVIEW', color: '#00e67a' },
+  'mission-1': { label: 'PATENT PUBLISHED', color: '#00e67a' },
+  'mission-5': { label: 'PATENT FILED', color: '#f59e0b' },
+  'mission-6': { label: 'PATENT FILED', color: '#f59e0b' },
+  'mission-7': { label: 'PATENT FILED', color: '#f59e0b' },
+  'mission-8': { label: 'UNDER REVIEW', color: '#06b6d4' },
 };
 
-const PROJECT_COLORS: Record<string, string> = {
-  'mission-1': 'rgba(0,230,122,0.05)',
-  'mission-2': 'rgba(0,230,122,0.04)',
-  'mission-3': 'rgba(0,230,122,0.04)',
-  'mission-4': 'rgba(0,230,122,0.03)',
-  'mission-5': 'rgba(0,230,122,0.04)',
-  'mission-6': 'rgba(0,230,122,0.04)',
-  'mission-7': 'rgba(0,230,122,0.03)',
-  'mission-8': 'rgba(0,230,122,0.04)',
+const STATUS_ICONS: Record<string, React.ReactNode> = {
+  'PATENT PUBLISHED': <Award size={10} strokeWidth={2.5} />,
+};
+
+const PROJECT_BENTO_SPANS: Record<string, string> = {
+  'mission-1': 'lg:col-span-2',
+  'mission-5': 'lg:col-span-2',
+  'mission-7': 'lg:col-span-2',
+  'mission-8': 'lg:col-span-2',
 };
 
 export function ProjectsBentoGrid() {
@@ -42,48 +44,49 @@ export function ProjectsBentoGrid() {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {projects.map((project, idx) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {projects.map((project) => {
           const Icon = PROJECT_ICONS[project.id] || Brain;
-          const color = PROJECT_COLORS[project.id] || 'rgba(0,230,122,0.03)';
           const badge = PROJECT_STATUS[project.id];
+          const span = PROJECT_BENTO_SPANS[project.id] || '';
 
           return (
-            <div
-              key={project.id}
-              className="bg-[rgba(10,8,20,0.75)] backdrop-blur-xl border border-[rgba(255,255,255,0.06)] hover:border-[rgba(0,230,122,0.20)] rounded-[4px] transition-all duration-300 p-5 min-h-[220px] h-full flex flex-col group"
-            >
-              <div className="flex items-start justify-between mb-2">
-                <div className="h-10 w-10 flex items-center justify-center text-[#00e67a]">
-                  <Icon size={20} />
+            <MagicBento key={project.id} color="#00e67a" intensity={5} className={span}>
+              <div className={`bg-[rgba(10,8,20,0.85)] backdrop-blur-xl border border-[rgba(255,255,255,0.06)] hover:border-[rgba(0,230,122,0.25)] rounded-[4px] transition-colors duration-300 p-4 h-full flex flex-col group`}>
+                <div className="flex items-start justify-between mb-2">
+                  <div className="h-8 w-8 flex items-center justify-center text-[#00e67a] shrink-0">
+                    <Icon size={16} />
+                  </div>
+                  {badge && (
+                    <span
+                      className="flex items-center gap-1 text-[10px] font-mono tracking-wider uppercase px-1.5 py-0.5 rounded shrink-0"
+                      style={{ background: `${badge.color}20`, color: badge.color }}
+                    >
+                      {STATUS_ICONS[badge.label] || (
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                      )}
+                      {badge.label}
+                    </span>
+                  )}
                 </div>
-                {badge && (
-                  <span
-                    className="flex items-center gap-1 text-[10px] font-mono tracking-wider uppercase px-2 py-0.5 rounded shrink-0"
-                    style={{ background: `${badge.color}20`, color: badge.color }}
-                  >
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                    {badge.label}
-                  </span>
-                )}
+                <h3 className="font-display text-[12px] tracking-[0.15em] text-white uppercase mb-1.5 leading-tight">
+                  {project.codename}
+                </h3>
+                <p className="font-mono text-[12px] text-white/90 leading-relaxed flex-1 line-clamp-3">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-1 mt-2.5">
+                  {project.tech.slice(0, span ? 5 : 3).map((t) => (
+                    <span key={t} className="text-[9px] font-mono text-[#00e67a]/90 bg-[#00e67a]/8 px-1.5 py-0.5 rounded">
+                      {t}
+                    </span>
+                  ))}
+                  {project.tech.length > (span ? 5 : 3) && (
+                    <span className="text-[9px] font-mono text-white/70">+{project.tech.length - (span ? 5 : 3)}</span>
+                  )}
+                </div>
               </div>
-              <h3 className="font-display text-[11px] tracking-[0.15em] text-white/90 uppercase mb-2">
-                {project.codename}
-              </h3>
-              <p className="font-mono text-[11px] text-white/50 leading-relaxed flex-1">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-1.5 mt-3">
-                {project.tech.slice(0, 4).map((t) => (
-                  <span key={t} className="text-[9px] font-mono text-[#00e67a]/60 bg-[#00e67a]/5 px-1.5 py-0.5 rounded">
-                    {t}
-                  </span>
-                ))}
-                {project.tech.length > 4 && (
-                  <span className="text-[9px] font-mono text-white/30">+{project.tech.length - 4}</span>
-                )}
-              </div>
-            </div>
+            </MagicBento>
           );
         })}
       </div>

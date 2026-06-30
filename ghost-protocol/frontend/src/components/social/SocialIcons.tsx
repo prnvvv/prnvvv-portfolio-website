@@ -3,11 +3,11 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa'
 
 const SOCIALS = [
   {
-    href: 'https://github.com/prannavakhanth',
+    href: 'https://github.com/prnvvv',
     icon: FaGithub,
     label: 'GitHub',
-    iconHover: '#ffffff',
-    borderHover: 'rgba(255,255,255,0.25)',
+    iconHover: '#00e67a',
+    borderHover: 'rgba(0,230,122,0.25)',
   },
   {
     href: 'https://linkedin.com/in/prannavakhanth',
@@ -33,13 +33,11 @@ export default function SocialIcons() {
       aria-label="Social links"
     >
       <div
-        className="flex items-center gap-1.5 md:gap-2 p-2 md:p-2.5 rounded-xl"
+        className="flex items-center gap-2 md:gap-3 p-2 md:p-2.5 rounded-xl"
         style={{
           background: 'rgba(0, 0, 0, 0.40)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
           border: '1px solid rgba(0, 230, 122, 0.10)',
-          boxShadow: '0 0 0 1px rgba(0,230,122,0.04), 0 4px 20px rgba(0,0,0,0.6)',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.6)',
         }}
       >
         {SOCIALS.map((s) => {
@@ -63,12 +61,12 @@ export default function SocialIcons() {
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = 'transparent'
                 const icon = e.currentTarget.querySelector('svg')
-                if (icon) icon.style.color = 'rgba(255, 255, 255, 0.5)'
+                if (icon) icon.style.color = '#ffffff'
               }}
             >
               <Icon
-                size={18}
-                className="text-white/50 transition-all duration-200"
+                size={20}
+                className="text-white transition-all duration-200"
                 style={{ transition: 'color 200ms ease' }}
               />
               <span className="absolute -bottom-7 left-1/2 -translate-x-1/2 text-[10px] font-mono tracking-wider whitespace-nowrap pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200"

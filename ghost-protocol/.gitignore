@@ -1,26 +1,13 @@
-# --- Python ---
-__pycache__/
-*.py[cod]
-*.egg-info/
-.venv/
-chroma_db/
-
-# --- Node / JS ---
+# Node / JS
 node_modules/
 dist/
-tsconfig.tsbuildinfo
 *.tsbuildinfo
 *.log
 
-# --- Environment ---
+# Environment
 .env
 .env.local
 
-# --- Model cache ---
-.cache/
-models/
-*.onnx
-
-# --- OS ---
+# OS
 .DS_Store
 Thumbs.db

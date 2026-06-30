@@ -22,7 +22,7 @@ export default function Education() {
           className="section-header mb-8"
         >
           <span>◆</span>
-          <span>ACADEMY RECORDS // EDUCATION & TRAINING</span>
+          <span>ACADEMY RECORDS</span>
         </motion.div>
 
         <div className="relative pl-10 sm:pl-12">

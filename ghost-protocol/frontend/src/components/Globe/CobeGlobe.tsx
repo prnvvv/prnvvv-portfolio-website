@@ -1,19 +1,7 @@
 import { useRef, useEffect, type RefObject } from 'react'
-import createGlobe, { type Marker } from 'cobe'
+import createGlobe from 'cobe'
 
-const TECH_HUB_MARKERS: Marker[] = [
-  { location: [37.7749, -122.4194], size: 0.04 },
-  { location: [40.7128, -74.006], size: 0.04 },
-  { location: [51.5074, -0.1278], size: 0.04 },
-  { location: [52.52, 13.405], size: 0.04 },
-  { location: [12.9716, 77.5946], size: 0.04 },
-  { location: [1.3521, 103.8198], size: 0.04 },
-  { location: [35.6762, 139.6503], size: 0.04 },
-  { location: [37.5665, 126.978], size: 0.04 },
-  { location: [13.0827, 80.2707], size: 0.04 },
-]
-
-const ROTATION_SPEED = 0.002
+const ROTATION_SPEED = 0.0035
 
 interface CobeGlobeProps {
   reduced: boolean
@@ -26,7 +14,13 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
   const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null)
 
   const mouseRef = useRef({ x: 0, y: 0, active: false })
-  const rotRef = useRef({ phi: 0, theta: 0.25, targetPhi: 0, targetTheta: 0.25 })
+  const rotRef = useRef({
+    phi: 0,
+    theta: 0.25,
+    phiOffset: 0,
+    thetaVelocity: 0,
+    phiOffsetVelocity: 0,
+  })
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -46,35 +40,40 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
       height: canvas.height,
       phi: 0,
       theta: 0.25,
-      dark: 1,
-      diffuse: 1.2,
-      mapSamples: 30000,
-      mapBrightness: 8,
-      mapBaseBrightness: 0.1,
-      baseColor: [0.02, 0.10, 0.06],
-      markerColor: [0.0, 0.95, 0.45],
-      glowColor: [0.0, 0.65, 0.35],
-      markers: TECH_HUB_MARKERS,
+      dark: 0.88,
+      diffuse: 0.8,
+      mapSamples: 60000,
+      mapBrightness: 14,
+      mapBaseBrightness: 0,
+      baseColor: [0.03, 0.12, 0.07],
+      markerColor: [0, 0, 0],
+      glowColor: [0.0, 0.88, 0.48],
+      markers: [],
       onRender: (state) => {
         const rot = rotRef.current
         const mouse = mouseRef.current
 
+        rot.phi += ROTATION_SPEED
+
         if (interactive && mouse.active) {
-          rot.targetPhi = mouse.x * 0.5
-          rot.targetTheta = 0.25 + mouse.y * 0.3
+          rot.thetaVelocity += ((0.25 + mouse.y * 0.18) - rot.theta) * 0.04
+          rot.thetaVelocity *= 0.93
+          rot.theta += rot.thetaVelocity
+
+          rot.phiOffsetVelocity += ((mouse.x * 0.25) - rot.phiOffset) * 0.025
+          rot.phiOffsetVelocity *= 0.95
+          rot.phiOffset += rot.phiOffsetVelocity
         } else {
-          rot.targetPhi = 0
-          rot.targetTheta = 0.25
+          rot.thetaVelocity += (0.25 - rot.theta) * 0.10
+          rot.thetaVelocity *= 0.88
+          rot.theta += rot.thetaVelocity
+
+          rot.phiOffsetVelocity += (0 - rot.phiOffset) * 0.08
+          rot.phiOffsetVelocity *= 0.90
+          rot.phiOffset += rot.phiOffsetVelocity
         }
 
-        rot.phi += (rot.targetPhi - rot.phi) * 0.045
-        rot.theta += (rot.targetTheta - rot.theta) * 0.045
-
-        if (!mouse.active) {
-          rot.phi += ROTATION_SPEED
-        }
-
-        state.phi = rot.phi
+        state.phi = rot.phi + rot.phiOffset
         state.theta = rot.theta
       },
     })
@@ -92,6 +91,16 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
     const container = containerRef.current
     if (!container) return
 
+    let leaveTimeout: ReturnType<typeof setTimeout> | null = null
+
+    const handlePointerEnter = () => {
+      if (leaveTimeout) {
+        clearTimeout(leaveTimeout)
+        leaveTimeout = null
+      }
+      mouseRef.current = { ...mouseRef.current, active: true }
+    }
+
     const handlePointerMove = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect()
       const cx = rect.left + rect.width / 2
@@ -106,13 +115,18 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
     }
 
     const handlePointerLeave = () => {
-      mouseRef.current = { x: 0, y: 0, active: false }
+      leaveTimeout = setTimeout(() => {
+        mouseRef.current = { x: 0, y: 0, active: false }
+      }, 50)
     }
 
+    container.addEventListener('pointerenter', handlePointerEnter)
     container.addEventListener('pointermove', handlePointerMove)
     container.addEventListener('pointerleave', handlePointerLeave)
 
     return () => {
+      if (leaveTimeout) clearTimeout(leaveTimeout)
+      container.removeEventListener('pointerenter', handlePointerEnter)
       container.removeEventListener('pointermove', handlePointerMove)
       container.removeEventListener('pointerleave', handlePointerLeave)
     }

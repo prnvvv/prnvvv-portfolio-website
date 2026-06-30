@@ -1,8 +1,11 @@
+import { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import AnimatedSection from '../../animations/AnimatedSection'
 import { getProfile, getSkillsByCategory } from '../../../services/dataService'
 import SkillTag from '../../ui/SkillTag'
 import LogoLoop from '../../ui/LogoLoop'
+import DecryptText from '../../effects/DecryptText'
+import { ROTATING_TITLES } from '../../../data/titles'
 import {
   SiPython, SiJava, SiCplusplus, SiSqlite, SiR,
   SiTensorflow, SiPytorch, SiScikitlearn, SiKeras, SiLangchain,
@@ -80,7 +83,7 @@ export default function OperatorDossier() {
           className="section-header mb-8"
         >
           <span>◆</span>
-          <span>OPERATOR DOSSIER // PERSONNEL FILE</span>
+          <span>OPERATOR DOSSIER // PRNVVV</span>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -100,7 +103,6 @@ export default function OperatorDossier() {
                 >
                   {op.callSign}
                 </h2>
-                <p className="text-mil-olive font-body mt-0.5" style={{ fontSize: 'var(--text-xs)' }}>{op.rank}</p>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className={`w-1.5 h-1.5 rounded-full ${statusColor} bg-current`} />
@@ -110,9 +112,9 @@ export default function OperatorDossier() {
 
             <div className="space-y-1 font-body" style={{ fontSize: 'var(--text-xs)' }}>
               <InfoRow label="NAME" value={op.name} />
-              <InfoRow label="SPECIALIZATION" value={op.specialization} />
-              <InfoRow label="CLEARANCE" value={op.clearanceLevel} />
-              <InfoRow label="YEARS ACTIVE" value={String(op.yearsActive)} />
+              <InfoRow label="SPECIALIZATION" value={<DecryptText texts={ROTATING_TITLES} interval={4000} />} />
+              <InfoRow label="PRIMARY WEAPON" value="Python" />
+              <InfoRow label="PHILOSOPHY" value="I like to code, as simple as that" />
               <InfoRow label="LOCATION" value={op.location} />
               <InfoRow
                 label="COORDINATES"
@@ -125,7 +127,7 @@ export default function OperatorDossier() {
             </div>
 
             {/* ─── AI CORE Status ─── */}
-            <div className="mt-3 pt-3 border-t border-mil-green/12">
+            <div id="ai-core" className="mt-3 pt-3 border-t border-mil-green/12">
               <h4
                 className="font-heading text-mil-green tracking-[0.15em] uppercase mb-2"
                 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xs)' }}
@@ -146,6 +148,7 @@ export default function OperatorDossier() {
 
           {/* ─── Skill Inventory Card (spans 2 cols) ─── */}
           <motion.div
+            id="skills"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -225,7 +228,7 @@ export default function OperatorDossier() {
   )
 }
 
-function InfoRow({ label, value }: { label: string; value: string }) {
+function InfoRow({ label, value }: { label: string; value: string | ReactNode }) {
   return (
     <div className="flex gap-2">
       <span className="text-mil-olive shrink-0 w-20 sm:w-28">{label}:</span>
