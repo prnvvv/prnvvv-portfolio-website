@@ -208,12 +208,6 @@
     width: 14px !important;
     height: 14px !important;
   }
-
-  .landing-nav ~ .header-social-icons,
-  .landing-nav ~ div > .header-social-icons,
-  .hero-section.hero-root ~ .header-social-icons {
-    display: none !important;
-  }
 }
 
 

@@ -1,4 +1,4 @@
-import { Component, type ReactNode } from 'react'
+import { Component, type ReactNode, type ErrorInfo } from 'react'
 
 interface Props {
   children: ReactNode
@@ -10,11 +10,42 @@ interface State {
   error: string
 }
 
+function sendErrorLog(error: Error, component: string): void {
+  const dsn = import.meta.env.VITE_SENTRY_DSN as string | undefined
+  if (import.meta.env.PROD && dsn) {
+    try {
+      const match = dsn.match(/^https:\/\/(.+)@(.+)\.ingest\.sentry\.io\/(\d+)$/)
+      if (!match) return
+      const key = match[1]
+      const host = match[2]
+      const projectId = match[3]
+      const url = `https://${host}.ingest.sentry.io/api/${projectId}/envelope/`
+      void fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          event_id: crypto.randomUUID?.() ?? Math.random().toString(36).slice(2),
+          level: 'error',
+          message: error.message,
+          culprit: component,
+          timestamp: new Date().toISOString(),
+          request: { url: window.location.href },
+        }),
+      })
+    } catch {
+    }
+  }
+}
+
 export class SectionErrorBoundary extends Component<Props, State> {
   state: State = { hasError: false, error: '' }
 
   static getDerivedStateFromError(error: Error) {
     return { hasError: true, error: error.message }
+  }
+
+  componentDidCatch(error: Error, _info: ErrorInfo) {
+    sendErrorLog(error, this.props.name)
   }
 
   render() {
@@ -31,7 +62,9 @@ export class SectionErrorBoundary extends Component<Props, State> {
             background: 'rgba(0,230,122,0.05)',
           }}
         >
-          // SECTION ERROR [{this.props.name}]: {this.state.error}
+          <span style={{ color: 'rgba(255,255,255,0.3)' }}>// SECTION ERROR</span>
+          <span style={{ color: 'rgba(0,230,122,0.7)' }}> [{this.props.name}]: </span>
+          {this.state.error}
         </div>
       )
     }

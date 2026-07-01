@@ -13,4 +13,10 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  esbuild: {
+    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : undefined,
+  },
+  build: {
+    sourcemap: false,
+  },
 })

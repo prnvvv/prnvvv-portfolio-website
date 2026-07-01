@@ -13,7 +13,6 @@ import Dither from '../effects/Dither';
 import DecryptText from '../effects/DecryptText';
 import { ROTATING_TITLES } from '../../data/titles';
 import MagicButton from '../ui/MagicButton';
-import SocialIcons from '../social/SocialIcons';
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -27,8 +26,6 @@ export default function LandingPage() {
 
   return (
     <>
-      <SocialIcons />
-
       {/* ─── Navbar ─── */}
       <nav className="hero-navbar landing-nav" role="navigation" aria-label="Main navigation" style={{ zIndex: 50 }}>
         <div className="hero-navbar-brand">
