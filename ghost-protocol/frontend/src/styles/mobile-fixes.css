@@ -282,66 +282,29 @@
 
 
 /* ─────────────────────────────────────────────────────────
-   BUG 2B — INNER PAGE SOCIAL ICONS: Kill floating box
+   BUG 2B — INNER PAGE SOCIAL ICONS: Proper top-right position
    ───────────────────────────────────────────────────────── */
 @media (max-width: 1023px) {
 
-  .header-social-icons,
-  [class*="inner-social"],
-  [class*="social-float"],
-  [class*="floating-social"],
-  [class*="dashboard-social"] {
-    position: static !important;
-    top: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    left: auto !important;
-    transform: none !important;
-    z-index: auto !important;
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    padding: 0 !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 6px !important;
-    flex-shrink: 0 !important;
-    margin-left: auto !important;
-  }
-
-  .header-social-icons > div {
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    gap: 6px !important;
-    display: flex !important;
-    flex-direction: row !important;
+  /* Keep fixed top-right positioning — do NOT override to static.
+     The component's className="header-social-icons fixed top-4 right-4 z-50"
+     handles positioning. We just adjust sizing for mobile. */
+  .header-social-icons {
+    z-index: 200 !important;
   }
 
   .header-social-icons a,
-  [class*="inner-social"] a,
-  [class*="inner-social"] button {
+  .header-social-icons button {
     width: 28px !important;
     height: 28px !important;
     min-width: 28px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(255, 255, 255, 0.07) !important;
-    border-radius: 4px !important;
     flex-shrink: 0 !important;
-    color: rgba(200, 220, 210, 0.6) !important;
-    text-decoration: none !important;
   }
 
-  .header-social-icons svg,
-  [class*="inner-social"] svg {
+  .header-social-icons svg {
     width: 12px !important;
     height: 12px !important;
     flex-shrink: 0 !important;
