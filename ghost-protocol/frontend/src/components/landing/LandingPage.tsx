@@ -30,12 +30,12 @@ export default function LandingPage() {
       <SocialIcons />
 
       {/* ─── Navbar ─── */}
-      <nav className="hero-navbar" role="navigation" aria-label="Main navigation" style={{ zIndex: 50 }}>
+      <nav className="hero-navbar landing-nav" role="navigation" aria-label="Main navigation" style={{ zIndex: 50 }}>
         <div className="hero-navbar-brand">
           <span className="hero-navbar-brand-dot" />
           GHOST PROTOCOL
         </div>
-        <div className="hero-navbar-links">
+        <div className="hero-navbar-links landing-nav-social">
           <a
             href="https://github.com/prnvvv"
             target="_blank"
@@ -62,7 +62,7 @@ export default function LandingPage() {
       </nav>
 
       {/* ─── Hero Section ─── */}
-      <div className="hero-section" style={{ position: 'relative', overflow: 'hidden' }}>
+      <div className="hero-section hero-root" style={{ position: 'relative', overflow: 'hidden' }}>
         {/* ─── Dither Background + Overlay ─── */}
         <div className="absolute inset-0 z-0 opacity-30 md:opacity-100">
           <Dither
@@ -80,9 +80,9 @@ export default function LandingPage() {
         <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/90 via-black/75 to-black/95 md:from-black/70 md:via-black/40 md:to-black/80 pointer-events-none" />
 
         <div className="relative z-[2] w-full h-full flex items-center">
-          <div className="hero-content pt-24 md:pt-20">
+          <div className="hero-content hero-container pt-24 md:pt-20">
             {/* ─── Left column: Hero text stack ─── */}
-            <div className="hero-zone-a">
+            <div className="hero-zone-a hero-text-block">
               <div className="hero-clearance" style={{ minHeight: '24px' }} />
 
               <div className="hero-name-wrap">
@@ -143,7 +143,7 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2, duration: 0.5, ease: [0.22,1,0.36,1] }}
-                className="hero-cta-row"
+                className="hero-cta-row hero-cta-wrapper"
               >
                 <MagicButton />
               </motion.div>
@@ -160,8 +160,8 @@ export default function LandingPage() {
             </div>
 
             {/* ─── Right column: Globe + Stats ─── */}
-              <div className="hero-zone-b hero-right-col w-full md:w-auto" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
-                <div className="globe-container" ref={globeContainerRef}>
+              <div className="hero-zone-b hero-right-col hero-right w-full md:w-auto" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
+                <div className="globe-container hero-globe-wrapper" ref={globeContainerRef}>
                   <CobeGlobe
                     reduced={reduced}
                     interactive={!reduced}

@@ -1,0 +1,584 @@
+/* ═══════════════════════════════════════════════════════════
+   GHOST PROTOCOL — MOBILE FIXES
+   ALL rules wrapped in @media. ZERO desktop side effects.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────
+   BUG 2A — LANDING PAGE: Text overflow on right edge
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+
+  .hero-section.hero-root,
+  .hero-content.hero-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    grid-template-columns: 1fr !important;
+    padding: 72px 20px 40px !important;
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    gap: 0 !important;
+  }
+
+  .hero-zone-a.hero-text-block {
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    order: 1 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  .hero-root p,
+  .hero-root span,
+  .hero-root div {
+    max-width: 100% !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-name {
+    font-size: clamp(26px, 7vw, 44px) !important;
+    max-width: calc(100vw - 40px) !important;
+    word-break: break-word !important;
+    text-align: center !important;
+    letter-spacing: 0.04em !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .hero-subtitle-line {
+    font-size: clamp(13px, 3.5vw, 16px) !important;
+    text-align: center !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    max-width: 100% !important;
+  }
+
+  .hero-bio {
+    font-size: 13px !important;
+    line-height: 1.75 !important;
+    max-width: calc(100vw - 40px) !important;
+    text-align: center !important;
+    word-break: break-word !important;
+    overflow: hidden !important;
+  }
+
+  .hero-cta-row.hero-cta-wrapper {
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+  }
+
+  .hero-cta-row.hero-cta-wrapper button,
+  .hero-cta-row.hero-cta-wrapper > * {
+    max-width: calc(100vw - 80px) !important;
+  }
+
+  .hero-location {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  .hero-zone-b.hero-right-col.hero-right {
+    order: 2 !important;
+    width: 100% !important;
+    padding-right: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-top: 32px !important;
+    overflow: hidden !important;
+  }
+
+  .globe-container.hero-globe-wrapper {
+    width: min(260px, 80vw) !important;
+    height: min(260px, 80vw) !important;
+    overflow: hidden !important;
+    position: relative !important;
+    margin-top: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .globe-container.hero-globe-wrapper::before {
+    width: min(300px, 85vw) !important;
+    height: min(300px, 85vw) !important;
+  }
+
+  .globe-container.hero-globe-wrapper::after {
+    width: min(240px, 75vw) !important;
+    height: min(240px, 75vw) !important;
+  }
+
+  .hero-zone-b .globe-container ~ .globe-container {
+    display: none !important;
+  }
+
+  .hero-role-wrap {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .hero-role-wrap [style*="font-family"] {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .hero-rule {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 60% !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   BUG 2B — LANDING PAGE: Social icons floating outside nav
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+
+  .hero-navbar.landing-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 150 !important;
+    height: 52px !important;
+    padding: 0 14px !important;
+    background: rgba(8, 4, 18, 0.90) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero-navbar-brand {
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+
+  .hero-navbar-links.landing-nav-social {
+    position: static !important;
+    transform: none !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
+  }
+
+  .hero-navbar-link {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 4px !important;
+    flex-shrink: 0 !important;
+    padding: 0 !important;
+  }
+
+  .hero-navbar-link svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .landing-nav ~ .header-social-icons,
+  .landing-nav ~ div > .header-social-icons,
+  .hero-section.hero-root ~ .header-social-icons {
+    display: none !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   BUG 1C — LANDING PAGE: FlickeringGrid not visible
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+
+  .flickering-grid-root,
+  [class*="flickering-grid"],
+  [class*="FlickeringGrid"],
+  [class*="tactical-flickering"] {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .flickering-grid-root canvas,
+  [class*="flickering-grid"] canvas,
+  [class*="FlickeringGrid"] canvas {
+    opacity: 1 !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   BUG 2 — GHOST ICON: Misaligned on inner pages
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+
+  .ghost-back-btn,
+  [class*="ghost-back"],
+  [class*="ghost-icon"],
+  [class*="home-btn"] {
+    position: fixed !important;
+    top: 8px !important;
+    left: 8px !important;
+    z-index: 201 !important;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    max-width: 36px !important;
+    max-height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 6px !important;
+    background: rgba(8, 4, 18, 0.92) !important;
+    border: 1px solid rgba(0, 230, 122, 0.28) !important;
+    box-shadow: 0 0 12px rgba(0, 230, 122, 0.10) !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    color: #ffffff !important;
+  }
+
+  .ghost-back-btn svg,
+  [class*="ghost-back"] svg,
+  [class*="ghost-icon"] svg {
+    width: 16px !important;
+    height: 16px !important;
+    flex-shrink: 0 !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   BUG 2B — INNER PAGE SOCIAL ICONS: Kill floating box
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+
+  .header-social-icons,
+  [class*="inner-social"],
+  [class*="social-float"],
+  [class*="floating-social"],
+  [class*="dashboard-social"] {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    z-index: auto !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
+  }
+
+  .header-social-icons > div {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    gap: 6px !important;
+    display: flex !important;
+    flex-direction: row !important;
+  }
+
+  .header-social-icons a,
+  [class*="inner-social"] a,
+  [class*="inner-social"] button {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+    border-radius: 4px !important;
+    flex-shrink: 0 !important;
+    color: rgba(200, 220, 210, 0.6) !important;
+    text-decoration: none !important;
+  }
+
+  .header-social-icons svg,
+  [class*="inner-social"] svg {
+    width: 12px !important;
+    height: 12px !important;
+    flex-shrink: 0 !important;
+  }
+
+  main.inner-page-content,
+  [class*="page-content"] {
+    padding-top: 60px !important;
+    padding-bottom: 88px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   BUG 4 — ACADEMY SECTION: Cards take excessive height
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+
+  .academy-section,
+  [id="academy"],
+  [id="education"],
+  [class*="academy-section"] {
+    padding: 16px 12px 80px !important;
+  }
+
+  .edu-timeline,
+  [class*="edu-timeline"] {
+    padding-left: 0 !important;
+    gap: 12px !important;
+  }
+
+  [class*="timeline-line"],
+  [class*="timeline-dot"],
+  [class*="timeline-diamond"],
+  [class*="timeline-connector"],
+  [class*="timeline-vertical"] {
+    display: none !important;
+  }
+
+  [class*="timeline-item"] {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  .edu-card,
+  [class*="edu-card"],
+  [class*="education-card"] {
+    padding: 14px 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 0 0 12px !important;
+  }
+
+  [class*="edu-card"] h2,
+  [class*="edu-card"] h3,
+  [class*="institution-name"] {
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+    margin: 4px 0 !important;
+  }
+
+  [class*="grade-value"],
+  [class*="score-value"],
+  [class*="edu-grade"]:not([class*="label"]) {
+    font-size: clamp(22px, 6vw, 28px) !important;
+    line-height: 1.0 !important;
+  }
+
+  [class*="edu-degree"],
+  [class*="edu-program"] {
+    font-size: 11px !important;
+    margin: 4px 0 !important;
+  }
+
+  [class*="edu-meta"],
+  [class*="edu-date"] {
+    font-size: 10px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .edu-id-label {
+    font-size: 9px !important;
+    letter-spacing: 0.2em !important;
+  }
+
+  .edu-status {
+    font-size: 8px !important;
+    padding: 2px 7px !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  .edu-status-dot {
+    width: 5px !important;
+    height: 5px !important;
+  }
+
+  .edu-degree {
+    font-size: 11px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 4px !important;
+    margin-top: 4px !important;
+  }
+
+  .edu-meta {
+    font-size: 10px !important;
+    gap: 4px !important;
+    margin-bottom: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+  }
+
+  .edu-grade-value {
+    font-size: clamp(22px, 6vw, 30px) !important;
+    line-height: 1.0 !important;
+  }
+
+  .edu-grade-label {
+    font-size: 8px !important;
+    letter-spacing: 0.18em !important;
+    margin-top: 1px !important;
+  }
+
+  .edu-card svg:first-child {
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0 !important;
+    margin-top: 2px !important;
+  }
+
+  .edu-card .text-right {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 2px !important;
+    margin-top: 6px !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   GLOBAL MOBILE POLISH
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+
+  html,
+  body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
+  main,
+  .inner-page-content,
+  .dashboard-content,
+  [class*="page-content"] {
+    padding-bottom: 88px !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+  }
+
+  [class*="dock-container"],
+  [class*="dock-nav"],
+  [class*="DockNav"] {
+    position: fixed !important;
+    bottom: 16px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 200 !important;
+    max-width: calc(100vw - 24px) !important;
+    width: auto !important;
+    padding: 8px 10px !important;
+  }
+
+  .floating-dock,
+  [class*="floating-dock"],
+  .fixed.bottom-0.left-0.right-0.z-50 {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 200 !important;
+  }
+
+  [class*="flickering-grid"],
+  [class*="FlickeringGrid"],
+  [class*="tactical-flickering"] {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  [class*="flickering-grid"] canvas,
+  [class*="FlickeringGrid"] canvas {
+    opacity: 1 !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────
+   VERY SMALL SCREENS (<430px)
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 430px) {
+
+  .hero-name {
+    font-size: clamp(24px, 7vw, 34px) !important;
+  }
+
+  .globe-container.hero-globe-wrapper {
+    width: min(220px, 75vw) !important;
+    height: min(220px, 75vw) !important;
+  }
+
+  .edu-card,
+  [class*="edu-card"] {
+    padding: 12px 13px !important;
+  }
+
+  [class*="edu-card"] h2,
+  [class*="edu-card"] h3,
+  [class*="institution-name"] {
+    font-size: 14px !important;
+  }
+
+  [class*="grade-value"],
+  [class*="score-value"] {
+    font-size: clamp(20px, 5.5vw, 26px) !important;
+  }
+
+  .header-social-icons a,
+  [class*="inner-social"] a {
+    width: 27px !important;
+    height: 27px !important;
+    min-width: 27px !important;
+  }
+}

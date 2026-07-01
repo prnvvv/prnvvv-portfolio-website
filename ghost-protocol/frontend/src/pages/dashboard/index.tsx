@@ -64,7 +64,7 @@ function Dashboard() {
       <TacticalFlickeringGrid />
       <ParticleField />
       <FloatingDock />
-      <main className="relative z-10" style={{ paddingLeft: isMobile ? '0px' : '72px' }}>
+      <main className="inner-page-content relative z-10" style={{ paddingLeft: isMobile ? '0px' : '72px' }}>
         <OperatorDossier />
         <Education />
         <Missions />

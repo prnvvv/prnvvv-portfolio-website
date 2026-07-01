@@ -10,6 +10,7 @@ export default function ReturnToCommandCenter() {
   return (
     <div style={{ position: 'fixed', top: 4, left: 16, zIndex: 100 }}>
       <motion.button
+        className="ghost-back-btn"
         onClick={() => {
           window.scrollTo(0, 0)
           navigate('/')

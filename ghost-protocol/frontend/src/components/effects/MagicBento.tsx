@@ -49,15 +49,6 @@ export function MagicBento({ children, className = '', color = '#00e67a', intens
       className={`relative ${className}`}
     >
       {children}
-      <motion.div
-        className="pointer-events-none absolute inset-0 rounded-[inherit]"
-        style={{
-          background: useTransform(
-            [glareX, glareY],
-            ([gx, gy]) => `radial-gradient(circle at ${gx}% ${gy}%, ${color}22 0%, transparent 60%)`
-          ),
-        }}
-      />
     </motion.div>
   )
 }

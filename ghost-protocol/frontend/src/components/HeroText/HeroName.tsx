@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 interface HeroNameProps {
@@ -8,15 +8,30 @@ interface HeroNameProps {
 
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&▓▒░█▄▀■□▪▫'
 
+function isMobileClient() {
+  return window.innerWidth < 1024 ||
+    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
+}
+
 export default function HeroName({ name, className = '' }: HeroNameProps) {
   const reduced = usePrefersReducedMotion()
-  const [displayText, setDisplayText] = useState(() =>
-    reduced ? name : name.replace(/[a-zA-Z0-9]/g, () => CHARS[Math.floor(Math.random() * CHARS.length)])
-  )
+  const isMobile = useRef(false)
+  const [displayText, setDisplayText] = useState(() => {
+    if (reduced) return name
+    isMobile.current = isMobileClient()
+    if (isMobile.current) return name
+    return name.replace(/[a-zA-Z0-9]/g, () => CHARS[Math.floor(Math.random() * CHARS.length)])
+  })
   const [key, setKey] = useState(0)
 
   useEffect(() => {
     if (reduced) return
+
+    // Mobile: skip scramble animation entirely, show text immediately
+    if (isMobile.current) {
+      setDisplayText(name)
+      return
+    }
 
     let frame = 0
     const totalFrames = 14
@@ -50,7 +65,10 @@ export default function HeroName({ name, className = '' }: HeroNameProps) {
         } else {
           setDisplayText(name)
           clearInterval(timer)
-          setTimeout(() => setKey(k => k + 1), 4000)
+          // No periodic re-glitch on mobile
+          if (!isMobile.current) {
+            setTimeout(() => setKey(k => k + 1), 4000)
+          }
         }
       }, 65)
     }
@@ -60,7 +78,7 @@ export default function HeroName({ name, className = '' }: HeroNameProps) {
     return () => clearInterval(timer)
   }, [name, reduced, key])
 
-  if (reduced) {
+  if (reduced || isMobile.current) {
     return <h1 className={`hero-name ${className}`}>{name}</h1>
   }
 

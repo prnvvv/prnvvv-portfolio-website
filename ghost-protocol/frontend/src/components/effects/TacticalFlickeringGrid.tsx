@@ -3,6 +3,7 @@ import { FlickeringGrid } from '@/components/ui/flickering-grid';
 export function TacticalFlickeringGrid() {
   return (
     <div
+      className="flickering-grid-root"
       style={{
         position: 'fixed',
         inset: 0,
