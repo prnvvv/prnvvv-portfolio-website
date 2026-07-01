@@ -52,7 +52,7 @@ export function ProjectsBentoGrid() {
 
           return (
             <MagicBento key={project.id} color="#00e67a" intensity={5} className={span}>
-              <div className={`bg-[rgba(10,8,20,0.85)] backdrop-blur-xl border border-[rgba(255,255,255,0.06)] hover:border-[rgba(0,230,122,0.25)] rounded-[4px] transition-colors duration-300 p-4 h-full flex flex-col group`}>
+              <div className={`bg-black/40 backdrop-blur-md border border-[#00e67a]/20 hover:border-[#00e67a]/40 rounded-lg transition-colors duration-300 p-4 h-full flex flex-col group`}>
                 <div className="flex items-start justify-between mb-2">
                   <div className="h-8 w-8 flex items-center justify-center text-[#00e67a] shrink-0">
                     <Icon size={16} />
