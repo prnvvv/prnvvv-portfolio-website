@@ -305,7 +305,7 @@ body {
 
 .hero-name {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2.8rem, 4.2vw, 3.8rem);
+  font-size: clamp(2.689rem, 4.034vw, 3.65rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 0.95;
@@ -342,7 +342,7 @@ body {
 
 .hero-subtitle-line {
   font-family: var(--g-font-display);
-  font-size: 1.35rem;
+  font-size: 1.297rem;
   letter-spacing: 0.08em;
   color: rgba(255, 255, 255, 0.85);
   font-weight: 700;
@@ -759,13 +759,13 @@ body {
     height: min(569px, calc(50vw - 40px));
   }
   .hero-name {
-    font-size: clamp(2.2rem, 3.5vw, 3rem);
+    font-size: clamp(2.113rem, 3.361vw, 2.881rem);
   }
   .hero-role {
-    font-size: 0.95rem;
+    font-size: 0.912rem;
   }
   .hero-subtitle-line {
-    font-size: 1.2rem;
+    font-size: 1.152rem;
   }
   .hero-stats-row {
     max-width: 440px;
@@ -822,13 +822,13 @@ body {
     height: min(478px, 70vw);
   }
   .hero-name {
-    font-size: clamp(1.8rem, 7vw, 2.4rem);
+    font-size: clamp(1.729rem, 6.723vw, 2.305rem);
   }
   .hero-role {
-    font-size: 0.85rem;
+    font-size: 0.816rem;
   }
   .hero-subtitle-line {
-    font-size: 1.15rem;
+    font-size: 1.104rem;
   }
   .hero-cta-row {
     justify-content: center;

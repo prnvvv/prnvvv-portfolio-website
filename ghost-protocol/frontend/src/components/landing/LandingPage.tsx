@@ -42,7 +42,7 @@ export default function LandingPage() {
       {/* Main Wrapper — h-dvh locks to viewport, overflow-hidden kills scroll + flicker */}
       <div className="relative z-10 h-dvh flex flex-col overflow-hidden max-w-[100vw]">
         {/* Hero Content */}
-        <div className="flex-1 flex flex-col lg:flex-row items-center justify-center px-3 sm:px-5 lg:px-8 py-2">
+        <div className="flex-1 flex flex-col lg:flex-row items-center justify-center px-3 sm:px-5 lg:px-8 pt-16 pb-2">
           {/* Left: Text Block */}
           <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left max-w-xl gap-1 sm:gap-1.5">
             <div className="hero-name-wrap">
@@ -58,7 +58,7 @@ export default function LandingPage() {
                 <DecryptText
                   texts={ROTATING_TITLES}
                   interval={4000}
-                  className="font-mono font-bold text-lg sm:text-xl md:text-2xl text-[#00e67a]"
+                  className="font-mono font-bold text-[1.08rem] sm:text-[1.201rem] md:text-[1.441rem] text-[#00e67a]"
                 />
               </motion.div>
             </div>
@@ -97,7 +97,7 @@ export default function LandingPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.3, duration: 0.5 }}
-              className="flex items-center gap-1.5 text-xs sm:text-sm text-white/50"
+              className="flex items-center gap-1.5 text-[0.72rem] sm:text-[0.84rem] text-white/50"
             >
               <MapPin size={11} color="rgba(0,230,122,0.4)" />
               {profile.location}

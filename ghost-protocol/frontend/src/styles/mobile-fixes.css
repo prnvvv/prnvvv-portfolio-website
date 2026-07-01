@@ -45,7 +45,7 @@
   }
 
   .hero-name {
-    font-size: clamp(26px, 7vw, 44px) !important;
+    font-size: clamp(24.97px, 6.723vw, 42.26px) !important;
     max-width: calc(100vw - 40px) !important;
     word-break: break-word !important;
     text-align: center !important;
@@ -54,7 +54,7 @@
   }
 
   .hero-subtitle-line {
-    font-size: clamp(13px, 3.5vw, 16px) !important;
+    font-size: clamp(12.49px, 3.361vw, 15.37px) !important;
     text-align: center !important;
     white-space: normal !important;
     overflow: visible !important;
@@ -384,7 +384,7 @@
 @media (max-width: 430px) {
 
   .hero-name {
-    font-size: clamp(24px, 7vw, 34px) !important;
+    font-size: clamp(23.05px, 6.723vw, 32.65px) !important;
   }
 
   .globe-container.hero-globe-wrapper {
