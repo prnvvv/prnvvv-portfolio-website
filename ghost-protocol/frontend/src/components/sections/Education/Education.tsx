@@ -1,18 +1,13 @@
 import { motion } from 'framer-motion'
-import { GraduationCap, School, MapPin } from 'lucide-react'
+import { MapPin } from 'lucide-react'
 import AnimatedSection from '../../animations/AnimatedSection'
 import { getEducation } from '../../../services/dataService'
-
-const ICON_MAP: Record<string, typeof GraduationCap> = {
-  GraduationCap,
-  School,
-}
 
 export default function Education() {
   const data = getEducation()
 
   return (
-    <AnimatedSection id="education" className="academy-section pt-16 pb-16 px-4 sm:px-6 lg:px-8">
+    <AnimatedSection id="education" className="pt-16 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -25,75 +20,78 @@ export default function Education() {
           <span>ACADEMY RECORDS</span>
         </motion.div>
 
-        <div className="edu-timeline relative pl-10 sm:pl-12">
-          <motion.div
-            initial={{ scaleY: 0 }}
-            whileInView={{ scaleY: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            style={{ transformOrigin: 'top' }}
-            className="edu-timeline-line absolute left-[15px] sm:left-[19px] top-1 bottom-0 w-px bg-[#00e67a]/30"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {data.map((entry, i) => (
+            <motion.div
+              key={entry.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-black/80 border border-[#00e67a]/20 rounded-lg overflow-hidden font-mono w-full"
+            >
+              {/* Terminal title bar */}
+              <div className="flex justify-between items-center px-3 py-2 border-b border-[#00e67a]/10">
+                <div className="flex gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/60" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
+                </div>
+                <p className="text-[10px] tracking-wider text-white/30 uppercase">education</p>
+              </div>
 
-          <div className="space-y-6">
-            {data.map((entry, i) => {
-              const Icon = ICON_MAP[entry.icon] || GraduationCap
+              {/* Terminal body */}
+              <div className="p-4 space-y-1.5">
+                <p className="text-xs">
+                  <span className="text-white/40">$</span>{' '}
+                  <span className="text-[#00e67a]/70">cat</span>{' '}
+                  <span className="text-white/50">~/records/{entry.id}</span>
+                </p>
+                <div className="border-t border-white/10 my-2" />
 
-              return (
-                <motion.div
-                  key={entry.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                  className="edu-timeline-item relative"
-                >
-                  <div
-                    className="edu-timeline-dot absolute -left-[31px] sm:-left-[37px] top-6 w-[10px] h-[10px] rotate-45 bg-[#00e67a]"
-                    style={{ boxShadow: '0 0 6px rgba(0,230,122,0.5)' }}
+                <p className="text-white font-semibold text-sm leading-tight">
+                  {entry.institution}
+                </p>
+                <p className="text-[#00e67a]/80 text-xs leading-relaxed">
+                  {'< '}{entry.degree}{' />'}
+                </p>
+                <p className="text-white/50 text-xs">{entry.period}</p>
+                <div className="flex items-center gap-1 text-white/40 text-xs">
+                  <MapPin size={10} />
+                  {entry.location}
+                </div>
+
+                <div className="border-t border-white/10 my-2" />
+
+                <div className="flex items-center justify-between">
+                  <span className="text-[#00e67a] text-lg font-bold">{entry.score}</span>
+                  <span className="text-white/30 text-[10px] tracking-widest uppercase">{entry.scoreLabel}</span>
+                </div>
+
+                <div className="flex items-center gap-1.5 pt-1">
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      entry.status === 'ACTIVE'
+                        ? 'bg-[#00e67a] animate-pulse'
+                        : 'bg-white/20'
+                    }`}
                   />
-                  <div className="absolute -left-[25px] sm:-left-[31px] top-[26px] w-[18px] h-px bg-[#00e67a]/40" />
-
-                  <div
-                    className="edu-card bg-black/60 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-6"
+                  <span
+                    className={`text-[10px] tracking-wider ${
+                      entry.status === 'ACTIVE' ? 'text-[#00e67a]' : 'text-white/30'
+                    }`}
                   >
-                    <div className="flex items-start justify-between mb-2">
-                      <span className="edu-id-label text-[#00e67a] text-xs font-mono opacity-60">{entry.id}</span>
-                      {entry.status === 'ACTIVE' ? (
-                        <span className="edu-status flex items-center gap-1.5 text-[#00e67a] text-xs font-mono">
-                          <span className="edu-status-dot w-1.5 h-1.5 rounded-full bg-[#00e67a] animate-pulse" />
-                          {entry.status}
-                        </span>
-                      ) : (
-                        <span className="edu-status text-white/30 text-xs font-mono">{entry.status}</span>
-                      )}
-                    </div>
+                    {entry.status}
+                  </span>
+                </div>
 
-                    <div className="flex items-center gap-3 mb-2">
-                      {Icon && <Icon size={20} className="text-[#00e67a]/60 shrink-0" />}
-                      <h3 className="edu-institution-name text-white font-bold text-lg">{entry.institution}</h3>
-                    </div>
-
-                    <p className="edu-degree text-[#00e67a] font-mono text-sm mb-0.5">
-                      {'< '}{entry.degree}{' />'}
-                    </p>
-
-                    <p className="edu-meta text-white/50 text-xs font-mono mb-3">
-                      <span>{entry.period}</span>
-                      <span className="mx-1.5">·</span>
-                      <MapPin size={10} className="inline mr-0.5" />
-                      {entry.location}
-                    </p>
-
-                    <div className="text-right">
-                      <span className="edu-grade-value text-[#00e67a] font-bold text-2xl">{entry.score}</span>
-                      <div className="edu-grade-label text-white/40 text-[10px] tracking-widest uppercase">{entry.scoreLabel}</div>
-                    </div>
-                  </div>
-                </motion.div>
-              )
-            })}
-          </div>
+                <p className="text-xs pt-1">
+                  <span className="text-white/40">$</span>{' '}
+                  <span className="text-white/20">_</span>
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </AnimatedSection>

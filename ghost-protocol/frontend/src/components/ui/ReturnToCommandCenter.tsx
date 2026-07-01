@@ -8,7 +8,7 @@ export default function ReturnToCommandCenter() {
   const navigate = useNavigate()
 
   return (
-    <div style={{ position: 'fixed', top: 4, left: 16, zIndex: 100 }}>
+    <div style={{ position: 'fixed', top: 16, left: 16, zIndex: 100 }}>
       <motion.button
         className="ghost-back-btn"
         onClick={() => {

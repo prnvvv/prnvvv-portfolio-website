@@ -542,13 +542,27 @@ body {
 
 .globe-container {
   position: relative;
-  width: 486px;
-  height: 486px;
+  width: 630px;
+  height: 630px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
+  will-change: transform;
+}
+
+/* High-specificity override — globe is 80% of column width (20% breathing room) */
+.globe-container.hero-globe-wrapper {
+  width: min(800px, calc((100vw - 64px) * 0.4));
+  height: min(800px, calc((100vw - 64px) * 0.4));
+}
+.globe-container.hero-globe-wrapper::before {
+  width: min(880px, calc((100vw - 64px) * 0.44));
+  height: min(880px, calc((100vw - 64px) * 0.44));
+}
+.globe-container.hero-globe-wrapper::after {
+  width: min(760px, calc((100vw - 64px) * 0.38));
+  height: min(760px, calc((100vw - 64px) * 0.38));
 }
 
 .hero-right-col {
@@ -562,8 +576,8 @@ body {
 .globe-container::before {
   content: '';
   position: absolute;
-  width: 520px;
-  height: 520px;
+  width: 672px;
+  height: 672px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -575,8 +589,8 @@ body {
 }
 
 @keyframes breatheGlow {
-  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-  50%      { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
 }
 
 .globe-container::after {
@@ -584,8 +598,8 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 474px;
-  height: 474px;
+  width: 612px;
+  height: 612px;
   transform: translate(-50%, -50%);
   background: conic-gradient(from 0deg, transparent 0%, rgba(0, 230, 122, 0.03) 10%, transparent 20%);
   border-radius: 50%;
@@ -595,9 +609,9 @@ body {
 }
 
 @keyframes radarSweep {
-  0%   { transform: translate(-50%, -50%) rotate(0deg); opacity: 0.4; }
+  0%   { opacity: 0.4; }
   50%  { opacity: 0.1; }
-  100% { transform: translate(-50%, -50%) rotate(360deg); opacity: 0.4; }
+  100% { opacity: 0.4; }
 }
 
 .globe-canvas {
@@ -606,18 +620,9 @@ body {
   height: 100%;
   z-index: 1;
   display: block;
-  animation: globeFloat 6s ease-in-out infinite;
-}
-
-@keyframes globeFloat {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-5px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .globe-canvas {
-    animation: none;
-  }
   .globe-container::before,
   .globe-container::after {
     animation: none;
@@ -750,9 +755,8 @@ body {
     padding-right: 16px;
   }
   .globe-container {
-    width: 440px;
-    height: 440px;
-    margin-top: 80px;
+    width: min(569px, calc(50vw - 40px));
+    height: min(569px, calc(50vw - 40px));
   }
   .hero-name {
     font-size: clamp(2.2rem, 3.5vw, 3rem);
@@ -806,17 +810,16 @@ body {
     word-break: break-word;
   }
   .globe-container {
-    width: min(380px, 75vw);
-    height: min(380px, 75vw);
-    margin-top: 40px;
+    width: min(491px, 75vw);
+    height: min(491px, 75vw);
   }
   .globe-container::before {
-    width: min(420px, 85vw);
-    height: min(420px, 85vw);
+    width: min(543px, 85vw);
+    height: min(543px, 85vw);
   }
   .globe-container::after {
-    width: min(370px, 70vw);
-    height: min(370px, 70vw);
+    width: min(478px, 70vw);
+    height: min(478px, 70vw);
   }
   .hero-name {
     font-size: clamp(1.8rem, 7vw, 2.4rem);
@@ -844,9 +847,6 @@ body {
     padding: 64px 12px 0;
     gap: 12px;
   }
-  .globe-container {
-    margin-top: 10px;
-  }
   .hero-zone-b {
     gap: 12px;
   }
@@ -869,17 +869,16 @@ body {
     word-break: break-word;
   }
   .globe-container {
-    width: min(300px, 70vw);
-    height: min(300px, 70vw);
-    margin-top: 20px;
+    width: min(388px, 70vw);
+    height: min(388px, 70vw);
   }
   .globe-container::before {
-    width: min(340px, 80vw);
-    height: min(340px, 80vw);
+    width: min(439px, 80vw);
+    height: min(439px, 80vw);
   }
   .globe-container::after {
-    width: min(260px, 65vw);
-    height: min(260px, 65vw);
+    width: min(336px, 65vw);
+    height: min(336px, 65vw);
   }
   .hero-zone-a {
     width: 100%;
@@ -933,17 +932,16 @@ body {
     font-size: 1.2rem;
   }
   .globe-container {
-    width: min(220px, 65vw);
-    height: min(220px, 65vw);
-    margin-top: 10px;
+    width: min(284px, 65vw);
+    height: min(284px, 65vw);
   }
   .globe-container::before {
-    width: min(260px, 75vw);
-    height: min(260px, 75vw);
+    width: min(336px, 75vw);
+    height: min(336px, 75vw);
   }
   .globe-container::after {
-    width: min(210px, 60vw);
-    height: min(210px, 60vw);
+    width: min(271px, 60vw);
+    height: min(271px, 60vw);
   }
   .hero-role {
     font-size: 0.65rem;

@@ -33,26 +33,40 @@ const PROJECT_BENTO_SPANS: Record<string, string> = {
   'mission-8': 'lg:col-span-2',
 };
 
+const BENTO_HOVER_CSS = `
+  .bento-grid:has(.bento-card:hover) .bento-card:not(:hover) {
+    opacity: 0.75;
+  }
+  .bento-card {
+    transition: opacity 0.4s ease;
+  }
+  .bento-card:hover {
+    opacity: 1;
+  }
+`
+
 export function ProjectsBentoGrid() {
   const allProjects = getProjects();
   const projects = allProjects.slice(0, 8);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+    <>
+      <style>{BENTO_HOVER_CSS}</style>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="bento-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {projects.map((project) => {
           const Icon = PROJECT_ICONS[project.id] || Brain;
           const badge = PROJECT_STATUS[project.id];
           const span = PROJECT_BENTO_SPANS[project.id] || '';
 
           return (
-            <MagicBento key={project.id} color="#00e67a" intensity={5} className={span}>
-              <div className={`bg-black/40 backdrop-blur-md border border-[#00e67a]/20 hover:border-[#00e67a]/40 rounded-lg transition-colors duration-300 p-4 h-full flex flex-col group`}>
+            <MagicBento key={project.id} className={span}>
+              <div className={`bento-card bg-black/40 backdrop-blur-md border border-[#00e67a]/20 hover:border-[#00e67a]/40 rounded-lg p-4 h-full flex flex-col group`}>
                 <div className="flex items-start justify-between mb-2">
                   <div className="h-8 w-8 flex items-center justify-center text-[#00e67a] shrink-0">
                     <Icon size={16} />
@@ -91,5 +105,6 @@ export function ProjectsBentoGrid() {
         })}
       </div>
     </motion.div>
+    </>
   );
 }

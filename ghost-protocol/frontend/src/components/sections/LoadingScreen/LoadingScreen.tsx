@@ -2,24 +2,49 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useUIStore } from '../../../store/uiStore'
 
-const bootLines: [string, string][] = [
-  ['    0.000000', 'GHOST Protocol v1.0.0 \u2014 Command Center'],
-  ['    0.001234', 'Loading operator profile'],
-  ['    0.002345', 'Initializing tactical interface'],
-  ['    0.003456', 'Loading AI core modules'],
-  ['    0.004567', 'Establishing secure tunnel'],
-  ['    0.005678', 'Verifying intelligence database'],
-  ['    0.006789', 'Preparing command center'],
-]
-
-type LineState = 'pending' | 'typing' | 'done'
-
 const DURATION = 3000
+
+const LOADER_CSS = `
+@keyframes square-animation {
+   0% { left: 0; top: 0; }
+  10.5% { left: 0; top: 0; }
+  12.5% { left: 32px; top: 0; }
+  23% { left: 32px; top: 0; }
+  25% { left: 64px; top: 0; }
+  35.5% { left: 64px; top: 0; }
+  37.5% { left: 64px; top: 32px; }
+  48% { left: 64px; top: 32px; }
+  50% { left: 32px; top: 32px; }
+  60.5% { left: 32px; top: 32px; }
+  62.5% { left: 32px; top: 64px; }
+  73% { left: 32px; top: 64px; }
+  75% { left: 0; top: 64px; }
+  85.5% { left: 0; top: 64px; }
+  87.5% { left: 0; top: 32px; }
+  98% { left: 0; top: 32px; }
+  100% { left: 0; top: 0; }
+}
+.loader {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  transform: rotate(45deg);
+}
+.loader-square {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  margin: 2px;
+  background: rgba(0,230,122,0.6);
+  box-shadow: 0 0 6px rgba(0,230,122,0.12);
+  animation: square-animation 10s ease-in-out infinite both;
+}
+`
 
 export default function LoadingScreen() {
   const { isLoading, setLoading, setLoadingProgress } = useUIStore()
-  const [lineStates, setLineStates] = useState<LineState[]>(() => bootLines.map(() => 'pending'))
-  const [typedTexts, setTypedTexts] = useState<string[]>(() => bootLines.map(() => ''))
   const [displayProgress, setDisplayProgress] = useState(0)
   const [showGranted, setShowGranted] = useState(false)
   const completeRef = useRef(false)
@@ -33,68 +58,20 @@ export default function LoadingScreen() {
 
   useEffect(() => {
     if (!isLoading) return
-
     const startTime = Date.now()
-    const doneRef = { value: false }
-    const timers: (number | ReturnType<typeof setTimeout>)[] = []
 
-    const clearAll = () => {
-      timers.forEach(t => { clearInterval(t as number); clearTimeout(t as number) })
-    }
-
-    timers.push(setInterval(() => {
+    const interval = setInterval(() => {
       const pct = Math.min(100, Math.round(((Date.now() - startTime) / DURATION) * 100))
       setDisplayProgress(pct)
       setLoadingProgress(pct)
-    }, 16))
-
-    let lineIdx = 0
-    const typeNext = () => {
-      if (lineIdx >= bootLines.length) {
-        doneRef.value = true
-        return
-      }
-      const idx = lineIdx++
-      const line = bootLines[idx][1]
-      let pos = 0
-
-      setLineStates(prev => {
-        const next = [...prev]
-        next[idx] = 'typing'
-        return next
-      })
-
-      const ti = setInterval(() => {
-        pos++
-        setTypedTexts(prev => {
-          const next = [...prev]
-          next[idx] = line.slice(0, pos)
-          return next
-        })
-        if (pos >= line.length) {
-          clearInterval(ti)
-          setLineStates(prev => {
-            const next = [...prev]
-            next[idx] = 'done'
-            return next
-          })
-          timers.push(setTimeout(typeNext, 60))
-        }
-      }, 11)
-      timers.push(ti)
-    }
-    typeNext()
-
-    timers.push(setInterval(() => {
-      const elapsed = Date.now() - startTime
-      if (elapsed >= DURATION && doneRef.value && !completeRef.current) {
-        clearAll()
+      if (pct >= 100) {
+        clearInterval(interval)
         setShowGranted(true)
         setTimeout(complete, 400)
       }
-    }, 50))
+    }, 16)
 
-    return clearAll
+    return () => clearInterval(interval)
   }, [isLoading, complete, setLoadingProgress])
 
   return (
@@ -106,6 +83,8 @@ export default function LoadingScreen() {
           style={{ background: '#080c09' }}
           exit={{ opacity: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }}
         >
+          <style>{LOADER_CSS}</style>
+
           {/* Green radial glow */}
           <div
             className="absolute inset-0 pointer-events-none"
@@ -122,78 +101,40 @@ export default function LoadingScreen() {
             }}
           />
 
-          {/* Compact boot log */}
-          <div className="relative z-10 w-full max-w-sm px-6">
-            <div className="space-y-[3px] mb-5 min-h-[170px]">
-              {bootLines.map(([ts, msg], i) => {
-                const state = lineStates[i]
-                return (
-                  <motion.div
-                    key={i}
-                    className="flex font-mono text-[12px] sm:text-[13px] leading-relaxed"
-                    style={{ fontFamily: "'Share Tech Mono', 'IBM Plex Mono', monospace" }}
-                    initial={{ opacity: 0 }}
-                    animate={{
-                      opacity: showGranted
-                        ? 0.65
-                        : state === 'pending'
-                          ? 0.12
-                          : state === 'typing'
-                            ? 0.7
-                            : 0.95,
-                    }}
-                    transition={{ duration: 0.3, ease: 'easeOut' }}
-                  >
-                    <span
-                      className="shrink-0 mr-[5px]"
-                      style={{
-                        color: state === 'done' ? 'rgba(0,230,122,0.7)' : 'rgba(255,255,255,0.25)',
-                      }}
-                    >
-                      [{ts}]
-                    </span>
-                    <span
-                      style={{
-                        color: showGranted
-                          ? 'rgba(255,255,255,0.55)'
-                          : state === 'done'
-                            ? 'rgba(255,255,255,0.95)'
-                            : 'rgba(255,255,255,0.55)',
-                      }}
-                    >
-                      {typedTexts[i]}
-                      {state === 'typing' && (
-                        <span className="inline-block w-[2px] h-[14px] ml-px align-middle" style={{ background: '#00e67a' }} />
-                      )}
-                    </span>
-                  </motion.div>
-                )
-              })}
+          {/* Centered loader */}
+          <div className="relative z-10 flex flex-col items-center gap-6 sm:gap-7">
+            <div className="loader">
+              {[0, 1, 2, 3, 4, 5, 6, 7].map(i => (
+                <div key={i} className="loader-square" style={{ animationDelay: `${-i * 1.4285714286}s` }} />
+              ))}
+            </div>
 
-              {/* ACCESS GRANTED */}
-              {showGranted && (
-                <motion.div
-                  className="flex font-mono text-[12px] sm:text-[13px] leading-relaxed"
-                  style={{ fontFamily: "'Share Tech Mono', 'IBM Plex Mono', monospace" }}
+            <div className="text-center">
+              {!showGranted ? (
+                <motion.p
+                  className="font-mono text-[10px] sm:text-xs tracking-[0.25em] text-white/70"
+                  style={{ fontFamily: "'Share Tech Mono', monospace" }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                >
+                  INITIALIZING...
+                </motion.p>
+              ) : (
+                <motion.p
+                  className="font-mono text-xs sm:text-sm tracking-[0.2em] text-[#00e67a]"
+                  style={{ fontFamily: "'Share Tech Mono', monospace" }}
                   initial={{ opacity: 0, y: -3 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <span
-                    className="shrink-0 mr-[5px]"
-                    style={{ color: 'rgba(0,230,122,0.8)' }}
-                  >
-                    [    0.007890]
-                  </span>
-                  <span style={{ color: 'rgba(0,230,122,0.95)' }}>
-                    ACCESS GRANTED
-                  </span>
-                </motion.div>
+                  ACCESS GRANTED
+                </motion.p>
               )}
             </div>
 
             {/* Progress bar */}
-            <div className="space-y-1">
+            <div className="w-44 sm:w-48 space-y-1">
               <div className="h-[1px] bg-white/5 rounded-full overflow-hidden">
                 <motion.div
                   className="h-full rounded-full"

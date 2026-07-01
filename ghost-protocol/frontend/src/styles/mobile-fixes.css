@@ -98,8 +98,8 @@
   }
 
   .globe-container.hero-globe-wrapper {
-    width: min(260px, 80vw) !important;
-    height: min(260px, 80vw) !important;
+    width: min(336px, 80vw) !important;
+    height: min(336px, 80vw) !important;
     overflow: hidden !important;
     position: relative !important;
     margin-top: 0 !important;
@@ -107,13 +107,13 @@
   }
 
   .globe-container.hero-globe-wrapper::before {
-    width: min(300px, 85vw) !important;
-    height: min(300px, 85vw) !important;
+    width: min(388px, 85vw) !important;
+    height: min(388px, 85vw) !important;
   }
 
   .globe-container.hero-globe-wrapper::after {
-    width: min(240px, 75vw) !important;
-    height: min(240px, 75vw) !important;
+    width: min(310px, 75vw) !important;
+    height: min(310px, 75vw) !important;
   }
 
   .hero-zone-b .globe-container ~ .globe-container {
@@ -316,131 +316,7 @@
 }
 
 
-/* ─────────────────────────────────────────────────────────
-   BUG 4 — ACADEMY SECTION: Cards take excessive height
-   ───────────────────────────────────────────────────────── */
-@media (max-width: 1023px) {
-
-  .academy-section,
-  [id="academy"],
-  [id="education"],
-  [class*="academy-section"] {
-    padding: 16px 12px 80px !important;
-  }
-
-  .edu-timeline,
-  [class*="edu-timeline"] {
-    padding-left: 0 !important;
-    gap: 12px !important;
-  }
-
-  [class*="timeline-line"],
-  [class*="timeline-dot"],
-  [class*="timeline-diamond"],
-  [class*="timeline-connector"],
-  [class*="timeline-vertical"] {
-    display: none !important;
-  }
-
-  [class*="timeline-item"] {
-    margin-left: 0 !important;
-    padding-left: 0 !important;
-  }
-
-  .edu-card,
-  [class*="edu-card"],
-  [class*="education-card"] {
-    padding: 14px 16px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    margin: 0 0 12px !important;
-  }
-
-  [class*="edu-card"] h2,
-  [class*="edu-card"] h3,
-  [class*="institution-name"] {
-    font-size: 15px !important;
-    line-height: 1.25 !important;
-    margin: 4px 0 !important;
-  }
-
-  [class*="grade-value"],
-  [class*="score-value"],
-  [class*="edu-grade"]:not([class*="label"]) {
-    font-size: clamp(22px, 6vw, 28px) !important;
-    line-height: 1.0 !important;
-  }
-
-  [class*="edu-degree"],
-  [class*="edu-program"] {
-    font-size: 11px !important;
-    margin: 4px 0 !important;
-  }
-
-  [class*="edu-meta"],
-  [class*="edu-date"] {
-    font-size: 10px !important;
-    margin-bottom: 6px !important;
-  }
-
-  .edu-id-label {
-    font-size: 9px !important;
-    letter-spacing: 0.2em !important;
-  }
-
-  .edu-status {
-    font-size: 8px !important;
-    padding: 2px 7px !important;
-    letter-spacing: 0.12em !important;
-  }
-
-  .edu-status-dot {
-    width: 5px !important;
-    height: 5px !important;
-  }
-
-  .edu-degree {
-    font-size: 11px !important;
-    line-height: 1.4 !important;
-    margin-bottom: 4px !important;
-    margin-top: 4px !important;
-  }
-
-  .edu-meta {
-    font-size: 10px !important;
-    gap: 4px !important;
-    margin-bottom: 8px !important;
-    display: flex !important;
-    align-items: center !important;
-    flex-wrap: wrap !important;
-  }
-
-  .edu-grade-value {
-    font-size: clamp(22px, 6vw, 30px) !important;
-    line-height: 1.0 !important;
-  }
-
-  .edu-grade-label {
-    font-size: 8px !important;
-    letter-spacing: 0.18em !important;
-    margin-top: 1px !important;
-  }
-
-  .edu-card svg:first-child {
-    width: 18px !important;
-    height: 18px !important;
-    flex-shrink: 0 !important;
-    margin-top: 2px !important;
-  }
-
-  .edu-card .text-right {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-end !important;
-    gap: 2px !important;
-    margin-top: 6px !important;
-  }
-}
+/* ─── (Academy section was replaced with terminal-style cards — edu-* classes removed) ─── */
 
 
 /* ─────────────────────────────────────────────────────────
@@ -512,24 +388,8 @@
   }
 
   .globe-container.hero-globe-wrapper {
-    width: min(220px, 75vw) !important;
-    height: min(220px, 75vw) !important;
-  }
-
-  .edu-card,
-  [class*="edu-card"] {
-    padding: 12px 13px !important;
-  }
-
-  [class*="edu-card"] h2,
-  [class*="edu-card"] h3,
-  [class*="institution-name"] {
-    font-size: 14px !important;
-  }
-
-  [class*="grade-value"],
-  [class*="score-value"] {
-    font-size: clamp(20px, 5.5vw, 26px) !important;
+    width: min(284px, 75vw) !important;
+    height: min(284px, 75vw) !important;
   }
 
   .header-social-icons a,
