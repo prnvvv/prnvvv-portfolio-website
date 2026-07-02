@@ -1,4 +1,4 @@
-import { getStats, getProfile } from '../services/dataService'
+import { getStats } from '../services/dataService'
 
 export interface SignalStat {
   label: string
@@ -16,12 +16,4 @@ export function getSignalStats(): SignalStat[] {
     { label: 'CERTIFICATIONS', value: stats.certifications },
     { label: 'PATENTS', value: stats.patentsPublished + stats.patentsFiled },
   ]
-}
-
-export function getTopSkills(): string[] {
-  const profile = getProfile()
-  const topSkills = [
-    'Python', 'TensorFlow', 'FastAPI', 'React', 'LangChain'
-  ]
-  return topSkills
 }

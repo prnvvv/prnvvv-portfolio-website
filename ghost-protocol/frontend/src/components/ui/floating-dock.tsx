@@ -1,9 +1,9 @@
 import React, { useRef } from "react"
 import { motion, MotionValue, useMotionValue, useSpring, useTransform } from "motion/react"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { useUIStore } from "@/store/uiStore"
 import { cn } from "@/lib/utils"
-import { User, GraduationCap, Crosshair, Award, ShieldCheck, Medal, MessageCircle } from "lucide-react"
+import { User, GraduationCap, Crosshair, Award, ShieldCheck, Medal } from "lucide-react"
 
 const DOCK_ITEMS: FloatingDockItem[] = [
   { id: 'dossier', title: 'OPERATOR DOSSIER', icon: <User size={18} strokeWidth={1.6} /> },
@@ -29,7 +29,6 @@ interface FloatingDockProps {
 
 export default function FloatingDock({ items = DOCK_ITEMS, desktopClassName, mobileClassName }: FloatingDockProps) {
   const mouseY = useMotionValue(Infinity)
-  const navigate = useNavigate()
   const location = useLocation()
   const { activeSection, setActiveSection } = useUIStore()
   const isLanding = location.pathname === "/"
