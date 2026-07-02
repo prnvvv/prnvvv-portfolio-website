@@ -15,12 +15,7 @@ export interface AchievementEntry {
   icon: string
 }
 
-export interface AchievementsData {
-  stats: AchievementStats[]
-  entries: AchievementEntry[]
-}
-
-export const achievementsData: AchievementsData = {
+export const achievementsData = {
   stats: [
     { value: '3', label: 'HACKATHON WINS', icon: 'Trophy' },
     { value: '4', label: 'RESEARCH IP', sublabel: '1 Published · 3 Filed', icon: 'FileText' },

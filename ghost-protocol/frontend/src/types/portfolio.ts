@@ -38,23 +38,6 @@ export interface Mission {
   date: string
 }
 
-export interface Weapon {
-  id: string
-  name: string
-  type: string
-  description: string
-  spec: string
-  status: 'ACTIVE' | 'RESERVE' | 'DECOMMISSIONED'
-  category: string
-  icon?: string
-  stats: {
-    range: string
-    accuracy: number
-    power: number
-    speed: number
-  }
-}
-
 export interface ServiceEntry {
   id: string
   title: string
@@ -82,8 +65,4 @@ export interface IntelReport {
   status?: string
 }
 
-export interface NavTab {
-  id: string
-  label: string
-  icon: string
-}
+

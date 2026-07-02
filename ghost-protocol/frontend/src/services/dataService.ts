@@ -1,23 +1,18 @@
 import {
   type Operator,
   type Skill,
-  type Mission,
   type ServiceEntry,
-  type IntelReport,
 } from '../types/portfolio'
 import { operatorData, skills } from '../data/operatorData'
 import { missions } from '../data/missions'
 import { serviceRecord } from '../data/serviceRecord'
 import { intelReports } from '../data/intelReports'
-import { arsenal } from '../data/arsenal'
 import { educationData, type EducationEntry } from '../data/education'
-import { leadershipData, type LeadershipEntry } from '../data/leadership'
+import { leadershipData } from '../data/leadership'
 import { certificationsData, type CertificationEntry } from '../data/certifications'
-import { awardsData, type AwardEntry } from '../data/awards'
-import { githubReposData, type GitHubRepoEntry } from '../data/github'
-import { achievementsData, type AchievementEntry, type AchievementStats } from '../data/achievements'
-
-export type { EducationEntry, LeadershipEntry, CertificationEntry, AwardEntry, GitHubRepoEntry, AchievementEntry, AchievementStats }
+import { awardsData } from '../data/awards'
+import { githubReposData } from '../data/github'
+import { achievementsData } from '../data/achievements'
 
 // ── Operator Profile ──
 export function getProfile(): Operator {
@@ -25,10 +20,6 @@ export function getProfile(): Operator {
 }
 
 // ── Skills ──
-export function getSkills(): Skill[] {
-  return skills
-}
-
 export function getSkillsByCategory(): Record<string, Skill[]> {
   const grouped: Record<string, Skill[]> = {}
   for (const skill of skills) {
@@ -42,22 +33,9 @@ export function getSkillCategories(): string[] {
   return [...new Set(skills.map((s) => s.category))]
 }
 
-// ── Projects / Missions ──
-export function getProjects(): Mission[] {
-  return missions
-}
-
-export function getActiveProjects(): Mission[] {
-  return missions.filter((m) => m.status === 'ACTIVE')
-}
-
 // ── Experience ──
 export function getExperience(): ServiceEntry[] {
   return serviceRecord
-}
-
-export function getWorkExperience(): ServiceEntry[] {
-  return serviceRecord.filter((e) => e.type === 'work')
 }
 
 // ── Education ──
@@ -65,52 +43,14 @@ export function getEducation(): EducationEntry[] {
   return educationData
 }
 
-// ── Leadership ──
-export function getLeadership(): LeadershipEntry[] {
-  return leadershipData
-}
-
-// ── Intel Reports / Research ──
-export function getResearch(): IntelReport[] {
-  return intelReports
-}
-
 // ── Certifications ──
 export function getCertifications(): CertificationEntry[] {
   return certificationsData
 }
 
-// ── Awards ──
-export function getAwards(): AwardEntry[] {
-  return awardsData
-}
-
-export function getAwardsByCategory(): Record<string, AwardEntry[]> {
-  const grouped: Record<string, AwardEntry[]> = {}
-  for (const award of awardsData) {
-    if (!grouped[award.category]) grouped[award.category] = []
-    grouped[award.category].push(award)
-  }
-  return grouped
-}
-
 // ── Achievements ──
 export function getAchievements() {
   return achievementsData
-}
-
-// ── GitHub Repos ──
-export function getGitHubRepos(): GitHubRepoEntry[] {
-  return githubReposData
-}
-
-export function getFeaturedRepos(): GitHubRepoEntry[] {
-  return githubReposData.filter((r) => r.featured)
-}
-
-// ── Arsenal ──
-export function getArsenal(): Skill[] {
-  return arsenal
 }
 
 // ── Stats ──
@@ -156,19 +96,4 @@ export function getStats(): PortfolioStats {
   }
 }
 
-// ── Social Links ──
-export interface SocialLink {
-  platform: string
-  url: string
-  icon: string
-  label: string
-}
 
-export function getSocialLinks(): SocialLink[] {
-  const profile = getProfile()
-  return [
-    { platform: 'github', url: profile.github || 'https://github.com/prnvvv', icon: '◆', label: 'GitHub' },
-    { platform: 'linkedin', url: profile.linkedin || 'https://linkedin.com/in/prannavakhanth', icon: '◈', label: 'LinkedIn' },
-    { platform: 'email', url: `mailto:${profile.email || 'prannavakhanth12@gmail.com'}`, icon: '▣', label: 'Email' },
-  ]
-}

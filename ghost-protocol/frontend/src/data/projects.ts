@@ -1,4 +1,4 @@
-export type ProjectStatus =
+type ProjectStatus =
   | 'PATENT PUBLISHED'
   | 'PATENT FILED'
   | 'UNDER REVIEW'
@@ -7,7 +7,7 @@ export type ProjectStatus =
   | 'PUBLISHED'
   | 'COMPLETED'
 
-export type ProjectCategory =
+type ProjectCategory =
   | 'AI/ML'
   | 'RAG/LLM'
   | 'FULL-STACK'
@@ -39,7 +39,7 @@ export interface Project {
   collaborators?: string
 }
 
-export const PROJECTS: Project[] = [
+const PROJECTS: Project[] = [
   {
     id: 'CROPCORE-001',
     codename: 'CROPCORE',
@@ -304,9 +304,5 @@ export const PROJECTS: Project[] = [
     collaborators: 'VIT Chennai Paleontology Lab',
   },
 ]
-
-export const FEATURED_PROJECTS = PROJECTS.filter(p => p.featured).sort(
-  (a, b) => a.featuredOrder - b.featuredOrder
-)
 
 export const ALL_PROJECTS = PROJECTS.sort((a, b) => a.featuredOrder - b.featuredOrder)
