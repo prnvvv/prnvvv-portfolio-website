@@ -1,0 +1,58 @@
+/* Ghost Icon Animations */
+
+.ghost-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.ghost-svg {
+  display: block;
+  animation: ghostFloat 2s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 230, 122, 0.15));
+}
+
+.ghost-body {
+  transition: fill 0.3s ease;
+}
+
+.ghost-glow {
+  animation: ghostGlow 2s ease-in-out infinite;
+}
+
+.ghost-pupil-left,
+.ghost-pupil-right {
+  animation: pupilMove 3s ease-in-out infinite;
+}
+
+@keyframes ghostFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes ghostGlow {
+  0%, 100% {
+    stroke-opacity: 0.2;
+  }
+  50% {
+    stroke-opacity: 0.6;
+  }
+}
+
+@keyframes pupilMove {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(1px);
+  }
+  75% {
+    transform: translateX(-0.5px);
+  }
+}

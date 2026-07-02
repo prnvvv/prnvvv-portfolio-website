@@ -1,0 +1,46 @@
+.terminal-modal {
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(0, 230, 122, 0.02),
+    inset 0 0 60px rgba(0, 230, 122, 0.01);
+}
+
+.terminal-modal .overflow-y-auto::-webkit-scrollbar {
+  width: 4px;
+}
+
+.terminal-modal .overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.terminal-modal .overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(0, 230, 122, 0.2);
+  border-radius: 2px;
+}
+
+.terminal-modal .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 230, 122, 0.4);
+}
+
+.terminal-modal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(0, 230, 122, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 230, 122, 0.015) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  border-radius: 12px;
+  z-index: 0;
+}
+
+
+.terminal-modal .animate-pulse {
+  animation: terminalCursorBlink 1s step-end infinite;
+}
+
+@keyframes terminalCursorBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}

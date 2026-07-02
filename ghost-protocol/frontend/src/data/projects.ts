@@ -55,7 +55,7 @@ export const PROJECTS: Project[] = [
     displayTechCount: 5,
     icon: 'cropcore',
     githubUrl: '',
-    award: undefined,
+    award: "Pitchathon'24 Special Recognition",
     featured: true,
     featuredOrder: 1,
     year: '2024',

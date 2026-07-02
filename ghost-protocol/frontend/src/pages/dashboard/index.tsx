@@ -15,7 +15,7 @@ import ServiceRecord from '../../components/sections/ServiceRecord/ServiceRecord
 import Certifications from '../../components/sections/Certifications/Certifications'
 import Achievements from '../../components/sections/Achievements/Achievements'
 import SocialIcons from '../../components/social/SocialIcons'
-import ReturnToCommandCenter from '../../components/ui/ReturnToCommandCenter'
+import GhostIcon from '../../components/effects/GhostIcon'
 import FloatingDock from '../../components/ui/floating-dock'
 
 const SECTION_IDS = ['dossier', 'education', 'missions', 'service-record', 'certifications', 'achievements']
@@ -68,7 +68,7 @@ function Dashboard() {
 
   return (
     <div className="relative min-h-screen bg-[#0a0c0a] overflow-x-hidden">
-      <ReturnToCommandCenter />
+      <GhostIcon />
       <SocialIcons />
       <TacticalFlickeringGrid />
       <ParticleField />

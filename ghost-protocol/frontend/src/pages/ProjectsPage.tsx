@@ -1,22 +1,14 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Award } from 'lucide-react'
 import { ALL_PROJECTS } from '../data/projects'
 import type { Project } from '../data/projects'
 import ParticleField from '../components/effects/ParticleField/ParticleField'
 import { TacticalFlickeringGrid } from '../components/effects/TacticalFlickeringGrid'
+import { TerminalCard } from '../components/TerminalCard'
+import { TerminalModal } from '../components/TerminalModal'
+import GhostIcon from '../components/effects/GhostIcon'
 import Footer from '../components/layout/Footer/Footer'
-
-const STATUS_COLORS: Record<string, string> = {
-  'PATENT PUBLISHED': '#00e67a',
-  'PATENT FILED': '#00b4d8',
-  'UNDER REVIEW': '#ffd166',
-  'DEPLOYED': '#06d6a0',
-  'PUBLISHED': '#a8dadc',
-  'COMPLETED': 'rgba(0,230,122,0.5)',
-  'ACTIVE': '#ffd166',
-}
 
 const statsData = [
   { value: ALL_PROJECTS.length, label: 'OPERATIONS' },
@@ -41,78 +33,16 @@ const SPAN_MAP: Record<string, string> = {
   'SYNTHETIC-013': 'md:col-span-6',
 }
 
-function StatusBadge({ status }: { status: string }) {
-  const color = STATUS_COLORS[status] || '#00e67a'
-  return (
-    <span
-      className="inline-flex items-center gap-1 font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full shrink-0"
-      style={{ background: `${color}18`, color, border: `1px solid ${color}35` }}
-    >
-      {status}
-    </span>
-  )
-}
-
-function TechTag({ name }: { name: string }) {
-  return (
-    <span
-      className="font-mono text-[11px] px-2 py-1 rounded"
-      style={{
-        color: 'rgba(255,255,255,0.55)',
-        background: 'rgba(255,255,255,0.04)',
-        border: '1px solid rgba(255,255,255,0.08)',
-      }}
-    >
-      {name}
-    </span>
-  )
-}
-
-function ProjectCard({ project }: { project: Project }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-30px 0px' }}
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-6 flex flex-col gap-3 h-full group hover:border-[#00e67a]/50 transition-all duration-300"
-    >
-      <div className="flex items-start justify-between gap-2">
-        <span className="font-mono text-[11px] tracking-[0.15em] text-[#00e67a]/70 uppercase leading-tight">
-          {project.id}
-        </span>
-        <StatusBadge status={project.status} />
-      </div>
-      <h3 className="font-display text-sm md:text-base font-bold text-white leading-snug">
-        {project.title}
-      </h3>
-      <p className="font-mono text-[12px] leading-relaxed text-white/70">
-        {project.fullDescription}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        {project.technologies.slice(0, 5).map(t => (
-          <TechTag key={t} name={t} />
-        ))}
-        {project.technologies.length > 5 && (
-          <span className="font-mono text-[11px] text-white/40 self-center">+{project.technologies.length - 5}</span>
-        )}
-      </div>
-      <div className="flex items-center justify-between pt-2 mt-1 border-t border-white/5">
-        <span className="font-mono text-[10px] text-white/40 tracking-wide">{project.year}</span>
-        {project.award && (
-          <span className="font-mono text-[10px] flex items-center gap-1" style={{ color: '#f0a500' }}>
-            <Award size={10} color="#f0a500" />
-            {project.award}
-          </span>
-        )}
-      </div>
-    </motion.div>
-  )
-}
-
 export default function ProjectsPage() {
   const navigate = useNavigate()
   const [isMobile, setIsMobile] = useState(false)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project)
+    setIsModalOpen(true)
+  }
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -128,6 +58,7 @@ export default function ProjectsPage() {
   return (
     <div className="relative min-h-screen flex flex-col bg-[#0a0c0a] text-white overflow-hidden">
       {/* Fixed background effects — matching base dashboard */}
+      <GhostIcon />
       <TacticalFlickeringGrid />
       <ParticleField />
 
@@ -187,14 +118,37 @@ export default function ProjectsPage() {
             {ALL_PROJECTS.map((project) => {
               const span = SPAN_MAP[project.id] || 'md:col-span-2'
               return (
-                <div key={project.id} className={span}>
-                  <ProjectCard project={project} />
-                </div>
+                <motion.div
+                  key={project.id}
+                  className={`${span} h-full`}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-30px 0px' }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <TerminalCard
+                    id={project.id}
+                    title={project.title}
+                    description={project.fullDescription}
+                    technologies={project.technologies}
+                    status={project.status}
+                    year={project.year}
+                    award={project.award}
+                    truncateDescription={false}
+                    onClick={() => handleProjectClick(project)}
+                  />
+                </motion.div>
               )
             })}
           </div>
         </div>
       </div>
+
+      <TerminalModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        project={selectedProject}
+      />
 
       <div className="relative z-10 border-t border-[#00e67a]/10">
         <Footer />
