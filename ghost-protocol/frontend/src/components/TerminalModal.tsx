@@ -83,9 +83,9 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
             </div>
 
             {/* Terminal Body */}
-            <div className="p-6 overflow-y-auto flex-1 font-mono relative z-10">
+            <div className="p-4 flex-1 font-mono relative z-10">
               {/* Terminal Prompt + Action Buttons */}
-              <div className="flex items-start justify-between gap-3 mb-4">
+              <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex items-center gap-1 text-sm flex-wrap min-w-0">
                   <span className="text-[#00e67a]">user</span>
                   <span className="text-white/30">@</span>
@@ -127,22 +127,32 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
                       <FaLinkedin size={12} /> Patent
                     </a>
                   )}
+                  {project.linkedinPosts?.[0] && (
+                    <a
+                      href={project.linkedinPosts[0]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 rounded text-white/50 hover:text-[#00e67a] hover:border-[#00e67a]/30 transition-all duration-200 text-[10px]"
+                    >
+                      <FaLinkedin size={12} /> LinkedIn
+                    </a>
+                  )}
                 </div>
               </div>
 
-              <div className="border-t border-[#00e67a]/10 my-3" />
+              <div className="border-t border-[#00e67a]/10 my-2" />
 
               {/* Main Content — 2-Column Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Left Column — Project Details */}
-                <div className="space-y-4">
+                <div className="space-y-2">
                   {/* Title */}
-                  <div className="text-white font-bold text-lg md:text-xl tracking-wide">
+                  <div className="text-white font-bold text-base md:text-lg tracking-wide">
                     {project.title}
                   </div>
 
                   {/* Description */}
-                  <div className="text-white/60 text-sm leading-relaxed">
+                  <div className="text-white/60 text-xs md:text-sm leading-relaxed">
                     {project.fullDescription}
                   </div>
 
@@ -206,30 +216,11 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
                     </div>
                   )}
 
-                  {/* LinkedIn Posts */}
-                  {project.linkedinPosts && project.linkedinPosts.length > 0 && (
-                    <div className="mt-3">
-                      <span className="text-white/30 text-xs">LINKEDIN POSTS:</span>
-                      <div className="flex flex-col gap-1.5 mt-1.5">
-                        {project.linkedinPosts.map((url, i) => (
-                          <a
-                            key={i}
-                            href={url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1.5 text-[10px] text-white/40 hover:text-[#00e67a] transition-colors duration-200 truncate"
-                          >
-                            <FaLinkedin size={12} />
-                            <span className="truncate">Post {i + 1}</span>
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+
                 </div>
 
-                {/* Right Column — Intel Sources */}
-                <div className="space-y-3">
+                {/* Right Column — Intel Sources (reserved for images) */}
+                <div className="space-y-2">
                   <span className="text-white/30 text-xs">INTEL SOURCES</span>
                   {project.collaborators ? (
                     <div className="bg-white/5 border border-white/10 rounded-lg p-4 hover:border-[#00e67a]/20 transition-all duration-200">
@@ -244,7 +235,7 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
                       </div>
                     </div>
                   ) : (
-                    <div className="text-white/20 text-sm text-center py-8 font-mono">
+                    <div className="text-white/20 text-sm text-center py-4 font-mono">
                       No intel sources available
                     </div>
                   )}
@@ -252,7 +243,7 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
               </div>
 
               {/* Terminal Footer */}
-              <div className="border-t border-[#00e67a]/10 mt-6 pt-3 flex items-center justify-between">
+              <div className="border-t border-[#00e67a]/10 mt-3 pt-2 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span className="text-[#00e67a] text-xs">READY</span>
                   <span className="w-1.5 h-1.5 rounded-full bg-[#00e67a] animate-pulse" />
