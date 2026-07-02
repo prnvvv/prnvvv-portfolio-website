@@ -9,6 +9,7 @@ const STATUS_TERMINAL_COLORS: Record<string, string> = {
   'PUBLISHED': '#00e67a',
   'COMPLETED': '#00e67a',
   'ACTIVE': '#60a5fa',
+  'AWARD WINNER': '#f0a500',
 }
 
 interface TerminalCardProps {

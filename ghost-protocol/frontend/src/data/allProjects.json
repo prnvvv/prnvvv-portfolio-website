@@ -29,5 +29,56 @@
       "/images/projects/cropcore/fig7.jpg",
       "/images/projects/cropcore/fig8.jpg"
     ]
+  },
+  {
+    "id": "CAREERTRACK-002",
+    "name": "CareerTrack — AI Career Intelligence Platform",
+    "description": "CareerTrack is a full-stack AI career coaching system that ingests a user's resume, GitHub profile, and job description to generate personalized gap analysis, mock interview question banks, and ATS-optimized resume rewrites. Features a LangChain multi-agent orchestration layer for specialized subagents (resume agent, interview agent, portfolio agent). React frontend with FastAPI backend. Designed for students and early-career engineers.",
+    "technologies": ["Python", "LangChain", "LangGraph", "React", "FastAPI", "ChromaDB", "OpenAI"],
+    "status": "DEPLOYED",
+    "year": "2024",
+    "achievements": [],
+    "links": {
+      "github": "",
+      "demo": null,
+      "paper": null,
+      "patent": null
+    },
+    "linkedinPosts": [],
+    "images": [
+      "/images/projects/careertrack/fig1.jpg",
+      "/images/projects/careertrack/fig2.jpg",
+      "/images/projects/careertrack/fig3.jpg"
+    ]
+  },
+  {
+    "id": "KRED-004",
+    "name": "KRED — AI-powered Financial Intelligence Platform",
+    "description": "KRED is an AI-powered life and financial intelligence engine designed to tackle retirement blindness among Gen Z. Instead of just tracking expenses, it analyzes user behavior and converts everyday decisions into future financial and life outcomes, helping users clearly see the long-term impact of their present actions. Built during Vashisht Hackathon 3.0 — a 36-hour national-level hackathon hosted by IIITDM Kancheepuram — the team Perry the Platypus secured the FinTech track win. Key features include: AI Behavioural Analysis Engine, Life Regret Intelligence (quantifying the long-term cost of daily habits using compounding), Micro Life Simulation, Future Life Projection, Dynamic Spending Limits, Retirement Intelligence Engine, KRED Reels (short-form personalized financial insights), and an AI Financial Assistant. The project bridges the gap between knowing and acting by making the future visible and actionable today.",
+    "technologies": ["Python", "LangChain", "FastAPI", "React", "JavaScript", "HTML", "CSS", "SQL", "AI Behavioral Analysis", "Financial Intelligence"],
+    "status": "AWARD WINNER",
+    "year": "2026",
+    "achievements": [
+      "1st Place — FinTech Track, Vashisht Hackathon 3.0 (IIITDM Kancheepuram)",
+      "36-hour national-level hackathon",
+      "AI-powered life & financial intelligence engine"
+    ],
+    "links": {
+      "github": "https://github.com/yourusername/kred",
+      "demo": null,
+      "paper": null,
+      "patent": null
+    },
+    "linkedinPosts": [
+      "https://www.linkedin.com/posts/prannavakhanth_vashishthackathon-iiitdmkancheepuram-fintech-activity-7446457433092206592-p0Vw?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4"
+    ],
+    "images": [
+      "/images/projects/kred/fig1.jpg",
+      "/images/projects/kred/fig2.jpg",
+      "/images/projects/kred/fig3.jpg",
+      "/images/projects/kred/fig4.jpg",
+      "/images/projects/kred/fig5.jpg",
+      "/images/projects/kred/fig6.jpg"
+    ]
   }
 ]

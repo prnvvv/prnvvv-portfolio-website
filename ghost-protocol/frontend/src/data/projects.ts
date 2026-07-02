@@ -6,6 +6,7 @@ type ProjectStatus =
   | 'ACTIVE'
   | 'PUBLISHED'
   | 'COMPLETED'
+  | 'AWARD WINNER'
 
 type ProjectCategory =
   | 'AI/ML'
@@ -72,12 +73,6 @@ const PROJECTS: Project[] = [
     images: [
       "/images/projects/cropcore/fig1.jpg",
       "/images/projects/cropcore/fig2.jpg",
-      "/images/projects/cropcore/fig3.jpg",
-      "/images/projects/cropcore/fig4.jpg",
-      "/images/projects/cropcore/fig5.jpg",
-      "/images/projects/cropcore/fig6.jpg",
-      "/images/projects/cropcore/fig7.jpg",
-      "/images/projects/cropcore/fig8.jpg"
     ],
     featured: true,
     featuredOrder: 1,
@@ -107,21 +102,40 @@ const PROJECTS: Project[] = [
     id: 'KRED-004',
     codename: 'KRED',
     number: '004',
-    title: 'KRED — Financial Intelligence Platform',
+    title: 'KRED — AI-powered Financial Intelligence Platform',
     shortDescription:
-      'An AI-powered financial intelligence platform that analyzes financial behavior, provides long-term spending forecasts, and generates personalized advisory using LangChain agentic workflows.',
+      'An AI-powered life and financial intelligence engine that tackles retirement blindness among Gen Z by converting everyday decisions into future outcomes.',
     fullDescription:
-      'KRED is a full-stack financial intelligence system that ingests transaction history to build behavioral spending profiles, detect anomalies, and generate LLM-powered financial recommendations. Features a real-time dashboard with ML-based credit risk scoring, peer comparison analytics, and agentic advisory workflows via LangChain. Winner of Vashisht National Hackathon 2024. Backend built on FastAPI with PostgreSQL and vector-based memory for persistent user context.',
-    status: 'COMPLETED',
+      'KRED is an AI-powered life and financial intelligence engine designed to tackle retirement blindness among Gen Z. Instead of just tracking expenses, it analyzes user behavior and converts everyday decisions into future financial and life outcomes, helping users clearly see the long-term impact of their present actions. Built during Vashisht Hackathon 3.0 — a 36-hour national-level hackathon hosted by IIITDM Kancheepuram — the team Perry the Platypus secured the FinTech track win. Key features include: AI Behavioural Analysis Engine, Life Regret Intelligence (quantifying the long-term cost of daily habits using compounding), Micro Life Simulation, Future Life Projection, Dynamic Spending Limits, Retirement Intelligence Engine, KRED Reels (short-form personalized financial insights), and an AI Financial Assistant. The project bridges the gap between knowing and acting by making the future visible and actionable today.',
+    status: 'AWARD WINNER',
     category: 'FULL-STACK',
-    technologies: ['Python', 'LangChain', 'FastAPI', 'PostgreSQL', 'React', 'Scikit-learn', 'Pandas'],
+    technologies: [
+      'Python', 'LangChain', 'FastAPI', 'React', 'JavaScript',
+      'HTML', 'CSS', 'SQL', 'AI Behavioral Analysis', 'Financial Intelligence',
+    ],
     displayTechCount: 4,
     icon: 'kred',
-    githubUrl: '',
-    award: "Vashisht National Hackathon Winner",
+    githubUrl: 'https://github.com/yourusername/kred',
+    award: "1st Place — FinTech Track, Vashisht Hackathon 3.0",
+    achievements: [
+      "1st Place — FinTech Track, Vashisht Hackathon 3.0 (IIITDM Kancheepuram)",
+      "36-hour national-level hackathon",
+      "AI-powered life & financial intelligence engine",
+    ],
+    linkedinPosts: [
+      "https://www.linkedin.com/posts/prannavakhanth_vashishthackathon-iiitdmkancheepuram-fintech-activity-7446457433092206592-p0Vw?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4",
+    ],
+    images: [
+      "/images/projects/kred/fig1.jpg",
+      "/images/projects/kred/fig2.jpg",
+      "/images/projects/kred/fig3.jpg",
+      "/images/projects/kred/fig4.jpg",
+      "/images/projects/kred/fig5.jpg",
+      "/images/projects/kred/fig6.jpg",
+    ],
     featured: false,
     featuredOrder: 4,
-    year: '2024',
+    year: '2026',
   },
   {
     id: 'AUTCORE-003',
@@ -241,6 +255,11 @@ const PROJECTS: Project[] = [
     icon: 'careertrack',
     githubUrl: '',
     award: undefined,
+    images: [
+      "/images/projects/careertrack/fig1.jpg",
+      "/images/projects/careertrack/fig2.jpg",
+      "/images/projects/careertrack/fig3.jpg",
+    ],
     featured: true,
     featuredOrder: 2,
     year: '2024',
