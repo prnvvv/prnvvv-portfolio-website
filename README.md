@@ -1,10 +1,18 @@
 # prnvvv-portfolio-website
 
-Personal developer portfolio built with React, TypeScript, and Vite.
+Personal developer portfolio built with React, TypeScript, and Vite featuring an interactive 3D globe, animated UI components, and a military/HUD-themed design system.
 
-The frontend features an interactive 3D globe, animated UI components, and a military/HUD-themed design system.
+## Tech Stack
 
-## Quickstart
+- **React 19** + TypeScript
+- **Vite 6**
+- **Tailwind CSS 4**
+- **Framer Motion 12**
+- **Three.js** / React Three Fiber
+- **Zustand** (state management)
+- **React Router DOM v7**
+
+## Setup
 
 ```bash
 cd ghost-protocol/frontend
@@ -19,19 +27,9 @@ cd ghost-protocol/frontend
 npm run build
 ```
 
-## Structure
+## Deployment
 
-- `ghost-protocol/frontend` — React + TypeScript app (Vite, Tailwind CSS, Framer Motion, Three.js).
-
-## Tech Stack
-
-- React 19 + TypeScript
-- Vite 6
-- Tailwind CSS 4
-- Framer Motion 12
-- Three.js / React Three Fiber
-- Zustand (state management)
-- React Router DOM v7
+[https://prnvvv.vercel.app](https://prnvvv.vercel.app)
 
 ## License
 

@@ -1,5 +1,6 @@
 # Environment
 .env
+.env.local
 .env.*
 !.env.example
 
@@ -8,7 +9,13 @@ node_modules/
 .vite/
 dist/
 build/
+.next/
+out/
 *.tsbuildinfo
+
+# Vercel
+.vercel/
+vercel/
 
 # IDE
 .vscode/
@@ -37,6 +44,8 @@ lerna-debug.log*
 # Cache
 .cache/
 .parcel-cache/
+.nyc_output/
+coverage/
 
 # Temporary
 tmp/
@@ -61,4 +70,3 @@ uploads/
 *.swp
 *.swo
 *~
-coverage/
