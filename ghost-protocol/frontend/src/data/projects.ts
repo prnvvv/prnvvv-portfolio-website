@@ -36,6 +36,7 @@ export interface Project {
   award?: string
   achievements?: string[]
   linkedinPosts?: string[]
+  images?: string[]
   featured: boolean
   featuredOrder: number
   year: string
@@ -67,6 +68,16 @@ const PROJECTS: Project[] = [
     ],
     linkedinPosts: [
       "https://www.linkedin.com/posts/prannavakhanth_we-are-excited-to-announce-that-our-team-activity-7247571240280829952-Xf-5?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4"
+    ],
+    images: [
+      "/images/projects/cropcore/fig1.jpg",
+      "/images/projects/cropcore/fig2.jpg",
+      "/images/projects/cropcore/fig3.jpg",
+      "/images/projects/cropcore/fig4.jpg",
+      "/images/projects/cropcore/fig5.jpg",
+      "/images/projects/cropcore/fig6.jpg",
+      "/images/projects/cropcore/fig7.jpg",
+      "/images/projects/cropcore/fig8.jpg"
     ],
     featured: true,
     featuredOrder: 1,

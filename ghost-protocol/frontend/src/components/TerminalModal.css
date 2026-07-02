@@ -5,23 +5,6 @@
     inset 0 0 60px rgba(0, 230, 122, 0.01);
 }
 
-.terminal-modal .overflow-y-auto::-webkit-scrollbar {
-  width: 4px;
-}
-
-.terminal-modal .overflow-y-auto::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.terminal-modal .overflow-y-auto::-webkit-scrollbar-thumb {
-  background: rgba(0, 230, 122, 0.2);
-  border-radius: 2px;
-}
-
-.terminal-modal .overflow-y-auto::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 230, 122, 0.4);
-}
-
 .terminal-modal::before {
   content: '';
   position: absolute;
@@ -35,7 +18,6 @@
   z-index: 0;
 }
 
-
 .terminal-modal .animate-pulse {
   animation: terminalCursorBlink 1s step-end infinite;
 }
@@ -44,3 +26,15 @@
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
+
+/* Scanline animation */
+@keyframes scanline {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-scanline {
+  animation: scanline 2s ease-in-out infinite;
+}
+
+

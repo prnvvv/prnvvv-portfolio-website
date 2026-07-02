@@ -1,0 +1,13 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
+  <defs>
+    <linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0%' stop-color='#ffbd2e11'/>
+      <stop offset='100%' stop-color='#ffbd2e33'/>
+    </linearGradient>
+  </defs>
+  <rect width='800' height='600' fill='url(#bg)' rx='8'/>
+  <circle cx='400' cy='260' r='140' fill='#ffbd2e22' stroke='#ffbd2e' stroke-width='3'/>
+  <text x='400' y='285' font-size='80' font-family='monospace' fill='#ffbd2e' text-anchor='middle' font-weight='bold'>I</text>
+  <text x='400' y='460' font-size='28' font-family='monospace' fill='#ffbd2ecc' text-anchor='middle' font-weight='bold'>IRRIGATION</text>
+  <text x='400' y='500' font-size='14' font-family='monospace' fill='#ffbd2e66' text-anchor='middle'>CROPCORE // IRRIGATION</text>
+</svg>

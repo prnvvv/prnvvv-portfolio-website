@@ -1,0 +1,13 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
+  <defs>
+    <linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0%' stop-color='#ff5f5611'/>
+      <stop offset='100%' stop-color='#ff5f5633'/>
+    </linearGradient>
+  </defs>
+  <rect width='800' height='600' fill='url(#bg)' rx='8'/>
+  <circle cx='400' cy='260' r='140' fill='#ff5f5622' stroke='#ff5f56' stroke-width='3'/>
+  <text x='400' y='285' font-size='80' font-family='monospace' fill='#ff5f56' text-anchor='middle' font-weight='bold'>D</text>
+  <text x='400' y='460' font-size='28' font-family='monospace' fill='#ff5f56cc' text-anchor='middle' font-weight='bold'>DISEASE SCAN</text>
+  <text x='400' y='500' font-size='14' font-family='monospace' fill='#ff5f5666' text-anchor='middle'>CROPCORE // DISEASE-SCAN</text>
+</svg>
