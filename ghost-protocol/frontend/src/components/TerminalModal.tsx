@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, FileText } from 'lucide-react'
-import { FaGithub, FaLinkedin } from 'react-icons/fa'
+import { FileText } from 'lucide-react'
+import { FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import type { Project } from '../data/projects'
 import './TerminalModal.css'
 
@@ -84,16 +84,50 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
 
             {/* Terminal Body */}
             <div className="p-6 overflow-y-auto flex-1 font-mono relative z-10">
-              {/* Terminal Prompt */}
-              <div className="flex items-center gap-1 text-sm mb-4 flex-wrap">
-                <span className="text-[#00e67a]">user</span>
-                <span className="text-white/30">@</span>
-                <span className="text-[#3d9df6]">ghost-protocol</span>
-                <span className="text-white/30">:</span>
-                <span className="text-[#3d9df6]">~/missions</span>
-                <span className="text-white/30">$</span>
-                <span className="text-white/60 ml-2">cat project-info</span>
-                <span className="text-white/20 animate-pulse ml-1">▊</span>
+              {/* Terminal Prompt + Action Buttons */}
+              <div className="flex items-start justify-between gap-3 mb-4">
+                <div className="flex items-center gap-1 text-sm flex-wrap min-w-0">
+                  <span className="text-[#00e67a]">user</span>
+                  <span className="text-white/30">@</span>
+                  <span className="text-[#3d9df6]">ghost-protocol</span>
+                  <span className="text-white/30">:</span>
+                  <span className="text-[#3d9df6]">~/missions</span>
+                  <span className="text-white/30">$</span>
+                  <span className="text-white/60 ml-2">cat project-info</span>
+                  <span className="text-white/20 animate-pulse ml-1">▊</span>
+                </div>
+                <div className="flex items-center gap-1.5 flex-shrink-0 flex-wrap">
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 rounded text-white/50 hover:text-[#00e67a] hover:border-[#00e67a]/30 transition-all duration-200 text-[10px]"
+                    >
+                      <FaGithub size={12} /> GitHub
+                    </a>
+                  )}
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 rounded text-white/50 hover:text-[#00e67a] hover:border-[#00e67a]/30 transition-all duration-200 text-[10px]"
+                    >
+                      <FaYoutube size={12} /> Demo
+                    </a>
+                  )}
+                  {project.patentUrl && (
+                    <a
+                      href={project.patentUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 rounded text-white/50 hover:text-[#00e67a] hover:border-[#00e67a]/30 transition-all duration-200 text-[10px]"
+                    >
+                      <FaLinkedin size={12} /> Patent
+                    </a>
+                  )}
+                </div>
               </div>
 
               <div className="border-t border-[#00e67a]/10 my-3" />
@@ -158,29 +192,9 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
                     </div>
                   )}
 
-                  {/* Links */}
-                  <div className="flex flex-wrap gap-2 pt-1">
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/10 rounded text-white/50 hover:text-[#00e67a] hover:border-[#00e67a]/30 transition-all duration-200 text-[10px]"
-                      >
-                        <FaGithub size={13} /> GitHub
-                      </a>
-                    )}
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/10 rounded text-white/50 hover:text-[#00e67a] hover:border-[#00e67a]/30 transition-all duration-200 text-[10px]"
-                      >
-                        <ExternalLink size={13} /> Demo
-                      </a>
-                    )}
-                    {project.paperUrl && (
+                  {/* Paper Link (not in header) */}
+                  {project.paperUrl && (
+                    <div className="flex flex-wrap gap-2 pt-1">
                       <a
                         href={project.paperUrl}
                         target="_blank"
@@ -189,18 +203,8 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
                       >
                         <FileText size={13} /> Paper
                       </a>
-                    )}
-                    {project.patentUrl && (
-                      <a
-                        href={project.patentUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/10 rounded text-white/50 hover:text-[#00e67a] hover:border-[#00e67a]/30 transition-all duration-200 text-[10px]"
-                      >
-                        <FileText size={13} /> Patent
-                      </a>
-                    )}
-                  </div>
+                    </div>
+                  )}
 
                   {/* LinkedIn Posts */}
                   {project.linkedinPosts && project.linkedinPosts.length > 0 && (

@@ -57,9 +57,9 @@ const PROJECTS: Project[] = [
     technologies: ['Python', 'TensorFlow', 'OpenCV', 'YOLO', 'Scikit-learn', 'BeautifulSoup', 'Django', 'Node.js', 'React Native', 'ESP32'],
     displayTechCount: 5,
     icon: 'cropcore',
-    githubUrl: 'https://github.com/yourusername/cropcore',
-    liveUrl: 'https://cropcore-demo.com',
-    patentUrl: 'https://ipindia.gov.in',
+    githubUrl: 'https://github.com/mithilgirish/Crop-Core_Tech',
+    liveUrl: 'https://www.youtube.com/watch?v=epArLGBhgOM',
+    patentUrl: 'https://www.linkedin.com/posts/prannavakhanth_patentpublished-innovation-agritech-activity-7359997879962267649-hSF4/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4',
     award: "Special Recognition - Pitchathon'24",
     achievements: [
       "Special Recognition - Pitchathon'24",
