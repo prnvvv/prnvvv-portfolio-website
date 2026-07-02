@@ -1,0 +1,24 @@
+[
+  {
+    "id": "CROPCORE-001",
+    "name": "CropCore — AI Agricultural Intelligence Platform",
+    "description": "CropCore is an AI-powered smart farming assistant developed during Pitchathon 2024 by Team Cache Me. It equips farmers with technology by offering real-time sensor data (temperature, humidity, moisture, NPK), live market price tracking, AI-powered weed detection (YOLOv8), advanced disease detection (CNN), automated smart irrigation, and a community platform. The solution is designed to boost agricultural productivity and profitability by making modern technology accessible to farmers. The system has been patented under the Indian Patent Office (Application No: 202541067987).",
+    "technologies": ["Python", "TensorFlow", "OpenCV", "YOLO", "Scikit-learn", "BeautifulSoup", "Django", "Node.js", "React Native", "ESP32"],
+    "status": "PATENT PUBLISHED",
+    "year": "2024",
+    "achievements": [
+      "Special Recognition - Pitchathon'24",
+      "Patent Published - Indian Patent Office (202541067987)"
+    ],
+    "links": {
+      "github": "https://github.com/yourusername/cropcore",
+      "demo": "https://cropcore-demo.com",
+      "paper": null,
+      "patent": "https://ipindia.gov.in"
+    },
+    "linkedinPosts": [
+      "https://www.linkedin.com/posts/prannavakhanth_we-are-excited-to-announce-that-our-team-activity-7247571240280829952-Xf-5?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4",
+      "https://www.linkedin.com/posts/prannavakhanth_patentpublished-innovation-agritech-activity-7359997879962267649-hSF4?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4"
+    ]
+  }
+]

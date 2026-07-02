@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ExternalLink, FileText } from 'lucide-react'
-import { FaGithub } from 'react-icons/fa'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import type { Project } from '../data/projects'
 import './TerminalModal.css'
 
@@ -141,14 +141,19 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
                     </div>
                   </div>
 
-                  {/* Award / Achievement */}
-                  {project.award && (
+                  {/* Award / Achievements */}
+                  {(project.award || project.achievements) && (
                     <div>
                       <span className="text-white/30 text-xs">ACHIEVEMENTS:</span>
                       <div className="flex flex-wrap gap-2 mt-1.5">
-                        <span className="text-[10px] text-[#00e67a] bg-[#00e67a]/10 px-2 py-0.5 rounded border border-[#00e67a]/20">
-                          {project.award}
-                        </span>
+                        {(project.achievements || (project.award ? [project.award] : [])).map((ach) => (
+                          <span
+                            key={ach}
+                            className="text-[10px] text-[#00e67a] bg-[#00e67a]/10 px-2 py-0.5 rounded border border-[#00e67a]/20"
+                          >
+                            {ach}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -185,7 +190,38 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
                         <FileText size={13} /> Paper
                       </a>
                     )}
+                    {project.patentUrl && (
+                      <a
+                        href={project.patentUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/10 rounded text-white/50 hover:text-[#00e67a] hover:border-[#00e67a]/30 transition-all duration-200 text-[10px]"
+                      >
+                        <FileText size={13} /> Patent
+                      </a>
+                    )}
                   </div>
+
+                  {/* LinkedIn Posts */}
+                  {project.linkedinPosts && project.linkedinPosts.length > 0 && (
+                    <div className="mt-3">
+                      <span className="text-white/30 text-xs">LINKEDIN POSTS:</span>
+                      <div className="flex flex-col gap-1.5 mt-1.5">
+                        {project.linkedinPosts.map((url, i) => (
+                          <a
+                            key={i}
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 text-[10px] text-white/40 hover:text-[#00e67a] transition-colors duration-200 truncate"
+                          >
+                            <FaLinkedin size={12} />
+                            <span className="truncate">Post {i + 1}</span>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Right Column — Intel Sources */}

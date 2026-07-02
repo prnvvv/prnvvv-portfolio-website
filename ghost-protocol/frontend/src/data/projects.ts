@@ -32,7 +32,10 @@ export interface Project {
   githubUrl?: string
   liveUrl?: string
   paperUrl?: string
+  patentUrl?: string
   award?: string
+  achievements?: string[]
+  linkedinPosts?: string[]
   featured: boolean
   featuredOrder: number
   year: string
@@ -48,14 +51,24 @@ const PROJECTS: Project[] = [
     shortDescription:
       'An AI-powered smart farming assistant using ML and computer vision for crop monitoring, weed detection, disease diagnosis, and yield prediction with IoT sensor integration for real-time irrigation optimization.',
     fullDescription:
-      'CropCore combines computer vision (YOLOv8), soil sensor fusion, and LLM-powered advisory into a unified agricultural intelligence platform. Deployed on ESP32-S3 edge hardware for real-time field operation. Features multilingual farmer interface, predictive irrigation scheduling, and automated pest identification. Patent published under Indian Patent Office. Developed in collaboration with agricultural research bodies for real-world field deployment.',
+      'CropCore is an AI-powered smart farming assistant developed during Pitchathon 2024 by Team Cache Me. It equips farmers with technology by offering real-time sensor data (temperature, humidity, moisture, NPK), live market price tracking, AI-powered weed detection (YOLOv8), advanced disease detection (CNN), automated smart irrigation, and a community platform. The solution is designed to boost agricultural productivity and profitability by making modern technology accessible to farmers. The system has been patented under the Indian Patent Office (Application No: 202541067987).',
     status: 'PATENT PUBLISHED',
     category: 'IoT',
-    technologies: ['Python', 'TensorFlow', 'OpenCV', 'YOLO', 'Scikit-learn', 'ESP32-S3', 'FastAPI', 'MQTT'],
+    technologies: ['Python', 'TensorFlow', 'OpenCV', 'YOLO', 'Scikit-learn', 'BeautifulSoup', 'Django', 'Node.js', 'React Native', 'ESP32'],
     displayTechCount: 5,
     icon: 'cropcore',
-    githubUrl: '',
-    award: "Pitchathon'24 Special Recognition",
+    githubUrl: 'https://github.com/yourusername/cropcore',
+    liveUrl: 'https://cropcore-demo.com',
+    patentUrl: 'https://ipindia.gov.in',
+    award: "Special Recognition - Pitchathon'24",
+    achievements: [
+      "Special Recognition - Pitchathon'24",
+      "Patent Published - Indian Patent Office (202541067987)"
+    ],
+    linkedinPosts: [
+      "https://www.linkedin.com/posts/prannavakhanth_we-are-excited-to-announce-that-our-team-activity-7247571240280829952-Xf-5?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4",
+      "https://www.linkedin.com/posts/prannavakhanth_patentpublished-innovation-agritech-activity-7359997879962267649-hSF4?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4"
+    ],
     featured: true,
     featuredOrder: 1,
     year: '2024',
