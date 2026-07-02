@@ -7,7 +7,7 @@ export const serviceRecord: ServiceEntry[] = [
     organization: 'Hexaware Technologies',
     unit: 'AI/ML Division',
     location: 'Chennai, India',
-    period: '2026 - PRESENT',
+    period: '2026',
     description: 'Building end-to-end AI/ML systems on cloud-integrated architectures. Developing proxy-driven healthcare claims intelligence framework using behavioral anomaly modeling and explainable LLM-based risk reasoning systems.',
     highlights: [
       'Built end-to-end AI/ML systems on cloud-integrated architectures',
@@ -25,7 +25,7 @@ export const serviceRecord: ServiceEntry[] = [
   {
     id: 'exp-2',
     title: 'Research Intern',
-    organization: 'IIT Ropar',
+    organization: 'Annam AI, AI CoE, IIT Ropar',
     unit: 'Research Division',
     location: 'India',
     period: '2025',

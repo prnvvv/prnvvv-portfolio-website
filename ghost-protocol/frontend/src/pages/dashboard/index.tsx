@@ -54,6 +54,15 @@ function Dashboard() {
   }, [])
 
   useEffect(() => {
+    if (window.location.hash === '#missions' && !isLoading) {
+      const el = document.getElementById('missions')
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 400)
+      }
+    }
+  }, [isLoading])
+
+  useEffect(() => {
     if (activeId) setActiveSection(activeId)
   }, [activeId, setActiveSection])
 

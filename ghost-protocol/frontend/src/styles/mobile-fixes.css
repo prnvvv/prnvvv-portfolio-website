@@ -399,3 +399,41 @@
     min-width: 27px !important;
   }
 }
+
+/* ─────────────────────────────────────────────────────────
+   MISSIONS BENTO GRID — responsive breakpoints
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .missions-bento-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .missions-bento-grid > [class*="md\\:col-span-2"] {
+    grid-column: span 2 !important;
+  }
+  .missions-bento-grid > [class*="md\\:row-span-2"] {
+    grid-row: span 2 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .missions-bento-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .missions-bento-grid > [class*="md\\:col-span-2"] {
+    grid-column: span 1 !important;
+  }
+  .missions-bento-grid > [class*="md\\:row-span-2"] {
+    grid-row: span 1 !important;
+  }
+}
+
+/* ─── Stats row: stack 2x2 on mobile ─── */
+@media (max-width: 640px) {
+  .stats-row {
+    flex-wrap: wrap !important;
+  }
+  .stats-row > * {
+    flex: 1 1 calc(50% - 6px) !important;
+    min-width: calc(50% - 6px) !important;
+  }
+}
