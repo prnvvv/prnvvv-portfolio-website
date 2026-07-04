@@ -17,6 +17,16 @@ const TOP_SPANS: Record<string, string> = {
   'DISCAGEAI-005': 'md:col-span-2',
 }
 
+function truncateAtWord(text: string, maxChars: number): string {
+  if (text.length <= maxChars) return text
+  const sliced = text.slice(0, maxChars)
+  const lastSpace = sliced.lastIndexOf(' ')
+  if (lastSpace === -1) return sliced + '...'
+  return sliced.slice(0, lastSpace) + '...'
+}
+
+const WIDE_IDS = new Set(['CROPCORE-001', 'CAREERTRACK-002'])
+
 const topProjects = ALL_PROJECTS
   .filter(p => TOP_FIVE_IDS.includes(p.id))
   .sort((a, b) => TOP_FIVE_IDS.indexOf(a.id) - TOP_FIVE_IDS.indexOf(b.id))
@@ -68,6 +78,7 @@ export default function Missions() {
         <div className="grid grid-cols-1 md:grid-cols-6 gap-6 auto-rows-fr items-stretch">
           {topProjects.map((project) => {
             const span = TOP_SPANS[project.id] || 'md:col-span-2'
+            const budget = WIDE_IDS.has(project.id) ? 180 : 120
             return (
               <motion.div
                 key={project.id}
@@ -80,12 +91,12 @@ export default function Missions() {
                 <TerminalCard
                   id={project.id}
                   title={project.title}
-                  description={project.fullDescription}
+                  description={truncateAtWord(project.fullDescription, budget)}
                   technologies={project.technologies}
                   status={project.status}
                   year={project.year}
                   award={project.award}
-                  truncateDescription={true}
+                  truncateDescription={false}
                   onClick={() => handleProjectClick(project)}
                 />
               </motion.div>
