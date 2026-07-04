@@ -17,8 +17,8 @@ const ISSUER_ICON: Record<string, React.ReactNode> = {
 function SkeletonCard() {
   const shimmer = 'bg-gradient-to-br from-[#1a1a1a] via-[#2a2a2a] to-[#1a1a1a] animate-shimmer'
   return (
-    <div className="bg-[#0d0d14] border border-[#00e67a]/10 rounded-lg aspect-[4/3] overflow-hidden">
-      <div className="flex items-center gap-2 px-4 py-2 bg-[#1a1a1a] border-b border-[#00e67a]/5">
+    <div className="bg-black/55 backdrop-blur-md border border-[#00e67a]/10 rounded-lg aspect-[4/3] overflow-hidden">
+      <div className="flex items-center gap-2 px-4 py-2 bg-black/40 border-b border-[#00e67a]/5">
         <div className="flex gap-1.5">
           <div className="w-3 h-3 rounded-full bg-white/10" />
           <div className="w-3 h-3 rounded-full bg-white/10" />
@@ -41,9 +41,9 @@ function FlipCard({ cert }: { cert: CertificationEntry }) {
     <div className="flip-card-group perspective-1000 w-full aspect-[4/3] cursor-pointer">
       <div className="flip-card-inner preserve-3d relative w-full h-full">
         {/* ─── Front: Mac OS Terminal ─── */}
-        <div className="absolute inset-0 backface-hidden bg-[#0d0d14] border border-[#00e67a]/15 rounded-lg overflow-hidden flex flex-col">
+        <div className="absolute inset-0 backface-hidden bg-black/55 backdrop-blur-md border border-[#00e67a]/15 rounded-lg overflow-hidden flex flex-col">
           {/* Terminal header */}
-          <div className="flex items-center justify-between px-4 py-2 bg-[#1a1a1a] border-b border-[#00e67a]/10 shrink-0">
+          <div className="flex items-center justify-between px-4 py-2 bg-black/40 border-b border-[#00e67a]/10 shrink-0">
             <div className="flex gap-1.5">
               <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
               <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
@@ -62,28 +62,28 @@ function FlipCard({ cert }: { cert: CertificationEntry }) {
               <span className="text-white/30">$</span>
               <span className="text-white/60 ml-1">ls</span>
             </div>
-            <div className="mt-2 text-white/80 text-sm font-mono leading-snug">
-              📜 {cert.title}
+            <div className="mt-2 text-white/90 text-sm font-mono leading-snug tracking-wide">
+              <span className="text-[#00e67a]/60">&gt;&gt;</span> {cert.title}
             </div>
-            <div className="text-white/40 text-xs font-mono mt-1">
-              Issued: {cert.issuer}
+            <div className="text-[#00e67a]/60 text-[11px] font-mono mt-1 tracking-wider">
+              ISSUED: {cert.issuer}
             </div>
-            <div className="text-white/30 text-[10px] font-mono mt-0.5">
-              Platform: {cert.platform}
+            <div className="text-[#00e67a]/60 text-[11px] font-mono mt-0.5 tracking-wider">
+              PLATFORM: {cert.platform}
             </div>
-            <div className="mt-2 text-[#00e67a]/40 text-[10px] font-mono">
-              ◆ Hover to view
+            <div className="mt-2 text-[#00e67a]/80 text-[11px] font-mono tracking-wider">
+              {'>'} Hover to view
             </div>
           </div>
 
           {/* Footer */}
           <div className="shrink-0 px-4 py-1.5 border-t border-[#00e67a]/5">
-            <span className="text-[8px] font-mono text-[#00e67a]/40 tracking-wider">STATUS: VERIFIED</span>
+            <span className="text-[10px] font-mono text-[#00e67a]/35 tracking-widest uppercase">STATUS: VERIFIED</span>
           </div>
         </div>
 
         {/* ─── Back: Certificate Image / Placeholder ─── */}
-        <div className="absolute inset-0 backface-hidden rotate-y-180 bg-[#0d0d14] border border-[#00e67a]/15 rounded-lg overflow-hidden">
+        <div className="absolute inset-0 backface-hidden rotate-y-180 bg-black/55 backdrop-blur-md border border-[#00e67a]/15 rounded-lg overflow-hidden">
           {cert.image ? (
             <>
               <img src={cert.image} alt={cert.title} className="w-full h-full object-cover" />
@@ -93,7 +93,7 @@ function FlipCard({ cert }: { cert: CertificationEntry }) {
               </div>
             </>
           ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0d0d14] via-[#1a1a1a] to-[#0d0d14]">
+            <div className="w-full h-full flex flex-col items-center justify-center bg-black/55">
               <span className="text-[#00e67a]/15 text-6xl">{icon}</span>
               <span className="text-white/10 text-[10px] font-mono mt-3 tracking-wider">CERTIFICATE IMAGE</span>
             </div>

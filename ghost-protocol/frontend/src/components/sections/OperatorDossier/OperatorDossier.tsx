@@ -86,7 +86,7 @@ export default function OperatorDossier() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="panel-border p-4"
+            className="bg-black/55 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-4"
           >
             <div className="flex items-start justify-between mb-3">
               <div>
@@ -130,7 +130,7 @@ export default function OperatorDossier() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="panel-border p-4 md:col-span-2"
+            className="bg-black/55 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-4 md:col-span-2"
           >
             <div className="flex items-center justify-between mb-3">
               <h3

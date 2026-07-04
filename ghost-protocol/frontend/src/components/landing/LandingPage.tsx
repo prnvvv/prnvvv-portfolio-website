@@ -12,7 +12,10 @@ import DecryptText from '../effects/DecryptText';
 import { ROTATING_TITLES } from '../../data/titles';
 import MagicButton from '../ui/MagicButton';
 import SocialIcons from '../social/SocialIcons';
-import ObjectiveCard from './ObjectiveCard';
+import {
+  Terminal,
+  TypingAnimation,
+} from '../ui/terminal';
 
 export default function LandingPage() {
   const profile = getProfile();
@@ -82,7 +85,14 @@ export default function LandingPage() {
               transition={{ delay: 0.9, duration: 0.5, ease: [0.22,1,0.36,1] }}
               className="mt-1 mb-1"
             >
-              <ObjectiveCard />
+              <Terminal className="w-full max-w-[500px] h-[180px] border border-[#00e67a]/15 rounded-lg bg-black/40 backdrop-blur-md overflow-hidden">
+                <TypingAnimation
+                  duration={13}
+                  className="text-white/80 text-sm md:text-base font-mono leading-relaxed"
+                >
+                  Building agentic AI, generative AI, and data-driven solutions to solve real-world problems. Combining strong DSA fundamentals with end-to-end ML expertise to develop scalable, production-ready systems that drive measurable impact across industries.
+                </TypingAnimation>
+              </Terminal>
             </motion.div>
 
             <motion.div

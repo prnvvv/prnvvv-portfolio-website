@@ -60,7 +60,7 @@ export default function ServiceRecord() {
                   <div className="w-1 h-1 rounded-full bg-mil-green shadow-[0_0_4px_rgba(0,230,122,0.5)]" />
                 </motion.div>
 
-                <div className="panel-border p-3">
+                <div className="bg-black/55 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-3">
                   <div className="flex flex-wrap items-start justify-between gap-1 mb-1">
                     <div>
                       <h3

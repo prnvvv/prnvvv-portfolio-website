@@ -13,6 +13,7 @@ export interface AchievementEntry {
   result: string
   resultColor: string
   icon: string
+  description?: string
 }
 
 export const achievementsData = {

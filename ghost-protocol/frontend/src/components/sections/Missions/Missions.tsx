@@ -82,7 +82,7 @@ export default function Missions() {
             return (
               <motion.div
                 key={project.id}
-                className={`${span} h-full`}
+                className={`${span} h-full [&>div]:bg-black/55 [&>div]:backdrop-blur-md [&>div]:border-[#00e67a]/15`}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-30px 0px' }}
