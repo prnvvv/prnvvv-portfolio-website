@@ -2,7 +2,7 @@
   {
     "id": "CROPCORE-001",
     "name": "CropCore — AI Agricultural Intelligence Platform",
-    "description": "CropCore is an AI-powered smart farming assistant developed during Pitchathon 2024 by Team Cache Me. It equips farmers with technology by offering real-time sensor data (temperature, humidity, moisture, NPK), live market price tracking, AI-powered weed detection (YOLOv8), advanced disease detection (CNN), automated smart irrigation, and a community platform. The solution is designed to boost agricultural productivity and profitability by making modern technology accessible to farmers. The system has been patented under the Indian Patent Office (Application No: 202541067987).",
+    "description": "CropCore is an AI-powered smart farming assistant using ML and computer vision for crop monitoring, weed detection, disease diagnosis, and yield prediction with IoT sensor integration for real-time irrigation optimization. It equips farmers with technology by offering real-time sensor data (temperature, humidity, moisture, NPK), live market price tracking, AI-powered weed detection (YOLOv8), advanced disease detection (CNN), automated smart irrigation, and a community platform. The solution is designed to boost agricultural productivity and profitability by making modern technology accessible to farmers. The system has been patented under the Indian Patent Office (Application No: 202541067987).",
     "technologies": ["Python", "TensorFlow", "OpenCV", "YOLO", "Scikit-learn", "BeautifulSoup", "Django", "Node.js", "React Native", "ESP32"],
     "status": "PATENT PUBLISHED",
     "year": "2024",
@@ -33,18 +33,22 @@
   {
     "id": "CAREERTRACK-002",
     "name": "CareerTrack — AI Career Intelligence Platform",
-    "description": "CareerTrack is a full-stack AI career coaching system that ingests a user's resume, GitHub profile, and job description to generate personalized gap analysis, mock interview question banks, and ATS-optimized resume rewrites. Features a LangChain multi-agent orchestration layer for specialized subagents (resume agent, interview agent, portfolio agent). React frontend with FastAPI backend. Designed for students and early-career engineers.",
-    "technologies": ["Python", "LangChain", "LangGraph", "React", "FastAPI", "ChromaDB", "OpenAI"],
+    "description": "CareerTrack is an AI-powered career platform developed as an Initial Validation Prototype (IVP) to help students and early professionals succeed in today's competitive job market. The platform bridges the gap between academic learning and industry readiness by offering an all-in-one career assistant — mock interview analysis, ATS-optimized resumes, AI-curated portfolios, mental wellness tools, and seamless web & mobile sync.",
+    "technologies": ["Next.js", "TypeScript", "Tailwind CSS", "FastAPI", "Supabase", "React Native", "Clerk", "TensorFlow", "LangChain", "Agno", "LangGraph"],
     "status": "DEPLOYED",
     "year": "2024",
-    "achievements": [],
+    "achievements": [
+      "Initial Validation Prototype (IVP) — Live Demo Available"
+    ],
     "links": {
-      "github": "",
-      "demo": null,
+      "github": null,
+      "demo": "https://careertrack-one.vercel.app/",
       "paper": null,
       "patent": null
     },
-    "linkedinPosts": [],
+    "linkedinPosts": [
+      "https://www.linkedin.com/posts/prannavakhanth_building-careertrack-an-ai-powered-career-activity-7305970986175143938-E3oJ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4"
+    ],
     "images": [
       "/images/projects/careertrack/fig1.jpg",
       "/images/projects/careertrack/fig2.jpg",
@@ -52,9 +56,35 @@
     ]
   },
   {
+    "id": "PKSTRUCT-009",
+    "name": "PKStruct — Production-Grade DSA Python Package",
+    "description": "PKStruct is a production-grade Python package for optimized data structures, algorithms, visualization, and systems utilities. Built for scalability, education, competitive programming, and production use with modular, extensible, benchmarked, and PyPI-ready implementations. Features include linked lists, trees (BST, AVL, Red-Black, Segment, Fenwick, Interval), graphs (Dijkstra, Kruskal, Tarjan), thread-safe structures, strict type hints, 899+ tests, ASCII visualization, and a runtime help system. Published on PyPI with 20+ data structures and 35+ algorithms.",
+    "technologies": ["Python", "PyPI", "pytest", "GitHub Actions", "Type Hints", "Threading", "Data Structures", "Algorithms"],
+    "hardwareTech": [],
+    "status": "DEPLOYED",
+    "year": "2026",
+    "achievements": [
+      "Production-grade Python package on PyPI",
+      "20+ data structures & 35+ algorithms",
+      "899+ tests with CI/CD pipeline",
+      "Thread-safe structures with strict type hints"
+    ],
+    "links": {
+      "github": "https://github.com/prnvvv/pkstruct",
+      "pypi": "https://pypi.org/project/pkstruct/",
+      "demo": null,
+      "paper": null,
+      "patent": null
+    },
+    "linkedinPosts": [],
+    "images": [
+      "/images/projects/pkstruct/fig1.png"
+    ]
+  },
+  {
     "id": "KRED-004",
     "name": "KRED — AI-powered Financial Intelligence Platform",
-    "description": "KRED is an AI-powered life and financial intelligence engine designed to tackle retirement blindness among Gen Z. Instead of just tracking expenses, it analyzes user behavior and converts everyday decisions into future financial and life outcomes, helping users clearly see the long-term impact of their present actions. Built during Vashisht Hackathon 3.0 — a 36-hour national-level hackathon hosted by IIITDM Kancheepuram — the team Perry the Platypus secured the FinTech track win. Key features include: AI Behavioural Analysis Engine, Life Regret Intelligence (quantifying the long-term cost of daily habits using compounding), Micro Life Simulation, Future Life Projection, Dynamic Spending Limits, Retirement Intelligence Engine, KRED Reels (short-form personalized financial insights), and an AI Financial Assistant. The project bridges the gap between knowing and acting by making the future visible and actionable today.",
+    "description": "KRED is an AI-powered financial intelligence platform that analyzes user behavior and projects long-term financial outcomes through behavioral insights, life simulations, retirement planning, and an AI financial assistant, helping users make smarter financial decisions by visualizing future financial scenarios and personalized recommendations.",
     "technologies": ["Python", "LangChain", "FastAPI", "React", "JavaScript", "HTML", "CSS", "SQL", "AI Behavioral Analysis", "Financial Intelligence"],
     "status": "AWARD WINNER",
     "year": "2026",
@@ -79,6 +109,33 @@
       "/images/projects/kred/fig4.jpg",
       "/images/projects/kred/fig5.jpg",
       "/images/projects/kred/fig6.jpg"
+    ]
+  },
+  {
+    "id": "AUTCORE-003",
+    "name": "AutCore — AI-driven Autism Screening Tool",
+    "description": "AutCore is an AI-driven autism screening and risk assessment tool. The solution combines advanced oculomotor & facial behavior analysis, AI-powered speech & language disfluency analysis, intelligent autism symptom profiling & risk evaluation, and a conversational autism assistant. The team joined the hackathon 12 hours late, building the solution in just 24 hours under intense pressure.",
+    "technologies": ["Python", "TensorFlow", "OpenCV", "MediaPipe", "Speech Analysis", "Computer Vision", "Deep Learning", "Web Development"],
+    "hardwareTech": [],
+    "status": "AWARD WINNER",
+    "year": "2025",
+    "achievements": [
+      "1st Place — HackHub'25 (IEEE CompSoc VIT-C, GitHub & Devfolio)"
+    ],
+    "links": {
+      "github": null,
+      "demo": null,
+      "paper": null,
+      "patent": null
+    },
+    "linkedinPosts": [
+      "https://www.linkedin.com/posts/prannavakhanth_hackhub25-ai-autismscreening-activity-7305459951638876160-obW1?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4"
+    ],
+    "images": [
+      "/images/projects/autcore/fig1.jpg",
+      "/images/projects/autcore/fig2.jpg",
+      "/images/projects/autcore/fig3.jpg",
+      "/images/projects/autcore/fig4.png"
     ]
   }
 ]

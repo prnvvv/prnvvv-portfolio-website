@@ -9,6 +9,7 @@ import { TerminalCard } from '../components/TerminalCard'
 import { TerminalModal } from '../components/TerminalModal'
 import GhostIcon from '../components/effects/GhostIcon'
 import Footer from '../components/layout/Footer/Footer'
+import { HoloNumber } from '../components/ui/HoloNumber'
 
 const statsData = [
   { value: ALL_PROJECTS.length, label: 'OPERATIONS' },
@@ -93,20 +94,20 @@ export default function ProjectsPage() {
           </p>
 
           {/* Stats section */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-6">
             {statsData.map((stat) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-5 md:p-6 text-center
+                className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-3 md:p-4 text-center
                   hover:border-[#00e67a]/40 transition-all duration-300"
               >
-                <div className="font-display text-2xl md:text-3xl font-bold text-[#00e67a] leading-none mb-1">
-                  {stat.value}
+                <div className="mb-0.5">
+                  <HoloNumber value={stat.value} />
                 </div>
-                <div className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/50">
+                <div className="font-mono text-[9px] uppercase tracking-[0.15em] text-white/50">
                   {stat.label}
                 </div>
               </motion.div>
@@ -114,7 +115,7 @@ export default function ProjectsPage() {
           </div>
 
           {/* Bento grid — 6-column layout, spans sum to 6 per row */}
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-6 auto-rows-fr items-stretch">
             {ALL_PROJECTS.map((project) => {
               const span = SPAN_MAP[project.id] || 'md:col-span-2'
               return (
@@ -134,7 +135,7 @@ export default function ProjectsPage() {
                     status={project.status}
                     year={project.year}
                     award={project.award}
-                    truncateDescription={false}
+                    truncateDescription={true}
                     onClick={() => handleProjectClick(project)}
                   />
                 </motion.div>

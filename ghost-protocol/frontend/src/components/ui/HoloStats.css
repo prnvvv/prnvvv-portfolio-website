@@ -1,0 +1,117 @@
+.holo-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 900px;
+}
+
+.holo-card__wrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 18px;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: holo-wobble 6.2s ease-in-out infinite;
+}
+
+@keyframes holo-wobble {
+  0% { transform: rotateX(12deg) rotateY(-14deg); }
+  50% { transform: rotateX(14deg) rotateY(14deg); }
+  100% { transform: rotateX(12deg) rotateY(-14deg); }
+}
+
+.holo-card__layer {
+  position: absolute;
+  font-weight: 900;
+  font-size: 50px;
+  letter-spacing: -4px;
+  line-height: 1;
+  -webkit-text-stroke: 1px rgba(0, 230, 122, 0.5);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 230, 122, 0.15) 0%,
+    rgba(0, 230, 122, 0.85) 35%,
+    rgba(0, 255, 150, 0.65) 60%,
+    rgba(0, 230, 122, 0.2) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
+  opacity: 0.95;
+  transform-style: preserve-3d;
+}
+
+.holo-card__layer--back {
+  opacity: 0.15;
+  filter: blur(0.8px);
+  transform: translateZ(-50px);
+  -webkit-text-stroke: 1px rgba(0, 230, 122, 0.35);
+}
+
+.holo-card__layer--mid {
+  opacity: 0.4;
+  filter: blur(0.3px);
+  transform: translateZ(-25px);
+  -webkit-text-stroke: 1px rgba(0, 230, 122, 0.45);
+}
+
+.holo-card__layer--front {
+  opacity: 0.98;
+  transform: translateZ(0px);
+  -webkit-text-stroke: 1px rgba(0, 230, 122, 0.65);
+}
+
+.holo-card__wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: radial-gradient(
+    circle at 40% 35%,
+    rgba(0, 230, 122, 0.12),
+    rgba(0, 0, 0, 0) 62%
+  );
+  filter: blur(6px);
+  opacity: 0.85;
+  transform: translateZ(-60px);
+}
+
+.holo-card__wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 230, 122, 0.12);
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.04),
+    rgba(255, 255, 255, 0.01) 45%,
+    rgba(0, 0, 0, 0)
+  );
+  opacity: 0.5;
+  transform: translateZ(-35px);
+}
+
+@media (max-width: 600px) {
+  .holo-card__wrapper {
+    width: 62px;
+    height: 62px;
+    border-radius: 14px;
+  }
+  .holo-card__layer {
+    font-size: 40px;
+    letter-spacing: -3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .holo-card__wrapper {
+    animation: none !important;
+  }
+}

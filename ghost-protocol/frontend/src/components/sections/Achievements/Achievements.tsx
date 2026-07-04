@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Trophy, FileText, BookOpen, Star, Award, Activity } from 'lucide-react'
 import AnimatedSection from '../../animations/AnimatedSection'
 import { getAchievements } from '../../../services/dataService'
+import { HoloNumber } from '../../ui/HoloNumber'
 
 const ICON_MAP: Record<string, typeof Trophy> = {
   Trophy,
@@ -29,36 +30,32 @@ export default function Achievements() {
           <span>COMMENDATIONS</span>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: -8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8"
-        >
-          {stats.map((stat, i) => {
-            const StatIcon = ICON_MAP[stat.icon] || Trophy
-            return (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.15 + i * 0.08 }}
-                className="bg-black/60 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-4 flex flex-col items-center text-center"
-              >
-                <StatIcon size={20} className="text-[#00e67a]/60 mb-1" />
-                <span className="text-[#00e67a] font-black text-3xl">{stat.value}</span>
-                <span className="text-white/50 text-[10px] font-mono tracking-widest uppercase mt-1">
-                  {stat.label}
-                </span>
-                {stat.sublabel && (
-                  <span className="text-white/30 text-[10px] font-mono mt-0.5">{stat.sublabel}</span>
-                )}
-              </motion.div>
-            )
-          })}
-        </motion.div>
+        {/* Stats — matching ALL MISSIONS holographic style */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-6">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.15 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-3 md:p-4 text-center
+                hover:border-[#00e67a]/40 transition-all duration-300"
+            >
+              <div className="mb-0.5">
+                <HoloNumber value={parseInt(stat.value, 10)} />
+              </div>
+              <div className="font-mono text-[9px] uppercase tracking-[0.15em] text-white/50">
+                {stat.label}
+              </div>
+              {stat.sublabel && (
+                <div className="font-mono text-[8px] uppercase tracking-[0.12em] text-white/30 mt-0.5">
+                  {stat.sublabel}
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 auto-rows-fr">
           {entries.map((entry, i) => {

@@ -26,6 +26,11 @@ interface TerminalCardProps {
   children?: ReactNode
 }
 
+const truncateText = (text: string, maxLength: number = 110) => {
+  if (text.length <= maxLength) return text
+  return text.slice(0, maxLength).trim() + '...'
+}
+
 export const TerminalCard = ({
   id,
   title,
@@ -99,37 +104,39 @@ export const TerminalCard = ({
         </div>
 
         {/* Description */}
-        <div className={`text-white/60 text-xs md:text-sm leading-relaxed flex-1 ${truncateDescription ? 'line-clamp-3' : ''}`}>
-          {description}
+        <div className="text-white/60 text-xs md:text-sm leading-relaxed">
+          {truncateDescription ? truncateText(description) : description}
         </div>
 
-        {/* Tech Tags */}
-        <div className="flex flex-wrap gap-1.5 mt-2">
-          {technologies.slice(0, 4).map((tech) => (
-            <span
-              key={tech}
-              className="text-[10px] bg-white/5 border border-white/10 rounded px-2 py-0.5 text-white/70"
-            >
-              {tech}
-            </span>
-          ))}
-          {technologies.length > 4 && (
-            <span className="text-[10px] text-white/30">+{technologies.length - 4}</span>
-          )}
-        </div>
-
-        {/* Award line */}
-        {awardLabel && (
-          <div className="flex items-center gap-1.5 mt-2">
-            <Award size={10} className="text-[#f0a500]" />
-            <span className="font-mono text-[9px] text-[#f0a500]">{awardLabel}</span>
+        <div className="mt-auto">
+          {/* Tech Tags */}
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            {technologies.slice(0, 4).map((tech) => (
+              <span
+                key={tech}
+                className="text-[10px] bg-white/5 border border-white/10 rounded px-2 py-0.5 text-white/70"
+              >
+                {tech}
+              </span>
+            ))}
+            {technologies.length > 4 && (
+              <span className="text-[10px] text-white/30">+{technologies.length - 4}</span>
+            )}
           </div>
-        )}
 
-        {/* Cursor */}
-        <div className="flex items-center gap-2 mt-2">
-          <span className="text-white/30 text-[10px]">READY</span>
-          <span className="block h-3.5 w-[6px] bg-[#00e67a] animate-pulse rounded-sm" />
+          {/* Award line */}
+          {awardLabel && (
+            <div className="flex items-center gap-1.5 mt-2">
+              <Award size={10} className="text-[#f0a500]" />
+              <span className="font-mono text-[9px] text-[#f0a500]">{awardLabel}</span>
+            </div>
+          )}
+
+          {/* Cursor */}
+          <div className="flex items-center gap-2 mt-2">
+            <span className="text-white/30 text-[10px]">READY</span>
+            <span className="block h-3.5 w-[6px] bg-[#00e67a] animate-pulse rounded-sm" />
+          </div>
         </div>
 
         {children}

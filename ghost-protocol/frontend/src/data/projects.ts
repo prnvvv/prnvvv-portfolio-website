@@ -34,6 +34,7 @@ export interface Project {
   liveUrl?: string
   paperUrl?: string
   patentUrl?: string
+  pypiUrl?: string
   award?: string
   achievements?: string[]
   linkedinPosts?: string[]
@@ -51,9 +52,9 @@ const PROJECTS: Project[] = [
     number: '001',
     title: 'CropCore — AI Agricultural Intelligence Platform',
     shortDescription:
-      'An AI-powered smart farming assistant using ML and computer vision for crop monitoring, weed detection, disease diagnosis, and yield prediction with IoT sensor integration for real-time irrigation optimization.',
+      'CropCore is an AI-powered smart farming assistant using ML and computer vision for crop monitoring, weed detection, disease diagnosis, and yield prediction with IoT sensor integration for real-time irrigation optimization. It equips farmers with technology by offering real-time sensor data (temperature, humidity, moisture, NPK), live market price tracking, AI-powered weed detection (YOLOv8), advanced disease detection (CNN), automated smart irrigation, and a community platform. The solution is designed to boost agricultural productivity and profitability by making modern technology accessible to farmers. The system has been patented under the Indian Patent Office (Application No: 202541067987).',
     fullDescription:
-      'CropCore is an AI-powered smart farming assistant developed during Pitchathon 2024 by Team Cache Me. It equips farmers with technology by offering real-time sensor data (temperature, humidity, moisture, NPK), live market price tracking, AI-powered weed detection (YOLOv8), advanced disease detection (CNN), automated smart irrigation, and a community platform. The solution is designed to boost agricultural productivity and profitability by making modern technology accessible to farmers. The system has been patented under the Indian Patent Office (Application No: 202541067987).',
+      'CropCore is an AI-powered smart farming assistant using ML and computer vision for crop monitoring, weed detection, disease diagnosis, and yield prediction with IoT sensor integration for real-time irrigation optimization. It equips farmers with technology by offering real-time sensor data (temperature, humidity, moisture, NPK), live market price tracking, AI-powered weed detection (YOLOv8), advanced disease detection (CNN), automated smart irrigation, and a community platform. The solution is designed to boost agricultural productivity and profitability by making modern technology accessible to farmers. The system has been patented under the Indian Patent Office (Application No: 202541067987).',
     status: 'PATENT PUBLISHED',
     category: 'IoT',
     technologies: ['Python', 'TensorFlow', 'OpenCV', 'YOLO', 'Scikit-learn', 'BeautifulSoup', 'Django', 'Node.js', 'React Native', 'ESP32'],
@@ -104,9 +105,9 @@ const PROJECTS: Project[] = [
     number: '004',
     title: 'KRED — AI-powered Financial Intelligence Platform',
     shortDescription:
-      'An AI-powered life and financial intelligence engine that tackles retirement blindness among Gen Z by converting everyday decisions into future outcomes.',
+      'KRED is an AI-powered financial intelligence platform that analyzes user behavior and projects long-term financial outcomes through behavioral insights, life simulations, retirement planning, and an AI financial assistant, helping users make smarter financial decisions by visualizing future financial scenarios and personalized recommendations.',
     fullDescription:
-      'KRED is an AI-powered life and financial intelligence engine designed to tackle retirement blindness among Gen Z. Instead of just tracking expenses, it analyzes user behavior and converts everyday decisions into future financial and life outcomes, helping users clearly see the long-term impact of their present actions. Built during Vashisht Hackathon 3.0 — a 36-hour national-level hackathon hosted by IIITDM Kancheepuram — the team Perry the Platypus secured the FinTech track win. Key features include: AI Behavioural Analysis Engine, Life Regret Intelligence (quantifying the long-term cost of daily habits using compounding), Micro Life Simulation, Future Life Projection, Dynamic Spending Limits, Retirement Intelligence Engine, KRED Reels (short-form personalized financial insights), and an AI Financial Assistant. The project bridges the gap between knowing and acting by making the future visible and actionable today.',
+      'KRED is an AI-powered financial intelligence platform that analyzes user behavior and projects long-term financial outcomes through behavioral insights, life simulations, retirement planning, and an AI financial assistant, helping users make smarter financial decisions by visualizing future financial scenarios and personalized recommendations.',
     status: 'AWARD WINNER',
     category: 'FULL-STACK',
     technologies: [
@@ -141,18 +142,30 @@ const PROJECTS: Project[] = [
     id: 'AUTCORE-003',
     codename: 'AUTCORE',
     number: '003',
-    title: 'AutCore — Multimodal Autism Screening Tool',
+    title: 'AutCore — AI-driven Autism Screening Tool',
     shortDescription:
-      'A multimodal AI screening tool for early autism detection using computer vision for gaze tracking and speech analysis, achieving clinical-grade sensitivity on benchmark datasets.',
+      'An AI-driven autism screening and risk assessment tool combining oculomotor & facial behavior analysis and AI-powered speech & language disfluency analysis.',
     fullDescription:
-      'AutCore is a non-invasive autism spectrum disorder screening system combining gaze-tracking (MediaPipe), speech prosody analysis, and behavioral pattern recognition into a unified multimodal diagnostic pipeline. Trained on the ADOS-2 aligned dataset, achieving 91.4% sensitivity and 87.2% specificity. Features a clinician-facing dashboard for session recording and longitudinal tracking. Winner of HackHub 2025 national competition. Designed for deployment in resource-constrained clinical settings.',
-    status: 'UNDER REVIEW',
+      'AutCore is an AI-driven autism screening and risk assessment tool. The solution combines advanced oculomotor & facial behavior analysis, AI-powered speech & language disfluency analysis, intelligent autism symptom profiling & risk evaluation, and a conversational autism assistant. The team joined the hackathon 12 hours late, building the solution in just 24 hours under intense pressure.',
+    status: 'AWARD WINNER',
     category: 'COMPUTER VISION',
-    technologies: ['Python', 'TensorFlow', 'OpenCV', 'MediaPipe', 'LibROSA', 'FastAPI', 'React'],
+    technologies: ['Python', 'TensorFlow', 'OpenCV', 'MediaPipe', 'React', 'Next.js', 'FastAPI', 'Speech Analysis', 'Deep Learning', 'Computer Vision'],
     displayTechCount: 4,
     icon: 'autcore',
     githubUrl: '',
     award: "HackHub'25 National Winner",
+    achievements: [
+      "1st Place — HackHub'25 (IEEE CompSoc VIT-C, GitHub & Devfolio)",
+    ],
+    linkedinPosts: [
+      "https://www.linkedin.com/posts/prannavakhanth_hackhub25-ai-autismscreening-activity-7305459951638876160-obW1?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4",
+    ],
+    images: [
+      '/images/projects/autcore/fig1.jpg',
+      '/images/projects/autcore/fig2.jpg',
+      '/images/projects/autcore/fig3.jpg',
+      '/images/projects/autcore/fig4.png',
+    ],
     featured: true,
     featuredOrder: 3,
     year: '2025',
@@ -245,20 +258,26 @@ const PROJECTS: Project[] = [
     number: '002',
     title: 'CareerTrack — AI Career Intelligence Platform',
     shortDescription:
-      'An AI-powered career platform providing resume analysis, mock interviews, and portfolio generation using LangChain LLM workflows and multi-agent orchestration.',
+      'An AI-powered career platform developed as an Initial Validation Prototype (IVP) to help students and early professionals succeed in today\'s competitive job market.',
     fullDescription:
-      'CareerTrack is a full-stack AI career coaching system that ingests a user\'s resume, GitHub profile, and job description to generate personalized gap analysis, mock interview question banks, and ATS-optimized resume rewrites. Features a LangChain multi-agent orchestration layer for specialized subagents (resume agent, interview agent, portfolio agent). React frontend with FastAPI backend. Designed for students and early-career engineers.',
+      'CareerTrack is an AI-powered career platform developed as an Initial Validation Prototype (IVP) to help students and early professionals succeed in today\'s competitive job market. The platform bridges the gap between academic learning and industry readiness by offering an all-in-one career assistant — mock interview analysis, ATS-optimized resumes, AI-curated portfolios, mental wellness tools, and seamless web & mobile sync.',
     status: 'DEPLOYED',
-    category: 'RAG/LLM',
-    technologies: ['Python', 'LangChain', 'LangGraph', 'React', 'FastAPI', 'ChromaDB', 'OpenAI'],
-    displayTechCount: 4,
+    category: 'FULL-STACK',
+    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'FastAPI', 'Supabase', 'React Native', 'Clerk', 'TensorFlow', 'LangChain', 'Agno', 'LangGraph'],
+    displayTechCount: 5,
     icon: 'careertrack',
     githubUrl: '',
-    award: undefined,
+    liveUrl: 'https://careertrack-one.vercel.app/',
+    achievements: [
+      'Initial Validation Prototype (IVP) — Live Demo Available',
+    ],
+    linkedinPosts: [
+      'https://www.linkedin.com/posts/prannavakhanth_building-careertrack-an-ai-powered-career-activity-7305970986175143938-E3oJ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4',
+    ],
     images: [
-      "/images/projects/careertrack/fig1.jpg",
-      "/images/projects/careertrack/fig2.jpg",
-      "/images/projects/careertrack/fig3.jpg",
+      '/images/projects/careertrack/fig1.jpg',
+      '/images/projects/careertrack/fig2.jpg',
+      '/images/projects/careertrack/fig3.jpg',
     ],
     featured: true,
     featuredOrder: 2,
@@ -278,11 +297,21 @@ const PROJECTS: Project[] = [
     technologies: ['Python', 'PyPI', 'pytest', 'GitHub Actions', 'pre-commit', 'mypy'],
     displayTechCount: 4,
     icon: 'pkstruct',
-    githubUrl: '',
+    githubUrl: 'https://github.com/prnvvv/pkstruct',
+    pypiUrl: 'https://pypi.org/project/pkstruct/',
+    achievements: [
+      'Production-grade Python package on PyPI',
+      '20+ data structures & 35+ algorithms',
+      '899+ tests with CI/CD pipeline',
+      'Thread-safe structures with strict type hints'
+    ],
+    images: [
+      '/images/projects/pkstruct/fig1.png',
+    ],
     award: undefined,
     featured: true,
     featuredOrder: 9,
-    year: '2025',
+    year: '2026',
   },
   {
     id: 'DIAGENC-007',

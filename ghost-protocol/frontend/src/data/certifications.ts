@@ -6,6 +6,7 @@ export interface CertificationEntry {
   platform: string
   category: string
   color: string
+  image?: string
 }
 
 export const certificationsData: CertificationEntry[] = [

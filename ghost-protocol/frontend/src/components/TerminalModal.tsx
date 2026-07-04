@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileText, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { FileText, X, ChevronLeft, ChevronRight, Package } from 'lucide-react'
 import { FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import type { Project } from '../data/projects'
 import { useGalleryIndex } from '../hooks/useGalleryIndex'
@@ -207,6 +207,16 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
                         className="flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 rounded text-white/50 hover:text-[#00e67a] hover:border-[#00e67a]/30 transition-all duration-200 text-[10px]"
                       >
                         <FaGithub size={13} /> GitHub
+                      </a>
+                    )}
+                    {project.pypiUrl && (
+                      <a
+                        href={project.pypiUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 rounded text-white/50 hover:text-[#00e67a] hover:border-[#00e67a]/30 transition-all duration-200 text-[10px]"
+                      >
+                        <Package size={13} /> PyPI
                       </a>
                     )}
                     {project.liveUrl && (
