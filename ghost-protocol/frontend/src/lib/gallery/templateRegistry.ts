@@ -1,4 +1,4 @@
-import type { GalleryImage, GalleryCellSpec, GalleryTemplate, GalleryTemplateGrid } from './types';
+import type { GalleryImage, GalleryCellSpec, GalleryTemplate } from './types';
 
 /**
  * Fixed CSS Grid templates keyed by image count bucket (1-5).

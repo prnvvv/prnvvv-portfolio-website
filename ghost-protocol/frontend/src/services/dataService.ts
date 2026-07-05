@@ -53,6 +53,11 @@ export function getAchievements() {
   return achievementsData
 }
 
+// ── Leadership ──
+export function getLeadershipData() {
+  return leadershipData
+}
+
 // ── Stats ──
 export interface PortfolioStats {
   yearsActive: number

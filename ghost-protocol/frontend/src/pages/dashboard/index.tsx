@@ -14,11 +14,12 @@ import Missions from '../../components/sections/Missions/Missions'
 import ServiceRecord from '../../components/sections/ServiceRecord/ServiceRecord'
 import Certifications from '../../components/sections/Certifications/Certifications'
 import Achievements from '../../components/sections/Achievements/Achievements'
+import Leadership from '../../components/sections/Leadership'
 import SocialIcons from '../../components/social/SocialIcons'
 import GhostIcon from '../../components/effects/GhostIcon'
 import FloatingDock from '../../components/ui/floating-dock'
 
-const SECTION_IDS = ['dossier', 'education', 'missions', 'service-record', 'certifications', 'achievements']
+const SECTION_IDS = ['dossier', 'education', 'missions', 'service-record', 'certifications', 'achievements', 'leadership']
 
 function Dashboard() {
   const { isLoading, setActiveSection } = useUIStore()
@@ -80,6 +81,7 @@ function Dashboard() {
         <SectionErrorBoundary name="SERVICE-RECORD"><ServiceRecord /></SectionErrorBoundary>
         <Certifications />
         <Achievements />
+        <Leadership />
       </main>
       <Footer />
       <div className="crt-overlay" aria-hidden="true" />

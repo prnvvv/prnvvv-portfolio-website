@@ -32,6 +32,7 @@ export const achievementsData = {
       result: 'WINNER',
       resultColor: '#00e67a',
       icon: 'Trophy',
+      description: 'Built an AI-powered solution tackling real-world agricultural challenges. Secured first place among 50+ competing teams.',
     },
     {
       id: 'ACH-002',
@@ -41,6 +42,7 @@ export const achievementsData = {
       result: 'WINNER',
       resultColor: '#00e67a',
       icon: 'Trophy',
+      description: 'Developed a full-stack prototype addressing smart city infrastructure needs. Awarded top honors for innovation and execution.',
     },
     {
       id: 'ACH-003',
@@ -50,6 +52,7 @@ export const achievementsData = {
       result: 'WINNER',
       resultColor: '#00e67a',
       icon: 'Trophy',
+      description: 'Created a machine learning pipeline for predictive analytics in healthcare. Won against 80+ teams nationwide.',
     },
     {
       id: 'ACH-004',
@@ -59,6 +62,7 @@ export const achievementsData = {
       result: 'RECOGNISED',
       resultColor: '#00e67a',
       icon: 'Award',
+      description: 'Presented a scalable tech business model before industry VCs. Earned special recognition for market viability and impact.',
     },
     {
       id: 'ACH-005',
@@ -68,6 +72,7 @@ export const achievementsData = {
       result: '486 / 500',
       resultColor: '#00e67a',
       icon: 'Star',
+      description: 'Achieved 486/500 in the Science stream, ranking first in the academic year. Consistent top performer across all semesters.',
     },
     {
       id: 'ACH-006',
@@ -77,6 +82,7 @@ export const achievementsData = {
       result: '3 SUBJECTS',
       resultColor: '#00e67a',
       icon: 'Star',
+      description: 'Secured highest marks in Chemistry, Computer Science, and Physical Education. Demonstrated excellence across diverse disciplines.',
     },
     {
       id: 'ACH-007',
@@ -86,6 +92,7 @@ export const achievementsData = {
       result: 'STATE LEVEL',
       resultColor: '#00e67a',
       icon: 'Activity',
+      description: 'Selected for Tamil Nadu Cricket Association U-16 and U-14 state teams. Represented district in multiple inter-state tournaments.',
     },
     {
       id: 'ACH-008',
@@ -95,6 +102,7 @@ export const achievementsData = {
       result: '6 ITEMS',
       resultColor: '#00e67a',
       icon: 'FileText',
+      description: 'Filed 4 patents (1 published) and 2 papers under review across AI/ML domains. Driving innovation through intellectual property.',
     },
   ],
 }

@@ -4,8 +4,6 @@ import { FileText, X, ChevronLeft, ChevronRight, Package } from 'lucide-react'
 import { FaGithub, FaLinkedin, FaYoutube } from 'react-icons/fa'
 import type { Project } from '../data/projects'
 import { useGalleryIndex } from '../hooks/useGalleryIndex'
-import { GalleryLayout } from './gallery/GalleryLayout'
-import { CropCoreGallery } from './gallery/CropCoreGallery'
 import './TerminalModal.css'
 
 interface TerminalModalProps {

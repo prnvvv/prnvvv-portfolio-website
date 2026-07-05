@@ -1,7 +1,7 @@
 "use client"
 
-import { createContext, useContext, type ComponentProps } from "react"
-import { motion, type Variants } from "motion/react"
+import { createContext, type ComponentProps } from "react"
+import type { Variants } from "motion/react"
 import { cn } from "@/lib/utils"
 
 const CUTOUT_SIZE = 12

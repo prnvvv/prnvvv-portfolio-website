@@ -20,6 +20,8 @@ import {
   SiCss,
   SiJavascript,
   SiReact,
+  SiTypescript,
+  SiTailwindcss,
 } from 'react-icons/si'
 
 /* ─── SiJava (not in react-icons/si) ─── */
@@ -80,6 +82,8 @@ export {
   SiCss3,
   SiJavascript,
   SiReact,
+  SiTypescript,
+  SiTailwindcss,
   SiMatplotlib,
   SiSeaborn,
 }

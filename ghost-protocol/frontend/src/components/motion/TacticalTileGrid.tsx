@@ -1,5 +1,4 @@
 import React from 'react';
-import { TacticalTile } from './TacticalTile';
 
 interface TacticalTileGridProps {
   children: React.ReactNode[];

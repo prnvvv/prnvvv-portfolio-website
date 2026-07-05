@@ -1,20 +1,250 @@
 import { motion } from 'framer-motion'
-import { Trophy, FileText, BookOpen, Star, Award, Activity } from 'lucide-react'
 import AnimatedSection from '../../animations/AnimatedSection'
+import { NumberTicker } from '../../ui/number-ticker'
 import { getAchievements } from '../../../services/dataService'
-import type { AchievementStats, AchievementEntry } from '../../../data/achievements'
+import type { AchievementStats } from '../../../data/achievements'
 
-const ICON_MAP: Record<string, typeof Trophy> = {
-  Trophy,
-  FileText,
-  BookOpen,
-  Star,
-  Award,
-  Activity,
+interface Achievement {
+  id: string
+  title: string
+  subtitle: string
+  description: string
+  link?: string
+  badge: string
+  badgeColor: string
+}
+
+const LINK_A = 'https://www.linkedin.com/posts/prannavakhanth_vashishthackathon-iiitdmkancheepuram-fintech-ugcPost-7446457431867678720-kTRU/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4'
+const LINK_B = 'https://www.linkedin.com/posts/prannavakhanth_we-are-excited-to-announce-that-our-team-activity-7247571240280829952-Xf-5?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4'
+
+const HACKATHON_WINS: Achievement[] = [
+  {
+    id: 'annamai',
+    title: 'AnnamAI x AI-CoE x IIT Ropar Hackathon',
+    subtitle: '1st Place · Agricultural AI · 50+ teams',
+    description: 'Built an AI-powered solution tackling real-world agricultural challenges. Secured first place among 50+ competing teams. Awarded Rs 5,00,000 National First Prize.',
+    badge: '',
+    badgeColor: '#00e67a',
+    link: LINK_A,
+  },
+  {
+    id: 'hackhub',
+    title: "HackHub'25",
+    subtitle: 'National Winner · IEEE & GitHub · Smart City',
+    description: 'Developed a full-stack prototype addressing smart city infrastructure needs. Awarded top honors for innovation and execution.',
+    badge: '',
+    badgeColor: '#00e67a',
+    link: LINK_A,
+  },
+  {
+    id: 'vashisht',
+    title: 'Vashisht 3.0',
+    subtitle: '1st Place · FinTech Track · IIITDM Kancheepuram',
+    description: 'Created a machine learning pipeline for predictive analytics in healthcare. Won against 80+ teams nationwide.',
+    badge: '',
+    badgeColor: '#00e67a',
+    link: LINK_A,
+  },
+  {
+    id: 'pitchathon',
+    title: "Pitchathon'24",
+    subtitle: 'Special Recognition · Industry VCs · Market Viability',
+    description: 'Presented a scalable tech business model before industry VCs. Earned special recognition for market viability and impact.',
+    badge: '',
+    badgeColor: '#00e67a',
+    link: LINK_B,
+  },
+]
+
+const SCHOOL_AWARDS: Achievement[] = [
+  {
+    id: 'school-topper',
+    title: 'School Topper',
+    subtitle: 'CBSE Science Stream · 486 / 500',
+    description: 'Achieved 486/500 in the Science stream, ranking first in the academic year. Consistent top performer across all semesters.',
+    badge: '',
+    badgeColor: '#00d4ff',
+    link: LINK_A,
+  },
+  {
+    id: 'subject-topper',
+    title: 'Subject Topper',
+    subtitle: 'Chemistry · Computer Science · Physical Education',
+    description: 'Secured highest marks in Chemistry, Computer Science, and Physical Education. Demonstrated excellence across diverse disciplines.',
+    badge: '',
+    badgeColor: '#00d4ff',
+    link: LINK_A,
+  },
+]
+
+const OTHER_ACHIEVEMENTS: Achievement[] = [
+  {
+    id: 'research-ip',
+    title: 'Research IP Portfolio',
+    subtitle: '1 Published · 3 Filed · 2 Under Review',
+    description: 'Filed 4 patents (1 published) and 2 research papers under review across AI/ML domains. Driving innovation through intellectual property.',
+    badge: '',
+    badgeColor: '#a78bfa',
+    link: LINK_A,
+  },
+  {
+    id: 'tnca',
+    title: 'TNCA Cricketer',
+    subtitle: 'Tamil Nadu Cricket Association · U-14 & U-16',
+    description: 'Selected for Tamil Nadu Cricket Association U-16 and U-14 state teams. Represented district in multiple inter-state tournaments.',
+    badge: '',
+    badgeColor: '#fb923c',
+    link: LINK_A,
+  },
+]
+
+interface SpotifyBarProps {
+  achievement: Achievement
+  sectionLabel: string
+  delay?: number
+}
+
+function SpotifyAchievementBar({ achievement, sectionLabel, delay = 0 }: SpotifyBarProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -8 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: '-30px' }}
+      transition={{ duration: 0.35, delay, ease: 'easeOut' }}
+      style={{ display: 'flex', flexDirection: 'column' }}
+    >
+      <div
+        className="spotify-bar-row"
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: '12px',
+          padding: '12px 16px',
+          borderRadius: '10px',
+          background: 'rgba(0, 0, 0, 0.35)',
+          border: '1px solid rgba(0, 230, 122, 0.12)',
+          transition: 'background 0.25s ease, border-color 0.25s ease',
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.background = 'rgba(0, 230, 122, 0.05)'
+          e.currentTarget.style.borderColor = 'rgba(0, 230, 122, 0.25)'
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.background = 'rgba(0, 0, 0, 0.35)'
+          e.currentTarget.style.borderColor = 'rgba(0, 230, 122, 0.12)'
+        }}
+      >
+        {achievement.link ? (
+          <a
+            href={achievement.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              width: '42px', height: '42px', borderRadius: '6px', flexShrink: 0,
+              background: 'rgba(0, 230, 122, 0.12)',
+              border: '1px solid rgba(0, 230, 122, 0.25)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              textDecoration: 'none', cursor: 'pointer',
+              transition: 'all 0.2s ease', fontSize: '16px', color: '#00e67a',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = '#00e67a'
+              e.currentTarget.style.color = '#fff'
+              e.currentTarget.style.transform = 'scale(1.1)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'rgba(0, 230, 122, 0.12)'
+              e.currentTarget.style.color = '#00e67a'
+              e.currentTarget.style.transform = 'scale(1)'
+            }}
+          >
+            ▶
+          </a>
+        ) : (
+          <div style={{
+            width: '42px', height: '42px', borderRadius: '6px', flexShrink: 0,
+            background: 'rgba(0, 230, 122, 0.12)', border: '1px solid rgba(0, 230, 122, 0.25)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+          }}>
+            <span style={{
+              fontFamily: 'Share Tech Mono, monospace', fontSize: '8px',
+              color: 'rgba(0, 230, 122, 0.7)', letterSpacing: '0.08em',
+              textAlign: 'center', lineHeight: '1.4', whiteSpace: 'pre',
+            }}>
+              {sectionLabel}
+            </span>
+          </div>
+        )}
+
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <p style={{
+            fontFamily: 'Share Tech Mono, monospace', fontSize: '13px',
+            color: 'rgba(255,255,255,0.9)', margin: 0, lineHeight: 1.3,
+            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+          }}>
+            {achievement.title}
+          </p>
+          <p style={{
+            fontFamily: 'Share Tech Mono, monospace', fontSize: '10px',
+            color: 'rgba(0, 230, 122, 0.55)', margin: '3px 0 0 0',
+            overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+            letterSpacing: '0.03em',
+          }}>
+            {achievement.subtitle}
+          </p>
+        </div>
+
+        <div className="sound-bars" style={{ display: 'flex', alignItems: 'flex-end', gap: '2px', height: '24px', flexShrink: 0 }}>
+          <div className="bar" />
+          <div className="bar" />
+          <div className="bar" />
+          <div className="bar" />
+        </div>
+
+        {!achievement.link && (
+          <span style={{
+            fontFamily: 'Share Tech Mono, monospace', fontSize: '9px',
+            letterSpacing: '0.12em', color: achievement.badgeColor,
+            background: `${achievement.badgeColor}1a`,
+            border: `1px solid ${achievement.badgeColor}4d`,
+            borderRadius: '4px', padding: '3px 8px', whiteSpace: 'nowrap', flexShrink: 0,
+          }}>
+            {achievement.badge}
+          </span>
+        )}
+      </div>
+
+      <div className="achievement-description" style={{ padding: '8px 16px 12px 70px' }}>
+        <p style={{
+          fontFamily: 'Share Tech Mono, monospace', fontSize: '11px',
+          color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, margin: 0,
+        }}>
+          {achievement.description}
+        </p>
+      </div>
+    </motion.div>
+  )
+}
+
+function SectionLabel({ label }: { label: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+      <div style={{ flex: 1, height: '1px', background: 'rgba(0,230,122,0.08)' }} />
+      <span style={{
+        fontFamily: 'Share Tech Mono, monospace',
+        fontSize: '11px', fontWeight: 600, color: 'rgba(0, 230, 122, 0.75)',
+        letterSpacing: '0.15em', textTransform: 'uppercase', textAlign: 'center',
+      }}>
+        {label}
+      </span>
+      <div style={{ flex: 1, height: '1px', background: 'rgba(0,230,122,0.08)' }} />
+    </div>
+  )
 }
 
 export default function Achievements() {
-  const { stats, entries } = getAchievements()
+  const { stats } = getAchievements()
 
   return (
     <AnimatedSection id="achievements" className="pt-16 pb-16 px-4 sm:px-6 lg:px-8">
@@ -30,72 +260,47 @@ export default function Achievements() {
           <span>COMMENDATIONS</span>
         </motion.div>
 
-        {/* Stats — animated number ticker */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           {stats.map((stat, i) => (
             <StatCard key={stat.label} stat={stat} delay={0.15 + i * 0.08} />
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
-          {entries.map((entry, i) => (
-            <AchievementTweetCard key={entry.id} entry={entry} delay={0.2 + i * 0.06} />
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-4" style={{ marginBottom: '24px' }}>
+            <SectionLabel label="Hackathon Wins" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {HACKATHON_WINS.map((a, i) => (
+                <SpotifyAchievementBar key={a.id} achievement={a} sectionLabel={'HACK'} delay={i * 0.07} />
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
+            <div className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-4">
+              <SectionLabel label="School Awards" />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {SCHOOL_AWARDS.map((a, i) => (
+                  <SpotifyAchievementBar key={a.id} achievement={a} sectionLabel={'SCH\nAWD'} delay={i * 0.07} />
+                ))}
+              </div>
+            </div>
+            <div className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-4">
+              <SectionLabel label="Other Academic & Extra Curricular" />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {OTHER_ACHIEVEMENTS.map((a, i) => (
+                  <SpotifyAchievementBar key={a.id} achievement={a} sectionLabel={'EX\nCUR'} delay={i * 0.07} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </AnimatedSection>
-  )
-}
-
-function AchievementTweetCard({ entry, delay }: { entry: AchievementEntry; delay: number }) {
-  const EntryIcon = ICON_MAP[entry.icon] || Trophy
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="relative flex h-fit w-full flex-col gap-4 overflow-hidden rounded-xl border border-[#00e67a]/15 bg-black/55 backdrop-blur-md p-5 transition-all duration-300 hover:scale-[1.02] hover:border-[#00e67a]/40"
-    >
-      {/* Header — matches MagicTweet/TweetHeader layout */}
-      <div className="flex flex-row items-start justify-between tracking-normal">
-        <div className="flex items-center space-x-3">
-          <div className="shrink-0 w-12 h-12 rounded-full bg-[#00e67a]/10 border border-[#00e67a]/15 flex items-center justify-center overflow-hidden">
-            <EntryIcon size={18} className="text-[#00e67a]" />
-          </div>
-          <div className="flex flex-col gap-0.5">
-            <span className="text-white/90 font-medium whitespace-nowrap text-sm">
-              {entry.category}
-            </span>
-            <span className="text-white/50 text-sm">
-              @{entry.result.toLowerCase().replace(/\s+/g, '')}
-            </span>
-          </div>
-        </div>
-        <div className="shrink-0 mt-0.5">
-          <span className="sr-only">Achievement</span>
-          <svg viewBox="0 0 24 24" className="text-white/30 hover:text-white/50 size-5 transition-all ease-in-out hover:scale-105" fill="currentColor">
-            <path d="M22.162 5.656a8.384 8.384 0 0 1-2.402.658A4.196 4.196 0 0 0 21.6 4c-.82.488-1.719.83-2.656 1.015a4.182 4.182 0 0 0-7.126 3.814 11.874 11.874 0 0 1-8.62-4.37 4.168 4.168 0 0 0-.566 2.103c0 1.45.738 2.731 1.86 3.481a4.168 4.168 0 0 1-1.894-.523v.052a4.185 4.185 0 0 0 3.355 4.101 4.21 4.21 0 0 1-1.89.072A4.185 4.185 0 0 0 7.97 16.65a8.394 8.394 0 0 1-6.191 1.732 11.83 11.83 0 0 0 6.41 1.88c7.693 0 11.9-6.373 11.9-11.9 0-.18-.005-.362-.013-.54a8.496 8.496 0 0 0 2.087-2.165z" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Body — matches MagicTweet/TweetBody layout */}
-      <div className="text-[15px] leading-relaxed tracking-normal">
-        <span className="text-white/90 text-[15px] font-normal">{entry.title}</span>
-      </div>
-      <div className="-mt-3 text-[15px] leading-relaxed tracking-normal">
-        <span className="text-white/50 text-[15px] font-normal">{entry.subtitle}</span>
-      </div>
-
-      {/* Description (if present) */}
-      {entry.description && (
-        <div className="-mt-3 text-[15px] leading-relaxed tracking-normal">
-          <span className="text-white/30 text-[15px] font-normal">{entry.description}</span>
-        </div>
-      )}
-    </motion.div>
   )
 }
 
@@ -106,12 +311,14 @@ function StatCard({ stat, delay }: { stat: AchievementStats; delay: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-4 text-center
-                 hover:border-[#00e67a]/40 transition-all duration-300"
+      className="text-center"
     >
-      <div className="text-3xl md:text-4xl font-orbitron font-bold text-[#00e67a]">
-        {stat.value}
-      </div>
+      <NumberTicker
+        value={Number.parseInt(stat.value)}
+        startValue={100}
+        duration={3}
+        className="text-3xl md:text-4xl font-mono font-bold text-[#00e67a]"
+      />
       <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-white/50 mt-1">
         {stat.label}
       </div>

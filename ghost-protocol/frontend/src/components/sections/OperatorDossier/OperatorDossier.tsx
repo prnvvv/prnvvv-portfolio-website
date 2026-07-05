@@ -2,6 +2,7 @@ import { ReactNode, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import AnimatedSection from '../../animations/AnimatedSection'
 import { getProfile, getSkillsByCategory } from '../../../services/dataService'
+import PipBoyWidget from './PipBoyWidget'
 import SkillTag from '../../ui/SkillTag'
 import LogoLoop from '../../ui/LogoLoop'
 import DecryptText from '../../effects/DecryptText'
@@ -12,16 +13,26 @@ import {
   SiOpencv, SiYolo, SiMediapipe,
   SiFastapi, SiPandas, SiNumpy, SiDocker, SiBeautifulsoup,
   SiHtml5, SiCss3, SiJavascript, SiReact,
+  SiTypescript, SiTailwindcss,
   SiMatplotlib, SiSeaborn,
 } from '../../ui/tech-icons'
 
-const CATEGORY_ICONS: Record<string, string> = {
-  'Programming Languages': '▶',
-  'AI/ML Frameworks': '◆',
-  'Computer Vision': '◈',
-  'Backend & Web': '▣',
-  Frontend: '◉',
+const CATEGORY_GLYPH: Record<string, string> = {
+  'Programming Languages': '</>',
+  'AI/ML Frameworks': '[AI]',
+  'Computer Vision': '◎',
+  'Backend & Web': '[SV]',
+  Frontend: '▣',
   Visualization: '▤',
+}
+
+const CATEGORY_COLOR: Record<string, string> = {
+  'Programming Languages': 'rgba(255, 255, 255, 0.25)',
+  'AI/ML Frameworks': 'rgba(255, 255, 255, 0.25)',
+  'Computer Vision': 'rgba(255, 255, 255, 0.25)',
+  'Backend & Web': 'rgba(255, 255, 255, 0.25)',
+  Frontend: 'rgba(255, 255, 255, 0.25)',
+  Visualization: 'rgba(255, 255, 255, 0.25)',
 }
 
 const TECH_LOGOS = [
@@ -47,6 +58,8 @@ const TECH_LOGOS = [
   { node: <SiCss3 />, title: 'CSS' },
   { node: <SiJavascript />, title: 'JavaScript' },
   { node: <SiReact />, title: 'React' },
+  { node: <SiTypescript />, title: 'TypeScript' },
+  { node: <SiTailwindcss />, title: 'Tailwind CSS' },
   { node: <SiMatplotlib />, title: 'Matplotlib' },
   { node: <SiSeaborn />, title: 'Seaborn' },
 ]
@@ -66,29 +79,80 @@ export default function OperatorDossier() {
   const totalSkills = Object.values(skillsByCategory).reduce((sum, arr) => sum + arr.length, 0)
 
   return (
-<AnimatedSection id="dossier" className="pt-16 pb-16 px-4 sm:px-6 lg:px-8">
+<AnimatedSection id="dossier" className="pt-12 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="section-header mb-8"
+          className="section-header mb-6"
         >
           <span>◆</span>
           <span>OPERATOR DOSSIER // PRNVVV</span>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
           {/* ─── Profile Card ─── */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-black/55 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-4"
+            className="bg-black/90 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-3"
           >
-            <div className="flex items-start justify-between mb-3">
+            {/* ─── Terminal Title Bar ─── */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginBottom: '4px',
+                padding: '4px 0',
+                borderBottom: '1px solid rgba(0, 230, 122, 0.08)',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ff5f56' }} />
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#ffbd2e' }} />
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#27c93f' }} />
+
+              </div>
+              <span
+                style={{
+                  fontFamily: 'Share Tech Mono, monospace',
+                  fontSize: '9px',
+                  color: 'rgba(0, 230, 122, 0.2)',
+                  userSelect: 'none',
+                }}
+              >
+                — □ ×
+              </span>
+            </div>
+
+            {/* ─── Command Line ─── */}
+            <div style={{ marginBottom: '6px' }}>
+              <span
+                style={{
+                  fontFamily: 'Share Tech Mono, monospace',
+                  fontSize: '10px',
+                  color: 'rgba(0, 230, 122, 0.3)',
+                  userSelect: 'none',
+                }}
+              >
+                $ cat ~/operator/PRNVVV.json
+                <span
+                  style={{
+                    marginLeft: '4px',
+                    animation: 'cursor-blink 1s step-end infinite',
+                  }}
+                >
+                  ▊
+                </span>
+              </span>
+            </div>
+
+            <div className="flex items-start justify-between mb-2">
               <div>
                 <h2
                   className="text-mil-green font-heading tracking-[0.12em]"
@@ -115,12 +179,9 @@ export default function OperatorDossier() {
               />
             </div>
 
-            <div className="mt-3 pt-3 border-t border-mil-green/12">
-              <p className="text-mil-light font-body leading-relaxed" style={{ fontSize: 'var(--text-xs)' }}>{op.bio}</p>
-            </div>
-
             {/* ─── Wisdom ─── */}
             <WisdomSection />
+            <PipBoyWidget />
           </motion.div>
 
           {/* ─── Skill Inventory Card (spans 2 cols) ─── */}
@@ -130,9 +191,9 @@ export default function OperatorDossier() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-black/55 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-4 md:col-span-2"
+            className="bg-black/90 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-3 md:col-span-2"
           >
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2">
               <h3
                 className="text-mil-green font-heading tracking-[0.18em]"
                 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xs)' }}
@@ -145,44 +206,133 @@ export default function OperatorDossier() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
-                <div
-                  key={category}
-                  className="p-2.5"
-                  style={{
-                    background: 'rgba(0, 0, 0, 0.4)',
-                    border: '1px solid rgba(255, 255, 255, 0.04)',
-                    borderRadius: '6px',
-                  }}
-                >
-                  <div className="flex items-center gap-1 mb-2">
-                    <span className="text-[10px] opacity-70">{CATEGORY_ICONS[category] || '▸'}</span>
-                    <h4
-                      className="font-heading text-mil-green tracking-[0.12em] uppercase"
-                      style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xs)' }}
-                    >
-                      {category}
-                    </h4>
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    {categorySkills.map((skill) => (
-                      <SkillTag key={skill.name} name={skill.name} />
-                    ))}
-                  </div>
-                </div>
-              ))}
+              {Object.entries(skillsByCategory).map(([category, categorySkills], catIdx) => {
+                const catColor = CATEGORY_COLOR[category] || '#00e67a'
+                const glyph = CATEGORY_GLYPH[category] || '▸'
+                return (
+                  <motion.div
+                    key={category}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{ duration: 0.4, delay: catIdx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                    className="relative overflow-hidden rounded-lg card-scan"
+                    style={{
+                      background: `
+                        radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px),
+                        rgba(0, 0, 0, 0.55)
+                      `,
+                      backgroundSize: '16px 16px, 100% 100%',
+                      backdropFilter: 'blur(12px)',
+                      border: '1px solid rgba(0, 230, 122, 0.15)',
+                      transition: 'border-color 0.3s ease',
+                      ['--scan-delay' as string]: `${catIdx * 0.1}s`,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(0, 230, 122, 0.35)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(0, 230, 122, 0.15)'
+                    }}
+                  >
+                    {/* Left-edge accent bar */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: 0,
+                        bottom: 0,
+                        width: '2px',
+                        background: catColor,
+                        borderRadius: '8px 0 0 8px',
+                        opacity: 0.8,
+                      }}
+                    />
+
+                    {/* Scan line pseudo-element workaround using a div */}
+                    <div
+                      className="card-scan-line"
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        height: '1px',
+                        background: `linear-gradient(90deg, transparent, ${catColor}, transparent)`,
+                        top: 0,
+                        animation: 'scan-once 0.8s ease-out forwards',
+                        animationDelay: `var(--scan-delay, 0s)`,
+                        pointerEvents: 'none',
+                        zIndex: 2,
+                      }}
+                    />
+
+                    <div style={{ padding: '8px 10px', position: 'relative', zIndex: 1 }}>
+                      {/* Category header */}
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                          <span
+                            style={{
+                              fontFamily: "'Share Tech Mono', monospace",
+                              fontSize: '12px',
+                              color: catColor,
+                              marginRight: '8px',
+                              opacity: 0.9,
+                            }}
+                          >
+                            {glyph}
+                          </span>
+                          <h4
+                            className="font-heading text-mil-green tracking-[0.12em] uppercase"
+                            style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xs)' }}
+                          >
+                            {category}
+                          </h4>
+                        </div>
+                        <span
+                          style={{
+                            fontFamily: "'Share Tech Mono', monospace",
+                            fontSize: '10px',
+                            color: 'rgba(255, 255, 255, 0.3)',
+                            letterSpacing: '0.1em',
+                          }}
+                        >
+                          {categorySkills.length} OPS
+                        </span>
+                      </div>
+
+                      {/* Hairline divider */}
+                      <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.05)', margin: '8px 0' }} />
+
+                      {/* Skill tags */}
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                        {categorySkills.map((skill, tagIdx) => (
+                          <motion.span
+                            key={skill.name}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.2, delay: 0.1 + tagIdx * 0.03, ease: [0.16, 1, 0.3, 1] }}
+                          >
+                            <SkillTag name={skill.name} catColor={catColor} />
+                          </motion.span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                )
+              })}
             </div>
 
             {/* ─── Tech Logo Loop ─── */}
-            <div className="mt-8">
-              <div className="flex items-center gap-4 mb-4">
+            <div className="mt-6">
+              <div className="flex items-center gap-4 mb-3">
                 <span className="text-xs font-mono text-[#00e67a] uppercase tracking-wider">TECH STACK</span>
                 <div className="flex-1 h-px bg-[#00e67a]/20" />
               </div>
               <div
                 className="relative w-full overflow-hidden rounded-lg"
                 style={{
-                  height: '56px',
+                  height: '48px',
                 }}
               >
                 <LogoLoop
@@ -224,7 +374,7 @@ function WisdomSection() {
   }, [])
 
   return (
-    <div className="mt-3 pt-3 border-t border-mil-green/12">
+    <div className="mt-2 pt-2 border-t border-mil-green/12">
       <h4
         className="font-heading text-mil-green tracking-[0.15em] uppercase mb-2"
         style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xs)' }}
@@ -233,6 +383,17 @@ function WisdomSection() {
         WISDOM
       </h4>
       <p className="font-mono text-mil-light leading-relaxed" style={{ fontSize: 'var(--text-micro)' }}>
+        <span
+          style={{
+            fontFamily: 'Share Tech Mono, monospace',
+            fontSize: '11px',
+            color: 'rgba(0, 230, 122, 0.25)',
+            marginRight: '6px',
+            userSelect: 'none',
+          }}
+        >
+          #
+        </span>
         {QUOTES[index]}
       </p>
     </div>
@@ -241,7 +402,18 @@ function WisdomSection() {
 
 function InfoRow({ label, value }: { label: string; value: string | ReactNode }) {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-1.5">
+      <span
+        style={{
+          fontFamily: 'Share Tech Mono, monospace',
+          fontSize: '11px',
+          color: 'rgba(0, 230, 122, 0.3)',
+          flexShrink: 0,
+          userSelect: 'none',
+        }}
+      >
+        &gt;
+      </span>
       <span className="text-mil-olive shrink-0 w-20 sm:w-28">{label}:</span>
       <span className="text-mil-light">{value}</span>
     </div>

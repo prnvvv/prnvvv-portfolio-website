@@ -3,7 +3,7 @@ import { motion, MotionValue, useMotionValue, useSpring, useTransform } from "mo
 import { useLocation } from "react-router-dom"
 import { useUIStore } from "@/store/uiStore"
 import { cn } from "@/lib/utils"
-import { User, GraduationCap, Crosshair, Award, ShieldCheck, Medal } from "lucide-react"
+import { User, GraduationCap, Crosshair, Award, ShieldCheck, Medal, Users } from "lucide-react"
 
 const DOCK_ITEMS: FloatingDockItem[] = [
   { id: 'dossier', title: 'OPERATOR DOSSIER', icon: <User size={18} strokeWidth={1.6} /> },
@@ -12,6 +12,7 @@ const DOCK_ITEMS: FloatingDockItem[] = [
   { id: 'service-record', title: 'SERVICE RECORD', icon: <Award size={18} strokeWidth={1.6} /> },
   { id: 'certifications', title: 'CREDENTIALS VAULT', icon: <ShieldCheck size={18} strokeWidth={1.6} /> },
   { id: 'achievements', title: 'COMMENDATIONS', icon: <Medal size={18} strokeWidth={1.6} /> },
+  { id: 'leadership', title: 'LEADERSHIP & ROLES', icon: <Users size={18} strokeWidth={1.6} /> },
 ]
 
 interface FloatingDockItem {

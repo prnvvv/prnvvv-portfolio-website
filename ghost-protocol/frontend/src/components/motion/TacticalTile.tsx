@@ -3,6 +3,7 @@ import {
   motion,
   AnimatePresence,
   useMotionTemplate,
+  type MotionValue,
 } from 'framer-motion';
 import { useTacticalTilt } from './useTacticalTilt';
 import { TileHUDOverlay } from './TileHUDOverlay';
@@ -157,8 +158,8 @@ function TileInner({
   onMouseMove, onMouseEnter, onMouseLeave, onClick, shouldDisableTilt, style,
 }: {
   tileRef: React.RefObject<HTMLDivElement | null>;
-  rotateX: any; rotateY: any; scale: any;
-  glowBackground: any; dynamicShadow: any;
+  rotateX: MotionValue<number>; rotateY: MotionValue<number>; scale: MotionValue<number>;
+  glowBackground: MotionValue<string>; dynamicShadow: MotionValue<string>;
   isHovered: boolean; isExpanded: boolean;
   accentColor: string; showRadar: boolean;
   expandContent?: React.ReactNode; children: React.ReactNode;
