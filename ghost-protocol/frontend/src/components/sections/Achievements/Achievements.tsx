@@ -1,9 +1,7 @@
-import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Trophy, FileText, BookOpen, Star, Award, Activity } from 'lucide-react'
 import AnimatedSection from '../../animations/AnimatedSection'
 import { getAchievements } from '../../../services/dataService'
-import { NumberTicker } from '../../ui/number-ticker'
 import type { AchievementStats, AchievementEntry } from '../../../data/achievements'
 
 const ICON_MAP: Record<string, typeof Trophy> = {
@@ -33,7 +31,7 @@ export default function Achievements() {
         </motion.div>
 
         {/* Stats — animated number ticker */}
-        <div className="grid grid-cols-2 md:grid-cols-4 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           {stats.map((stat, i) => (
             <StatCard key={stat.label} stat={stat} delay={0.15 + i * 0.08} />
           ))}
@@ -102,36 +100,23 @@ function AchievementTweetCard({ entry, delay }: { entry: AchievementEntry; delay
 }
 
 function StatCard({ stat, delay }: { stat: AchievementStats; delay: number }) {
-  const finalValue = parseInt(stat.value, 10)
-
-  const startValue = useMemo(() => {
-    const min = 20
-    const max = 60
-    return Math.floor(Math.random() * (max - min + 1)) + min
-  }, [])
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="text-center"
+      className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-4 text-center
+                 hover:border-[#00e67a]/40 transition-all duration-300"
     >
-      <div className="mb-0.5">
-        <NumberTicker
-          value={finalValue}
-          startValue={startValue}
-          direction="up"
-          delay={0.3}
-          className="text-white/90 font-heading text-xl md:text-2xl tracking-wider tabular-nums"
-        />
+      <div className="text-3xl md:text-4xl font-orbitron font-bold text-[#00e67a]">
+        {stat.value}
       </div>
-      <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">
+      <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-white/50 mt-1">
         {stat.label}
       </div>
       {stat.sublabel && (
-        <div className="font-mono text-[8px] uppercase tracking-[0.15em] text-white/25 mt-0.5">
+        <div className="text-[8px] font-mono text-white/30 mt-0.5">
           {stat.sublabel}
         </div>
       )}

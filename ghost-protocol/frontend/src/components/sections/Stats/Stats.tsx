@@ -35,7 +35,7 @@ export default function Stats() {
       label: 'CERTIFICATIONS',
       trend: 'stable',
       detail: `${stats.certifications} professional certifications across ML, cloud, and data engineering.`,
-      subDetail: 'Platforms: Coursera · AWS · Google · DeepLearning.AI',
+      subDetail: 'Credentials verified across major industry platforms',
     },
     {
       value: stats.skillsCount,
