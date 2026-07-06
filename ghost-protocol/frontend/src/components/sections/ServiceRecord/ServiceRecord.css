@@ -1,0 +1,312 @@
+/* ─── Terminal Card ─── */
+.terminal-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(0, 230, 122, 0.15);
+  border-radius: 6px;
+  overflow: hidden;
+  font-family: 'Share Tech Mono', 'IBM Plex Mono', monospace;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: rgba(0, 230, 122, 0.06);
+  border-bottom: 1px solid rgba(0, 230, 122, 0.1);
+  flex-shrink: 0;
+}
+
+.terminal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.terminal-header-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.terminal-header-title {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.08rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
+}
+
+.terminal-header-badge {
+  flex-shrink: 0;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: #00e67a;
+  background: rgba(0, 230, 122, 0.1);
+  border: 1px solid rgba(0, 230, 122, 0.2);
+  padding: 1px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.terminal-tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 230, 122, 0.08);
+  padding-left: 6px;
+  gap: 0;
+}
+
+.terminal-tab {
+  padding: 4px 10px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+  font-family: 'Share Tech Mono', 'IBM Plex Mono', monospace;
+  letter-spacing: 0.04em;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.terminal-tab:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.terminal-tab.active {
+  color: #00e67a;
+  border-bottom-color: #00e67a;
+  background: rgba(0, 230, 122, 0.04);
+  font-size: 20px;
+}
+
+.terminal-body {
+  display: flex;
+  overflow: auto;
+  padding: 0;
+  font-family: 'Share Tech Mono', 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  background: rgba(0, 0, 0, 0.4);
+  max-height: 280px;
+  min-height: 60px;
+}
+
+.terminal-body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+  background: rgba(0, 230, 122, 0.15);
+  border-radius: 3px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 230, 122, 0.3);
+}
+
+.terminal-line-numbers {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 8px;
+  text-align: right;
+  color: rgba(0, 230, 122, 0.2);
+  user-select: none;
+  font-size: 16px;
+  line-height: 1.5;
+  font-family: 'Share Tech Mono', monospace;
+  background: rgba(0, 0, 0, 0.3);
+  border-right: 1px solid rgba(0, 230, 122, 0.06);
+  flex-shrink: 0;
+}
+
+.terminal-code {
+  margin: 0;
+  padding: 4px 10px;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  color: rgba(255, 255, 255, 0.75);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  width: 100%;
+}
+
+.terminal-code-line {
+  line-height: 1.5;
+}
+
+.terminal-code-comment { color: rgba(0, 230, 122, 0.4); }
+.terminal-code-keyword { color: #00e67a; }
+.terminal-code-string { color: rgba(255, 255, 255, 0.45); }
+
+.terminal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 10px;
+  border-top: 1px solid rgba(0, 230, 122, 0.06);
+  flex-shrink: 0;
+  min-height: 26px;
+}
+
+.terminal-footer-label {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 12px;
+  font-family: 'Share Tech Mono', 'IBM Plex Mono', monospace;
+  letter-spacing: 0.08em;
+}
+
+.terminal-copy-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  color: rgba(0, 230, 122, 0.5);
+  border: 1px solid rgba(0, 230, 122, 0.15);
+  border-radius: 3px;
+  padding: 2px 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: 'Share Tech Mono', 'IBM Plex Mono', monospace;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.terminal-copy-btn:hover {
+  color: #00e67a;
+  border-color: rgba(0, 230, 122, 0.35);
+  background: rgba(0, 230, 122, 0.06);
+}
+
+.terminal-copy-btn:active {
+  background: rgba(0, 230, 122, 0.1);
+}
+
+.terminal-copy-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ─── Terminal Timeline ─── */
+.timeline-wrapper {
+  --tl-color: #00e67a;
+  --tl-bullet-size: 26px;
+  --tl-line-width: 2px;
+  --offset: calc(var(--tl-bullet-size) / 2 + var(--tl-line-width) / 2);
+}
+
+.timeline-item {
+  position: relative;
+  text-align: left;
+  padding-left: var(--offset);
+}
+
+.timeline-item:not(:last-of-type) {
+  padding-bottom: 20px;
+}
+
+.timeline-item:not(:first-of-type) {
+  margin-top: 20px;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  display: block;
+  border-inline-start: var(--tl-line-width) solid rgba(0, 230, 122, 0.12);
+}
+
+.timeline-item:last-of-type::before {
+  display: none;
+}
+
+.timeline-item[data-line-active]::before {
+  border-color: rgba(0, 230, 122, 0.3);
+  border-style: solid;
+}
+
+.timeline-bullet {
+  position: absolute;
+  top: 2px;
+  left: calc(var(--tl-bullet-size) / 2 * -1);
+  width: var(--tl-bullet-size);
+  height: var(--tl-bullet-size);
+  background: rgba(0, 230, 122, 0.08);
+  border: 2px solid rgba(0, 230, 122, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  transition: border-color 0.2s, background 0.2s;
+  color: rgba(0, 230, 122, 0.6);
+}
+
+.timeline-bullet[data-active] {
+  border-color: var(--tl-color);
+  background: rgba(0, 230, 122, 0.15);
+  color: #00e67a;
+  box-shadow: 0 0 12px rgba(0, 230, 122, 0.15);
+}
+
+.timeline-body {
+  padding-left: 12px;
+}
+
+/* ─── Mobile adjustments ─── */
+@media (max-width: 768px) {
+  .timeline-wrapper {
+    --tl-bullet-size: 22px;
+    --tl-line-width: 2px;
+  }
+
+  .timeline-item:not(:last-of-type) {
+    padding-bottom: 14px;
+  }
+
+  .timeline-item:not(:first-of-type) {
+    margin-top: 14px;
+  }
+
+  .timeline-body {
+    padding-left: 8px;
+  }
+
+  .terminal-body {
+    max-height: 200px;
+    font-size: 13px;
+  }
+
+  .terminal-code {
+    font-size: 13px;
+  }
+
+  .terminal-line-numbers {
+    font-size: 13px;
+  }
+
+  .terminal-header-title {
+    font-size: 1.08rem;
+  }
+}

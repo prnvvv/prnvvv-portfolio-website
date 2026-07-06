@@ -12,6 +12,7 @@ interface CobeGlobeProps {
 export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null)
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768
 
   const mouseRef = useRef({ x: 0, y: 0, active: false })
   const rotRef = useRef({
@@ -27,7 +28,7 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
     const container = containerRef.current
     if (!canvas || !container) return
 
-    const dpr = Math.min(window.devicePixelRatio, 2)
+    const dpr = Math.min(window.devicePixelRatio, isMobile ? 1 : 2)
 
     canvas.width = container.clientWidth * dpr
     canvas.height = container.clientHeight * dpr
@@ -41,8 +42,8 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
       phi: 0,
       theta: 0.25,
       dark: 0.88,
-      diffuse: 0.8,
-      mapSamples: 60000,
+      diffuse: isMobile ? 0.4 : 0.8,
+      mapSamples: isMobile ? 16000 : 60000,
       mapBrightness: 14,
       mapBaseBrightness: 0,
       baseColor: [0.03, 0.12, 0.07],
@@ -52,10 +53,11 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
       onRender: (state) => {
         const rot = rotRef.current
         const mouse = mouseRef.current
+        const isInteracting = interactive && !isMobile && mouse.active
 
         rot.phi += ROTATION_SPEED
 
-        if (interactive && mouse.active) {
+        if (isInteracting) {
           rot.thetaVelocity += ((0.25 + mouse.y * 0.18) - rot.theta) * 0.04
           rot.thetaVelocity *= 0.93
           rot.theta += rot.thetaVelocity
@@ -88,6 +90,7 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
   }, [])
 
   useEffect(() => {
+    if (isMobile) return
     const container = containerRef.current
     if (!container) return
 
@@ -130,7 +133,7 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
       container.removeEventListener('pointermove', handlePointerMove)
       container.removeEventListener('pointerleave', handlePointerLeave)
     }
-  }, [containerRef])
+  }, [containerRef, isMobile])
 
   return (
     <canvas

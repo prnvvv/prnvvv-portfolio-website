@@ -18,21 +18,19 @@ import {
 } from '../../ui/tech-icons'
 
 const CATEGORY_GLYPH: Record<string, string> = {
-  'Programming Languages': '</>',
-  'AI/ML Frameworks': '[AI]',
-  'Computer Vision': '◎',
-  'Backend & Web': '[SV]',
-  Frontend: '▣',
-  Visualization: '▤',
+  Languages: '</>',
+  'AI & ML': '⚡',
+  Frameworks: '[FX]',
+  'Databases & Tools': '[DB]',
+  'Web & Core Concepts': '◎',
 }
 
 const CATEGORY_COLOR: Record<string, string> = {
-  'Programming Languages': 'rgba(255, 255, 255, 0.25)',
-  'AI/ML Frameworks': 'rgba(255, 255, 255, 0.25)',
-  'Computer Vision': 'rgba(255, 255, 255, 0.25)',
-  'Backend & Web': 'rgba(255, 255, 255, 0.25)',
-  Frontend: 'rgba(255, 255, 255, 0.25)',
-  Visualization: 'rgba(255, 255, 255, 0.25)',
+  Languages: 'rgba(255, 255, 255, 0.25)',
+  'AI & ML': 'rgba(255, 255, 255, 0.25)',
+  Frameworks: 'rgba(255, 255, 255, 0.25)',
+  'Databases & Tools': 'rgba(255, 255, 255, 0.25)',
+  'Web & Core Concepts': 'rgba(255, 255, 255, 0.25)',
 }
 
 const TECH_LOGOS = [
@@ -64,6 +62,8 @@ const TECH_LOGOS = [
   { node: <SiSeaborn />, title: 'Seaborn' },
 ]
 
+const TECH_LOGOS_ROW2 = [...TECH_LOGOS].reverse()
+
 export default function OperatorDossier() {
   const op = getProfile()
   const skillsByCategory = getSkillsByCategory()
@@ -79,27 +79,27 @@ export default function OperatorDossier() {
   const totalSkills = Object.values(skillsByCategory).reduce((sum, arr) => sum + arr.length, 0)
 
   return (
-<AnimatedSection id="dossier" className="pt-12 pb-12 px-4 sm:px-6 lg:px-8">
+<AnimatedSection id="dossier" className="pt-3 pb-3 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="section-header mb-6"
+          className="section-header !mb-2"
         >
           <span>◆</span>
           <span>OPERATOR DOSSIER // PRNVVV</span>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-1 items-stretch">
           {/* ─── Profile Card ─── */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-black/90 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-3"
+            className="bg-black/90 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-[8px]"
           >
             {/* ─── Terminal Title Bar ─── */}
             <div
@@ -191,9 +191,9 @@ export default function OperatorDossier() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-black/90 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-3 md:col-span-2"
+            className="bg-black/90 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-[8px] md:col-span-2 flex flex-col"
           >
-            <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center justify-between mb-1.5">
               <h3
                 className="text-mil-green font-heading tracking-[0.18em]"
                 style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xs)' }}
@@ -205,10 +205,11 @@ export default function OperatorDossier() {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
               {Object.entries(skillsByCategory).map(([category, categorySkills], catIdx) => {
                 const catColor = CATEGORY_COLOR[category] || '#00e67a'
                 const glyph = CATEGORY_GLYPH[category] || '▸'
+                const colSpan = catIdx === 4 ? '1 / -1' : undefined
                 return (
                   <motion.div
                     key={category}
@@ -227,6 +228,7 @@ export default function OperatorDossier() {
                       border: '1px solid rgba(0, 230, 122, 0.15)',
                       transition: 'border-color 0.3s ease',
                       ['--scan-delay' as string]: `${catIdx * 0.1}s`,
+                      gridColumn: colSpan,
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.borderColor = 'rgba(0, 230, 122, 0.35)'
@@ -266,14 +268,14 @@ export default function OperatorDossier() {
                       }}
                     />
 
-                    <div style={{ padding: '8px 10px', position: 'relative', zIndex: 1 }}>
+                    <div style={{ padding: '6px 8px', position: 'relative', zIndex: 1 }}>
                       {/* Category header */}
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                           <span
                             style={{
                               fontFamily: "'Share Tech Mono', monospace",
-                              fontSize: '12px',
+                              fontSize: '10px',
                               color: catColor,
                               marginRight: '8px',
                               opacity: 0.9,
@@ -301,10 +303,10 @@ export default function OperatorDossier() {
                       </div>
 
                       {/* Hairline divider */}
-                      <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.05)', margin: '8px 0' }} />
+                      <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.05)', margin: '4px 0' }} />
 
                       {/* Skill tags */}
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2px', alignContent: 'flex-start' }}>
                         {categorySkills.map((skill, tagIdx) => (
                           <motion.span
                             key={skill.name}
@@ -324,23 +326,31 @@ export default function OperatorDossier() {
             </div>
 
             {/* ─── Tech Logo Loop ─── */}
-            <div className="mt-6">
-              <div className="flex items-center gap-4 mb-3">
+            <div className="flex-1 flex flex-col justify-center min-h-[155px] w-full">
+              <div className="flex items-center gap-4 mb-1.5">
                 <span className="text-xs font-mono text-[#00e67a] uppercase tracking-wider">TECH STACK</span>
                 <div className="flex-1 h-px bg-[#00e67a]/20" />
               </div>
-              <div
-                className="relative w-full overflow-hidden rounded-lg"
-                style={{
-                  height: '48px',
-                }}
-              >
+              <div className="relative w-full overflow-hidden rounded-lg py-1 mb-1.5">
                 <LogoLoop
                   logos={TECH_LOGOS}
                   speed={90}
                   direction="left"
-                  logoHeight={35}
-                  gap={42}
+                  logoHeight={53}
+                  gap={28}
+                  fadeOut
+                  fadeOutColor="#080c09"
+                  scaleOnHover
+                  pauseOnHover
+                />
+              </div>
+              <div className="relative w-full overflow-hidden rounded-lg py-1">
+                <LogoLoop
+                  logos={TECH_LOGOS_ROW2}
+                  speed={90}
+                  direction="right"
+                  logoHeight={53}
+                  gap={28}
                   fadeOut
                   fadeOutColor="#080c09"
                   scaleOnHover
@@ -374,7 +384,7 @@ function WisdomSection() {
   }, [])
 
   return (
-    <div className="mt-2 pt-2 border-t border-mil-green/12">
+    <div className="mt-1.5 pt-1.5 border-t border-mil-green/12">
       <h4
         className="font-heading text-mil-green tracking-[0.15em] uppercase mb-2"
         style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-xs)' }}
@@ -382,7 +392,7 @@ function WisdomSection() {
         <span className="inline-block w-1.5 h-1.5 rounded-full bg-mil-green shadow-[0_0_6px_rgba(0,230,122,0.6)] mr-2 animate-pulse" />
         WISDOM
       </h4>
-      <p className="font-mono text-mil-light leading-relaxed" style={{ fontSize: 'var(--text-micro)' }}>
+      <p className="font-mono text-mil-light leading-relaxed min-h-[34px]" style={{ fontSize: 'var(--text-micro)' }}>
         <span
           style={{
             fontFamily: 'Share Tech Mono, monospace',

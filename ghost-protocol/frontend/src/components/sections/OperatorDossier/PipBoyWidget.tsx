@@ -1,6 +1,6 @@
 export default function PipBoyWidget() {
   return (
-    <div style={{ marginTop: '16px', width: '100%', display: 'flex', justifyContent: 'center' }}>
+    <div style={{ marginTop: '12px', width: '100%', display: 'flex', justifyContent: 'center' }}>
       <style>{`
 .svg-frame {
   position: relative;

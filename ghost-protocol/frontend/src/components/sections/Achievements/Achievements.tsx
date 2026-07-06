@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import AnimatedSection from '../../animations/AnimatedSection'
-import { NumberTicker } from '../../ui/number-ticker'
 import { getAchievements } from '../../../services/dataService'
 import type { AchievementStats } from '../../../data/achievements'
 
@@ -313,12 +312,9 @@ function StatCard({ stat, delay }: { stat: AchievementStats; delay: number }) {
       transition={{ duration: 0.4, delay, ease: [0.22, 1, 0.36, 1] }}
       className="text-center"
     >
-      <NumberTicker
-        value={Number.parseInt(stat.value)}
-        startValue={100}
-        duration={3}
-        className="text-3xl md:text-4xl font-mono font-bold text-[#00e67a]"
-      />
+      <span className="text-3xl md:text-4xl font-mono font-bold text-[#00e67a]">
+        {stat.value}
+      </span>
       <div className="text-[10px] font-mono uppercase tracking-[0.15em] text-white/50 mt-1">
         {stat.label}
       </div>

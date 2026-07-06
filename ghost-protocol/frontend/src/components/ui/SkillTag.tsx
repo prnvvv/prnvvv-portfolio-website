@@ -13,11 +13,11 @@ export default function SkillTag({ name, catColor = '#00e67a' }: SkillTagProps) 
         color: 'rgba(255, 255, 255, 0.75)',
         background: 'rgba(255, 255, 255, 0.04)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
-        fontSize: 'var(--text-xs)',
-        padding: '3px 10px',
-        letterSpacing: '0.04em',
-        lineHeight: 1.3,
-        borderRadius: '5px',
+        fontSize: '10px',
+        padding: '2px 7px',
+        letterSpacing: '0.03em',
+        lineHeight: 1.2,
+        borderRadius: '4px',
       }}
       whileHover={{
         borderColor: catColor + '99',

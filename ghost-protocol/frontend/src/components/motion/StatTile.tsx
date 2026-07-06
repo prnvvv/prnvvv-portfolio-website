@@ -1,49 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { TacticalTile } from './TacticalTile';
 import type { StatTileData } from './types';
-
-function AnimatedCount({
-  value,
-  suffix = '',
-  isVisible,
-  duration = 1800,
-}: {
-  value: string | number;
-  suffix?: string;
-  isVisible: boolean;
-  duration?: number;
-}) {
-  const [displayed, setDisplayed] = useState(0);
-  const hasAnimated = useRef(false);
-
-  const numericValue = parseInt(String(value).replace(/[^0-9]/g, ''), 10) || 0;
-  const displaySuffix = suffix || String(value).replace(/[0-9]/g, '');
-
-  useEffect(() => {
-    if (!isVisible || hasAnimated.current) return;
-    hasAnimated.current = true;
-
-    const startTime = performance.now();
-
-    function easeOutQuart(t: number) { return 1 - Math.pow(1 - t, 4); }
-
-    function tick(now: number) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      setDisplayed(Math.round(easeOutQuart(progress) * numericValue));
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-
-    requestAnimationFrame(tick);
-  }, [isVisible, numericValue, duration]);
-
-  return (
-    <span aria-live="polite" aria-label={`${numericValue} ${suffix || ''}`.trim()}>
-      {displayed}{displaySuffix}
-    </span>
-  );
-}
 
 export const StatTile = React.memo(function StatTile({
   data,
@@ -118,12 +76,9 @@ export const StatTile = React.memo(function StatTile({
               userSelect: 'none',
             }}
           >
-            <AnimatedCount
-              value={data.value}
-              suffix={data.suffix}
-              isVisible={inView}
-              duration={1600 + index * 80}
-            />
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--text-3xl)', fontWeight: 800, color: 'var(--accent-green)', letterSpacing: '0.02em', lineHeight: 1, userSelect: 'none' }}>
+              {data.value}{data.suffix || ''}
+            </span>
           </motion.div>
 
           <div style={{

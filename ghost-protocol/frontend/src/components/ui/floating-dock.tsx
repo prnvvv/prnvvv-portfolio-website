@@ -1,9 +1,9 @@
-import React, { useRef } from "react"
+import React, { useCallback, useEffect, useRef } from "react"
 import { motion, MotionValue, useMotionValue, useSpring, useTransform } from "motion/react"
 import { useLocation } from "react-router-dom"
 import { useUIStore } from "@/store/uiStore"
 import { cn } from "@/lib/utils"
-import { User, GraduationCap, Crosshair, Award, ShieldCheck, Medal, Users } from "lucide-react"
+import { User, GraduationCap, Crosshair, Award, ShieldCheck, Medal, Users, X } from "lucide-react"
 
 const DOCK_ITEMS: FloatingDockItem[] = [
   { id: 'dossier', title: 'OPERATOR DOSSIER', icon: <User size={18} strokeWidth={1.6} /> },
@@ -31,8 +31,31 @@ interface FloatingDockProps {
 export default function FloatingDock({ items = DOCK_ITEMS, desktopClassName, mobileClassName }: FloatingDockProps) {
   const mouseY = useMotionValue(Infinity)
   const location = useLocation()
-  const { activeSection, setActiveSection } = useUIStore()
+  const { activeSection, setActiveSection, isNavOpen, toggleNav } = useUIStore()
   const isLanding = location.pathname === "/"
+  const hamburgerRef = useRef<HTMLButtonElement>(null)
+  const sidebarRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape" && isNavOpen) toggleNav()
+    }
+    document.addEventListener("keydown", handleEscape)
+    return () => document.removeEventListener("keydown", handleEscape)
+  }, [isNavOpen, toggleNav])
+
+  useEffect(() => {
+    if (!isNavOpen) return
+    const sidebar = sidebarRef.current
+    if (!sidebar) return
+    const firstLink = sidebar.querySelector("button:not(.mobile-close-btn)") as HTMLButtonElement
+    setTimeout(() => firstLink?.focus(), 100)
+  }, [isNavOpen])
+
+  const handleCloseNav = useCallback(() => {
+    toggleNav()
+    hamburgerRef.current?.focus()
+  }, [toggleNav])
 
   if (isLanding) return null
 
@@ -40,11 +63,95 @@ export default function FloatingDock({ items = DOCK_ITEMS, desktopClassName, mob
     setActiveSection(item.id)
     const el = document.getElementById(item.id)
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
+    if (window.innerWidth < 768) handleCloseNav()
   }
-
 
   return (
     <>
+      {/* Hamburger button — visible only on mobile */}
+      <button
+        ref={hamburgerRef}
+        aria-label="Open navigation menu"
+        aria-expanded={isNavOpen}
+        aria-controls="mobile-navigation"
+        onClick={() => { toggleNav(); hamburgerRef.current?.focus() }}
+        className="fixed top-3 left-3 z-[101] md:hidden flex items-center justify-center w-11 h-11 rounded-lg bg-black/80 border border-[rgba(0,230,122,0.3)] cursor-pointer"
+      >
+        <span className="block w-5 h-[1.5px] bg-[#00e67a] rounded-full" />
+        <span className="block w-5 h-[1.5px] bg-[#00e67a] rounded-full mt-[5px]" />
+        <span className="block w-3.5 h-[1.5px] bg-[#00e67a] rounded-full mt-[5px]" />
+      </button>
+
+      {/* Mobile overlay */}
+      {isNavOpen && (
+        <div
+          className="fixed inset-0 z-40 md:hidden bg-black/70"
+          aria-hidden="true"
+          onClick={handleCloseNav}
+        />
+      )}
+
+      {/* Mobile slide-in sidebar */}
+      <div
+        ref={sidebarRef}
+        id="mobile-navigation"
+        role="navigation"
+        aria-label="Main navigation"
+        className={cn(
+          "fixed left-0 top-0 bottom-0 z-50 md:hidden",
+          "w-[240px]",
+          "bg-[rgba(8,12,9,0.97)] backdrop-blur-[28px]",
+          "border-r border-[rgba(255,255,255,0.06)]",
+          "shadow-[4px_0_24px_rgba(0,0,0,0.8)]",
+          "transform transition-transform duration-300 ease-out",
+          isNavOpen ? "translate-x-0" : "-translate-x-full",
+          mobileClassName
+        )}
+      >
+        <div className="flex items-center justify-between px-4 h-14 border-b border-[rgba(255,255,255,0.06)]">
+          <span className="font-mono text-[10px] tracking-[0.25em] text-[#00e67a] uppercase">
+            Navigation
+          </span>
+          <button
+            onClick={handleCloseNav}
+            className="mobile-close-btn flex items-center justify-center w-8 h-8 rounded-lg text-white/50 hover:text-white/80 hover:bg-white/5 transition-colors"
+            aria-label="Close navigation menu"
+          >
+            <X size={16} />
+          </button>
+        </div>
+        <div className="flex flex-col gap-0.5 p-3 pt-4">
+          {items.map((item) => {
+            const isActive = activeSection === item.id
+            return (
+              <button
+                key={item.id}
+                onClick={() => handleNav(item)}
+                className={cn(
+                  "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
+                  "min-h-[44px] w-full text-left",
+                  "font-mono text-xs tracking-widest",
+                  isActive
+                    ? "bg-[rgba(0,230,122,0.1)] text-[#00e67a]"
+                    : "text-white/50 hover:text-white/80 hover:bg-white/5"
+                )}
+              >
+                <span className="w-5 h-5 flex items-center justify-center shrink-0">
+                  {React.isValidElement(item.icon)
+                    ? React.cloneElement(item.icon as React.ReactElement<{ size?: number; strokeWidth?: number }>, {
+                        size: 18,
+                        strokeWidth: 1.6,
+                      })
+                    : item.icon}
+                </span>
+                <span>{item.title}</span>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Desktop sidebar */}
       <div
         onMouseMove={(e) => mouseY.set(e.clientY)}
         onMouseLeave={() => mouseY.set(Infinity)}
@@ -77,26 +184,27 @@ export default function FloatingDock({ items = DOCK_ITEMS, desktopClassName, mob
         })}
       </div>
 
+      {/* Mobile bottom dock — simplified, used as quick-access alongside hamburger */}
       <div
         className={cn(
-          "fixed bottom-0 left-0 right-0 z-50 flex md:hidden items-center justify-around px-2 py-2 pb-[max(8px,env(safe-area-inset-bottom,8px))]",
+          "fixed bottom-0 left-0 right-0 z-30 flex md:hidden items-center justify-around px-2 py-1.5 pb-[max(6px,env(safe-area-inset-bottom,6px))]",
           "bg-[rgba(8,12,9,0.95)] backdrop-blur-[28px] border-t border-[rgba(255,255,255,0.06)]",
           mobileClassName
         )}
+        style={{ paddingLeft: '56px' }}
       >
-        {items.map((item) => (
+        {items.slice(0, 5).map((item) => (
           <button
             key={item.id}
-            onClick={() => handleNav(item)}
-            className="flex flex-col items-center gap-0.5 py-2 px-3 min-w-[48px] min-h-[44px] justify-center active:bg-white/5 rounded-lg transition-colors"
+            onClick={() => {
+              handleNav(item)
+            }}
+            className="flex flex-col items-center gap-0.5 py-1.5 px-2 min-w-[44px] min-h-[44px] justify-center active:bg-white/5 rounded-lg transition-colors"
             aria-label={item.title}
           >
             <div className="w-5 h-5 flex items-center justify-center">
               {item.icon}
             </div>
-            <span className="text-[7px] font-mono tracking-widest text-white/40 leading-none">
-              {item.title.slice(0, 4)}
-            </span>
           </button>
         ))}
       </div>
