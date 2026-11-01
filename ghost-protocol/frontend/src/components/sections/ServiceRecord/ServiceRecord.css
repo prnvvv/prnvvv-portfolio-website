@@ -48,7 +48,7 @@
   display: block;
   margin-bottom: 8px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-meta);
   line-height: 14px;
   letter-spacing: 0.12em;
   color: #00e67a;
@@ -95,7 +95,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 10px;
+  font-size: var(--type-meta);
   letter-spacing: 0.05em;
   color: rgba(255, 255, 255, 0.3);
 }
@@ -107,15 +107,15 @@
 
 .milestone-log-title {
   margin: 0 0 4px;
-  font-size: 0.875rem;
+  font-size: var(--type-title);
   line-height: 1.5;
-  font-weight: 700;
+  font-weight: var(--type-title-weight);
   color: #fff;
 }
 
 .milestone-log-meta {
   margin: 0 0 12px;
-  font-size: 0.75rem;
+  font-size: var(--type-body);
   line-height: 1.5;
   color: #00e67a;
   overflow-wrap: anywhere;
@@ -124,8 +124,8 @@
 .milestone-log-text,
 .milestone-log-list {
   margin: 0;
-  font-size: 0.75rem;
-  line-height: 1.625;
+  font-size: var(--type-body);
+  line-height: var(--type-body-leading);
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -154,10 +154,10 @@
 @media (min-width: 768px) {
   .milestone-timeline { --tl-gutter: 48px; }
   .milestone-log-body { padding: 16px; }
-  .milestone-log-title { font-size: 1rem; }
+  .milestone-log-title { font-size: var(--type-title-lg); }
   .milestone-log-meta,
   .milestone-log-text,
-  .milestone-log-list { font-size: 0.875rem; }
+  .milestone-log-list { font-size: var(--type-body-lg); }
 }
 
 @media (max-width: 480px) {
