@@ -71,7 +71,7 @@ export default function Stats() {
           />
         </div>
       </div>
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-[1360px] mx-auto relative z-10">
         <div className="border-t border-mil-green/10 border-b border-mil-green/10 py-4">
           <StatTileGrid stats={STATS} />
         </div>

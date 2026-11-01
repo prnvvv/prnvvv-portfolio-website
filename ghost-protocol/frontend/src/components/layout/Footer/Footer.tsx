@@ -19,7 +19,7 @@ export default function Footer() {
       className="border-t py-8 px-6 md:px-12 mt-8"
       style={{ borderColor: 'rgba(0,230,122,0.1)', background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}
     >
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="max-w-[1360px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* ─── Column 1: Brand & Copyright ─── */}
         <div>
           <div className="flex items-center gap-2 mb-2">

@@ -64,7 +64,7 @@ export default function ProjectsPage() {
       <ParticleField />
 
       <div className="relative z-10 flex-1" style={{ paddingLeft: isMobile ? '0px' : '72px' }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-6 md:pb-10">
           {/* Header */}
           <div className="flex items-start md:items-center justify-between mb-3 flex-col md:flex-row gap-3">
             <div className="section-header" style={{ marginBottom: 0, borderBottom: 'none', paddingBottom: 0 }}>

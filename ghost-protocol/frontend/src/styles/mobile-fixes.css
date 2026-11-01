@@ -437,3 +437,31 @@
     min-width: calc(50% - 6px) !important;
   }
 }
+
+
+/* ─────────────────────────────────────────────────────────
+   SHARED PAGE-CONTENT LAYOUT (single source of truth)
+   - Sections already carry their own horizontal padding, so the
+     <main> wrapper adds none on mobile (was doubling to ~28px).
+   - Tablet: side dock is visible from 768px, so reserve its width.
+   - Desktop: clear the fixed top-right social bar.
+   ───────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  main.inner-page-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  main.inner-page-content {
+    padding-left: 72px !important;
+    padding-right: 0 !important;
+  }
+}
+
+@media (min-width: 768px) {
+  main.inner-page-content {
+    padding-top: 40px;
+  }
+}

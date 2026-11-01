@@ -42,7 +42,7 @@ export default function Missions() {
 
   return (
     <AnimatedSection id="missions" className="pt-16 pb-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-[1360px] mx-auto">
         <div className="flex items-center justify-between mb-3">
           <motion.div
             initial={{ opacity: 0, y: 16 }}

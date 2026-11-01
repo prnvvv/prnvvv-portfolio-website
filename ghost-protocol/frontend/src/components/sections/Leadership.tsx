@@ -127,7 +127,7 @@ export default function Leadership() {
 
   return (
     <AnimatedSection id="leadership" className="pt-16 pb-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-[1360px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
