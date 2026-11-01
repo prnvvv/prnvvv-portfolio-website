@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import './GhostIcon.css'
 
@@ -8,6 +8,9 @@ export default function GhostIcon() {
   const [tapped, setTapped] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  // The mobile hamburger (FloatingDock) only exists on the dashboard routes.
+  const hasHamburger = pathname === '/dashboard' || pathname === '/command-center'
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -28,7 +31,7 @@ export default function GhostIcon() {
   const showTooltip = hovered || (isMobile && tapped)
 
   return (
-    <div style={{ position: 'fixed', top: 16, left: isMobile ? 68 : 16, zIndex: 100 }}>
+    <div style={{ position: 'fixed', top: 16, left: isMobile && hasHamburger ? 68 : 16, zIndex: 100 }}>
       <motion.button
         onClick={handleClick}
         onMouseEnter={() => setHovered(true)}
@@ -102,7 +105,7 @@ export default function GhostIcon() {
               borderRadius: 6,
               padding: '5px 10px',
               whiteSpace: 'nowrap',
-              fontFamily: "'Share Tech Mono', monospace",
+              fontFamily: 'var(--font-mono)',
               fontSize: 10,
               letterSpacing: '0.12em',
               color: 'rgba(0, 230, 122, 0.8)',
