@@ -462,6 +462,6 @@
 
 @media (min-width: 768px) {
   main.inner-page-content {
-    padding-top: 40px;
+    padding-top: 76px !important;
   }
 }

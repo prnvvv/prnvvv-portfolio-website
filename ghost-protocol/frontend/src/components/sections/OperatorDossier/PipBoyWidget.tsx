@@ -6,6 +6,7 @@ export default function PipBoyWidget() {
   position: relative;
   width: 234px;
   height: 234px;
+  flex-shrink: 0;
   transform-style: preserve-3d;
   display: flex;
   justify-content: center;

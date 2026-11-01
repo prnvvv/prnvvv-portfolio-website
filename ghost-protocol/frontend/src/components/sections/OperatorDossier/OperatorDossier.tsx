@@ -92,14 +92,14 @@ export default function OperatorDossier() {
           <span>OPERATOR DOSSIER // PRNVVV</span>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-1 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-1 items-stretch">
           {/* ─── Profile Card ─── */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-black/90 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-[8px]"
+            className="bg-black/90 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-[8px] min-w-0"
           >
             {/* ─── Terminal Title Bar ─── */}
             <div
@@ -191,7 +191,7 @@ export default function OperatorDossier() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-black/90 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-[8px] md:col-span-2 flex flex-col"
+            className="bg-black/90 backdrop-blur-md border border-[#00e67a]/15 rounded-lg p-[8px] lg:col-span-2 flex flex-col min-w-0"
           >
             <div className="flex items-center justify-between mb-1.5">
               <h3
@@ -392,7 +392,7 @@ function WisdomSection() {
         <span className="inline-block w-1.5 h-1.5 rounded-full bg-mil-green shadow-[0_0_6px_rgba(0,230,122,0.6)] mr-2 animate-pulse" />
         WISDOM
       </h4>
-      <p className="font-mono text-mil-light leading-relaxed min-h-[34px]" style={{ fontSize: 'var(--text-micro)' }}>
+      <p className="font-mono text-mil-light leading-relaxed min-h-[50px] sm:min-h-[34px]" style={{ fontSize: 'var(--text-micro)' }}>
         <span
           style={{
             fontFamily: 'Share Tech Mono, monospace',
@@ -424,8 +424,8 @@ function InfoRow({ label, value }: { label: string; value: string | ReactNode })
       >
         &gt;
       </span>
-      <span className="text-mil-olive shrink-0 w-20 sm:w-28">{label}:</span>
-      <span className="text-mil-light">{value}</span>
+      <span className="text-mil-olive shrink-0 w-[16ch]">{label}:</span>
+      <span className="text-mil-light min-w-0 break-words">{value}</span>
     </div>
   )
 }
