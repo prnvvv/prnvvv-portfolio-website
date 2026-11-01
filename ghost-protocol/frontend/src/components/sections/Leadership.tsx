@@ -217,7 +217,7 @@ export default function Leadership() {
                     <p className="text-[rgba(255,255,255,0.5)] text-xs">
                       {activeItem.position}
                     </p>
-                    <p className="text-[#00e67a] text-[0.65rem] tracking-wider">
+                    <p className="text-[#00e67a] text-[10px] tracking-wider">
                       {formattedPeriod(activeItem)}
                     </p>
                   </div>
@@ -317,10 +317,10 @@ export default function Leadership() {
                 <div className="font-medium text-[rgba(255,255,255,0.9)] text-sm leading-tight">
                   {role.organization}
                 </div>
-                <div className="text-[rgba(255,255,255,0.45)] text-[0.65rem]">
+                <div className="text-[rgba(255,255,255,0.45)] text-[10px]">
                   {role.position}
                 </div>
-                <div className="text-[#00e67a] text-[0.6rem] tracking-wider">
+                <div className="text-[#00e67a] text-[10px] tracking-wider">
                   {formattedPeriod(role)}
                 </div>
               </div>

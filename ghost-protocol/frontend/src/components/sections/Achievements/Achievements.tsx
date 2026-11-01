@@ -168,7 +168,7 @@ function SpotifyAchievementBar({ achievement, sectionLabel, delay = 0 }: Spotify
             display: 'flex', alignItems: 'center', justifyContent: 'center',
           }}>
             <span style={{
-              fontFamily: 'Share Tech Mono, monospace', fontSize: '8px',
+              fontFamily: 'var(--font-mono)', fontSize: '10px',
               color: 'rgba(0, 230, 122, 0.7)', letterSpacing: '0.08em',
               textAlign: 'center', lineHeight: '1.4', whiteSpace: 'pre',
             }}>
@@ -179,14 +179,14 @@ function SpotifyAchievementBar({ achievement, sectionLabel, delay = 0 }: Spotify
 
         <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{
-            fontFamily: 'Share Tech Mono, monospace', fontSize: '13px',
+            fontFamily: 'var(--font-mono)', fontSize: '0.875rem',
             color: 'rgba(255,255,255,0.9)', margin: 0, lineHeight: 1.3,
             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
           }}>
             {achievement.title}
           </p>
           <p style={{
-            fontFamily: 'Share Tech Mono, monospace', fontSize: '10px',
+            fontFamily: 'var(--font-mono)', fontSize: '10px',
             color: 'rgba(0, 230, 122, 0.55)', margin: '3px 0 0 0',
             overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
             letterSpacing: '0.03em',
@@ -204,7 +204,7 @@ function SpotifyAchievementBar({ achievement, sectionLabel, delay = 0 }: Spotify
 
         {!achievement.link && (
           <span style={{
-            fontFamily: 'Share Tech Mono, monospace', fontSize: '9px',
+            fontFamily: 'var(--font-mono)', fontSize: '10px',
             letterSpacing: '0.12em', color: achievement.badgeColor,
             background: `${achievement.badgeColor}1a`,
             border: `1px solid ${achievement.badgeColor}4d`,
@@ -217,7 +217,7 @@ function SpotifyAchievementBar({ achievement, sectionLabel, delay = 0 }: Spotify
 
       <div className="achievement-description" style={{ padding: '8px 16px 12px 70px' }}>
         <p style={{
-          fontFamily: 'Share Tech Mono, monospace', fontSize: '11px',
+          fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
           color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, margin: 0,
         }}>
           {achievement.description}
@@ -232,8 +232,8 @@ function SectionLabel({ label }: { label: string }) {
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
       <div style={{ flex: 1, height: '1px', background: 'rgba(0,230,122,0.08)' }} />
       <span style={{
-        fontFamily: 'Share Tech Mono, monospace',
-        fontSize: '11px', fontWeight: 600, color: 'rgba(0, 230, 122, 0.75)',
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.75rem', fontWeight: 600, color: 'rgba(0, 230, 122, 0.75)',
         letterSpacing: '0.15em', textTransform: 'uppercase', textAlign: 'center',
       }}>
         {label}
@@ -329,7 +329,7 @@ function StatCard({ stat, delay }: { stat: AchievementStats; delay: number }) {
         {stat.label}
       </div>
       {stat.sublabel && (
-        <div className="text-[8px] font-mono text-white/30 mt-0.5">
+        <div className="text-[10px] font-mono text-white/30 mt-0.5">
           {stat.sublabel}
         </div>
       )}

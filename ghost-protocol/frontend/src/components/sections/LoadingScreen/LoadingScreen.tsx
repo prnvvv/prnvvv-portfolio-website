@@ -113,7 +113,7 @@ export default function LoadingScreen() {
               {!showGranted ? (
                 <motion.p
                   className="font-mono text-[10px] sm:text-xs tracking-[0.25em] text-white/70"
-                  style={{ fontFamily: "'Share Tech Mono', monospace" }}
+                  style={{ fontFamily: 'var(--font-mono)' }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3, duration: 0.6 }}
@@ -123,7 +123,7 @@ export default function LoadingScreen() {
               ) : (
                 <motion.p
                   className="font-mono text-xs sm:text-sm tracking-[0.2em] text-[#00e67a]"
-                  style={{ fontFamily: "'Share Tech Mono', monospace" }}
+                  style={{ fontFamily: 'var(--font-mono)' }}
                   initial={{ opacity: 0, y: -3 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -146,10 +146,10 @@ export default function LoadingScreen() {
                 />
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[8px] font-mono tracking-[0.15em] text-white/15" style={{ fontFamily: "'Share Tech Mono', monospace" }}>
+                <span className="text-[10px] font-mono tracking-[0.15em] text-white/15" style={{ fontFamily: 'var(--font-mono)' }}>
                   SYS::BOOT
                 </span>
-                <span className="text-[9px] font-mono text-white/30" style={{ fontFamily: "'Share Tech Mono', monospace" }}>
+                <span className="text-[10px] font-mono text-white/30" style={{ fontFamily: 'var(--font-mono)' }}>
                   {displayProgress}%
                 </span>
               </div>

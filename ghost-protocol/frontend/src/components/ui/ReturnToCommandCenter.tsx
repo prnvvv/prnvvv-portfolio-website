@@ -54,7 +54,7 @@ export default function ReturnToCommandCenter() {
             borderRadius: 6,
             padding: '5px 10px',
             whiteSpace: 'nowrap',
-            fontFamily: "'Share Tech Mono', monospace",
+            fontFamily: 'var(--font-mono)',
             fontSize: 10,
             letterSpacing: '0.12em',
             color: 'rgba(0, 230, 122, 0.8)',

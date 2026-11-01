@@ -56,7 +56,7 @@ export function GalleryCell({
       {/* INTEL badge — hidden on overflow cell */}
       {!spec.isOverflow && (
         <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-          <span className="text-[8px] font-mono text-[#00e67a]/70 bg-black/50 px-1.5 py-0.5 rounded border border-[#00e67a]/20">
+          <span className="text-[10px] font-mono text-[#00e67a]/70 bg-black/50 px-1.5 py-0.5 rounded border border-[#00e67a]/20">
             INTEL {String(index + 1).padStart(2, '0')}
           </span>
         </div>

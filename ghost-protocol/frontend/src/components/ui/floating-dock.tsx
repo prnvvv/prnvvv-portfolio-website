@@ -266,7 +266,7 @@ const IconContainer = ({ mouseY, children, isActive, onClick, title }: IconConta
             borderRadius: 6,
             padding: '4px 10px',
             whiteSpace: 'nowrap',
-            fontFamily: "'Share Tech Mono', monospace",
+            fontFamily: 'var(--font-mono)',
             fontSize: 10,
             letterSpacing: '0.12em',
             color: isActive ? '#00e67a' : 'rgba(255, 255, 255, 0.6)',

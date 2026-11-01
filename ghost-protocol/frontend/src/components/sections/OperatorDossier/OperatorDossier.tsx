@@ -120,8 +120,8 @@ export default function OperatorDossier() {
               </div>
               <span
                 style={{
-                  fontFamily: 'Share Tech Mono, monospace',
-                  fontSize: '9px',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '10px',
                   color: 'rgba(0, 230, 122, 0.2)',
                   userSelect: 'none',
                 }}
@@ -134,7 +134,7 @@ export default function OperatorDossier() {
             <div style={{ marginBottom: '6px' }}>
               <span
                 style={{
-                  fontFamily: 'Share Tech Mono, monospace',
+                  fontFamily: 'var(--font-mono)',
                   fontSize: '10px',
                   color: 'rgba(0, 230, 122, 0.3)',
                   userSelect: 'none',
@@ -163,11 +163,11 @@ export default function OperatorDossier() {
               </div>
               <div className="flex items-center gap-1.5">
                 <span className={`w-1.5 h-1.5 rounded-full ${statusColor} bg-current`} />
-                <span className={`font-body ${statusColor}`} style={{ fontSize: 'var(--text-xs)' }}>{op.status}</span>
+                <span className={`font-body ${statusColor}`} style={{ fontSize: 'var(--type-body)' }}>{op.status}</span>
               </div>
             </div>
 
-            <div className="space-y-1 font-body" style={{ fontSize: 'var(--text-xs)' }}>
+            <div className="space-y-1 font-body" style={{ fontSize: 'var(--type-body)' }}>
               <InfoRow label="NAME" value={op.name} />
               <InfoRow label="SPECIALIZATION" value={<DecryptText texts={ROTATING_TITLES} interval={4000} />} />
               <InfoRow label="PRIMARY WEAPON" value="Python" />
@@ -200,7 +200,7 @@ export default function OperatorDossier() {
               >
                 SKILL INVENTORY
               </h3>
-              <span className="text-mil-olive font-body" style={{ fontSize: 'var(--text-micro)' }}>
+              <span className="text-mil-olive font-body" style={{ fontSize: 'var(--type-meta)' }}>
                 {categoryCount} CATEGORIES // {totalSkills} SKILLS
               </span>
             </div>
@@ -274,7 +274,7 @@ export default function OperatorDossier() {
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                           <span
                             style={{
-                              fontFamily: "'Share Tech Mono', monospace",
+                              fontFamily: 'var(--font-mono)',
                               fontSize: '10px',
                               color: catColor,
                               marginRight: '8px',
@@ -292,7 +292,7 @@ export default function OperatorDossier() {
                         </div>
                         <span
                           style={{
-                            fontFamily: "'Share Tech Mono', monospace",
+                            fontFamily: 'var(--font-mono)',
                             fontSize: '10px',
                             color: 'rgba(255, 255, 255, 0.3)',
                             letterSpacing: '0.1em',
@@ -392,11 +392,11 @@ function WisdomSection() {
         <span className="inline-block w-1.5 h-1.5 rounded-full bg-mil-green shadow-[0_0_6px_rgba(0,230,122,0.6)] mr-2 animate-pulse" />
         WISDOM
       </h4>
-      <p className="font-mono text-mil-light leading-relaxed min-h-[50px] sm:min-h-[34px]" style={{ fontSize: 'var(--text-micro)' }}>
+      <p className="font-mono text-mil-light leading-relaxed min-h-[60px] sm:min-h-[40px]" style={{ fontSize: 'var(--type-body)' }}>
         <span
           style={{
-            fontFamily: 'Share Tech Mono, monospace',
-            fontSize: '11px',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.75rem',
             color: 'rgba(0, 230, 122, 0.25)',
             marginRight: '6px',
             userSelect: 'none',
@@ -415,8 +415,8 @@ function InfoRow({ label, value }: { label: string; value: string | ReactNode })
     <div className="flex gap-1.5">
       <span
         style={{
-          fontFamily: 'Share Tech Mono, monospace',
-          fontSize: '11px',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.75rem',
           color: 'rgba(0, 230, 122, 0.3)',
           flexShrink: 0,
           userSelect: 'none',

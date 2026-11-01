@@ -7,11 +7,11 @@ export default function ObjectiveCard() {
         <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
         <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
         <span className="w-3 h-3 rounded-full bg-[#28c941]" />
-            <span className="ml-1.5 font-mono text-[9.6px] sm:text-[10.56px] tracking-[0.15em] uppercase text-[#00e67a]/60">
+            <span className="ml-1.5 font-mono text-[10px] tracking-[0.15em] uppercase text-[#00e67a]/60">
           objective.exe
         </span>
       </div>
-      <div className="bg-[#050806] border border-[#00e67a]/8 rounded p-3 sm:p-3.5 text-[11.52px] sm:text-[13.45px] leading-[1.75] sm:leading-[1.8] text-[#c8c8d0] font-mono">
+      <div className="bg-[#050806] border border-[#00e67a]/8 rounded p-3 sm:p-3.5 text-xs sm:text-sm leading-[1.75] sm:leading-[1.8] text-[#c8c8d0] font-mono">
         {content}
       </div>
     </div>
