@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import AnimatedSection from '../../animations/AnimatedSection'
 import { getAchievements } from '../../../services/dataService'
+import CmdBar from '../../ui/CmdBar'
 import type { AchievementStats } from '../../../data/achievements'
 
 interface Achievement {
@@ -270,31 +271,40 @@ export default function Achievements() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-4" style={{ marginBottom: '24px' }}>
+          <div className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg overflow-hidden" style={{ marginBottom: '24px' }}>
+            <CmdBar cmd="cat ~/commendations/hackathon-wins.log" />
+            <div className="p-4">
             <SectionLabel label="Hackathon Wins" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {HACKATHON_WINS.map((a, i) => (
                 <SpotifyAchievementBar key={a.id} achievement={a} sectionLabel={'HACK'} delay={i * 0.07} />
               ))}
             </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
-            <div className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-4">
-              <SectionLabel label="School Awards" />
+            <div className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg overflow-hidden">
+              <CmdBar cmd="cat ~/commendations/school-awards.log" />
+            <div className="p-4">
+            <SectionLabel label="School Awards" />
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {SCHOOL_AWARDS.map((a, i) => (
                   <SpotifyAchievementBar key={a.id} achievement={a} sectionLabel={'SCH\nAWD'} delay={i * 0.07} />
                 ))}
               </div>
             </div>
-            <div className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg p-4">
-              <SectionLabel label="Other Academic & Extra Curricular" />
+            </div>
+            <div className="bg-black/40 backdrop-blur-md border border-[#00e67a]/20 rounded-lg overflow-hidden">
+              <CmdBar cmd="cat ~/commendations/other-achievements.log" />
+            <div className="p-4">
+            <SectionLabel label="Other Academic & Extra Curricular" />
               <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                 {OTHER_ACHIEVEMENTS.map((a, i) => (
                   <SpotifyAchievementBar key={a.id} achievement={a} sectionLabel={'EX\nCUR'} delay={i * 0.07} />
                 ))}
               </div>
+            </div>
             </div>
           </div>
         </motion.div>

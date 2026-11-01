@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import AnimatedSection from "../animations/AnimatedSection";
 import { getLeadershipData } from "../../services/dataService";
+import CmdBar from "../ui/CmdBar";
 import type { LeadershipEntry } from "../../data/leadership";
 
 // ─── SVG Logo Components ───
@@ -165,7 +166,7 @@ export default function Leadership() {
           {activeItem ? (
             <div className="group fixed inset-0 z-10 grid place-items-center">
               <motion.div
-                className="flex h-fit w-[90%] max-w-lg cursor-pointer select-none flex-col items-start gap-3 overflow-hidden border p-4 shadow-xs"
+                className="flex h-fit w-[90%] max-w-lg cursor-pointer select-none flex-col items-start overflow-hidden border shadow-xs"
                 layoutId={
                   shouldReduceMotion
                     ? undefined
@@ -192,6 +193,8 @@ export default function Leadership() {
                       }
                 }
               >
+                <CmdBar cmd={`cat ~/leadership/${activeItem.id}.log`} />
+                <div className="flex w-full flex-col items-start gap-3 p-4">
                 <div className="relative flex w-full items-center gap-3">
                   <motion.div
                     layoutId={
@@ -257,6 +260,7 @@ export default function Leadership() {
                     </li>
                   ))}
                 </motion.ul>
+                </div>
               </motion.div>
             </div>
           ) : null}
@@ -266,7 +270,7 @@ export default function Leadership() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {roles.map((role) => (
             <motion.div
-              className="group relative flex w-full cursor-pointer select-none flex-row items-center gap-3 overflow-hidden border p-3 shadow-xs"
+              className="group relative flex w-full cursor-pointer select-none flex-col overflow-hidden border shadow-xs"
               key={role.id}
               layoutId={
                 shouldReduceMotion ? undefined : `leadershipItem-${role.id}`
@@ -293,6 +297,8 @@ export default function Leadership() {
               }
               whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
             >
+              <CmdBar cmd={`cat ~/leadership/${role.id}.log`} />
+              <div className="flex w-full flex-row items-center gap-3 p-3">
               <motion.div
                 layoutId={
                   shouldReduceMotion
@@ -317,6 +323,7 @@ export default function Leadership() {
                 <div className="text-[#00e67a] text-[0.6rem] tracking-wider">
                   {formattedPeriod(role)}
                 </div>
+              </div>
               </div>
               <div
                 style={{
