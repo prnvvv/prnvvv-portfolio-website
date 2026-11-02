@@ -70,3 +70,6 @@ uploads/
 *.swp
 *.swo
 *~
+
+.claude
+CLAUDE.md
