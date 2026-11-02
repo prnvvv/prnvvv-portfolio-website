@@ -1669,22 +1669,25 @@ body {
 html[data-theme="noir"] {
   color-scheme: dark;
 
-  /* Noir palette */
+  /* Noir palette. Values here are PRE-filter: the page-level filter below
+     (grayscale + contrast .87 + brightness .973) maps them linearly onto the
+     final palette: #101114 bg, #15171B alt, #191B20 card, #1E2025 elevated,
+     #E8E8E8 text, #B8B8B8 secondary, #898989 muted, #35373D / #292B30 / #66686E borders. */
   --noir-bg: #000000;
-  --noir-bg-alt: #080808;
+  --noir-bg-alt: #060606;
   --noir-card: #0b0b0b;
   --noir-elevated: #101010;
   --noir-text: #ffffff;
-  --noir-text-2: #bdbdbd;
-  --noir-text-3: #858585;
-  --noir-border: #333333;
-  --noir-border-subtle: #222222;
-  --noir-border-hover: #777777;
+  --noir-text-2: #c6c6c6;
+  --noir-text-3: #8f8f8f;
+  --noir-border: #2c2c2c;
+  --noir-border-subtle: #1d1d1d;
+  --noir-border-hover: #656565;
 
   /* Tailwind @theme colour tokens */
   --color-mil-dark: #000000;
   --color-mil-darker: #000000;
-  --color-mil-panel: #222222;
+  --color-mil-panel: #1d1d1d;
   --color-mil-overlay: rgba(0, 0, 0, 0.6);
   --color-mil-green: #ffffff;
   --color-mil-green-mid: #ffffff;
@@ -1700,55 +1703,55 @@ html[data-theme="noir"] {
   /* Shared tokens */
   --background: #000000;
   --muted: rgba(255, 255, 255, 0.08);
-  --border: #333333;
+  --border: #2c2c2c;
   --ring: #ffffff;
-  --line: #333333;
+  --line: #2c2c2c;
 
   --g-bg: #000000;
-  --g-bg-alt: #080808;
+  --g-bg-alt: #060606;
   --g-green-primary: #ffffff;
   --g-green-secondary: #ffffff;
-  --g-green-tertiary: #bdbdbd;
+  --g-green-tertiary: #c6c6c6;
   --g-green-muted: rgba(255, 255, 255, 0.25);
   --g-green-deep: #000000;
   --g-surface: #0b0b0b;
-  --g-border: #222222;
-  --g-border-dim: #222222;
-  --g-border-strong: #777777;
+  --g-border: #1d1d1d;
+  --g-border-dim: #1d1d1d;
+  --g-border-strong: #656565;
   --g-glow-sm: none;
   --g-glow-md: none;
   --g-glow-lg: none;
   --g-panel-bg: #0b0b0b;
-  --g-text-body: #bdbdbd;
-  --g-text-dim: #858585;
+  --g-text-body: #c6c6c6;
+  --g-text-dim: #8f8f8f;
   --g-text-bright: #ffffff;
 
   --accent-green: #ffffff;
-  --accent-green-dim: #bdbdbd;
-  --accent-olive: #bdbdbd;
+  --accent-green-dim: #c6c6c6;
+  --accent-olive: #c6c6c6;
   --accent-red: #ffffff;
   --accent-yellow: #ffffff;
   --accent-cyan: #ffffff;
 
   --text-primary: #ffffff;
-  --text-secondary: #bdbdbd;
-  --text-dim: #858585;
-  --text-muted: #858585;
+  --text-secondary: #c6c6c6;
+  --text-dim: #8f8f8f;
+  --text-muted: #8f8f8f;
 
   --bg-primary: #000000;
-  --bg-secondary: #080808;
+  --bg-secondary: #060606;
   --bg-surface: #0b0b0b;
   --bg-panel: #0b0b0b;
 
-  --border-subtle: #222222;
-  --border-green-subtle: #333333;
-  --border-strong: #777777;
+  --border-subtle: #1d1d1d;
+  --border-green-subtle: #2c2c2c;
+  --border-strong: #656565;
 
   /* Safety net: guarantees strictly monochrome output for every colour that
      is hardcoded in components, canvases, WebGL, SVG and images. */
-  filter: grayscale(1);
+  filter: grayscale(1) contrast(0.8705) brightness(0.973);
   background: #000000;
-  scrollbar-color: #333333 #000000;
+  scrollbar-color: #2c2c2c #000000;
 }
 
 html[data-theme="noir"] ::selection {
@@ -1757,12 +1760,12 @@ html[data-theme="noir"] ::selection {
 }
 
 html[data-theme="noir"] ::-webkit-scrollbar-track { background: #000000; }
-html[data-theme="noir"] ::-webkit-scrollbar-thumb { background: #333333; }
-html[data-theme="noir"] ::-webkit-scrollbar-thumb:hover { background: #777777; }
+html[data-theme="noir"] ::-webkit-scrollbar-thumb { background: #2c2c2c; }
+html[data-theme="noir"] ::-webkit-scrollbar-thumb:hover { background: #656565; }
 
 html[data-theme="noir"] .hero-navbar {
   background: #000000;
-  border-bottom-color: #222222;
+  border-bottom-color: #1d1d1d;
 }
 
 /* Noir: no neon glows */
@@ -1770,17 +1773,39 @@ html[data-theme="noir"] * {
   text-shadow: none !important;
 }
 
-/* Smooth theme switch: only colour-ish properties, only while switching.
-   The class is added/removed by the theme store and is never present
-   under prefers-reduced-motion. */
-html.theme-switching,
-html.theme-switching *,
-html.theme-switching *::before,
-html.theme-switching *::after {
-  transition-property: color, background-color, border-color, outline-color, fill, stroke, box-shadow !important;
-  transition-duration: 300ms !important;
-  transition-timing-function: ease !important;
-  transition-delay: 0s !important;
+/* TV-signal theme transition overlay (created/removed by tvTransition.ts).
+   Fixed, non-interactive, monochrome; never affects layout. */
+.tv-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+}
+.tv-transition__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+.tv-transition__scan {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55) 0px,
+    rgba(0, 0, 0, 0.55) 1px,
+    rgba(255, 255, 255, 0.05) 1px,
+    rgba(255, 255, 255, 0.05) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+}
+@media (prefers-reduced-motion: reduce) {
+  .tv-transition { display: none; }
 }
 
 /* Theme toggle (header cluster) */
@@ -1826,13 +1851,13 @@ html.theme-switching *::after {
   border-color: rgba(0, 230, 122, 0.3);
 }
 
-html[data-theme="noir"] .theme-toggle { border-color: #333333; background: #0b0b0b; }
-html[data-theme="noir"] .theme-toggle__btn { color: #858585; }
+html[data-theme="noir"] .theme-toggle { border-color: #2c2c2c; background: #0b0b0b; }
+html[data-theme="noir"] .theme-toggle__btn { color: #8f8f8f; }
 html[data-theme="noir"] .theme-toggle__btn:hover { color: #ffffff; }
 html[data-theme="noir"] .theme-toggle__btn[aria-checked="true"] {
   color: #ffffff;
   background: #101010;
-  border-color: #777777;
+  border-color: #656565;
 }
 
 @media (min-width: 768px) {
@@ -1855,4 +1880,24 @@ html[data-theme="noir"] .theme-toggle__btn[aria-checked="true"] {
   min-width: 0 !important;
   display: inline-flex !important;
   gap: 4px;
+}
+
+/* Touch: grow hit areas of small controls to >= 40px without changing layout. */
+@media (pointer: coarse) {
+  .header-social-icons a,
+  .header-social-icons .theme-toggle__btn,
+  footer a {
+    position: relative;
+  }
+  .header-social-icons a::after,
+  footer a::after {
+    content: '';
+    position: absolute;
+    inset: -8px -6px;
+  }
+  .header-social-icons .theme-toggle__btn::after {
+    content: '';
+    position: absolute;
+    inset: -8px -3px;
+  }
 }

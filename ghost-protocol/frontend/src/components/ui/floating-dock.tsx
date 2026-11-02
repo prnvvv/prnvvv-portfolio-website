@@ -31,7 +31,10 @@ interface FloatingDockProps {
 export default function FloatingDock({ items = DOCK_ITEMS, desktopClassName, mobileClassName }: FloatingDockProps) {
   const mouseY = useMotionValue(Infinity)
   const location = useLocation()
-  const { activeSection, setActiveSection, isNavOpen, toggleNav } = useUIStore()
+  const activeSection = useUIStore((s) => s.activeSection)
+  const setActiveSection = useUIStore((s) => s.setActiveSection)
+  const isNavOpen = useUIStore((s) => s.isNavOpen)
+  const toggleNav = useUIStore((s) => s.toggleNav)
   const isLanding = location.pathname === "/"
   const hamburgerRef = useRef<HTMLButtonElement>(null)
   const sidebarRef = useRef<HTMLDivElement>(null)

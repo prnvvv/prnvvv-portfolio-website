@@ -183,9 +183,9 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
               </div>
 
               {/* Terminal Body */}
-              <div className="p-4 flex-1 font-mono relative z-10 min-h-0 flex flex-col">
+              <div className="p-4 flex-1 font-mono relative z-10 min-h-0 flex flex-col overflow-y-auto md:overflow-visible">
                 {/* Terminal Prompt */}
-                <div className="flex items-start justify-between gap-3 mb-2">
+                <div className="flex flex-col md:flex-row items-start justify-between gap-2 md:gap-3 mb-2">
                   <div className="flex items-center gap-1 text-sm flex-wrap min-w-0">
                     <span className="text-[#00e67a]">user</span>
                     <span className="text-white/30">@</span>
@@ -196,7 +196,7 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
                     <span className="text-white/60 ml-2">cat project-info</span>
                     <span className="text-white/20 animate-pulse ml-1">▊</span>
                   </div>
-                  <div className="flex items-center gap-1.5 flex-shrink-0 flex-wrap">
+                  <div className="flex items-center gap-1.5 md:flex-shrink-0 flex-wrap">
                     {project.githubUrl && (
                       <a
                         href={project.githubUrl}
@@ -253,9 +253,9 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
                 <div className="border-t border-[#00e67a]/10 my-2" />
 
                 {/* Main Content */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1 min-h-0 grid-rows-[1fr]">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-none md:flex-1 min-h-0 grid-rows-[auto] md:grid-rows-[1fr]">
                   {/* Left Column */}
-                  <div className="space-y-2 overflow-y-auto">
+                  <div className="space-y-2 md:overflow-y-auto">
                     <div className="text-white font-bold text-base md:text-lg tracking-wide">
                       {project.title}
                     </div>
@@ -318,7 +318,7 @@ export const TerminalModal = ({ isOpen, onClose, project }: TerminalModalProps) 
 
                   {/* Right Column — Intelligence Gallery */}
                   {galleryImages.length > 0 && (
-                    <div className="h-full flex flex-col">
+                    <div className="h-full min-h-[280px] md:min-h-0 flex flex-col">
                       <span className="text-white/30 text-xs mb-1">INTEL SOURCES</span>
                       <div className="flex-1 min-h-0 rounded-lg overflow-hidden border border-white/5 bg-black/20 flex flex-col">
                         <div

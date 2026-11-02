@@ -10,7 +10,7 @@ function CertCard({ cert }: { cert: CertificationEntry }) {
     <div className="border border-[#00e67a]/15 bg-black/55 backdrop-blur-md rounded-lg overflow-hidden h-full">
       <div className="h-24 shrink-0">
         {cert.image ? (
-          <img src={cert.image} alt={cert.title} className="h-full w-full object-cover" />
+          <img src={cert.image} alt={cert.title} loading="lazy" decoding="async" className="h-full w-full object-cover" />
         ) : (
           <div className="h-full w-full bg-[#00e67a]/5 flex items-center justify-center">
             <span className="text-[#00e67a]/20 text-2xl font-mono">◆</span>

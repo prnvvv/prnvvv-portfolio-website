@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
       (function () {
-        var t = 'commander';
-        try { if (localStorage.getItem('ghost-theme') === 'noir') t = 'noir'; } catch (e) {}
+        var t = 'noir';
+        try { if (localStorage.getItem('ghost-theme') === 'commander') t = 'commander'; } catch (e) {}
         document.documentElement.setAttribute('data-theme', t);
       })();
     </script>

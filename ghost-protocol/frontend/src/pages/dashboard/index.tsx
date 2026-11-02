@@ -22,7 +22,8 @@ import FloatingDock from '../../components/ui/floating-dock'
 const SECTION_IDS = ['dossier', 'education', 'missions', 'service-record', 'certifications', 'achievements', 'leadership']
 
 function Dashboard() {
-  const { isLoading, setActiveSection } = useUIStore()
+  const isLoading = useUIStore((s) => s.isLoading)
+  const setActiveSection = useUIStore((s) => s.setActiveSection)
   const activeId = useActiveSection(SECTION_IDS)
   const confettiFired = useRef(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -90,7 +91,7 @@ function Dashboard() {
 }
 
 export default function DashboardPage() {
-  const { isLoading } = useUIStore()
+  const isLoading = useUIStore((s) => s.isLoading)
 
   return (
     <>

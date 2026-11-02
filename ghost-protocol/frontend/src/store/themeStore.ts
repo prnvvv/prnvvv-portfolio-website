@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { runTvTransition, isTvTransitionRunning } from '../components/effects/tvTransition'
 
 export type Theme = 'commander' | 'noir'
 
@@ -6,23 +7,18 @@ export const THEME_STORAGE_KEY = 'ghost-theme'
 
 function readStoredTheme(): Theme {
   try {
-    return localStorage.getItem(THEME_STORAGE_KEY) === 'noir' ? 'noir' : 'commander'
+    return localStorage.getItem(THEME_STORAGE_KEY) === 'commander' ? 'commander' : 'noir'
   } catch {
-    return 'commander'
+    return 'noir'
   }
 }
 
-let switchTimer: ReturnType<typeof setTimeout> | undefined
+function applyTheme(theme: Theme) {
+  document.documentElement.setAttribute('data-theme', theme)
+}
 
-function applyTheme(theme: Theme, animate = false) {
-  const root = document.documentElement
-  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-  if (animate && !reduce && root.getAttribute('data-theme') !== theme) {
-    root.classList.add('theme-switching')
-    clearTimeout(switchTimer)
-    switchTimer = setTimeout(() => root.classList.remove('theme-switching'), 400)
-  }
-  root.setAttribute('data-theme', theme)
+function prefersReducedMotion() {
+  return !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 }
 
 interface ThemeState {
@@ -30,16 +26,22 @@ interface ThemeState {
   setTheme: (theme: Theme) => void
 }
 
-export const useThemeStore = create<ThemeState>((set) => ({
+export const useThemeStore = create<ThemeState>((set, get) => ({
   theme: readStoredTheme(),
   setTheme: (theme) => {
-    applyTheme(theme, true)
+    if (theme === get().theme || isTvTransitionRunning()) return
+    const commit = () => {
+      applyTheme(theme)
+      set({ theme })
+    }
     try {
       localStorage.setItem(THEME_STORAGE_KEY, theme)
     } catch {
       /* storage unavailable: theme still applies for this session */
     }
-    set({ theme })
+    // Reduced motion: immediate switch, no overlay.
+    if (prefersReducedMotion()) commit()
+    else runTvTransition(commit)
   },
 }))
 
@@ -50,7 +52,7 @@ applyTheme(useThemeStore.getState().theme)
 if (typeof window !== 'undefined') {
   window.addEventListener('storage', (e) => {
     if (e.key === THEME_STORAGE_KEY) {
-      const next: Theme = e.newValue === 'noir' ? 'noir' : 'commander'
+      const next: Theme = e.newValue === 'commander' ? 'commander' : 'noir'
       applyTheme(next)
       useThemeStore.setState({ theme: next })
     }

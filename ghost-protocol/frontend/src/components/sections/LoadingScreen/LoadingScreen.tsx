@@ -44,7 +44,9 @@ const LOADER_CSS = `
 `
 
 export default function LoadingScreen() {
-  const { isLoading, setLoading, setLoadingProgress } = useUIStore()
+  const isLoading = useUIStore((s) => s.isLoading)
+  const setLoading = useUIStore((s) => s.setLoading)
+  const setLoadingProgress = useUIStore((s) => s.setLoadingProgress)
   const [displayProgress, setDisplayProgress] = useState(0)
   const [showGranted, setShowGranted] = useState(false)
   const completeRef = useRef(false)

@@ -8,7 +8,8 @@ import { motion } from 'framer-motion'
 export default function BottomDock() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { activeSection, setActiveSection } = useUIStore()
+  const activeSection = useUIStore((s) => s.activeSection)
+  const setActiveSection = useUIStore((s) => s.setActiveSection)
   const { scrollToSection } = useSmoothScroll()
   const isLanding = location.pathname === '/'
 
