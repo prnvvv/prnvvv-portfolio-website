@@ -1,4 +1,5 @@
 import { Mail } from 'lucide-react'
+import ThemeToggle from '../ui/ThemeToggle'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 
 const SOCIALS = [
@@ -40,6 +41,7 @@ export default function SocialIcons() {
           boxShadow: '0 4px 20px rgba(0,0,0,0.6)',
         }}
       >
+        <ThemeToggle />
         {SOCIALS.map((s) => {
           const Icon = s.icon
           return (

@@ -1660,3 +1660,199 @@ body {
     padding-right: 8px !important;
   }
 }
+/* ═══════════════════════════════════════════
+   THEMES — COMMANDER (default) / NOIR
+   Commander = the original palette defined above, untouched.
+   Noir overrides the shared tokens with a strict black/white/grey palette.
+   ═══════════════════════════════════════════ */
+
+html[data-theme="noir"] {
+  color-scheme: dark;
+
+  /* Noir palette */
+  --noir-bg: #000000;
+  --noir-bg-alt: #080808;
+  --noir-card: #0b0b0b;
+  --noir-elevated: #101010;
+  --noir-text: #ffffff;
+  --noir-text-2: #bdbdbd;
+  --noir-text-3: #858585;
+  --noir-border: #333333;
+  --noir-border-subtle: #222222;
+  --noir-border-hover: #777777;
+
+  /* Tailwind @theme colour tokens */
+  --color-mil-dark: #000000;
+  --color-mil-darker: #000000;
+  --color-mil-panel: #222222;
+  --color-mil-overlay: rgba(0, 0, 0, 0.6);
+  --color-mil-green: #ffffff;
+  --color-mil-green-mid: #ffffff;
+  --color-mil-green-dim: rgba(255, 255, 255, 0.2);
+  --color-mil-green-deep: #000000;
+  --color-mil-cyan: #ffffff;
+  --color-mil-purple: #ffffff;
+  --color-mil-red: #ffffff;
+  --color-mil-yellow: #ffffff;
+  --color-muted: rgba(255, 255, 255, 0.08);
+  --color-background: #000000;
+
+  /* Shared tokens */
+  --background: #000000;
+  --muted: rgba(255, 255, 255, 0.08);
+  --border: #333333;
+  --ring: #ffffff;
+  --line: #333333;
+
+  --g-bg: #000000;
+  --g-bg-alt: #080808;
+  --g-green-primary: #ffffff;
+  --g-green-secondary: #ffffff;
+  --g-green-tertiary: #bdbdbd;
+  --g-green-muted: rgba(255, 255, 255, 0.25);
+  --g-green-deep: #000000;
+  --g-surface: #0b0b0b;
+  --g-border: #222222;
+  --g-border-dim: #222222;
+  --g-border-strong: #777777;
+  --g-glow-sm: none;
+  --g-glow-md: none;
+  --g-glow-lg: none;
+  --g-panel-bg: #0b0b0b;
+  --g-text-body: #bdbdbd;
+  --g-text-dim: #858585;
+  --g-text-bright: #ffffff;
+
+  --accent-green: #ffffff;
+  --accent-green-dim: #bdbdbd;
+  --accent-olive: #bdbdbd;
+  --accent-red: #ffffff;
+  --accent-yellow: #ffffff;
+  --accent-cyan: #ffffff;
+
+  --text-primary: #ffffff;
+  --text-secondary: #bdbdbd;
+  --text-dim: #858585;
+  --text-muted: #858585;
+
+  --bg-primary: #000000;
+  --bg-secondary: #080808;
+  --bg-surface: #0b0b0b;
+  --bg-panel: #0b0b0b;
+
+  --border-subtle: #222222;
+  --border-green-subtle: #333333;
+  --border-strong: #777777;
+
+  /* Safety net: guarantees strictly monochrome output for every colour that
+     is hardcoded in components, canvases, WebGL, SVG and images. */
+  filter: grayscale(1);
+  background: #000000;
+  scrollbar-color: #333333 #000000;
+}
+
+html[data-theme="noir"] ::selection {
+  background: #ffffff;
+  color: #000000;
+}
+
+html[data-theme="noir"] ::-webkit-scrollbar-track { background: #000000; }
+html[data-theme="noir"] ::-webkit-scrollbar-thumb { background: #333333; }
+html[data-theme="noir"] ::-webkit-scrollbar-thumb:hover { background: #777777; }
+
+html[data-theme="noir"] .hero-navbar {
+  background: #000000;
+  border-bottom-color: #222222;
+}
+
+/* Noir: no neon glows */
+html[data-theme="noir"] * {
+  text-shadow: none !important;
+}
+
+/* Smooth theme switch: only colour-ish properties, only while switching.
+   The class is added/removed by the theme store and is never present
+   under prefers-reduced-motion. */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition-property: color, background-color, border-color, outline-color, fill, stroke, box-shadow !important;
+  transition-duration: 300ms !important;
+  transition-timing-function: ease !important;
+  transition-delay: 0s !important;
+}
+
+/* Theme toggle (header cluster) */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.theme-toggle__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  padding: 0 7px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--g-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 200ms ease, background-color 200ms ease, border-color 200ms ease;
+}
+
+.theme-toggle__btn:hover { color: rgba(255, 255, 255, 0.9); }
+
+.theme-toggle__btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+
+.theme-toggle__btn[aria-checked="true"] {
+  color: #00e67a;
+  background: rgba(0, 230, 122, 0.1);
+  border-color: rgba(0, 230, 122, 0.3);
+}
+
+html[data-theme="noir"] .theme-toggle { border-color: #333333; background: #0b0b0b; }
+html[data-theme="noir"] .theme-toggle__btn { color: #858585; }
+html[data-theme="noir"] .theme-toggle__btn:hover { color: #ffffff; }
+html[data-theme="noir"] .theme-toggle__btn[aria-checked="true"] {
+  color: #ffffff;
+  background: #101010;
+  border-color: #777777;
+}
+
+@media (min-width: 768px) {
+  .theme-toggle__btn { height: 32px; padding: 0 10px; font-size: 10px; }
+}
+
+/* Toggle: on narrow screens only the active mode shows its label so the
+   header cluster never overflows or collides with page content. */
+.theme-toggle,
+.theme-toggle__btn { flex-shrink: 0; }
+
+@media (max-width: 767px) {
+  .theme-toggle__btn[aria-checked="false"] span { display: none; }
+  .theme-toggle__btn[aria-checked="false"] { padding: 0 6px; }
+}
+
+/* Beat the generic 28px square sizing applied to buttons in the header cluster */
+.header-social-icons .theme-toggle .theme-toggle__btn {
+  width: auto !important;
+  min-width: 0 !important;
+  display: inline-flex !important;
+  gap: 4px;
+}

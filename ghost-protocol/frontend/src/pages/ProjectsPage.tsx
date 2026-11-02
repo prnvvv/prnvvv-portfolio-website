@@ -7,6 +7,7 @@ import ParticleField from '../components/effects/ParticleField/ParticleField'
 import { TacticalFlickeringGrid } from '../components/effects/TacticalFlickeringGrid'
 import { TerminalCard } from '../components/TerminalCard'
 import { TerminalModal } from '../components/TerminalModal'
+import ThemeToggle from '../components/ui/ThemeToggle'
 import GhostIcon from '../components/effects/GhostIcon'
 import Footer from '../components/layout/Footer/Footer'
 import { HoloNumber } from '../components/ui/HoloNumber'
@@ -60,6 +61,9 @@ export default function ProjectsPage() {
     <div className="relative min-h-screen flex flex-col bg-[#0a0c0a] text-white overflow-hidden">
       {/* Fixed background effects — matching base dashboard */}
       <GhostIcon />
+      <div className="fixed top-4 right-4 md:top-6 md:right-6 z-50 header-social-icons">
+        <ThemeToggle />
+      </div>
       <TacticalFlickeringGrid />
       <ParticleField />
 
