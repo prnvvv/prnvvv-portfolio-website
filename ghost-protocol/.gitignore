@@ -16,3 +16,6 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# E2E artefacts
+frontend/e2e/shots/
