@@ -36,6 +36,17 @@ def test_cors_allows_only_configured_origins(container):
         assert "access-control-allow-credentials" not in ok.headers
 
 
+def test_localhost_any_port_only_when_enabled(container):
+    hdr = lambda o: {"Origin": o, "Access-Control-Request-Method": "POST", "Access-Control-Request-Headers": "content-type"}
+    with make_client(container) as c:
+        assert c.options("/api/chat", headers=hdr("http://localhost:5173")).status_code == 400
+    with make_client(container, allow_localhost_origins=True) as c:
+        assert c.options("/api/chat", headers=hdr("http://localhost:5173")).status_code == 200
+        assert c.options("/api/chat", headers=hdr("http://127.0.0.1:3001")).status_code == 200
+        assert c.options("/api/chat", headers=hdr("http://localhost.evil.com")).status_code == 400
+        assert c.options("/api/chat", headers=hdr("https://localhost:5173")).status_code == 400
+
+
 def test_wildcard_origin_is_refused_at_startup():
     s = make_settings(BACKEND, BACKEND / "data", allowed_origins=["*"])
     with pytest.raises(ConfigError, match=r"must not contain"):

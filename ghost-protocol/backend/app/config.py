@@ -41,6 +41,8 @@ class Settings(BaseSettings):
     api_host: str = "127.0.0.1"
     api_port: int = Field(8000, ge=1, le=65535)
     allowed_origins: Annotated[list[str], NoDecode] = Field(default_factory=list)
+    # Dev convenience: also accept http://localhost:<any port> / http://127.0.0.1:<any port> (Vite may pick 3001, 5173 ...).
+    allow_localhost_origins: bool = False
     debug: bool = False
 
     # --- Retrieval ---

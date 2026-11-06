@@ -156,6 +156,7 @@ cp .env.example .env      # then set GROQ_API_KEY
 | `EMBEDDING_MODEL` | `sentence-transformers/all-MiniLM-L6-v2` | changing it requires `rebuild_index.py` |
 | `FAISS_INDEX_PATH` / `FAISS_METADATA_PATH` | `vector_store/faiss.index` / `vector_store/metadata.json` | relative to `backend/` |
 | `ALLOWED_ORIGINS` | - | **required**, comma-separated exact origins; `*` is refused |
+| `ALLOW_LOCALHOST_ORIGINS` | false (true in `.env.example`) | dev only: also allow `http://localhost:<any port>` / `127.0.0.1`; fixes `OPTIONS /api/chat 400` when Vite runs on 3001/5173 |
 | `API_HOST` / `API_PORT` | `127.0.0.1` / `8000` | |
 | `TOP_K`, `SIMILARITY_THRESHOLD`, `MAX_INPUT_LENGTH`, `MAX_CONTEXT_LENGTH` | 5, 0.25, 1000, 6000 | |
 | `RATE_LIMIT_PER_MINUTE`, `SESSION_RATE_LIMIT_PER_MINUTE` | 20, 12 | |
