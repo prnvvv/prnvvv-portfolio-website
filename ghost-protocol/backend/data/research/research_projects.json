@@ -1,0 +1,64 @@
+{
+  "category": "research",
+  "subcategory": "research_projects",
+  "document_mode": "single",
+  "items": [
+    {
+      "id": "sslrul",
+      "name": "SSL-RUL — Self-Supervised Predictive Maintenance",
+      "status": "UNDER REVIEW",
+      "year": "2025",
+      "collaborators": "VIT Chennai CSE",
+      "description": "SSL-RUL introduces a self-supervised pretraining strategy for Remaining Useful Life (RUL) prediction in industrial machinery. The model uses masked sensor reconstruction as a pretext task, followed by fine-tuning on minimal labeled degradation data. Evaluated on NASA C-MAPSS FD001-FD004 datasets with state-of-the-art RMSE and Score metrics. Currently under review at Results in Engineering (Elsevier). Developed in collaboration with researchers at VIT Chennai CSE department.",
+      "technologies": [
+        "Python",
+        "PyTorch",
+        "LSTM",
+        "Self-Supervised Learning",
+        "Pandas",
+        "Matplotlib"
+      ],
+      "reported_outcome": "Paper Under Review. 48.6% RMSE improvement on C-MAPSS with reduced labeled data.",
+      "pypi_url": null
+    },
+    {
+      "id": "gil",
+      "name": "GIL — Geometric Information Learner",
+      "status": "COMPLETED",
+      "year": "2025",
+      "collaborators": null,
+      "description": "GIL (Geometric Information Learner) is a published Python ML package that applies information geometry principles to tabular learning. Implements Riemannian manifold-aware gradient descent, Fisher information matrix regularization, and Information Bottleneck imputation for missing data. Offers a scikit-learn compatible API for drop-in integration. Includes comprehensive test suite, CI/CD pipeline via GitHub Actions, and pre-commit hooks. Addresses fundamental geometric structure of data distributions that standard Euclidean-space models ignore.",
+      "technologies": [
+        "Python",
+        "NumPy",
+        "SciPy",
+        "Scikit-learn",
+        "PyPI",
+        "pytest",
+        "GitHub Actions"
+      ],
+      "reported_outcome": null,
+      "pypi_url": null
+    },
+    {
+      "id": "synthetic",
+      "name": "Synthetic Taphonomic Deformation — Paleontological AI",
+      "status": "UNDER REVIEW",
+      "year": "2025",
+      "collaborators": "VIT Chennai Paleontology Lab",
+      "description": "This research pipeline processes 3D CT slice stacks of fossil specimens (8 specimens x 30 projections = 240 images per specimen) via orthographic maximum intensity projection (MIP) and rotational view generation. Outputs are used to train a deep learning Taphonomic Distortion Estimator that predicts morphological deformation caused by sedimentary burial. Implemented with ASCII-safe encoding for cross-platform Windows/Linux compatibility. Collaborative paleontological research project at VIT Chennai.",
+      "technologies": [
+        "Python",
+        "NumPy",
+        "SciPy",
+        "Matplotlib",
+        "PyTorch",
+        "SimpleITK",
+        "VTK"
+      ],
+      "reported_outcome": null,
+      "pypi_url": null
+    }
+  ],
+  "source": "portfolio:src/data/projects.ts"
+}

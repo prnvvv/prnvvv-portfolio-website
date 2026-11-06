@@ -1,0 +1,80 @@
+{
+  "category": "skills",
+  "subcategory": "technical_expertise",
+  "note": "proficiency_percent is the self-rated level displayed on the portfolio skill inventory, not an external assessment.",
+  "items": [
+    {
+      "id": "ai_ml_expertise",
+      "name": "AI and machine learning expertise",
+      "skills": [
+        {
+          "name": "Generative AI",
+          "proficiency_percent": 85,
+          "years_experience": 2
+        },
+        {
+          "name": "Agentic AI",
+          "proficiency_percent": 80,
+          "years_experience": 1.5
+        },
+        {
+          "name": "RAG",
+          "proficiency_percent": 82,
+          "years_experience": 1.5
+        },
+        {
+          "name": "LLM Orchestration",
+          "proficiency_percent": 78,
+          "years_experience": 1.5
+        },
+        {
+          "name": "Prompt Engineering",
+          "proficiency_percent": 85,
+          "years_experience": 2
+        },
+        {
+          "name": "NLP",
+          "proficiency_percent": 82,
+          "years_experience": 2
+        },
+        {
+          "name": "Computer Vision",
+          "proficiency_percent": 80,
+          "years_experience": 2
+        }
+      ]
+    },
+    {
+      "id": "core_concepts",
+      "name": "Software engineering core concepts",
+      "skills": [
+        {
+          "name": "Data Structures & Algorithms",
+          "proficiency_percent": 85,
+          "years_experience": 3
+        },
+        {
+          "name": "Object-Oriented Programming",
+          "proficiency_percent": 82,
+          "years_experience": 3
+        },
+        {
+          "name": "Design Patterns",
+          "proficiency_percent": 75,
+          "years_experience": 2
+        },
+        {
+          "name": "System Design",
+          "proficiency_percent": 72,
+          "years_experience": 1.5
+        },
+        {
+          "name": "REST APIs",
+          "proficiency_percent": 80,
+          "years_experience": 2
+        }
+      ]
+    }
+  ],
+  "source": "portfolio:src/data/operatorData.ts"
+}

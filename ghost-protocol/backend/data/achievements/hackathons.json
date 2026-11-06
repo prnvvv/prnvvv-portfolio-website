@@ -1,0 +1,35 @@
+{
+  "category": "achievements",
+  "subcategory": "hackathons",
+  "document_mode": "single",
+  "items": [
+    {
+      "id": "award_1",
+      "name": "1st Place - AnnamAI Hackathon",
+      "awarding_body": "IIT Ropar",
+      "date": "2025-01",
+      "award_type": "Hackathon",
+      "description": "Won 1st place for AI-driven innovation and research solutions at AnnamAI Hackathon, IIT Ropar.",
+      "related_project": "AI-driven Research Solutions"
+    },
+    {
+      "id": "award_2",
+      "name": "1st Place - HackHub'25",
+      "awarding_body": "IEEE & GitHub",
+      "date": "2025-01",
+      "award_type": "Hackathon",
+      "description": "Won 1st place for developing an AI-based autism screening system at HackHub'25.",
+      "related_project": "AutCore - AI-driven Autism Screening Tool"
+    },
+    {
+      "id": "award_3",
+      "name": "1st Place - Vashisht 3.0",
+      "awarding_body": "IIITDM Kancheepuram",
+      "date": "2026-01",
+      "award_type": "Hackathon",
+      "description": "Won 1st place for building an AI-powered financial intelligence platform at Vashisht 3.0.",
+      "related_project": "KRED - AI-powered Financial Intelligence Platform"
+    }
+  ],
+  "source": "portfolio:src/data/awards.ts"
+}

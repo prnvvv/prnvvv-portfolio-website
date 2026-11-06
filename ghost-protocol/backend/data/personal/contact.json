@@ -1,0 +1,11 @@
+{
+  "category": "contact",
+  "subcategory": "contact",
+  "email": "prannavakhanth12@gmail.com",
+  "linkedin": "https://linkedin.com/in/prannavakhanth",
+  "github": "https://github.com/prnvvv",
+  "portfolio_website": "https://prnvvv-portfolio-website.vercel.app/",
+  "location": "Chennai, Tamil Nadu",
+  "note": "Email, LinkedIn and GitHub are the public contact channels shown on the portfolio website.",
+  "source": "portfolio:src/data/operatorData.ts + src/components/social/SocialIcons.tsx"
+}

@@ -1,0 +1,34 @@
+{
+  "category": "portfolio_general",
+  "subcategory": "specialization",
+  "title": "Specialization and focus areas",
+  "specialization": "Agentic AI Specialist",
+  "focus_areas": [
+    "Agentic AI",
+    "Generative AI",
+    "Retrieval-Augmented Generation (RAG)",
+    "LLM orchestration",
+    "Computer Vision",
+    "Machine Learning",
+    "Applied research"
+  ],
+  "demonstrating_projects": {
+    "RAG and agentic systems": [
+      "POLARIS (agentic RAG chatbot)",
+      "FitAI (agentic RAG gym assistant)",
+      "Enterprise Agentic RAG Chatbot built during the Hexaware internship"
+    ],
+    "Computer vision": [
+      "CropCore",
+      "AutCore",
+      "DiscAgeAI",
+      "DiagEnc"
+    ],
+    "Research": [
+      "SSL-RUL",
+      "GIL",
+      "Synthetic Taphonomic Deformation"
+    ]
+  },
+  "source": "portfolio:src/data/operatorData.ts + src/data/projects.ts + src/data/serviceRecord.ts"
+}

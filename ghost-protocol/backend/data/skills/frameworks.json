@@ -1,0 +1,95 @@
+{
+  "category": "skills",
+  "subcategory": "frameworks",
+  "note": "proficiency_percent is the self-rated level displayed on the portfolio skill inventory, not an external assessment.",
+  "items": [
+    {
+      "id": "ai_ml_frameworks",
+      "name": "AI/ML and web frameworks",
+      "skills": [
+        {
+          "name": "React",
+          "proficiency_percent": 72,
+          "years_experience": 1.5
+        },
+        {
+          "name": "FastAPI",
+          "proficiency_percent": 85,
+          "years_experience": 2
+        },
+        {
+          "name": "Node.js",
+          "proficiency_percent": 70,
+          "years_experience": 1.5
+        },
+        {
+          "name": "TensorFlow",
+          "proficiency_percent": 88,
+          "years_experience": 3
+        },
+        {
+          "name": "PyTorch",
+          "proficiency_percent": 88,
+          "years_experience": 3
+        },
+        {
+          "name": "LangChain",
+          "proficiency_percent": 85,
+          "years_experience": 2
+        },
+        {
+          "name": "Scikit-learn",
+          "proficiency_percent": 90,
+          "years_experience": 3
+        },
+        {
+          "name": "Hugging Face",
+          "proficiency_percent": 78,
+          "years_experience": 1.5
+        },
+        {
+          "name": "OpenCV",
+          "proficiency_percent": 82,
+          "years_experience": 2
+        },
+        {
+          "name": "YOLO",
+          "proficiency_percent": 78,
+          "years_experience": 2
+        },
+        {
+          "name": "MediaPipe",
+          "proficiency_percent": 72,
+          "years_experience": 1
+        },
+        {
+          "name": "Keras",
+          "proficiency_percent": 85,
+          "years_experience": 2
+        }
+      ]
+    },
+    {
+      "id": "computer_vision",
+      "name": "Computer vision libraries",
+      "skills": [
+        {
+          "name": "OpenCV",
+          "proficiency_percent": 85,
+          "years_experience": 2
+        },
+        {
+          "name": "YOLO",
+          "proficiency_percent": 80,
+          "years_experience": 2
+        },
+        {
+          "name": "MediaPipe",
+          "proficiency_percent": 75,
+          "years_experience": 1
+        }
+      ]
+    }
+  ],
+  "source": "portfolio:src/data/operatorData.ts + src/data/arsenal.ts"
+}

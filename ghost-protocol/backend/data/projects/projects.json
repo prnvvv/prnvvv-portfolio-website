@@ -1,0 +1,275 @@
+{
+  "category": "projects",
+  "subcategory": "overview",
+  "document_mode": "single",
+  "description": "Overview of all projects (\"missions\") listed on the portfolio. Details for each project are in projects/individual/.",
+  "total_projects": 16,
+  "projects": [
+    {
+      "id": "cropcore",
+      "name": "CropCore",
+      "project_type": "IoT",
+      "status": "PATENT PUBLISHED",
+      "year": "2024",
+      "technologies": [
+        "Python",
+        "TensorFlow",
+        "OpenCV",
+        "YOLO",
+        "Scikit-learn",
+        "BeautifulSoup",
+        "Django",
+        "Node.js",
+        "React Native",
+        "ESP32",
+        "NumPy",
+        "Pandas"
+      ],
+      "summary": "CropCore is an AI-powered smart farming assistant using ML and computer vision for crop monitoring, weed detection, disease diagnosis, and yield prediction with IoT sensor integration for real-time irrigation optimization."
+    },
+    {
+      "id": "careertrack",
+      "name": "CareerTrack",
+      "project_type": "FULL-STACK",
+      "status": "DEPLOYED",
+      "year": "2024",
+      "technologies": [
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "FastAPI",
+        "Supabase",
+        "React Native",
+        "Clerk",
+        "TensorFlow",
+        "LangChain",
+        "Agno",
+        "LangGraph",
+        "Python",
+        "Docker"
+      ],
+      "summary": "CareerTrack is an AI-powered career platform developed as an Initial Validation Prototype (IVP) to help students and early professionals succeed in today's competitive job market."
+    },
+    {
+      "id": "autcore",
+      "name": "AutCore",
+      "project_type": "COMPUTER VISION",
+      "status": "AWARD WINNER",
+      "year": "2025",
+      "technologies": [
+        "Python",
+        "TensorFlow",
+        "OpenCV",
+        "MediaPipe",
+        "React",
+        "Next.js",
+        "FastAPI",
+        "Speech Analysis",
+        "Deep Learning",
+        "Computer Vision"
+      ],
+      "summary": "AutCore is an AI-driven autism screening and risk assessment tool."
+    },
+    {
+      "id": "kred",
+      "name": "KRED",
+      "project_type": "FULL-STACK",
+      "status": "AWARD WINNER",
+      "year": "2026",
+      "technologies": [
+        "Python",
+        "LangChain",
+        "FastAPI",
+        "React",
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "SQL",
+        "AI Behavioral Analysis",
+        "Financial Intelligence"
+      ],
+      "summary": "KRED is an AI-powered financial intelligence platform that analyzes user behavior and projects long-term financial outcomes through behavioral insights, life simulations, retirement planning, and an AI financial assistant, helping users make smarter financial decisions by visualizing future financial scenarios and personalized recommendations."
+    },
+    {
+      "id": "discageai",
+      "name": "DiscAgeAI",
+      "project_type": "COMPUTER VISION",
+      "status": "PATENT FILED",
+      "year": "2025",
+      "technologies": [
+        "Python",
+        "PyTorch",
+        "OpenCV",
+        "NumPy",
+        "Matplotlib",
+        "LangChain",
+        "Groq"
+      ],
+      "summary": "DiscAgeAI combines 3D CNN volumetric analysis of lumbar MRI scans with biomechanical metadata regression to predict intervertebral disc biological age and degeneration grade."
+    },
+    {
+      "id": "pacdi",
+      "name": "PACDI",
+      "project_type": "IoT",
+      "status": "PATENT FILED",
+      "year": "2024",
+      "technologies": [
+        "Python",
+        "TensorFlow",
+        "ESP32-S3",
+        "MQTT",
+        "FastAPI",
+        "React",
+        "SQLite",
+        "IoT",
+        "Sensor Fusion"
+      ],
+      "summary": "PACDI (Precision Adaptive Climate and Dosage Intelligence) is an IoT greenhouse management system with ML-driven climate optimization."
+    },
+    {
+      "id": "diagenc",
+      "name": "DiagEnc",
+      "project_type": "COMPUTER VISION",
+      "status": "PATENT FILED",
+      "year": "2024",
+      "technologies": [
+        "Python",
+        "PyTorch",
+        "AES-RSA Encryption",
+        "Computer Vision",
+        "DICOM",
+        "OpenCV"
+      ],
+      "summary": "DiagEnc is a medical image security system that performs CNN-based fracture detection to identify diagnostically critical regions, then applies selective AES-256 encryption to those regions while maintaining lossless image quality."
+    },
+    {
+      "id": "sslrul",
+      "name": "SSL-RUL",
+      "project_type": "RESEARCH",
+      "status": "UNDER REVIEW",
+      "year": "2025",
+      "technologies": [
+        "Python",
+        "PyTorch",
+        "LSTM",
+        "Self-Supervised Learning",
+        "Pandas",
+        "Matplotlib"
+      ],
+      "summary": "SSL-RUL introduces a self-supervised pretraining strategy for Remaining Useful Life (RUL) prediction in industrial machinery."
+    },
+    {
+      "id": "pkstruct",
+      "name": "PKStruct",
+      "project_type": "PACKAGE",
+      "status": "PUBLISHED",
+      "year": "2026",
+      "technologies": [
+        "Python",
+        "PyPI",
+        "pytest",
+        "GitHub Actions",
+        "pre-commit",
+        "mypy"
+      ],
+      "summary": "PKStruct is a PyPI-published Python package providing 20+ production-grade data structure implementations including thread-safe linked lists, stacks, queues, trees, heaps, and graphs."
+    },
+    {
+      "id": "polaris",
+      "name": "POLARIS",
+      "project_type": "RAG/LLM",
+      "status": "COMPLETED",
+      "year": "2025",
+      "technologies": [
+        "Python",
+        "LangGraph",
+        "ChromaDB",
+        "Groq",
+        "LangChain",
+        "Streamlit",
+        "FastAPI",
+        "FAISS"
+      ],
+      "summary": "POLARIS is a universal-grade agentic RAG system built on LangGraph orchestration with Groq inference for sub-second response times."
+    },
+    {
+      "id": "gil",
+      "name": "GIL",
+      "project_type": "RESEARCH",
+      "status": "COMPLETED",
+      "year": "2025",
+      "technologies": [
+        "Python",
+        "NumPy",
+        "SciPy",
+        "Scikit-learn",
+        "PyPI",
+        "pytest",
+        "GitHub Actions"
+      ],
+      "summary": "GIL (Geometric Information Learner) is a published Python ML package that applies information geometry principles to tabular learning."
+    },
+    {
+      "id": "cms",
+      "name": "CMS Price Transparency Platform",
+      "project_type": "FULL-STACK",
+      "status": "COMPLETED",
+      "year": "2025",
+      "technologies": [
+        "Python",
+        "PostgreSQL",
+        "React",
+        "FastAPI",
+        "Pandas",
+        "Docker",
+        "TypeScript"
+      ],
+      "summary": "The CMS Price Transparency Platform ingests machine-readable hospital price files mandated by the US Centers for Medicare & Medicaid Services (2021 rule) and transforms them into a searchable, filterable analytics interface."
+    },
+    {
+      "id": "synthetic",
+      "name": "Synthetic Taphonomic Deformation",
+      "project_type": "RESEARCH",
+      "status": "UNDER REVIEW",
+      "year": "2025",
+      "technologies": [
+        "Python",
+        "NumPy",
+        "SciPy",
+        "Matplotlib",
+        "PyTorch",
+        "SimpleITK",
+        "VTK"
+      ],
+      "summary": "This research pipeline processes 3D CT slice stacks of fossil specimens (8 specimens x 30 projections = 240 images per specimen) via orthographic maximum intensity projection (MIP) and rotational view generation."
+    },
+    {
+      "id": "fitai",
+      "name": "FitAI",
+      "project_type": "RAG/LLM",
+      "status": null,
+      "year": null,
+      "technologies": [],
+      "summary": "FitAI is an agentic RAG assistant for gym-goers, with structured user context and a domain knowledge base."
+    },
+    {
+      "id": "rl_studio",
+      "name": "RL Studio",
+      "project_type": "AI/ML",
+      "status": null,
+      "year": null,
+      "technologies": [],
+      "summary": "RL Studio is a self-healing reinforcement-learning platform focused on detecting and recovering from hidden training and environment problems."
+    },
+    {
+      "id": "synq",
+      "name": "Synq",
+      "project_type": "Full-stack",
+      "status": null,
+      "year": null,
+      "technologies": [],
+      "summary": "Synq is a phone-to-laptop connectivity project intended to provide wireless input, media, clipboard, and file-transfer capabilities."
+    }
+  ],
+  "source": "portfolio:src/data/projects.ts"
+}

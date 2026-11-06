@@ -1,0 +1,49 @@
+{
+  "category": "skills",
+  "subcategory": "programming_languages",
+  "note": "proficiency_percent is the self-rated level displayed on the portfolio skill inventory, not an external assessment.",
+  "items": [
+    {
+      "id": "programming_languages",
+      "name": "Programming languages",
+      "skills": [
+        {
+          "name": "Python",
+          "proficiency_percent": 95,
+          "years_experience": 4
+        },
+        {
+          "name": "Java",
+          "proficiency_percent": 85,
+          "years_experience": 3
+        },
+        {
+          "name": "C/C++",
+          "proficiency_percent": 85,
+          "years_experience": 3
+        },
+        {
+          "name": "SQL",
+          "proficiency_percent": 80,
+          "years_experience": 3
+        },
+        {
+          "name": "JavaScript",
+          "proficiency_percent": 75,
+          "years_experience": 2
+        },
+        {
+          "name": "TypeScript",
+          "proficiency_percent": 70,
+          "years_experience": 1.5
+        },
+        {
+          "name": "R",
+          "proficiency_percent": 70,
+          "years_experience": 2
+        }
+      ]
+    }
+  ],
+  "source": "portfolio:src/data/operatorData.ts + src/data/arsenal.ts"
+}

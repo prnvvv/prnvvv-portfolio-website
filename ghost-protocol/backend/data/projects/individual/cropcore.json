@@ -1,0 +1,39 @@
+{
+  "category": "projects",
+  "subcategory": "cropcore",
+  "id": "cropcore",
+  "portfolio_id": "CROPCORE-001",
+  "name": "CropCore",
+  "full_title": "CropCore — AI Agricultural Intelligence Platform",
+  "project_type": "IoT",
+  "status": "PATENT PUBLISHED",
+  "year": "2024",
+  "description": "CropCore is an AI-powered smart farming assistant using ML and computer vision for crop monitoring, weed detection, disease diagnosis, and yield prediction with IoT sensor integration for real-time irrigation optimization. It equips farmers with technology by offering real-time sensor data (temperature, humidity, moisture, NPK), live market price tracking, AI-powered weed detection (YOLOv8), advanced disease detection (CNN), automated smart irrigation, and a community platform. The solution is designed to boost agricultural productivity and profitability by making modern technology accessible to farmers. The system has been patented under the Indian Patent Office (Application No: 202541067987).",
+  "technologies": [
+    "Python",
+    "TensorFlow",
+    "OpenCV",
+    "YOLO",
+    "Scikit-learn",
+    "BeautifulSoup",
+    "Django",
+    "Node.js",
+    "React Native",
+    "ESP32",
+    "NumPy",
+    "Pandas"
+  ],
+  "domain": "Agriculture",
+  "reported_outcome": "95%+ accuracy in disease diagnosis and yield prediction. Patent Published.",
+  "award": "Special Recognition - Pitchathon'24",
+  "achievements": [
+    "Special Recognition - Pitchathon'24",
+    "Patent Published - Indian Patent Office (202541067987)"
+  ],
+  "collaborators": null,
+  "github_url": "https://github.com/mithilgirish/Crop-Core_Tech",
+  "live_url": "https://www.youtube.com/watch?v=epArLGBhgOM",
+  "pypi_url": null,
+  "patent_url": "https://www.linkedin.com/posts/prannavakhanth_patentpublished-innovation-agritech-activity-7359997879962267649-hSF4/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEZEZMcBwRsKnHgEdxB_PuRESArMim5AhW4",
+  "source": "portfolio:src/data/projects.ts + src/data/missions.ts"
+}

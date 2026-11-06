@@ -1,0 +1,29 @@
+{
+  "category": "research",
+  "subcategory": "publications",
+  "items": [
+    {
+      "id": "ssl_rul_paper",
+      "title": "SSL-RUL: Self-Supervised Predictive Maintenance Framework",
+      "status": "Under review",
+      "venue": "Results in Engineering (Elsevier)",
+      "summary": "Developed a self-supervised LSTM framework using masked reconstruction learning for predictive maintenance. Achieved 48.6% RMSE improvement on C-MAPSS with reduced labeled data.",
+      "highlights": [
+        "Self-supervised LSTM with masked reconstruction learning",
+        "48.6% RMSE improvement on C-MAPSS benchmark",
+        "Reduced labeled data requirements significantly"
+      ],
+      "related_project": "sslrul",
+      "source_note": "Venue taken from the SSL-RUL project description on the portfolio."
+    },
+    {
+      "id": "taphonomic_paper",
+      "title": "Synthetic Taphonomic Deformation — Paleontological AI",
+      "status": "Under review",
+      "venue": null,
+      "summary": "This research pipeline processes 3D CT slice stacks of fossil specimens (8 specimens x 30 projections = 240 images per specimen) via orthographic maximum intensity projection (MIP) and rotational view generation. Outputs are used to train a deep learning Taphonomic Distortion Estimator that predicts morphological deformation caused by sedimentary burial. Implemented with ASCII-safe encoding for cross-platform Windows/Linux compatibility. Collaborative paleontological research project at VIT Chennai.",
+      "related_project": "synthetic"
+    }
+  ],
+  "source": "portfolio:src/data/intelReports.ts + src/data/projects.ts"
+}

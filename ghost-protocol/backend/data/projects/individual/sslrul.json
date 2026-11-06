@@ -1,0 +1,30 @@
+{
+  "category": "projects",
+  "subcategory": "sslrul",
+  "id": "sslrul",
+  "portfolio_id": "SSLRUL-008",
+  "name": "SSL-RUL",
+  "full_title": "SSL-RUL — Self-Supervised Predictive Maintenance",
+  "project_type": "RESEARCH",
+  "status": "UNDER REVIEW",
+  "year": "2025",
+  "description": "SSL-RUL introduces a self-supervised pretraining strategy for Remaining Useful Life (RUL) prediction in industrial machinery. The model uses masked sensor reconstruction as a pretext task, followed by fine-tuning on minimal labeled degradation data. Evaluated on NASA C-MAPSS FD001-FD004 datasets with state-of-the-art RMSE and Score metrics. Currently under review at Results in Engineering (Elsevier). Developed in collaboration with researchers at VIT Chennai CSE department.",
+  "technologies": [
+    "Python",
+    "PyTorch",
+    "LSTM",
+    "Self-Supervised Learning",
+    "Pandas",
+    "Matplotlib"
+  ],
+  "domain": "Predictive Maintenance",
+  "reported_outcome": "Paper Under Review. 48.6% RMSE improvement on C-MAPSS with reduced labeled data.",
+  "award": null,
+  "achievements": [],
+  "collaborators": "VIT Chennai CSE",
+  "github_url": null,
+  "live_url": null,
+  "pypi_url": null,
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts + src/data/missions.ts"
+}

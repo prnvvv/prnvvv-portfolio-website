@@ -1,0 +1,31 @@
+{
+  "category": "projects",
+  "subcategory": "gil",
+  "id": "gil",
+  "portfolio_id": "GIL-011",
+  "name": "GIL",
+  "full_title": "GIL — Geometric Information Learner",
+  "project_type": "RESEARCH",
+  "status": "COMPLETED",
+  "year": "2025",
+  "description": "GIL (Geometric Information Learner) is a published Python ML package that applies information geometry principles to tabular learning. Implements Riemannian manifold-aware gradient descent, Fisher information matrix regularization, and Information Bottleneck imputation for missing data. Offers a scikit-learn compatible API for drop-in integration. Includes comprehensive test suite, CI/CD pipeline via GitHub Actions, and pre-commit hooks. Addresses fundamental geometric structure of data distributions that standard Euclidean-space models ignore.",
+  "technologies": [
+    "Python",
+    "NumPy",
+    "SciPy",
+    "Scikit-learn",
+    "PyPI",
+    "pytest",
+    "GitHub Actions"
+  ],
+  "domain": null,
+  "reported_outcome": null,
+  "award": null,
+  "achievements": [],
+  "collaborators": null,
+  "github_url": null,
+  "live_url": null,
+  "pypi_url": null,
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts"
+}

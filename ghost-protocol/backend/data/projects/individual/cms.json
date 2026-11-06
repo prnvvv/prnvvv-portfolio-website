@@ -1,0 +1,31 @@
+{
+  "category": "projects",
+  "subcategory": "cms",
+  "id": "cms",
+  "portfolio_id": "CMS-012",
+  "name": "CMS Price Transparency Platform",
+  "full_title": "CMS Price Transparency Platform",
+  "project_type": "FULL-STACK",
+  "status": "COMPLETED",
+  "year": "2025",
+  "description": "The CMS Price Transparency Platform ingests machine-readable hospital price files mandated by the US Centers for Medicare & Medicaid Services (2021 rule) and transforms them into a searchable, filterable analytics interface. Features ETL pipeline handling multi-gigabyte CSV/JSON files, PostgreSQL storage with indexed procedure codes, and a React-based cost comparison dashboard. Enables patients and researchers to compare insurer-negotiated rates across facilities and procedure types.",
+  "technologies": [
+    "Python",
+    "PostgreSQL",
+    "React",
+    "FastAPI",
+    "Pandas",
+    "Docker",
+    "TypeScript"
+  ],
+  "domain": null,
+  "reported_outcome": null,
+  "award": null,
+  "achievements": [],
+  "collaborators": null,
+  "github_url": null,
+  "live_url": null,
+  "pypi_url": null,
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts"
+}

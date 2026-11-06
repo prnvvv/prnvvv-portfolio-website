@@ -1,0 +1,80 @@
+{
+  "category": "achievements",
+  "subcategory": "awards",
+  "document_mode": "single",
+  "items": [
+    {
+      "id": "award_4",
+      "name": "Special Recognition - Pitchathon'24",
+      "awarding_body": "Pitchathon",
+      "date": "2024-01",
+      "award_type": "Competition",
+      "description": "Received special recognition for CropCore, an AI-powered smart farming assistant.",
+      "related_project": "CropCore - AI-powered Smart Farming Assistant"
+    },
+    {
+      "id": "award_5",
+      "name": "School Topper - Science Group",
+      "awarding_body": "P. S. Senior Secondary School",
+      "date": "2023-01",
+      "award_type": "Academic",
+      "description": "Science Group topper with a board examination score of 486/500.",
+      "related_project": null
+    },
+    {
+      "id": "award_6",
+      "name": "Subject Topper - Chemistry",
+      "awarding_body": "P. S. Senior Secondary School",
+      "date": "2023-01",
+      "award_type": "Academic",
+      "description": "Secured highest marks in Chemistry.",
+      "related_project": null
+    },
+    {
+      "id": "award_7",
+      "name": "Subject Topper - Computer Science",
+      "awarding_body": "P. S. Senior Secondary School",
+      "date": "2023-01",
+      "award_type": "Academic",
+      "description": "Secured highest marks in Computer Science.",
+      "related_project": null
+    },
+    {
+      "id": "award_8",
+      "name": "Subject Topper - Physical Education",
+      "awarding_body": "P. S. Senior Secondary School",
+      "date": "2023-01",
+      "award_type": "Academic",
+      "description": "Secured highest marks in Physical Education.",
+      "related_project": null
+    },
+    {
+      "id": "award_9",
+      "name": "TNCA Under-16 Cricketer",
+      "awarding_body": "Tamil Nadu Cricket Association",
+      "date": "2020-01",
+      "award_type": "Sports",
+      "description": "Represented Tamil Nadu Cricket Association in competitive cricket tournaments at under-16 level.",
+      "related_project": null
+    },
+    {
+      "id": "award_10",
+      "name": "TNCA Under-14 Cricketer",
+      "awarding_body": "Tamil Nadu Cricket Association",
+      "date": "2018-01",
+      "award_type": "Sports",
+      "description": "Represented Tamil Nadu Cricket Association at the junior state level under-14.",
+      "related_project": null
+    },
+    {
+      "id": "award_11",
+      "name": "Best Technical Club Award",
+      "awarding_body": "VIT Chennai",
+      "date": "2026-01",
+      "award_type": "Leadership",
+      "description": "Guided OSPC to win the Best Technical Club Award at VIT Chennai.",
+      "related_project": null
+    }
+  ],
+  "source": "portfolio:src/data/awards.ts"
+}

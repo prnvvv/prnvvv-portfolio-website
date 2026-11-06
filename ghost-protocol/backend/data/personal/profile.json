@@ -1,0 +1,21 @@
+{
+  "category": "personal_profile",
+  "subcategory": "profile",
+  "full_name": "Prannavakhanth A.",
+  "handle": "prnvvv",
+  "headline": "AI/ML Engineer, Software Developer and Researcher",
+  "title_variants": [
+    "AI ML Engineer",
+    "SWE",
+    "Researcher"
+  ],
+  "current_role": "Associate Software Developer, Data Science, CBRE",
+  "location": "Chennai, Tamil Nadu",
+  "summary": "Building agentic AI, generative AI, and data-driven solutions to solve real-world problems. Combining strong DSA fundamentals with end-to-end ML expertise to develop scalable, production-ready systems that drive measurable impact across industries.",
+  "specialization": [
+    "Agentic AI"
+  ],
+  "education_summary": "B.Tech in Computer Science and Engineering at VIT Chennai (2023-2027).",
+  "leadership_summary": "Chairperson of the Open Source Programming Club (OSPC), VIT Chennai.",
+  "source": "portfolio:src/data/operatorData.ts + src/data/titles.ts"
+}
