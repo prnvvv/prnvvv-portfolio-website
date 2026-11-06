@@ -151,8 +151,8 @@ cp .env.example .env      # then set GROQ_API_KEY
 | Variable | Default | Notes |
 |---|---|---|
 | `GROQ_API_KEY` | - | **required**; never sent to the frontend or returned by any endpoint |
-| `GROQ_MODEL` | `llama-3.3-70b-versatile` | any Groq chat model |
-| `GROQ_TEMPERATURE` / `GROQ_MAX_TOKENS` / `GROQ_TIMEOUT_SECONDS` | 0.1 / 600 / 20 | |
+| `GROQ_MODEL` | `openai/gpt-oss-120b` | any Groq chat model |
+| `GROQ_TEMPERATURE` / `GROQ_MAX_TOKENS` / `GROQ_TIMEOUT_SECONDS` | 0.1 / 1000 / 20 | |
 | `EMBEDDING_MODEL` | `sentence-transformers/all-MiniLM-L6-v2` | changing it requires `rebuild_index.py` |
 | `FAISS_INDEX_PATH` / `FAISS_METADATA_PATH` | `vector_store/faiss.index` / `vector_store/metadata.json` | relative to `backend/` |
 | `ALLOWED_ORIGINS` | - | **required**, comma-separated exact origins; `*` is refused |

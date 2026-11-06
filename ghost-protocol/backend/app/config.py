@@ -1,6 +1,7 @@
 """Centralised, validated configuration. All values come from environment / backend/.env."""
 from __future__ import annotations
 
+import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Annotated
@@ -25,9 +26,9 @@ class Settings(BaseSettings):
 
     # --- LLM (Groq) ---
     groq_api_key: str = ""
-    groq_model: str = "llama-3.3-70b-versatile"
+    groq_model: str = "openai/gpt-oss-120b"
     groq_temperature: float = Field(0.1, ge=0.0, le=1.0)
-    groq_max_tokens: int = Field(600, ge=64, le=4096)
+    groq_max_tokens: int = Field(1000, ge=64, le=4096)
     groq_timeout_seconds: float = Field(20.0, gt=0)
     groq_max_retries: int = Field(1, ge=0, le=5)
 
@@ -108,6 +109,11 @@ class Settings(BaseSettings):
             problems.append("GROQ_API_KEY is not set (add it to backend/.env).")
         if not self.groq_model:
             problems.append("GROQ_MODEL is empty.")
+        elif re.search(r"guard|safeguard|whisper|orpheus|tts|embed", self.groq_model, re.I):
+            problems.append(
+                f"GROQ_MODEL '{self.groq_model}' is not a chat model (safety/speech models reject chat requests with HTTP 400). "
+                "Use a chat model such as openai/gpt-oss-120b."
+            )
         if not self.allowed_origins:
             problems.append("ALLOWED_ORIGINS is empty (comma-separated list of portfolio origins).")
         if "*" in self.allowed_origins:

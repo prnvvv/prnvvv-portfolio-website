@@ -62,6 +62,12 @@ def test_missing_configuration_gives_meaningful_errors():
     assert "GROQ_API_KEY" in msg and "ALLOWED_ORIGINS" in msg
 
 
+def test_non_chat_model_is_rejected_at_startup():
+    s = make_settings(BACKEND, BACKEND / "data", groq_model="meta-llama/llama-prompt-guard-2-86m")
+    with pytest.raises(ConfigError, match="not a chat model"):
+        s.validate_runtime()
+
+
 def test_short_admin_token_is_rejected_at_startup():
     s = make_settings(BACKEND, BACKEND / "data", admin_token="short")
     with pytest.raises(ConfigError, match="ADMIN_TOKEN"):

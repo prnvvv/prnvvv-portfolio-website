@@ -40,7 +40,8 @@ class GroqClient:
             log_event(logger, "groq rate limited", level=logging.WARNING, error=type(e).__name__)
             raise LLMRateLimitError() from e
         except groq.APIStatusError as e:
-            log_event(logger, "groq status error", level=logging.ERROR, status=e.status_code)
+            detail = (e.body or {}).get("message") if isinstance(e.body, dict) else None
+            log_event(logger, "groq status error", level=logging.ERROR, status=e.status_code, detail=str(detail)[:200])
             raise LLMError(f"groq status {e.status_code}") from e
         except groq.APIConnectionError as e:
             log_event(logger, "groq connection error", level=logging.ERROR, error=type(e).__name__)
