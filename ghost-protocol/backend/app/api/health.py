@@ -12,7 +12,8 @@ async def health(request: Request) -> HealthResponse:
     """Liveness + RAG readiness. Reveals no configuration values."""
     c = getattr(request.app.state, "container", None)
     if c is None:
-        return HealthResponse(status="starting", index_loaded=False, documents=0, llm_configured=False)
+        failed = getattr(request.app.state, "init_error", None)
+        return HealthResponse(status="failed" if failed else "starting", index_loaded=False, documents=0, llm_configured=False)
     ready = c.store.ready
     return HealthResponse(
         status="ok" if ready else "degraded",
