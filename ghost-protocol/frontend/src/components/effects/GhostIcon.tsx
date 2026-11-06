@@ -31,7 +31,7 @@ export default function GhostIcon() {
   const showTooltip = hovered || (isMobile && tapped)
 
   return (
-    <div style={{ position: 'fixed', top: 16, left: isMobile && hasHamburger ? 68 : 16, zIndex: 100 }}>
+    <div style={{ position: 'fixed', top: isMobile ? 8 : 16, left: isMobile ? (hasHamburger ? 56 : 8) : 16, zIndex: 100 }}>
       <motion.button
         onClick={handleClick}
         onMouseEnter={() => setHovered(true)}
@@ -39,8 +39,8 @@ export default function GhostIcon() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         style={{
-          width: isMobile ? 48 : 44,
-          height: isMobile ? 48 : 44,
+          width: isMobile ? 40 : 44,
+          height: isMobile ? 40 : 44,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

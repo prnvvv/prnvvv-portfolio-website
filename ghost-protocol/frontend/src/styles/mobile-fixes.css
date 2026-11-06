@@ -233,49 +233,6 @@
 
 
 /* ─────────────────────────────────────────────────────────
-   BUG 2 — GHOST ICON: Misaligned on inner pages
-   ───────────────────────────────────────────────────────── */
-@media (max-width: 1023px) {
-
-  .ghost-back-btn,
-  [class*="ghost-back"],
-  [class*="ghost-icon"],
-  [class*="home-btn"] {
-    position: fixed !important;
-    top: 8px !important;
-    left: 8px !important;
-    z-index: 201 !important;
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    min-height: 36px !important;
-    max-width: 36px !important;
-    max-height: 36px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border-radius: 6px !important;
-    background: rgba(8, 4, 18, 0.92) !important;
-    border: 1px solid rgba(0, 230, 122, 0.28) !important;
-    box-shadow: 0 0 12px rgba(0, 230, 122, 0.10) !important;
-    transform: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    color: #ffffff !important;
-  }
-
-  .ghost-back-btn svg,
-  [class*="ghost-back"] svg,
-  [class*="ghost-icon"] svg {
-    width: 16px !important;
-    height: 16px !important;
-    flex-shrink: 0 !important;
-  }
-}
-
-
-/* ─────────────────────────────────────────────────────────
    BUG 2B — INNER PAGE SOCIAL ICONS: Proper top-right position
    ───────────────────────────────────────────────────────── */
 @media (max-width: 1023px) {
@@ -464,4 +421,120 @@
   main.inner-page-content {
     padding-top: 76px !important;
   }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE LAYOUT SYSTEM  (<= 767px — below the Tailwind `md` breakpoint
+   where the side dock / desktop header take over; desktop is untouched)
+
+   Top bar   : 8px inset, 40px row  → [menu] [ghost] ........ [theme + socials]
+   Bottom    : 56px dock + safe-area; chat launcher floats above it
+   Page      : padding-top clears the top bar, padding-bottom clears the dock
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  :root {
+    --m-bar-top: 8px;
+    --m-bar-h: 40px;
+    --m-safe-b: max(6px, env(safe-area-inset-bottom, 0px));
+    --m-dock-h: calc(57px + var(--m-safe-b));
+  }
+
+  html, body { overflow-x: hidden; }
+
+  /* Solid strip behind the top bar so scrolling content never shows through the controls */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(var(--m-bar-top) + var(--m-bar-h) + 8px + env(safe-area-inset-top, 0px));
+    z-index: 40;
+    pointer-events: none;
+    background: color-mix(in srgb, var(--bg-primary, #0a0c0a) 88%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.06));
+  }
+  /* dock jumps (and in-page anchors) land below the strip */
+  main [id] { scroll-margin-top: calc(var(--m-bar-top) + var(--m-bar-h) + 16px); }
+
+  /* ── Top-right cluster: icon-only theme switch + socials, one 40px row ── */
+  .header-social-icons {
+    top: calc(var(--m-bar-top) + env(safe-area-inset-top, 0px)) !important;
+    right: calc(8px + env(safe-area-inset-right, 0px)) !important;
+    max-width: calc(100vw - 16px);
+  }
+  .header-social-icons > div {
+    gap: 2px !important;
+    padding: 3px !important;
+    height: var(--m-bar-h);
+    box-sizing: border-box;
+    align-items: center;
+  }
+  .header-social-icons .theme-toggle { padding: 1px; margin-right: 2px; }
+  .header-social-icons .theme-toggle .theme-toggle__btn {
+    width: 32px !important;
+    height: 32px;
+    padding: 0;
+    justify-content: center;
+  }
+  .header-social-icons .theme-toggle .theme-toggle__btn span { display: none; }
+  .header-social-icons .theme-toggle .theme-toggle__btn svg { width: 14px; height: 14px; }
+  .header-social-icons a {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+  }
+  .header-social-icons a svg { width: 17px !important; height: 17px !important; }
+  /* hover-only captions are meaningless on touch and can poke outside the viewport */
+  .header-social-icons a > span { display: none; }
+
+  /* ── Page content clears the top bar and the bottom dock ── */
+  main.inner-page-content {
+    padding-top: calc(var(--m-bar-top) + var(--m-bar-h) + 16px) !important;
+    padding-bottom: calc(var(--m-dock-h) + 16px) !important;
+  }
+  /* footer is the last thing on the page: keep its links above the dock */
+  footer { padding-bottom: calc(var(--m-dock-h) + 16px) !important; }
+
+  /* ── Bottom dock ── */
+  .mobile-dock {
+    justify-content: space-around;
+    padding-left: max(8px, env(safe-area-inset-left, 0px));
+    padding-right: max(8px, env(safe-area-inset-right, 0px));
+  }
+  .mobile-dock > button { flex: 1 1 0; min-width: 0; }
+
+  /* ── Chat launcher: independent of the dock — sits above it on dock pages ── */
+  .chatbot-root:not([data-open="true"]) {
+    right: calc(16px + env(safe-area-inset-right, 0px));
+  }
+  body:has(.mobile-dock) .chatbot-root:not([data-open="true"]) {
+    bottom: calc(var(--m-dock-h) + 12px);
+  }
+  .chatbot-fab { width: 48px; height: 48px; }
+
+  /* ── Landing hero: globe sized for the viewport, never wider than the text column ── */
+  .globe-container.hero-globe-wrapper {
+    width: min(300px, 72vw) !important;
+    height: min(300px, 72vw) !important;
+  }
+  .globe-container.hero-globe-wrapper::before {
+    width: min(344px, 82vw) !important;
+    height: min(344px, 82vw) !important;
+  }
+  .globe-container.hero-globe-wrapper::after {
+    width: min(276px, 66vw) !important;
+    height: min(276px, 66vw) !important;
+  }
+}
+
+/* 320–359px: tighten once more so the cluster never meets the ghost button */
+@media (max-width: 359px) {
+  .header-social-icons .theme-toggle .theme-toggle__btn,
+  .header-social-icons a { width: 30px !important; }
+  .header-social-icons .theme-toggle .theme-toggle__btn { height: 30px; }
+  .header-social-icons a { height: 30px !important; }
 }

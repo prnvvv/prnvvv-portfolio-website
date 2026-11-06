@@ -78,7 +78,7 @@ export default function FloatingDock({ items = DOCK_ITEMS, desktopClassName, mob
         aria-expanded={isNavOpen}
         aria-controls="mobile-navigation"
         onClick={() => { toggleNav(); hamburgerRef.current?.focus() }}
-        className="fixed top-3 left-3 z-[101] md:hidden flex items-center justify-center w-11 h-11 rounded-lg bg-black/80 border border-[rgba(0,230,122,0.3)] cursor-pointer"
+        className="fixed top-2 left-2 z-[101] md:hidden flex flex-col items-center justify-center w-10 h-10 rounded-lg bg-black/80 border border-[rgba(0,230,122,0.3)] cursor-pointer"
       >
         <span className="block w-5 h-[1.5px] bg-[#00e67a] rounded-full" />
         <span className="block w-5 h-[1.5px] bg-[#00e67a] rounded-full mt-[5px]" />
@@ -190,11 +190,10 @@ export default function FloatingDock({ items = DOCK_ITEMS, desktopClassName, mob
       {/* Mobile bottom dock — simplified, used as quick-access alongside hamburger */}
       <div
         className={cn(
-          "fixed bottom-0 left-0 right-0 z-30 flex md:hidden items-center justify-around px-2 py-1.5 pb-[max(6px,env(safe-area-inset-bottom,6px))]",
+          "mobile-dock fixed bottom-0 left-0 right-0 z-30 flex md:hidden items-center justify-around px-2 py-1.5 pb-[max(6px,env(safe-area-inset-bottom,6px))]",
           "bg-[rgba(8,12,9,0.95)] backdrop-blur-[28px] border-t border-[rgba(255,255,255,0.06)]",
           mobileClassName
         )}
-        style={{ paddingLeft: '56px' }}
       >
         {items.slice(0, 5).map((item) => (
           <button
