@@ -16,7 +16,9 @@ def client_ip(request: Request, trust_proxy: bool) -> str:
     if trust_proxy:
         fwd = request.headers.get("x-forwarded-for")
         if fwd:
-            return fwd.split(",")[0].strip()[:64]
+            # The right-most entry is the one appended by our trusted proxy; the left-most is
+            # client-controlled and would let an attacker dodge the per-IP rate limit by spoofing it.
+            return fwd.split(",")[-1].strip()[:64]
     return request.client.host if request.client else "unknown"
 
 
