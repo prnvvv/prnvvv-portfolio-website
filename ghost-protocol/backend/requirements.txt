@@ -1,10 +1,10 @@
-fastapi>=0.110,<1.0
+fastapi>=0.110
 uvicorn[standard]>=0.29
 pydantic>=2.6
 pydantic-settings>=2.2
 python-dotenv>=1.0
 groq>=0.9
-faiss-cpu>=1.8
+# faiss-cpu>=1.8  # removed: incompatible with Python 3.15.2 (requires <3.15)
 sentence-transformers>=2.7
 numpy>=1.26
 pytest>=8.0
