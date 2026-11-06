@@ -12,7 +12,7 @@ from threading import Lock
 from app.config import Settings
 from app.core.logging import fingerprint, log_event
 from app.guardrails.input_guard import AdversarialTracker, check_input
-from app.guardrails.intent_classifier import FOLLOW_UP, Intent, classify_intent
+from app.guardrails.intent_classifier import FOLLOW_UP, OVERVIEW_QUERY, Intent, classify_intent
 from app.guardrails.system_policy import (
     FALLBACK_AMBIGUOUS,
     FALLBACK_INJECTION,
@@ -116,7 +116,9 @@ class ChatService:
         # Short follow-ups ("what technologies did he use in it?") borrow the previous *accepted* question
         # for retrieval only; it is never promoted to an instruction.
         retrieval_query, entity_text = text, text
-        if history and len(text.split()) <= 14 and FOLLOW_UP.search(text):
+        if cls.overview:
+            retrieval_query = f"{OVERVIEW_QUERY} {text}"
+        elif history and len(text.split()) <= 14 and FOLLOW_UP.search(text):
             retrieval_query = f"{history[-1][0]} {text}"
             entity_text = retrieval_query
             cls = classify_intent(retrieval_query, self.rag.retriever.entity_names(entity_text), has_history=True)
