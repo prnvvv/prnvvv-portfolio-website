@@ -1,3 +1,0 @@
-# Optional: run embeddings locally (needs torch; ~500MB RAM). Tests use this when HF_TOKEN is unset.
--r requirements.txt
-sentence-transformers>=3.0,<7

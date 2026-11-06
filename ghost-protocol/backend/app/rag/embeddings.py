@@ -5,7 +5,7 @@ index stays valid when switching):
 
 * Hugging Face Inference Providers (used when HF_TOKEN is set): no torch / model in memory,
   which is what lets the backend fit on small hosts.
-* Local sentence-transformers (fallback when no token is set): needs `requirements-local.txt`.
+* Local sentence-transformers (default when no token is set).
 """
 from __future__ import annotations
 
@@ -41,7 +41,7 @@ class Embedder:
                     except ImportError as e:  # pragma: no cover
                         raise RuntimeError(
                             "HF_TOKEN is not set and sentence-transformers is not installed. "
-                            "Set HF_TOKEN (Hugging Face Inference Providers) or pip install -r requirements-local.txt."
+                            "Set HF_TOKEN (Hugging Face Inference Providers) or pip install sentence-transformers."
                         ) from e
                     self._model = SentenceTransformer(self.model_name, device="cpu")
         return self._model
