@@ -18,22 +18,8 @@ const MARKDOWN_COMPONENTS: Components = {
   img: () => null,
 }
 
-const CATEGORY_LABEL: Record<string, string> = {
-  personal_profile: 'Profile',
-  contact: 'Contact',
-  education: 'Education',
-  experience: 'Experience',
-  skills: 'Skills',
-  projects: 'Projects',
-  research: 'Research',
-  achievements: 'Achievements',
-  portfolio_general: 'Portfolio',
-  faq: 'FAQ',
-}
-
 function ChatMessageImpl({ message }: { message: ChatMessageData }) {
   const isUser = message.role === 'user'
-  const sources = message.sources ?? []
 
   return (
     <div
@@ -51,15 +37,6 @@ function ChatMessageImpl({ message }: { message: ChatMessageData }) {
           </div>
         )}
       </div>
-      {sources.length > 0 && (
-        <ul className="chatbot-sources" aria-label="Sources">
-          {sources.map((s) => (
-            <li key={`${s.category}:${s.title}`} className="chatbot-source">
-              {CATEGORY_LABEL[s.category] ?? s.category} · {s.title}
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   )
 }

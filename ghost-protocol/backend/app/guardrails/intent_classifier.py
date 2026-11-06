@@ -64,6 +64,7 @@ class Classification:
     entities: list[str] = field(default_factory=list)
     aggregate: bool = False
     smalltalk: str | None = None  # "greeting" | "capabilities" | "thanks"
+    overview: bool = False  # vague "summary / about him" request; retrieval uses OVERVIEW_QUERY
 
     @property
     def allowed(self) -> bool:
@@ -130,6 +131,12 @@ DEFINITIONAL = _rx(r"^\s*(?:what|who|whom|whose|how|why|when|where|which|can|cou
 AGGREGATE = _rx(r"\b(?:all|every|each|list|compare|comparison|contrast|differences?|versus|vs\.?|overview|summari[sz]e|summary|everything|different|various|both|which\s+(?:one|project|of))\b")
 
 
+OVERVIEW = _rx(r"\b(?:summary|summari[sz]e|summarisation|overview|tl;?dr|gist|rundown|run\s*down|highlights?|in\s+a\s+nutshell|in\s+short|brief(?:ly)?|short\s+(?:intro|bio)|quick\s+(?:intro|bio|look)|about\s+(?:him|himself|prannavakhanth|prannav|prnvvv)|who\s+(?:is|'s)\s+(?:he|this|prannavakhanth|prannav|prnvvv)|tell\s+me\s+about\s+(?:him|himself|prannavakhanth|prannav|prnvvv)|introduce\s+(?:him|himself)|intro|bio(?:graphy)?|profile)\b")
+EXTERNAL_MATERIAL = _rx(r"\b(?:article|book|movie|film|news|paper\s+i|text|passage|document|video|chapter|story|podcast|this\s+(?:link|url|pdf))\b")
+# Retrieval query used for vague overview requests (the raw text is too weak for semantic search)
+OVERVIEW_QUERY = "Prannavakhanth summary overview background education experience skills projects achievements"
+
+
 def _word_count(s: str) -> int:
     return len(re.findall(r"\w+", s))
 
@@ -169,6 +176,14 @@ def classify_intent(message: str, entities: list[str] | None = None, has_history
             if not owner_ref or CREATIVE_VERBS.search(low):
                 return Classification(Intent.OUT_OF_SCOPE, [Intent.OUT_OF_SCOPE], "hard_oos")
 
+    # 3b) lazy overview requests ("his summary", "tell me about him", "gimme the tldr") ----------
+    # Answer these with a broad profile overview instead of asking for clarification.
+    # Bare overview words are accepted only when short and not about external material.
+    if OVERVIEW.search(low) and not EXTERNAL_MATERIAL.search(low):
+        if anchored or _word_count(low) <= 4:
+            return Classification(Intent.PERSONAL_PROFILE, [Intent.PERSONAL_PROFILE, Intent.PORTFOLIO_GENERAL],
+                                  "overview", entities=entities, aggregate=True, overview=True)
+
     # 4) category scoring --------------------------------------------------------
     scores: dict[Intent, int] = {}
     for intent, rx in STRONG_NOUNS.items():
@@ -202,6 +217,9 @@ def classify_intent(message: str, entities: list[str] | None = None, has_history
         if _word_count(low) <= 3 and not anchored_entity and not anchored_site:
             if anchored_followup and not has_history:
                 return Classification(Intent.AMBIGUOUS, [Intent.AMBIGUOUS], "bare_followup")
+            if anchored_pronoun or anchored_site:  # "him", "his stuff" -> give a general overview
+                return Classification(Intent.PERSONAL_PROFILE, [Intent.PERSONAL_PROFILE, Intent.PORTFOLIO_GENERAL],
+                                      "vague_overview", entities=entities, aggregate=True, overview=True)
             return Classification(Intent.AMBIGUOUS, [Intent.AMBIGUOUS], "anchored_but_vague")
         scores[Intent.PORTFOLIO_GENERAL] = 1
 
