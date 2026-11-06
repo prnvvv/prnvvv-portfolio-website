@@ -50,6 +50,7 @@ def create_app(settings: Settings | None = None, container: Container | None = N
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.allowed_origins,
+        allow_origin_regex=r"^http://(localhost|127\.0\.0\.1)(:\d{1,5})?$" if settings.allow_localhost_origins else None,
         allow_credentials=False,
         allow_methods=["GET", "POST", "OPTIONS"],
         allow_headers=["Content-Type", "X-Admin-Token"],
