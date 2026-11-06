@@ -28,7 +28,7 @@ class Candidate:
     text: str
     sim: float
     metadata: dict[str, Any]
-    vector_id: int = -1
+    vector_id: str = ""
     score: float = 0.0
     title_overlap: float = 0.0
     text_overlap: float = 0.0

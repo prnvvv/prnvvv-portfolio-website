@@ -11,10 +11,8 @@ sys.path.insert(0, str(BACKEND))
 
 from app.config import Settings  # noqa: E402
 from app.dependencies import build_container  # noqa: E402
-from app.rag.embeddings import Embedder  # noqa: E402
 
 REAL_DATA = BACKEND / "data"
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 
 class FakeLLM:
@@ -43,17 +41,10 @@ def make_settings(tmp: Path, data_dir: Path, **kw) -> Settings:
         groq_api_key="test-key-not-real",
         allowed_origins=["http://localhost:3000"],
         data_dir=str(data_dir),
-        faiss_index_path=str(tmp / "faiss.index"),
-        faiss_metadata_path=str(tmp / "metadata.json"),
-        embedding_model=EMBEDDING_MODEL,
+        chroma_persist_directory=str(tmp / "chroma"),
     )
     base.update(kw)
     return Settings(**base)
-
-
-@pytest.fixture(scope="session")
-def embedder() -> Embedder:
-    return Embedder(EMBEDDING_MODEL)
 
 
 @pytest.fixture(scope="session")
@@ -65,10 +56,10 @@ def real_data(tmp_path_factory) -> Path:
 
 
 @pytest.fixture(scope="session")
-def real_container(tmp_path_factory, real_data, embedder):
+def real_container(tmp_path_factory, real_data):
     tmp = tmp_path_factory.mktemp("index")
     settings = make_settings(tmp, real_data)
-    return build_container(settings, llm=FakeLLM(), embedder=embedder)
+    return build_container(settings, llm=FakeLLM())
 
 
 @pytest.fixture()
@@ -88,7 +79,7 @@ def container(real_container, fake_llm):
     s = real_container.settings
     chat = ChatService(s, RAGPipeline(real_container.retriever, s), ResponseGenerator(fake_llm))
     return Container(
-        settings=s, embedder=real_container.embedder, store=real_container.store,
+        settings=s, store=real_container.store,
         retriever=real_container.retriever, chat=chat, ingestion=real_container.ingestion,
         ip_limiter=SlidingWindowLimiter(1000), session_limiter=SlidingWindowLimiter(1000), llm=fake_llm,
     )

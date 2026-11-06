@@ -32,7 +32,7 @@ def main() -> None:
     )
     configure_logging(False)
     container = build_container(settings, llm=ExtractiveLLM())
-    container.embedder.warmup()
+    container.store.warmup()
     uvicorn.run(create_app(settings, container), host="127.0.0.1", port=8000, log_level="warning")
 
 

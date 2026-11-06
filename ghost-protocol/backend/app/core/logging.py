@@ -45,7 +45,7 @@ def configure_logging(debug: bool = False) -> None:
     handler.setFormatter(JsonFormatter())
     root.addHandler(handler)
     root.setLevel(logging.DEBUG if debug else logging.INFO)
-    for noisy in ("httpx", "httpx2", "httpcore", "httpcore2", "huggingface_hub", "sentence_transformers", "urllib3", "faiss"):
+    for noisy in ("httpx", "httpx2", "httpcore", "httpcore2", "urllib3", "chromadb", "onnxruntime"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
 
 

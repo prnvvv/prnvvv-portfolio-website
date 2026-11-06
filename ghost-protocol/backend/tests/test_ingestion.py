@@ -1,19 +1,19 @@
-"""JSON ingestion, chunking, embeddings, FAISS persistence, incremental updates, rebuilds."""
+"""JSON ingestion, chunking, ChromaDB persistence, incremental updates, rebuilds."""
 from __future__ import annotations
 
 import json
 import shutil
 
-import numpy as np
 import pytest
 
 from app.core.exceptions import DataValidationError
 from app.rag.chunker import chunk_document
 from app.rag.data_validator import validate_data_dir
 from app.rag.document_loader import Document, list_json_files, load_file
-from app.rag.vector_store import IndexCorruptError, VectorStore
+from app.rag.retriever import Retriever
+from app.rag.vector_store import VectorStore, VectorStoreError
 from app.services.ingestion_service import IngestionService
-from tests.conftest import EMBEDDING_MODEL, REAL_DATA, make_settings
+from tests.conftest import REAL_DATA, make_settings
 
 
 def write_json(path, obj):
@@ -36,10 +36,11 @@ def small_data(tmp_path):
 
 
 @pytest.fixture()
-def svc(tmp_path, small_data, embedder):
+def svc(tmp_path, small_data):
     s = make_settings(tmp_path / "idx", small_data)
-    store = VectorStore(s.index_path, s.metadata_path, EMBEDDING_MODEL)
-    return IngestionService(s, embedder, store), s
+    store = VectorStore(s.chroma_path, s.chroma_collection_name)
+    yield IngestionService(s, store), s
+    store.close()
 
 
 # ---- loading / validation / chunking ----------------------------------------------
@@ -95,37 +96,96 @@ def test_long_single_sentence_is_hard_wrapped():
     assert all(len(c.text) <= 520 for c in chunk_document(doc, 500))
 
 
-# ---- embeddings ---------------------------------------------------------------------
-def test_embeddings_are_normalised_and_semantic(embedder):
-    v = embedder.encode(["python programming language", "snake python reptile", "weather forecast tomorrow"])
-    assert v.shape == (3, embedder.dimension) and v.dtype == np.float32
-    assert np.allclose(np.linalg.norm(v, axis=1), 1.0, atol=1e-4)
-    q = embedder.encode_query("python programming")
-    assert float(q @ v[0]) > float(q @ v[2])
+# ---- ChromaDB collection, persistence, incremental update -------------------------------
+def test_collection_uses_cosine_and_default_embedding(svc):
+    service, _ = svc
+    col = service.store.collection
+    assert col.metadata.get("hnsw:space") == "cosine"
+    ef = (col.configuration_json or {}).get("embedding_function") or {}
+    assert ef.get("name") == "default"  # ChromaDB's built-in default - nothing configured by us
 
 
-# ---- FAISS index, persistence, incremental update ------------------------------------
-def test_ingest_search_and_metadata_mapping(svc, embedder):
-    service, s = svc
+def test_ingest_search_and_metadata_mapping(svc):
+    service, _ = svc
     stats = service.ingest()
     assert stats.added_chunks == stats.total_chunks == 3
-    hits = service.store.search(embedder.encode_query("Alpha vision system OpenCV"), 3)
+    hits = service.store.search("Alpha vision system OpenCV", 3)
     assert hits[0].metadata["title"] == "Alpha"
     assert "Alpha is a vision system" in hits[0].text
-    assert all(h.vector_id in service.store.records for h in hits)  # vector id -> record mapping
+    assert 0.0 < hits[0].score <= 1.0 and abs(hits[0].score - (1 - hits[0].distance)) < 1e-9
+    assert all(h.vector_id in service.store.records for h in hits)
 
 
-def test_index_persists_and_reloads_without_reembedding(svc, embedder, monkeypatch):
+def test_list_metadata_round_trips(tmp_path):
+    from app.rag.chunker import Chunk
+    store = VectorStore(tmp_path / "c", "lists")
+    try:
+        md = {"doc_id": "d", "rel_path": "l.json", "title": "T", "aliases": ["a b", "c"], "skip": None}
+        store.replace_file("l.json", [Chunk("d#0", "[X] T\nSubject: P\nbody", md)], "h")
+        store.close()
+        again = VectorStore(tmp_path / "c", "lists")
+        assert again.records["d#0"]["metadata"]["aliases"] == ["a b", "c"]
+        assert "skip" not in again.records["d#0"]["metadata"]
+        again.close()
+    finally:
+        store.close()
+
+
+def test_metadata_filtering(svc):
+    service, _ = svc
+    service.ingest()
+    hits = service.store.search("anything", 5, where={"category": "skills"})
+    assert hits and all(h.metadata["category"] == "skills" for h in hits)
+
+
+def test_empty_collection_returns_no_results(tmp_path):
+    store = VectorStore(tmp_path / "c", "empty_one")
+    try:
+        assert not store.ready and store.size == 0 and store.search("hello", 3) == []
+        store.warmup()  # no-op on an empty store
+    finally:
+        store.close()
+
+
+def test_persists_and_restart_does_not_reembed(svc, monkeypatch):
     service, s = svc
     service.ingest()
-    store2 = VectorStore(s.index_path, s.metadata_path, EMBEDDING_MODEL)
-    assert store2.load() and store2.size == 3
-    monkeypatch.setattr(type(embedder), "encode", lambda *a, **k: (_ for _ in ()).throw(AssertionError("re-embedded")))
-    stats = IngestionService(s, embedder, store2).ingest()  # nothing changed -> must not embed anything
-    assert stats.added_chunks == 0 and stats.unchanged_files == 2
+    service.store.close()
+    store2 = VectorStore(s.chroma_path, s.chroma_collection_name)  # "application restart"
+    assert store2.ready and store2.size == 3
+    calls = []
+    monkeypatch.setattr(type(store2.collection), "upsert", lambda *a, **k: calls.append(1))
+    stats = IngestionService(s, store2).ingest()  # nothing changed -> nothing is embedded or upserted
+    assert stats.added_chunks == 0 and stats.unchanged_files == 2 and not calls
+    assert store2.search("Alpha vision system", 1)[0].metadata["title"] == "Alpha"
+    store2.close()
 
 
-def test_incremental_update_reprocesses_only_changed_file(svc, small_data, embedder):
+def test_upsert_is_idempotent_no_duplicates(svc):
+    service, _ = svc
+    service.ingest()
+    chunks = chunk_document(Document("d::1", "T", "[A] T\nSubject: P\nbody", {"doc_id": "d::1", "rel_path": "x.json"}), 900)
+    for _ in range(3):
+        service.store.replace_file("x.json", chunks, "h1")
+    assert service.store.collection.count() == service.store.size == 4
+
+
+def test_batch_upsert_larger_than_one_batch(tmp_path):
+    from app.rag.chunker import Chunk
+    store = VectorStore(tmp_path / "c", "batchy")
+    try:
+        chunks = [
+            Chunk(f"d{i}#0", f"[X] Doc {i}\nSubject: P\nunique topic number {i}",
+                  {"doc_id": f"d{i}", "rel_path": "b.json", "category": "x", "title": f"Doc {i}"})
+            for i in range(150)
+        ]
+        assert store.replace_file("b.json", chunks, "h") == (150, 0)
+        assert store.collection.count() == 150
+    finally:
+        store.close()
+
+
+def test_incremental_update_reprocesses_only_changed_file(svc, small_data):
     service, _ = svc
     service.ingest()
     write_json(small_data / "projects" / "individual" / "alpha.json", {
@@ -134,7 +194,7 @@ def test_incremental_update_reprocesses_only_changed_file(svc, small_data, embed
     })
     stats = service.ingest()
     assert (stats.added_chunks, stats.removed_chunks, stats.unchanged_files) == (1, 1, 1)
-    assert service.store.size == 3  # no duplicates
+    assert service.store.size == service.store.collection.count() == 3  # no duplicates
     texts = " ".join(r["text"] for r in service.store.records.values())
     assert "speech system" in texts and "vision system" not in texts
 
@@ -144,7 +204,7 @@ def test_deleted_file_is_removed(svc, small_data):
     service.ingest()
     (small_data / "projects" / "individual" / "alpha.json").unlink()
     stats = service.ingest()
-    assert stats.removed_chunks == 1 and service.store.size == 2
+    assert stats.removed_chunks == 1 and service.store.size == 2 == service.store.collection.count()
     assert all(r["metadata"]["title"] != "Alpha" for r in service.store.records.values())
 
 
@@ -163,49 +223,64 @@ def test_invalid_data_blocks_ingestion(svc, small_data):
         service.ingest()
 
 
-def test_corrupt_or_mismatched_index_is_detected(svc):
-    service, s = svc
+def test_embedding_failure_keeps_old_chunks(svc, small_data, monkeypatch):
+    service, _ = svc
     service.ingest()
-    s.metadata_path.write_text("{}", encoding="utf-8")
-    with pytest.raises(IndexCorruptError):
-        VectorStore(s.index_path, s.metadata_path, EMBEDDING_MODEL).load()
-    service.ingest(full_rebuild=True)
-    with pytest.raises(IndexCorruptError):
-        VectorStore(s.index_path, s.metadata_path, "other-model").load()
+    write_json(small_data / "projects" / "individual" / "alpha.json", {
+        "category": "projects", "id": "alpha", "name": "Alpha", "source": "test", "description": "Changed.",
+    })
+
+    def boom(*a, **k):
+        raise RuntimeError("embedding model unavailable")
+
+    monkeypatch.setattr(type(service.store.collection), "upsert", boom)
+    with pytest.raises(VectorStoreError):
+        service.ingest()
+    assert service.store.size == 3 and "vision system" in " ".join(r["text"] for r in service.store.records.values())
+
+
+def test_query_failure_is_wrapped(svc, monkeypatch):
+    service, _ = svc
+    service.ingest()
+    monkeypatch.setattr(type(service.store.collection), "query", lambda *a, **k: (_ for _ in ()).throw(RuntimeError("x")))
+    with pytest.raises(VectorStoreError):
+        service.store.search("alpha", 2)
+
+
+def test_invalid_database_path_is_reported(tmp_path):
+    blocker = tmp_path / "file.txt"
+    blocker.write_text("not a directory")
+    with pytest.raises(VectorStoreError):
+        VectorStore(blocker / "chroma", "x")
+
+
+def test_retriever_uses_chroma_end_to_end(svc):
+    service, _ = svc
+    service.ingest()
+    res = Retriever(service.store).retrieve("Alpha vision system")
+    assert res.ranked and res.ranked[0].metadata["title"] == "Alpha" and res.best_similarity > 0.3
+
+
+def test_concurrent_ingestion_is_serialised(svc):
+    import threading
+    service, _ = svc
+    errs = []
+
+    def run():
+        try:
+            service.ingest()
+        except Exception as e:  # pragma: no cover
+            errs.append(e)
+
+    ts = [threading.Thread(target=run) for _ in range(3)]
+    for t in ts:
+        t.start()
+    for t in ts:
+        t.join()
+    assert not errs and service.store.size == service.store.collection.count() == 3
 
 
 def test_real_index_builds(real_container):
     assert real_container.store.ready
     cats = {d["category"] for d in real_container.store.documents()}
     assert {"projects", "skills", "education", "experience", "achievements", "research", "contact", "personal_profile"} <= cats
-
-
-def test_remote_embedder_batches_normalises_and_falls_back(monkeypatch):
-    import numpy as np
-    from app.rag.embeddings import Embedder
-
-    calls = []
-
-    class FakeClient:
-        def feature_extraction(self, text, model=None, normalize=None):
-            calls.append(text)
-            if isinstance(text, list):
-                return np.full((len(text), 4), 2.0, dtype="float32")
-            return np.full((4,), 2.0, dtype="float32")
-
-    e = Embedder("m", hf_token="hf_dummy")
-    e._client = FakeClient()
-    v = e.encode(["a", "b", "c"])
-    assert v.shape == (3, 4) and v.dtype == np.float32
-    assert np.allclose(np.linalg.norm(v, axis=1), 1.0)
-    assert e.dimension == 4 and e.encode_query("x").shape == (1, 4)
-
-    class BadBatch(FakeClient):  # provider returns the wrong number of rows for lists
-        def feature_extraction(self, text, model=None, normalize=None):
-            if isinstance(text, list):
-                return np.ones((1, 4), dtype="float32")
-            return super().feature_extraction(text, model, normalize)
-
-    e2 = Embedder("m", hf_token="hf_dummy")
-    e2._client = BadBatch()
-    assert e2.encode(["a", "b"]).shape == (2, 4)

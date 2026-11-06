@@ -1,8 +1,12 @@
-"""Builds / updates the FAISS index from backend/data (incremental or full rebuild)."""
+"""Builds / updates the ChromaDB collection from backend/data (incremental or full rebuild).
+
+ChromaDB embeds the chunk text itself (built-in default embedding behaviour); this service only
+chunks, hashes and upserts."""
 from __future__ import annotations
 
 import json
 import logging
+import threading
 from collections import Counter
 from dataclasses import dataclass
 from datetime import datetime, timezone
@@ -13,8 +17,7 @@ from app.core.logging import log_event
 from app.rag.chunker import Chunk, chunk_document
 from app.rag.data_validator import validate_data_dir
 from app.rag.document_loader import SourceFile, list_json_files, load_file
-from app.rag.embeddings import Embedder
-from app.rag.vector_store import IndexCorruptError, VectorStore
+from app.rag.vector_store import VectorStore, VectorStoreError
 
 logger = logging.getLogger(__name__)
 
@@ -28,12 +31,16 @@ class IngestStats:
 
 
 class IngestionService:
-    def __init__(self, settings: Settings, embedder: Embedder, store: VectorStore):
+    def __init__(self, settings: Settings, store: VectorStore):
         self.settings = settings
-        self.embedder = embedder
         self.store = store
+        self._lock = threading.Lock()  # one ingestion at a time (admin endpoint vs. CLI-style callers)
 
     def ingest(self, full_rebuild: bool = False) -> IngestStats:
+        with self._lock:
+            return self._ingest(full_rebuild)
+
+    def _ingest(self, full_rebuild: bool) -> IngestStats:
         data_dir = self.settings.data_path
         report = validate_data_dir(data_dir)
         for w in report.warnings:
@@ -41,14 +48,8 @@ class IngestionService:
         if not report.ok:
             raise DataValidationError("; ".join(report.errors))
 
-        if not full_rebuild and not self.store.ready:
-            try:
-                self.store.load()
-            except IndexCorruptError as e:
-                log_event(logger, f"existing index unusable, rebuilding: {e}", level=logging.WARNING)
-                full_rebuild = True
-        if full_rebuild or self.store.index is None:
-            self.store.reset(self.embedder.dimension)
+        if full_rebuild:
+            self.store.reset()
 
         stats = IngestStats()
         current: dict[str, SourceFile] = {}
@@ -56,26 +57,23 @@ class IngestionService:
             sf = load_file(path, data_dir)
             current[sf.rel_path] = sf
 
-        # deleted files
-        for rel in [r for r in list(self.store.file_hashes) if r not in current]:
+        hashes = self.store.file_hashes
+        # deleted source files
+        for rel in [r for r in hashes if r not in current]:
             stats.removed_chunks += self.store.remove_file(rel)
 
-        # new / changed files
-        pending: list[Chunk] = []
+        # new / changed files, one file at a time so memory stays bounded
         for rel, sf in current.items():
-            if self.store.file_hashes.get(rel) == sf.sha256:
+            if hashes.get(rel) == sf.sha256:
                 stats.unchanged_files += 1
                 continue
-            stats.removed_chunks += self.store.remove_file(rel)
+            chunks: list[Chunk] = []
             for doc in sf.documents:
-                pending.extend(chunk_document(doc, self.settings.max_chunk_chars))
-            self.store.file_hashes[rel] = sf.sha256
+                chunks.extend(chunk_document(doc, self.settings.max_chunk_chars))
+            added, removed = self.store.replace_file(rel, chunks, sf.sha256)
+            stats.added_chunks += added
+            stats.removed_chunks += removed
 
-        if pending:
-            vectors = self.embedder.encode([c.text for c in pending])
-            stats.added_chunks = self.store.add_chunks(pending, vectors)
-
-        self.store.save()
         stats.total_chunks = self.store.size
         self._write_metadata(current)
         log_event(logger, "ingestion complete", **stats.__dict__)
@@ -93,7 +91,8 @@ class IngestionService:
             "document_count": docs,
             "file_count": len(current),
             "chunk_count": self.store.size,
-            "embedding_model": self.embedder.model_name,
+            "vector_db": "chromadb",
+            "embedding": "chromadb-default (onnx all-MiniLM-L6-v2)",
             "last_ingested_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "files": {rel: sf.sha256[:12] for rel, sf in sorted(current.items())},
         }

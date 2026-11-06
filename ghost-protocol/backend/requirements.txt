@@ -1,8 +1,7 @@
 # Portfolio RAG backend.
-# Embeddings default to local sentence-transformers (needs ~500MB RAM). Set HF_TOKEN to use Hugging Face
-# Inference Providers instead (then sentence-transformers/torch is not loaded at runtime).
-# Supported Python: 3.10 - 3.13  (faiss-cpu and torch publish no wheels for 3.14+, so installing on
-# 3.14/3.15 fails at "faiss-cpu"; create the venv with 3.10-3.13 instead, e.g.  py -3.10 -m venv .venv).
+# Vector DB: ChromaDB with its built-in default embedding behaviour (ONNX all-MiniLM-L6-v2 via onnxruntime,
+# which chromadb installs itself). No torch, sentence-transformers, FAISS or embedding API/token is needed.
+# Supported Python: 3.10 - 3.13 (onnxruntime / chromadb publish no wheels for 3.14+; use `py -3.12 -m venv .venv`).
 # Ranges are anchored on the versions the test-suite passes with; "~=" allows compatible patch/minor updates.
 
 fastapi~=0.115
@@ -11,9 +10,7 @@ pydantic~=2.8
 pydantic-settings~=2.4
 python-dotenv~=1.0
 groq>=1.0,<2
-faiss-cpu~=1.9
-sentence-transformers>=3.0,<7
-numpy>=1.26,<3
+chromadb==1.5.9
 
 # tests
 pytest~=8.0
