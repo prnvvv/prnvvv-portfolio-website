@@ -27,15 +27,21 @@ def create_app(settings: Settings | None = None, container: Container | None = N
 
     async def _init_in_background(app: FastAPI) -> None:
         """Model download + first ingestion can take minutes on a small host; doing it after the port is
-        open lets the host's health check pass. /api/health reports "starting" and /api/chat answers
-        "not ready" until it finishes."""
-        try:
-            c = await asyncio.to_thread(build_container, settings)
-            await asyncio.to_thread(c.store.warmup)
-            app.state.container = c
-            log_event(logger, "backend ready", documents=len(c.store.documents()))
-        except Exception as e:  # keep serving /api/health so the failure is visible, never crash-loop silently
-            log_event(logger, "backend initialisation failed", level=logging.ERROR, error=type(e).__name__)
+        open lets the host's health check pass. /api/health reports "starting" (or "failed") and
+        /api/chat answers "not ready" until it finishes. Retries a few times for transient download errors."""
+        for attempt in range(1, 4):
+            try:
+                c = await asyncio.to_thread(build_container, settings)
+                await asyncio.to_thread(c.store.warmup)
+                app.state.container = c
+                app.state.init_error = None
+                log_event(logger, "backend ready", documents=len(c.store.documents()))
+                return
+            except Exception as e:
+                app.state.init_error = type(e).__name__
+                logger.error("backend initialisation failed (attempt %d/3): %s: %s", attempt, type(e).__name__, str(e)[:300])
+                logger.debug("initialisation traceback", exc_info=True)
+                await asyncio.sleep(15)
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -46,6 +52,7 @@ def create_app(settings: Settings | None = None, container: Container | None = N
         else:
             settings.validate_runtime()  # fail fast with a clear message
             app.state.container = None
+            app.state.init_error = None
             init_task = asyncio.create_task(_init_in_background(app))
         yield
         if init_task is not None and not init_task.done():
