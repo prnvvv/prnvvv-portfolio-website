@@ -11,7 +11,7 @@ export default function MagicButton() {
   }, [navigate])
 
   return (
-    <GhostButton onClick={handleClick} className="gap-3 px-8 py-4">
+    <GhostButton onClick={handleClick} className="gap-3 px-8 py-4 max-md:w-full max-md:justify-center max-md:px-4 max-md:min-h-[52px]">
       <span
         className="text-base transition-colors duration-500"
         style={{ color: '#ffffff' }}

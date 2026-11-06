@@ -43,9 +43,9 @@ export default function LandingPage() {
       </div>
 
       {/* Main Wrapper — h-dvh locks to viewport, overflow-hidden kills scroll + flicker */}
-      <div className="relative z-10 h-dvh flex flex-col overflow-hidden max-w-[100vw]">
+      <div className="relative z-10 min-h-dvh md:h-dvh flex flex-col overflow-x-hidden md:overflow-hidden max-w-[100vw]">
         {/* Hero Content */}
-        <div className="flex-1 flex flex-col lg:flex-row items-center justify-center px-3 sm:px-5 lg:px-8 pt-16 pb-2">
+        <div className="flex-1 flex flex-col lg:flex-row items-center max-md:justify-start justify-center px-4 sm:px-5 lg:px-8 pt-[64px] md:pt-[4rem] pb-6 md:pb-2">
           {/* Left: Text Block */}
           <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left max-w-xl gap-1 sm:gap-1.5">
             <div className="hero-name-wrap">
@@ -85,10 +85,10 @@ export default function LandingPage() {
               transition={{ delay: 0.9, duration: 0.5, ease: [0.22,1,0.36,1] }}
               className="mt-1 mb-1"
             >
-              <Terminal className="w-full max-w-[500px] h-[180px] border border-[#00e67a]/15 rounded-lg bg-black/40 backdrop-blur-md overflow-hidden">
+              <Terminal className="w-full max-w-[500px] h-[176px] min-[360px]:h-[150px] min-[560px]:h-[132px] md:h-[180px] border border-[#00e67a]/15 rounded-lg bg-black/40 backdrop-blur-md overflow-hidden">
                 <TypingAnimation
                   duration={13}
-                  className="text-white/80 text-sm md:text-base font-mono leading-relaxed"
+                  className="text-white/80 text-[13px] md:text-base font-mono leading-snug md:leading-relaxed"
                 >
                   Building agentic AI, generative AI, and data-driven solutions to solve real-world problems. Combining strong DSA fundamentals with end-to-end ML expertise to develop scalable, production-ready systems that drive measurable impact across industries.
                 </TypingAnimation>
@@ -99,6 +99,7 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1, duration: 0.5, ease: [0.22,1,0.36,1] }}
+              className="max-md:w-full max-md:max-w-[500px] mt-1 md:mt-0"
             >
               <MagicButton />
             </motion.div>
@@ -115,7 +116,7 @@ export default function LandingPage() {
           </div>
 
           {/* Right: Globe */}
-          <div className="w-full lg:w-1/2 flex items-center justify-center mt-3 lg:mt-0">
+          <div className="w-full lg:w-1/2 flex items-center justify-center mt-4 lg:mt-0">
             <div className="globe-container hero-globe-wrapper" ref={globeContainerRef}>
               <CobeGlobe
                 reduced={reduced}
