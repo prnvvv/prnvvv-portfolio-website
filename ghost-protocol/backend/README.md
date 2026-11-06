@@ -128,8 +128,10 @@ Follow-up questions ("what technologies did it use?") borrow the previous *accep
   filesystem is **ephemeral**: on every deploy/restart the collection would be rebuilt (a few seconds for 74 chunks, but it needs the
   model download). Options: (a) accept the rebuild (the data is rebuilt from `data/*.json`, nothing is lost); (b) attach a Render
   persistent disk (paid plans) mounted at e.g. `/var/data` and set `CHROMA_PERSIST_DIRECTORY=/var/data/chroma`. The repo has no
-  `render.yaml`, so this is configured in the Render dashboard. To avoid downloading the model at runtime, add to the build command:
-  `python -c "from chromadb.utils.embedding_functions import DefaultEmbeddingFunction as D; D()(['x'])"`.
+  `render.yaml`, so this is configured in the Render dashboard. **On a 512 MB host, ingest at build time:** a cold ingestion peaks at ~310 MB, while a server that opens an already-built
+  collection needs ~125 MB. Use the Render build command `pip install -r requirements.txt && python scripts/ingest.py` (Root Directory
+  `ghost-protocol/backend`); the `chroma_data/` folder created during the build is part of the deploy, so the running server skips
+  ingestion. If the folder is missing at runtime the server falls back to ingesting in the background.
 
 ### Migrating from the old FAISS index
 
