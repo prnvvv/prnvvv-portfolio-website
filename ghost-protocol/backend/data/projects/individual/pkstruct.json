@@ -1,0 +1,35 @@
+{
+  "category": "projects",
+  "subcategory": "pkstruct",
+  "id": "pkstruct",
+  "portfolio_id": "PKSTRUCT-009",
+  "name": "PKStruct",
+  "full_title": "PKStruct — Python DSA Package (PyPI)",
+  "project_type": "PACKAGE",
+  "status": "PUBLISHED",
+  "year": "2026",
+  "description": "PKStruct is a PyPI-published Python package providing 20+ production-grade data structure implementations including thread-safe linked lists, stacks, queues, trees, heaps, and graphs. Implements shared exception hierarchy, typing protocols, abstract base classes, and validator modules. Full test suite with 95%+ coverage, CI/CD via GitHub Actions, and pre-commit hook integration. Designed as a reference implementation package for competitive programming and production systems.",
+  "technologies": [
+    "Python",
+    "PyPI",
+    "pytest",
+    "GitHub Actions",
+    "pre-commit",
+    "mypy"
+  ],
+  "domain": null,
+  "reported_outcome": null,
+  "award": null,
+  "achievements": [
+    "Production-grade Python package on PyPI",
+    "20+ data structures & 35+ algorithms",
+    "899+ tests with CI/CD pipeline",
+    "Thread-safe structures with strict type hints"
+  ],
+  "collaborators": null,
+  "github_url": "https://github.com/prnvvv/pkstruct",
+  "live_url": null,
+  "pypi_url": "https://pypi.org/project/pkstruct/",
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts"
+}

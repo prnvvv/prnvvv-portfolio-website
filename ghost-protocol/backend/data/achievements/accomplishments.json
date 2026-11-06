@@ -1,0 +1,15 @@
+{
+  "category": "achievements",
+  "subcategory": "accomplishments",
+  "title": "Accomplishment totals shown on the portfolio",
+  "stats": {
+    "hackathon_wins": 3,
+    "research_ip_total": 4,
+    "patents_published": 1,
+    "patents_filed": 3,
+    "papers_under_review": 2,
+    "school_awards": 4
+  },
+  "notes": "Hackathon wins: AnnamAI Hackathon, HackHub'25, Vashisht 3.0. School awards: school topper and subject toppers (Chemistry, Computer Science, Physical Education).",
+  "source": "portfolio:src/data/achievements.ts"
+}

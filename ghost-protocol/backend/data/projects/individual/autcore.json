@@ -1,0 +1,36 @@
+{
+  "category": "projects",
+  "subcategory": "autcore",
+  "id": "autcore",
+  "portfolio_id": "AUTCORE-003",
+  "name": "AutCore",
+  "full_title": "AutCore — AI-driven Autism Screening Tool",
+  "project_type": "COMPUTER VISION",
+  "status": "AWARD WINNER",
+  "year": "2025",
+  "description": "AutCore is an AI-driven autism screening and risk assessment tool. The solution combines advanced oculomotor & facial behavior analysis, AI-powered speech & language disfluency analysis, intelligent autism symptom profiling & risk evaluation, and a conversational autism assistant. The team joined the hackathon 12 hours late, building the solution in just 24 hours under intense pressure.",
+  "technologies": [
+    "Python",
+    "TensorFlow",
+    "OpenCV",
+    "MediaPipe",
+    "React",
+    "Next.js",
+    "FastAPI",
+    "Speech Analysis",
+    "Deep Learning",
+    "Computer Vision"
+  ],
+  "domain": "Healthcare",
+  "reported_outcome": "1st Place - HackHub'25. 64% screening accuracy using gaze tracking and speech-disfluency detection.",
+  "award": "HackHub'25 National Winner",
+  "achievements": [
+    "1st Place — HackHub'25 (IEEE CompSoc VIT-C, GitHub & Devfolio)"
+  ],
+  "collaborators": null,
+  "github_url": null,
+  "live_url": null,
+  "pypi_url": null,
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts + src/data/missions.ts"
+}

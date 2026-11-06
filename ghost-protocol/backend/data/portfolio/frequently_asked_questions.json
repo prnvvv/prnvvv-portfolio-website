@@ -1,0 +1,37 @@
+{
+  "category": "faq",
+  "subcategory": "faq",
+  "items": [
+    {
+      "id": "faq_contact",
+      "question": "How can I contact Prannavakhanth?",
+      "answer": "By email at prannavakhanth12@gmail.com, on LinkedIn at https://linkedin.com/in/prannavakhanth, or on GitHub at https://github.com/prnvvv."
+    },
+    {
+      "id": "faq_current_role",
+      "question": "What does Prannavakhanth do currently?",
+      "answer": "He works as an Associate Software Developer in the Data Science department at CBRE (2026 to present) and is a B.Tech Computer Science and Engineering student at VIT Chennai (2023-2027). He is also Chairperson of the Open Source Programming Club (OSPC) at VIT Chennai."
+    },
+    {
+      "id": "faq_specialization",
+      "question": "What is Prannavakhanth's specialization?",
+      "answer": "Agentic AI, with a focus on generative AI, RAG, LLM orchestration, computer vision and machine learning."
+    },
+    {
+      "id": "faq_patents",
+      "question": "Does Prannavakhanth have patents or publications?",
+      "answer": "The portfolio lists 4 patents (1 published: CropCore, Indian Patent Office application 202541067987; 3 filed: DiscAgeAI, PACDI, DiagEnc) and 2 research papers under review (SSL-RUL and Synthetic Taphonomic Deformation). It also lists two PyPI packages: GIL and PKStruct."
+    },
+    {
+      "id": "faq_hackathons",
+      "question": "Has Prannavakhanth won hackathons?",
+      "answer": "Yes. The portfolio lists 1st place at the AnnamAI Hackathon (IIT Ropar), HackHub'25 (IEEE and GitHub, with AutCore) and Vashisht 3.0 (IIITDM Kancheepuram, with KRED), plus Special Recognition at Pitchathon'24 (with CropCore)."
+    },
+    {
+      "id": "faq_rag_projects",
+      "question": "Which projects show experience with RAG?",
+      "answer": "POLARIS (agentic RAG chatbot built with LangGraph and Groq), FitAI (agentic RAG assistant for gym-goers) and the Enterprise Agentic RAG Chatbot built during his Hexaware Technologies internship."
+    }
+  ],
+  "source": "portfolio:aggregated from other knowledge files"
+}

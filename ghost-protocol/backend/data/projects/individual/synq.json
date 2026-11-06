@@ -1,0 +1,15 @@
+{
+  "category": "projects",
+  "subcategory": "synq",
+  "id": "synq",
+  "name": "Synq",
+  "project_type": "Full-stack",
+  "status": null,
+  "year": null,
+  "description": "Synq is a phone-to-laptop connectivity project intended to provide wireless input, media, clipboard, and file-transfer capabilities.",
+  "technologies": [],
+  "github_url": null,
+  "live_url": null,
+  "note": "Only this brief description is available; detailed features and technology stack are not documented in the knowledge base.",
+  "source": "owner-provided (project guide)"
+}

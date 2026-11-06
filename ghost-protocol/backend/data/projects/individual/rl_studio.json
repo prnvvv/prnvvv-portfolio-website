@@ -1,0 +1,15 @@
+{
+  "category": "projects",
+  "subcategory": "rl_studio",
+  "id": "rl_studio",
+  "name": "RL Studio",
+  "project_type": "AI/ML",
+  "status": null,
+  "year": null,
+  "description": "RL Studio is a self-healing reinforcement-learning platform focused on detecting and recovering from hidden training and environment problems.",
+  "technologies": [],
+  "github_url": null,
+  "live_url": null,
+  "note": "Only this brief description is available; detailed features and technology stack are not documented in the knowledge base.",
+  "source": "owner-provided (project guide)"
+}

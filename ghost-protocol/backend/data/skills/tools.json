@@ -1,0 +1,141 @@
+{
+  "category": "skills",
+  "subcategory": "tools",
+  "note": "proficiency_percent is the self-rated level displayed on the portfolio skill inventory, not an external assessment.",
+  "items": [
+    {
+      "id": "databases_and_tools",
+      "name": "Databases and developer tools",
+      "skills": [
+        {
+          "name": "MySQL",
+          "proficiency_percent": 78,
+          "years_experience": 2
+        },
+        {
+          "name": "Chroma (Vector Database)",
+          "proficiency_percent": 75,
+          "years_experience": 1
+        },
+        {
+          "name": "Git",
+          "proficiency_percent": 85,
+          "years_experience": 3
+        },
+        {
+          "name": "GitHub Actions",
+          "proficiency_percent": 72,
+          "years_experience": 1.5
+        },
+        {
+          "name": "Docker",
+          "proficiency_percent": 80,
+          "years_experience": 2
+        },
+        {
+          "name": "AWS",
+          "proficiency_percent": 70,
+          "years_experience": 1.5
+        },
+        {
+          "name": "Pandas",
+          "proficiency_percent": 90,
+          "years_experience": 3
+        },
+        {
+          "name": "NumPy",
+          "proficiency_percent": 90,
+          "years_experience": 3
+        },
+        {
+          "name": "Matplotlib",
+          "proficiency_percent": 82,
+          "years_experience": 3
+        },
+        {
+          "name": "Seaborn",
+          "proficiency_percent": 78,
+          "years_experience": 2
+        },
+        {
+          "name": "Prometheus",
+          "proficiency_percent": 65,
+          "years_experience": 1
+        },
+        {
+          "name": "BeautifulSoup",
+          "proficiency_percent": 75,
+          "years_experience": 2
+        }
+      ]
+    },
+    {
+      "id": "visualization",
+      "name": "Data visualization",
+      "skills": [
+        {
+          "name": "Matplotlib",
+          "proficiency_percent": 85,
+          "years_experience": 3
+        },
+        {
+          "name": "Seaborn",
+          "proficiency_percent": 80,
+          "years_experience": 2
+        }
+      ]
+    },
+    {
+      "id": "frontend",
+      "name": "Frontend technologies",
+      "skills": [
+        {
+          "name": "HTML",
+          "proficiency_percent": 70,
+          "years_experience": 2
+        },
+        {
+          "name": "CSS",
+          "proficiency_percent": 65,
+          "years_experience": 2
+        },
+        {
+          "name": "JavaScript",
+          "proficiency_percent": 75,
+          "years_experience": 2
+        },
+        {
+          "name": "React",
+          "proficiency_percent": 70,
+          "years_experience": 1.5
+        },
+        {
+          "name": "HTML5",
+          "proficiency_percent": 75,
+          "years_experience": 2
+        },
+        {
+          "name": "CSS3",
+          "proficiency_percent": 72,
+          "years_experience": 2
+        },
+        {
+          "name": "Tailwind CSS",
+          "proficiency_percent": 68,
+          "years_experience": 1
+        },
+        {
+          "name": "Vite",
+          "proficiency_percent": 65,
+          "years_experience": 0.5
+        },
+        {
+          "name": "Framer Motion",
+          "proficiency_percent": 62,
+          "years_experience": 0.5
+        }
+      ]
+    }
+  ],
+  "source": "portfolio:src/data/operatorData.ts + src/data/arsenal.ts"
+}

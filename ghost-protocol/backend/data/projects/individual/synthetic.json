@@ -1,0 +1,31 @@
+{
+  "category": "projects",
+  "subcategory": "synthetic",
+  "id": "synthetic",
+  "portfolio_id": "SYNTHETIC-013",
+  "name": "Synthetic Taphonomic Deformation",
+  "full_title": "Synthetic Taphonomic Deformation — Paleontological AI",
+  "project_type": "RESEARCH",
+  "status": "UNDER REVIEW",
+  "year": "2025",
+  "description": "This research pipeline processes 3D CT slice stacks of fossil specimens (8 specimens x 30 projections = 240 images per specimen) via orthographic maximum intensity projection (MIP) and rotational view generation. Outputs are used to train a deep learning Taphonomic Distortion Estimator that predicts morphological deformation caused by sedimentary burial. Implemented with ASCII-safe encoding for cross-platform Windows/Linux compatibility. Collaborative paleontological research project at VIT Chennai.",
+  "technologies": [
+    "Python",
+    "NumPy",
+    "SciPy",
+    "Matplotlib",
+    "PyTorch",
+    "SimpleITK",
+    "VTK"
+  ],
+  "domain": null,
+  "reported_outcome": null,
+  "award": null,
+  "achievements": [],
+  "collaborators": "VIT Chennai Paleontology Lab",
+  "github_url": null,
+  "live_url": null,
+  "pypi_url": null,
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts"
+}

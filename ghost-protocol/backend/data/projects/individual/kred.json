@@ -1,0 +1,38 @@
+{
+  "category": "projects",
+  "subcategory": "kred",
+  "id": "kred",
+  "portfolio_id": "KRED-004",
+  "name": "KRED",
+  "full_title": "KRED — AI-powered Financial Intelligence Platform",
+  "project_type": "FULL-STACK",
+  "status": "AWARD WINNER",
+  "year": "2026",
+  "description": "KRED is an AI-powered financial intelligence platform that analyzes user behavior and projects long-term financial outcomes through behavioral insights, life simulations, retirement planning, and an AI financial assistant, helping users make smarter financial decisions by visualizing future financial scenarios and personalized recommendations.",
+  "technologies": [
+    "Python",
+    "LangChain",
+    "FastAPI",
+    "React",
+    "JavaScript",
+    "HTML",
+    "CSS",
+    "SQL",
+    "AI Behavioral Analysis",
+    "Financial Intelligence"
+  ],
+  "domain": "Fintech",
+  "reported_outcome": "1st Place - Vashisht 3.0, IIITDM Kancheepuram.",
+  "award": "1st Place — FinTech Track, Vashisht Hackathon 3.0",
+  "achievements": [
+    "1st Place — FinTech Track, Vashisht Hackathon 3.0 (IIITDM Kancheepuram)",
+    "36-hour national-level hackathon",
+    "AI-powered life & financial intelligence engine"
+  ],
+  "collaborators": null,
+  "github_url": null,
+  "live_url": null,
+  "pypi_url": null,
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts + src/data/missions.ts"
+}

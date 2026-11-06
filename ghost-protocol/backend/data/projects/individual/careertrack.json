@@ -1,0 +1,39 @@
+{
+  "category": "projects",
+  "subcategory": "careertrack",
+  "id": "careertrack",
+  "portfolio_id": "CAREERTRACK-002",
+  "name": "CareerTrack",
+  "full_title": "CareerTrack — AI Career Intelligence Platform",
+  "project_type": "FULL-STACK",
+  "status": "DEPLOYED",
+  "year": "2024",
+  "description": "CareerTrack is an AI-powered career platform developed as an Initial Validation Prototype (IVP) to help students and early professionals succeed in today's competitive job market. The platform bridges the gap between academic learning and industry readiness by offering an all-in-one career assistant — mock interview analysis, ATS-optimized resumes, AI-curated portfolios, mental wellness tools, and seamless web & mobile sync.",
+  "technologies": [
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "FastAPI",
+    "Supabase",
+    "React Native",
+    "Clerk",
+    "TensorFlow",
+    "LangChain",
+    "Agno",
+    "LangGraph",
+    "Python",
+    "Docker"
+  ],
+  "domain": "Career/Tech",
+  "reported_outcome": "Prototype ready with live demo available.",
+  "award": null,
+  "achievements": [
+    "Initial Validation Prototype (IVP) — Live Demo Available"
+  ],
+  "collaborators": null,
+  "github_url": null,
+  "live_url": "https://careertrack-one.vercel.app/",
+  "pypi_url": null,
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts + src/data/missions.ts"
+}

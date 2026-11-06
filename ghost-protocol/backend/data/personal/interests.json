@@ -1,0 +1,14 @@
+{
+  "category": "personal_profile",
+  "subcategory": "interests",
+  "areas_of_interest": [
+    "Agentic AI",
+    "Generative AI",
+    "Retrieval-Augmented Generation (RAG)",
+    "Computer Vision",
+    "Machine Learning",
+    "Applied Research"
+  ],
+  "sports": "Represented the Tamil Nadu Cricket Association at under-14 and under-16 level.",
+  "source": "owner-provided (project guide) + portfolio:src/data/awards.ts"
+}

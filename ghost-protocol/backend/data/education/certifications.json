@@ -1,0 +1,64 @@
+{
+  "category": "education",
+  "subcategory": "certifications",
+  "document_mode": "single",
+  "items": [
+    {
+      "id": "cert_001",
+      "title": "Supervised Machine Learning: Regression & Classification",
+      "issuer": "Stanford University",
+      "topic_area": "ML_CORE",
+      "credential_url": "https://www.coursera.org/account/accomplishments/verify/9GVNN50P7N8L"
+    },
+    {
+      "id": "cert_002",
+      "title": "Advanced Machine Learning Algorithms",
+      "issuer": "Stanford University",
+      "topic_area": "ML_CORE",
+      "credential_url": "https://www.coursera.org/account/accomplishments/verify/0NFV3Z8CPQTH"
+    },
+    {
+      "id": "cert_003",
+      "title": "Machine Learning with Python",
+      "issuer": "IBM",
+      "topic_area": "ML_CORE",
+      "credential_url": "https://www.coursera.org/account/accomplishments/verify/VEAATSSJ9GTZ"
+    },
+    {
+      "id": "cert_004",
+      "title": "AWS Foundations: Machine Learning Basics",
+      "issuer": "Amazon Web Services",
+      "topic_area": "CLOUD",
+      "credential_url": null
+    },
+    {
+      "id": "cert_005",
+      "title": "Introduction to Generative AI",
+      "issuer": "Google",
+      "topic_area": "GEN_AI",
+      "credential_url": "https://www.coursera.org/account/accomplishments/verify/CHHZSU49ZX62"
+    },
+    {
+      "id": "cert_006",
+      "title": "Exploring Data Transformation with Google Cloud",
+      "issuer": "Google Cloud",
+      "topic_area": "CLOUD",
+      "credential_url": null
+    },
+    {
+      "id": "cert_007",
+      "title": "Introduction to Artificial Intelligence",
+      "issuer": "National Association of State Boards of Accountancy (NASBA)",
+      "topic_area": "AI",
+      "credential_url": "https://www.linkedin.com/learning/certificates/4c532a86715f06b712b98a306d551c332a12f20df747845e2a1cdfae511bef75"
+    },
+    {
+      "id": "cert_008",
+      "title": "Artificial Intelligence Foundations: Neural Networks",
+      "issuer": "National Association of State Boards of Accountancy (NASBA)",
+      "topic_area": "AI",
+      "credential_url": "https://www.linkedin.com/learning/certificates/ad99e55eba3899e932957d973c343406a933f757c77990a565e9db57b929ef54"
+    }
+  ],
+  "source": "portfolio:src/data/certifications.ts"
+}

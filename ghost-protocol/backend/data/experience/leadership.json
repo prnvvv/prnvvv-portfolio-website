@@ -1,0 +1,60 @@
+{
+  "category": "experience",
+  "subcategory": "leadership",
+  "items": [
+    {
+      "id": "lead_1",
+      "position": "Chairperson",
+      "organization": "Open Source Programming Club (OSPC), VIT Chennai",
+      "location": "Chennai, India",
+      "start": "2025-01",
+      "end": "2026-12",
+      "current": true,
+      "responsibilities": [
+        "Led OSPC as Chairperson, guiding the club to win Best Technical Club Award at VIT Chennai",
+        "Organized technical events and workshops",
+        "Managed club operations and member engagement"
+      ]
+    },
+    {
+      "id": "lead_2",
+      "position": "Data Science Lead",
+      "organization": "IEEE Robotics and Automation Society, VIT Chennai",
+      "location": "Chennai, India",
+      "start": "2026-01",
+      "end": "2027-12",
+      "current": true,
+      "responsibilities": [
+        "Leading AI/ML initiatives and mentoring members",
+        "Organizing technical workshops on ML and robotics"
+      ]
+    },
+    {
+      "id": "lead_3",
+      "position": "Member Secretary",
+      "organization": "Student Council, VIT Chennai",
+      "location": "Chennai, India",
+      "start": "2026-01",
+      "end": "2027-12",
+      "current": true,
+      "responsibilities": [
+        "Representing students and coordinating institutional initiatives",
+        "Managing student council operations"
+      ]
+    },
+    {
+      "id": "lead_4",
+      "position": "Sports Secretary",
+      "organization": "P. S. Senior Secondary School",
+      "location": "Chennai, India",
+      "start": "2022-01",
+      "end": "2023-12",
+      "current": false,
+      "responsibilities": [
+        "Led school sports activities",
+        "Represented the institution as a cricketer and athlete"
+      ]
+    }
+  ],
+  "source": "portfolio:src/data/leadership.ts"
+}

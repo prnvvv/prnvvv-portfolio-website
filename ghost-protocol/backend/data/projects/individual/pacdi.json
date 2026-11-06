@@ -1,0 +1,33 @@
+{
+  "category": "projects",
+  "subcategory": "pacdi",
+  "id": "pacdi",
+  "portfolio_id": "PACDI-006",
+  "name": "PACDI",
+  "full_title": "PACDI — Adaptive Greenhouse Intelligence",
+  "project_type": "IoT",
+  "status": "PATENT FILED",
+  "year": "2024",
+  "description": "PACDI (Precision Adaptive Climate and Dosage Intelligence) is an IoT greenhouse management system with ML-driven climate optimization. Deploys stress detection models on ESP32-S3 edge nodes to monitor CO2, humidity, light, and soil conductivity. Integrates LLM-powered agronomic recommendations via MQTT-triggered advisory pipelines. Patent filed. Developed for deployment in controlled agricultural environments with sub-5% deviation from optimal growth parameter ranges.",
+  "technologies": [
+    "Python",
+    "TensorFlow",
+    "ESP32-S3",
+    "MQTT",
+    "FastAPI",
+    "React",
+    "SQLite",
+    "IoT",
+    "Sensor Fusion"
+  ],
+  "domain": "Agriculture",
+  "reported_outcome": "Patent Filed. Reduced water and energy overuse using ESP32-S3 based optimization.",
+  "award": null,
+  "achievements": [],
+  "collaborators": null,
+  "github_url": null,
+  "live_url": null,
+  "pypi_url": null,
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts + src/data/missions.ts"
+}

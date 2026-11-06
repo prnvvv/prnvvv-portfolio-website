@@ -1,0 +1,38 @@
+{
+  "category": "education",
+  "subcategory": "academic_details",
+  "document_mode": "single",
+  "items": [
+    {
+      "id": "edu_001",
+      "institution": "Vellore Institute of Technology",
+      "location": "Chennai, Tamil Nadu",
+      "degree": "B.Tech — Computer Science & Engineering",
+      "period": "2023 — 2027",
+      "score": "9.08 / 10",
+      "score_type": "CGPA",
+      "status": "ongoing"
+    },
+    {
+      "id": "edu_002",
+      "institution": "P.S. Senior Secondary School",
+      "location": "Chennai, Tamil Nadu",
+      "degree": "Class XII — Science Group",
+      "period": "2023",
+      "score": "97.2%",
+      "score_type": "Percentage",
+      "status": "completed"
+    },
+    {
+      "id": "edu_003",
+      "institution": "P.S. Senior Secondary School",
+      "location": "Chennai, Tamil Nadu",
+      "degree": "Class X",
+      "period": "2021",
+      "score": "91.8%",
+      "score_type": "Percentage",
+      "status": "completed"
+    }
+  ],
+  "source": "portfolio:src/data/education.ts"
+}

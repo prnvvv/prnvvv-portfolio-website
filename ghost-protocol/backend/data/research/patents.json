@@ -1,0 +1,45 @@
+{
+  "category": "research",
+  "subcategory": "patents",
+  "document_mode": "single",
+  "summary": "4 patents in total on the portfolio: 1 published and 3 filed.",
+  "items": [
+    {
+      "id": "cropcore",
+      "title": "CropCore — AI Agricultural Intelligence Platform",
+      "status": "Published",
+      "patent_office": "Indian Patent Office",
+      "application_number": "202541067987",
+      "related_project": "cropcore",
+      "year": "2024"
+    },
+    {
+      "id": "discageai",
+      "title": "DiscAgeAI — Spinal Degeneration Assessment",
+      "status": "Filed",
+      "patent_office": "Indian Patent Office",
+      "application_number": null,
+      "related_project": "discageai",
+      "year": "2025"
+    },
+    {
+      "id": "pacdi",
+      "title": "PACDI — Adaptive Greenhouse Intelligence",
+      "status": "Filed",
+      "patent_office": null,
+      "application_number": null,
+      "related_project": "pacdi",
+      "year": "2024"
+    },
+    {
+      "id": "diagenc",
+      "title": "DiagEnc — Medical Image Encryption System",
+      "status": "Filed",
+      "patent_office": null,
+      "application_number": null,
+      "related_project": "diagenc",
+      "year": "2024"
+    }
+  ],
+  "source": "portfolio:src/data/projects.ts"
+}

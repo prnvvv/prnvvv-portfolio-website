@@ -1,0 +1,17 @@
+{
+  "category": "portfolio_general",
+  "subcategory": "about",
+  "title": "About Prannavakhanth and this portfolio",
+  "description": "This is the personal engineering portfolio of Prannavakhanth A. (GitHub: prnvvv). It presents him as an AI/ML Engineer, Software Developer and Researcher. The site is organised as an operator dossier with sections for skills, education, missions (projects), service record (work experience), certifications, achievements and leadership.",
+  "portfolio_sections": [
+    "Operator dossier and skill inventory",
+    "Education (academy records)",
+    "Missions (projects)",
+    "Service record (work experience)",
+    "Certifications (credentials vault)",
+    "Achievements (commendations)",
+    "Leadership and roles"
+  ],
+  "portfolio_website": "https://prnvvv-portfolio-website.vercel.app/",
+  "source": "portfolio:README.md + src/data/operatorData.ts"
+}

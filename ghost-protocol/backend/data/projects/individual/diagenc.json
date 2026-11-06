@@ -1,0 +1,30 @@
+{
+  "category": "projects",
+  "subcategory": "diagenc",
+  "id": "diagenc",
+  "portfolio_id": "DIAGENC-007",
+  "name": "DiagEnc",
+  "full_title": "DiagEnc — Medical Image Encryption System",
+  "project_type": "COMPUTER VISION",
+  "status": "PATENT FILED",
+  "year": "2024",
+  "description": "DiagEnc is a medical image security system that performs CNN-based fracture detection to identify diagnostically critical regions, then applies selective AES-256 encryption to those regions while maintaining lossless image quality. RSA-2048 handles key exchange. Preserves DICOM metadata integrity. Patent filed. Designed for hospital PACS integration with radiologist workflow in mind. Outperforms uniform encryption schemes in both security and computational overhead.",
+  "technologies": [
+    "Python",
+    "PyTorch",
+    "AES-RSA Encryption",
+    "Computer Vision",
+    "DICOM",
+    "OpenCV"
+  ],
+  "domain": "Healthcare",
+  "reported_outcome": "Patent Filed. 100% reconstruction quality with AES-RSA lossless encryption.",
+  "award": null,
+  "achievements": [],
+  "collaborators": null,
+  "github_url": null,
+  "live_url": null,
+  "pypi_url": null,
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts + src/data/missions.ts"
+}

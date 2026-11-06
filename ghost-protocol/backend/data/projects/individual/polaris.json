@@ -1,0 +1,32 @@
+{
+  "category": "projects",
+  "subcategory": "polaris",
+  "id": "polaris",
+  "portfolio_id": "POLARIS-010",
+  "name": "POLARIS",
+  "full_title": "POLARIS — Universal Agentic RAG Chatbot",
+  "project_type": "RAG/LLM",
+  "status": "COMPLETED",
+  "year": "2025",
+  "description": "POLARIS is a universal-grade agentic RAG system built on LangGraph orchestration with Groq inference for sub-second response times. Implements multi-query rewriting, semantic chunking, MMR-based retrieval, and structured citation generation. Features a nine-panel Streamlit dashboard with conversational memory, query analytics, and confidence visualization. ChromaDB vector store with hybrid BM25+dense retrieval. Supports PDF, DOCX, URL, and image ingestion via multimodal pipeline.",
+  "technologies": [
+    "Python",
+    "LangGraph",
+    "ChromaDB",
+    "Groq",
+    "LangChain",
+    "Streamlit",
+    "FastAPI",
+    "FAISS"
+  ],
+  "domain": null,
+  "reported_outcome": null,
+  "award": null,
+  "achievements": [],
+  "collaborators": null,
+  "github_url": null,
+  "live_url": null,
+  "pypi_url": null,
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts"
+}

@@ -1,0 +1,31 @@
+{
+  "category": "projects",
+  "subcategory": "discageai",
+  "id": "discageai",
+  "portfolio_id": "DISCAGEAI-005",
+  "name": "DiscAgeAI",
+  "full_title": "DiscAgeAI — Spinal Degeneration Assessment",
+  "project_type": "COMPUTER VISION",
+  "status": "PATENT FILED",
+  "year": "2025",
+  "description": "DiscAgeAI combines 3D CNN volumetric analysis of lumbar MRI scans with biomechanical metadata regression to predict intervertebral disc biological age and degeneration grade. Implements a ResNet-SE multi-task architecture with amplitude-aware training, test-time augmentation, and 5-fold ensemble scoring. Features a LangChain/Groq clinical narrative layer that generates structured radiological reports. Patent filed under Indian Patent Office. Dataset: private clinical collaboration with orthopaedic research partners.",
+  "technologies": [
+    "Python",
+    "PyTorch",
+    "OpenCV",
+    "NumPy",
+    "Matplotlib",
+    "LangChain",
+    "Groq"
+  ],
+  "domain": "Healthcare",
+  "reported_outcome": "Patent Filed. R² = 0.70 with 2.58-year MAE using 2.5D CNN sensor fusion.",
+  "award": null,
+  "achievements": [],
+  "collaborators": null,
+  "github_url": null,
+  "live_url": null,
+  "pypi_url": null,
+  "patent_url": null,
+  "source": "portfolio:src/data/projects.ts + src/data/missions.ts"
+}

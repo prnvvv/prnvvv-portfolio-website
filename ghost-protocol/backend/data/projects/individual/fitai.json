@@ -1,0 +1,15 @@
+{
+  "category": "projects",
+  "subcategory": "fitai",
+  "id": "fitai",
+  "name": "FitAI",
+  "project_type": "RAG/LLM",
+  "status": null,
+  "year": null,
+  "description": "FitAI is an agentic RAG assistant for gym-goers, with structured user context and a domain knowledge base.",
+  "technologies": [],
+  "github_url": null,
+  "live_url": null,
+  "note": "Only this brief description is available; detailed features and technology stack are not documented in the knowledge base.",
+  "source": "owner-provided (project guide)"
+}

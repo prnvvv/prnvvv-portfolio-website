@@ -1,0 +1,19 @@
+{
+  "category": "experience",
+  "subcategory": "professional_experience",
+  "items": [
+    {
+      "id": "exp_0",
+      "title": "Associate Software Developer",
+      "organization": "CBRE",
+      "unit": "Data Science Department",
+      "location": "India",
+      "period": "2026 – Present",
+      "current": true,
+      "description": "Working as an Associate Software Developer in the Data Science department, developing software and data-driven solutions in collaboration with engineering teams.",
+      "highlights": [],
+      "technologies": []
+    }
+  ],
+  "source": "portfolio:src/data/serviceRecord.ts"
+}
