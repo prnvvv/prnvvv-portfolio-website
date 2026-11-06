@@ -25,20 +25,37 @@ def create_app(settings: Settings | None = None, container: Container | None = N
     settings = settings or get_settings()
     configure_logging(settings.debug)
 
+    async def _init_in_background(app: FastAPI) -> None:
+        """Model download + first ingestion can take minutes on a small host; doing it after the port is
+        open lets the host's health check pass. /api/health reports "starting" and /api/chat answers
+        "not ready" until it finishes."""
+        try:
+            c = await asyncio.to_thread(build_container, settings)
+            await asyncio.to_thread(c.store.warmup)
+            app.state.container = c
+            log_event(logger, "backend ready", documents=len(c.store.documents()))
+        except Exception as e:  # keep serving /api/health so the failure is visible, never crash-loop silently
+            log_event(logger, "backend initialisation failed", level=logging.ERROR, error=type(e).__name__)
+
     @asynccontextmanager
     async def lifespan(app: FastAPI):
+        init_task = None
         if container is not None:
             app.state.container = container
+            log_event(logger, "backend ready", documents=len(container.store.documents()))
         else:
             settings.validate_runtime()  # fail fast with a clear message
-            app.state.container = await asyncio.to_thread(build_container, settings)
-            await asyncio.to_thread(app.state.container.store.warmup)
-        log_event(logger, "backend ready", documents=len(app.state.container.store.documents()))
+            app.state.container = None
+            init_task = asyncio.create_task(_init_in_background(app))
         yield
-        getattr(app.state.container.store, "close", lambda: None)()
-        llm = getattr(app.state.container, "llm", None)
-        if llm is not None and hasattr(llm, "aclose"):
-            await llm.aclose()
+        if init_task is not None and not init_task.done():
+            init_task.cancel()
+        c = getattr(app.state, "container", None)
+        if c is not None:
+            getattr(c.store, "close", lambda: None)()
+            llm = getattr(c, "llm", None)
+            if llm is not None and hasattr(llm, "aclose"):
+                await llm.aclose()
 
     app = FastAPI(
         title="Portfolio RAG Assistant",
