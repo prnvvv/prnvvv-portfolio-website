@@ -55,7 +55,7 @@ def main() -> int:
     if not store.load():
         print("No index. Run scripts/ingest.py first.")
         return 1
-    r = Retriever(store, Embedder(s.embedding_model))
+    r = Retriever(store, Embedder(s.embedding_model, s.hf_token))
     hit = 0
     in_best = []
     print(f"threshold={s.similarity_threshold}\n--- in-scope ---")

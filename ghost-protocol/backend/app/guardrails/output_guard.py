@@ -14,7 +14,7 @@ from app.rag.reranker import tokens
 MAX_ANSWER_CHARS = 3500
 
 LEAK_PATTERNS = [
-    re.compile(r"gsk_[A-Za-z0-9]{8,}|sk-[A-Za-z0-9]{16,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----"),
+    re.compile(r"gsk_[A-Za-z0-9]{8,}|hf_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{16,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----"),
     re.compile(r"\b(?:GROQ_API_KEY|GROQ_MODEL|ADMIN_TOKEN|ALLOWED_ORIGINS|FAISS_INDEX_PATH|FAISS_METADATA_PATH|EMBEDDING_MODEL|SIMILARITY_THRESHOLD)\b"),
     re.compile(r"(?i)\b(?:system\s+prompt|system\s+instructions?|hidden\s+instructions?|my\s+(?:initial\s+)?instructions|my\s+rules|my\s+programming|developer\s+message)\b"),
     re.compile(r"(?i)only\s+responsibility\s+is\s+to\s+answer|not\s+a\s+general-purpose\s+ai\s+assistant"),

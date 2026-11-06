@@ -34,6 +34,9 @@ class Settings(BaseSettings):
 
     # --- Embeddings / FAISS ---
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    # Hugging Face Inference Providers token. When set, embeddings are computed remotely (low memory);
+    # when empty, the model runs locally via sentence-transformers.
+    hf_token: str = ""
     faiss_index_path: str = "vector_store/faiss.index"
     faiss_metadata_path: str = "vector_store/metadata.json"
     data_dir: str = "data"
@@ -75,7 +78,7 @@ class Settings(BaseSettings):
             return [o.strip().rstrip("/") for o in v.split(",") if o.strip()]
         return v
 
-    @field_validator("groq_api_key", "groq_model", "admin_token", mode="before")
+    @field_validator("groq_api_key", "groq_model", "admin_token", "hf_token", mode="before")
     @classmethod
     def _strip(cls, v):
         return v.strip() if isinstance(v, str) else v
