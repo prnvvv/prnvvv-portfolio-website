@@ -36,7 +36,7 @@ class Container:
 
 
 def build_container(settings: Settings, llm: ChatLLM | None = None, embedder: Embedder | None = None) -> Container:
-    embedder = embedder or Embedder(settings.embedding_model)
+    embedder = embedder or Embedder(settings.embedding_model, settings.hf_token)
     store = VectorStore(settings.index_path, settings.metadata_path, settings.embedding_model)
     ingestion = IngestionService(settings, embedder, store)
 

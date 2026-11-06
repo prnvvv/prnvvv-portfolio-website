@@ -178,3 +178,34 @@ def test_real_index_builds(real_container):
     assert real_container.store.ready
     cats = {d["category"] for d in real_container.store.documents()}
     assert {"projects", "skills", "education", "experience", "achievements", "research", "contact", "personal_profile"} <= cats
+
+
+def test_remote_embedder_batches_normalises_and_falls_back(monkeypatch):
+    import numpy as np
+    from app.rag.embeddings import Embedder
+
+    calls = []
+
+    class FakeClient:
+        def feature_extraction(self, text, model=None, normalize=None):
+            calls.append(text)
+            if isinstance(text, list):
+                return np.full((len(text), 4), 2.0, dtype="float32")
+            return np.full((4,), 2.0, dtype="float32")
+
+    e = Embedder("m", hf_token="hf_dummy")
+    e._client = FakeClient()
+    v = e.encode(["a", "b", "c"])
+    assert v.shape == (3, 4) and v.dtype == np.float32
+    assert np.allclose(np.linalg.norm(v, axis=1), 1.0)
+    assert e.dimension == 4 and e.encode_query("x").shape == (1, 4)
+
+    class BadBatch(FakeClient):  # provider returns the wrong number of rows for lists
+        def feature_extraction(self, text, model=None, normalize=None):
+            if isinstance(text, list):
+                return np.ones((1, 4), dtype="float32")
+            return super().feature_extraction(text, model, normalize)
+
+    e2 = Embedder("m", hf_token="hf_dummy")
+    e2._client = BadBatch()
+    assert e2.encode(["a", "b"]).shape == (2, 4)

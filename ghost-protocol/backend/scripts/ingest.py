@@ -15,7 +15,7 @@ from app.services.ingestion_service import IngestionService
 def main(full_rebuild: bool = False) -> int:
     settings = get_settings()
     configure_logging(settings.debug)
-    embedder = Embedder(settings.embedding_model)
+    embedder = Embedder(settings.embedding_model, settings.hf_token)
     store = VectorStore(settings.index_path, settings.metadata_path, settings.embedding_model)
     stats = IngestionService(settings, embedder, store).ingest(full_rebuild=full_rebuild)
     print(

@@ -1,4 +1,6 @@
 # Portfolio RAG backend.
+# Embeddings run on Hugging Face Inference Providers (set HF_TOKEN) so torch is not needed in production.
+# For offline/local embeddings also install requirements-local.txt (and leave HF_TOKEN empty).
 # Supported Python: 3.10 - 3.13  (faiss-cpu and torch publish no wheels for 3.14+, so installing on
 # 3.14/3.15 fails at "faiss-cpu"; create the venv with 3.10-3.13 instead, e.g.  py -3.10 -m venv .venv).
 # Ranges are anchored on the versions the test-suite passes with; "~=" allows compatible patch/minor updates.
@@ -10,7 +12,7 @@ pydantic-settings~=2.4
 python-dotenv~=1.0
 groq>=1.0,<2
 faiss-cpu~=1.9
-sentence-transformers>=3.0,<7
+huggingface_hub>=0.30
 numpy>=1.26,<3
 
 # tests
