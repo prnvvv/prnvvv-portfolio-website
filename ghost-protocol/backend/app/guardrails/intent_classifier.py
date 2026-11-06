@@ -65,6 +65,7 @@ class Classification:
     aggregate: bool = False
     smalltalk: str | None = None  # "greeting" | "capabilities" | "thanks"
     overview: bool = False  # vague "summary / about him" request; retrieval uses OVERVIEW_QUERY
+    hint: str | None = None  # broader retrieval query for vague requests (overview / aspiration)
 
     @property
     def allowed(self) -> bool:
@@ -133,6 +134,10 @@ AGGREGATE = _rx(r"\b(?:all|every|each|list|compare|comparison|contrast|differenc
 
 OVERVIEW = _rx(r"\b(?:summary|summari[sz]e|summarisation|overview|tl;?dr|gist|rundown|run\s*down|highlights?|in\s+a\s+nutshell|in\s+short|brief(?:ly)?|short\s+(?:intro|bio)|quick\s+(?:intro|bio|look)|about\s+(?:him|himself|prannavakhanth|prannav|prnvvv)|who\s+(?:is|'s)\s+(?:he|this|prannavakhanth|prannav|prnvvv)|tell\s+me\s+about\s+(?:him|himself|prannavakhanth|prannav|prnvvv)|introduce\s+(?:him|himself)|intro|bio(?:graphy)?|profile)\b")
 EXTERNAL_MATERIAL = _rx(r"\b(?:article|book|movie|film|news|paper\s+i|text|passage|document|video|chapter|story|podcast|this\s+(?:link|url|pdf))\b")
+# "what is his aim / goal / vision / future plans": the knowledge base states focus areas rather than explicit goals
+ASPIRATION = _rx(r"\b(?:aims?|aiming|goals?|objectives?|vision|ambitions?|ambitious|aspirations?|aspire[sd]?|dreams?|plans?|future|motivations?|motivated|passions?|purpose|mission|drives?|driven|long[\s-]term|looking\s+(?:for|to)|hopes?\s+to|wants?\s+to|career\s+(?:goals?|path|plans?|direction))\b")
+ASPIRATION_QUERY = ("Prannavakhanth focus areas interests specialization career direction about "
+                    "agentic AI generative AI research leadership experience")
 # Retrieval query used for vague overview requests (the raw text is too weak for semantic search)
 OVERVIEW_QUERY = "Prannavakhanth summary overview background education experience skills projects achievements"
 
@@ -175,6 +180,12 @@ def classify_intent(message: str, entities: list[str] | None = None, has_history
             # visitor is not asking the assistant to produce something (code, essays, maths ...).
             if not owner_ref or CREATIVE_VERBS.search(low):
                 return Classification(Intent.OUT_OF_SCOPE, [Intent.OUT_OF_SCOPE], "hard_oos")
+
+    # 3a) aim / goal / vision questions -> describe his documented focus and direction
+    if ASPIRATION.search(low) and not EXTERNAL_MATERIAL.search(low):
+        if anchored or _word_count(low) <= 3:
+            return Classification(Intent.PERSONAL_PROFILE, [Intent.PERSONAL_PROFILE, Intent.PORTFOLIO_GENERAL],
+                                  "aspiration", entities=entities, aggregate=True, overview=True, hint=ASPIRATION_QUERY)
 
     # 3b) lazy overview requests ("his summary", "tell me about him", "gimme the tldr") ----------
     # Answer these with a broad profile overview instead of asking for clarification.
