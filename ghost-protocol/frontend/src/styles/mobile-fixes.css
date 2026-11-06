@@ -466,22 +466,48 @@
     right: calc(8px + env(safe-area-inset-right, 0px)) !important;
     max-width: calc(100vw - 16px);
   }
-  .header-social-icons > div {
+  .header-social-icons > div:not(.theme-toggle) {
     gap: 2px !important;
     padding: 3px !important;
     height: var(--m-bar-h);
     box-sizing: border-box;
     align-items: center;
   }
-  .header-social-icons .theme-toggle { padding: 1px; margin-right: 2px; }
-  .header-social-icons .theme-toggle .theme-toggle__btn {
-    width: 32px !important;
-    height: 32px;
-    padding: 0;
-    justify-content: center;
+
+  /* ── Commander / Noir: ONE segmented control (shared container, equal segments) ── */
+  .theme-toggle {
+    display: inline-flex;
+    align-items: stretch;
+    gap: 0;
+    padding: 2px;
+    margin-right: 4px;
+    box-sizing: border-box;
+    border-radius: 9px;
   }
-  .header-social-icons .theme-toggle .theme-toggle__btn span { display: none; }
-  .header-social-icons .theme-toggle .theme-toggle__btn svg { width: 14px; height: 14px; }
+  .theme-toggle .theme-toggle__btn,
+  .header-social-icons .theme-toggle .theme-toggle__btn {
+    flex: 1 1 auto;
+    width: auto !important;
+    min-width: 36px !important;
+    height: 32px;
+    padding: 0 8px !important;
+    gap: 5px !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 0 !important;                 /* no per-segment outline inside the shared border */
+    border-radius: 7px;
+    background: transparent !important;
+    line-height: 1;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+  }
+  .theme-toggle .theme-toggle__btn svg { width: 13px; height: 13px; flex: none; display: block; }
+  .theme-toggle .theme-toggle__btn span { display: inline !important; line-height: 1; }
+  /* selected = filled segment; unselected = plain text on the shared track */
+  .theme-toggle .theme-toggle__btn[aria-checked="true"] { background: rgba(0, 230, 122, 0.16) !important; }
+  html[data-theme="noir"] .theme-toggle .theme-toggle__btn[aria-checked="true"] { background: #1f1f1f !important; }
   .header-social-icons a {
     width: 32px !important;
     height: 32px !important;
@@ -531,10 +557,17 @@
   }
 }
 
-/* 320–359px: tighten once more so the cluster never meets the ghost button */
+/* 360–399px: slightly tighter labels so COMMANDER never touches the segment edge */
+@media (min-width: 360px) and (max-width: 399px) {
+  .theme-toggle .theme-toggle__btn,
+  .header-social-icons .theme-toggle .theme-toggle__btn { padding: 0 6px !important; gap: 4px !important; letter-spacing: 0.04em; font-size: 8.5px; }
+  .theme-toggle { margin-right: 2px; }
+}
+
+/* <360px: icon-only segments so the whole row fits beside the ghost button */
 @media (max-width: 359px) {
-  .header-social-icons .theme-toggle .theme-toggle__btn,
-  .header-social-icons a { width: 30px !important; }
-  .header-social-icons .theme-toggle .theme-toggle__btn { height: 30px; }
-  .header-social-icons a { height: 30px !important; }
+  .theme-toggle .theme-toggle__btn span { display: none !important; }
+  .theme-toggle .theme-toggle__btn,
+  .header-social-icons .theme-toggle .theme-toggle__btn { min-width: 32px !important; padding: 0 !important; }
+  .header-social-icons a { width: 30px !important; height: 30px !important; min-width: 30px !important; }
 }
