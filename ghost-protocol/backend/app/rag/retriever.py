@@ -1,10 +1,9 @@
-"""Dense retrieval (FAISS) + project-entity lookup, producing reranked candidates."""
+"""Dense retrieval (ChromaDB) + project-entity lookup, producing reranked candidates."""
 from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
 
-from app.rag.embeddings import Embedder
 from app.rag.reranker import Candidate, rerank
 from app.rag.vector_store import VectorStore
 
@@ -27,9 +26,8 @@ class RetrievalResult:
 
 
 class Retriever:
-    def __init__(self, store: VectorStore, embedder: Embedder):
+    def __init__(self, store: VectorStore):
         self.store = store
-        self.embedder = embedder
         self._alias_map: dict[str, tuple[str, str]] = {}
         self.refresh()
 
@@ -63,8 +61,7 @@ class Retriever:
                  entity_text: str | None = None) -> RetrievalResult:
         if not self.store.ready:
             return RetrievalResult()
-        qvec = self.embedder.encode_query(query)
-        hits = self.store.search(qvec, MAX_SCAN)
+        hits = self.store.search(query, MAX_SCAN)
         cands = [Candidate(h.text, h.score, h.metadata, h.vector_id) for h in hits]
         ents = self.find_entities(entity_text if entity_text is not None else query)
         doc_ids = {d for d, _ in ents}

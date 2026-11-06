@@ -10,7 +10,6 @@ import sys
 
 from app.config import get_settings
 from app.guardrails.intent_classifier import classify_intent
-from app.rag.embeddings import Embedder
 from app.rag.retriever import Retriever
 from app.rag.vector_store import VectorStore
 
@@ -51,11 +50,11 @@ OUT_OF_SCOPE = [
 
 def main() -> int:
     s = get_settings()
-    store = VectorStore(s.index_path, s.metadata_path, s.embedding_model)
-    if not store.load():
+    store = VectorStore(s.chroma_path, s.chroma_collection_name)
+    if not store.ready:
         print("No index. Run scripts/ingest.py first.")
         return 1
-    r = Retriever(store, Embedder(s.embedding_model, s.hf_token))
+    r = Retriever(store)
     hit = 0
     in_best = []
     print(f"threshold={s.similarity_threshold}\n--- in-scope ---")

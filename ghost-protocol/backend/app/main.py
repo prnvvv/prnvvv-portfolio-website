@@ -32,9 +32,10 @@ def create_app(settings: Settings | None = None, container: Container | None = N
         else:
             settings.validate_runtime()  # fail fast with a clear message
             app.state.container = await asyncio.to_thread(build_container, settings)
-            await asyncio.to_thread(app.state.container.embedder.warmup)
+            await asyncio.to_thread(app.state.container.store.warmup)
         log_event(logger, "backend ready", documents=len(app.state.container.store.documents()))
         yield
+        getattr(app.state.container.store, "close", lambda: None)()
         llm = getattr(app.state.container, "llm", None)
         if llm is not None and hasattr(llm, "aclose"):
             await llm.aclose()

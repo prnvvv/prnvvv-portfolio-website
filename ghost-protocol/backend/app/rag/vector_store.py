@@ -1,172 +1,212 @@
-"""FAISS vector store with a JSON metadata sidecar.
+"""ChromaDB vector store (persistent, cosine distance).
 
-* Index: ``IndexIDMap2(IndexFlatIP)`` over L2-normalised vectors (inner product == cosine).
-  ID-mapping lets us delete the vectors of a changed/removed file without a full rebuild.
-* Sidecar (JSON, not pickle - nothing here needs arbitrary object deserialisation):
-  records (vector id -> chunk text + metadata), per-file SHA-256 hashes, embedding model, dimension.
+Embeddings are NOT produced by this project: the collection is created without an
+``embedding_function`` so ChromaDB applies its own built-in default (ONNX all-MiniLM-L6-v2, run
+locally by onnxruntime) to both documents (``upsert``) and queries (``query_texts``).
+
+Chunk text and metadata are persisted in Chroma. A read-through copy (``records``) is kept in
+memory (the corpus is a few hundred chunks) for the vocabulary / entity lookups and so a hit is
+always resolved from one consistent snapshot. ``file_sha256`` is stored in each chunk's metadata,
+which is how unchanged files are skipped on the next ingestion without any sidecar file.
 """
 from __future__ import annotations
 
 import json
-import os
 import re
-import tempfile
 import threading
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-import faiss
-import numpy as np
+import chromadb
 
 from app.rag.chunker import Chunk
 
-FORMAT_VERSION = 1
+JSON_PREFIX = "__json__"      # Chroma metadata values must be scalars; lists/dicts are stored as JSON strings
+HASH_KEY = "file_sha256"
+UPSERT_BATCH = 64             # bounded batches keep peak memory low while embedding
 
 
-class IndexCorruptError(RuntimeError):
-    pass
+class VectorStoreError(RuntimeError):
+    """Chroma is unavailable, the path is unusable, or an embedding/query call failed."""
+
+
+class IndexCorruptError(VectorStoreError):
+    """Kept for backwards compatibility with callers that handle an unusable index."""
 
 
 @dataclass
 class SearchHit:
-    vector_id: int
-    score: float
+    vector_id: str
+    score: float          # cosine similarity (1 - cosine distance)
     text: str
     metadata: dict[str, Any]
+    distance: float = 0.0
+
+
+def _encode_meta(md: dict[str, Any]) -> dict[str, Any]:
+    out: dict[str, Any] = {}
+    for k, v in md.items():
+        if v is None:
+            continue
+        if isinstance(v, (str, int, float, bool)):
+            out[k] = v
+        else:
+            out[JSON_PREFIX + k] = json.dumps(v, ensure_ascii=False)
+    return out
+
+
+def _decode_meta(md: dict[str, Any] | None) -> dict[str, Any]:
+    out: dict[str, Any] = {}
+    for k, v in (md or {}).items():
+        if k.startswith(JSON_PREFIX):
+            out[k[len(JSON_PREFIX):]] = json.loads(v)
+        else:
+            out[k] = v
+    return out
 
 
 class VectorStore:
-    def __init__(self, index_path: Path, metadata_path: Path, embedding_model: str, dim: int | None = None):
-        self.index_path = Path(index_path)
-        self.metadata_path = Path(metadata_path)
-        self.embedding_model = embedding_model
-        self.dim = dim
-        self.index: faiss.Index | None = None
-        self.records: dict[int, dict[str, Any]] = {}
-        self.file_hashes: dict[str, str] = {}
-        self.next_id = 0
+    def __init__(self, persist_dir: Path | str, collection_name: str = "portfolio_knowledge"):
+        self.persist_dir = Path(persist_dir)
+        self.collection_name = collection_name
+        self.records: dict[str, dict[str, Any]] = {}   # chunk id -> {chunk_id, text, metadata}
         self._lock = threading.RLock()
         self._vocab: tuple[int, frozenset[str]] | None = None
+        self._version = 0
+        try:
+            self.persist_dir.mkdir(parents=True, exist_ok=True)
+            self.client = chromadb.PersistentClient(path=str(self.persist_dir))
+            self.collection = self._open_collection()
+        except Exception as e:
+            raise VectorStoreError(f"cannot open ChromaDB at '{self.persist_dir}': {type(e).__name__}") from e
+        self.load()
+
+    def _open_collection(self):
+        # No embedding_function argument: ChromaDB's default embedding behaviour applies.
+        return self.client.get_or_create_collection(
+            name=self.collection_name, metadata={"hnsw:space": "cosine"}
+        )
 
     # ---- state ---------------------------------------------------------
     @property
     def ready(self) -> bool:
-        return self.index is not None and self.index.ntotal > 0
+        return bool(self.records)
 
     @property
     def size(self) -> int:
-        return int(self.index.ntotal) if self.index is not None else 0
+        return len(self.records)
 
-    def _new_index(self, dim: int) -> faiss.Index:
-        return faiss.IndexIDMap2(faiss.IndexFlatIP(dim))
+    @property
+    def file_hashes(self) -> dict[str, str]:
+        out: dict[str, str] = {}
+        for r in self.records.values():
+            md = r["metadata"]
+            if md.get("rel_path") and md.get(HASH_KEY):
+                out[md["rel_path"]] = md[HASH_KEY]
+        return out
 
-    def reset(self, dim: int) -> None:
-        with self._lock:
-            self.dim = dim
-            self.index = self._new_index(dim)
-            self.records = {}
-            self.file_hashes = {}
-            self.next_id = 0
-
-    # ---- persistence ---------------------------------------------------
     def load(self) -> bool:
-        """Loads index + metadata from disk. Returns False when nothing has been built yet."""
-        if not self.index_path.exists() or not self.metadata_path.exists():
-            return False
+        """(Re)loads the in-memory snapshot from the persisted collection."""
         with self._lock:
             try:
-                meta = json.loads(self.metadata_path.read_text(encoding="utf-8"))
-                index = faiss.read_index(str(self.index_path))
-            except Exception as e:  # corrupted or partial files
-                raise IndexCorruptError(f"cannot read vector store: {type(e).__name__}") from e
-            if meta.get("version") != FORMAT_VERSION:
-                raise IndexCorruptError("vector store format version mismatch; rebuild the index")
-            if meta.get("embedding_model") != self.embedding_model:
-                raise IndexCorruptError(
-                    "index was built with a different embedding model; run scripts/rebuild_index.py"
-                )
-            records = {int(k): v for k, v in meta["records"].items()}
-            if index.ntotal != len(records):
-                raise IndexCorruptError("index and metadata are out of sync; rebuild the index")
-            self.index, self.records = index, records
-            self.dim = int(meta["dim"])
-            self.file_hashes = dict(meta.get("file_hashes", {}))
-            self.next_id = int(meta.get("next_id", max(records, default=-1) + 1))
-        return True
-
-    def save(self) -> None:
-        with self._lock:
-            if self.index is None:
-                raise IndexCorruptError("nothing to save")
-            self.index_path.parent.mkdir(parents=True, exist_ok=True)
-            meta = {
-                "version": FORMAT_VERSION,
-                "embedding_model": self.embedding_model,
-                "dim": self.dim,
-                "next_id": self.next_id,
-                "file_hashes": self.file_hashes,
-                "records": {str(k): v for k, v in self.records.items()},
+                got = self.collection.get(include=["documents", "metadatas"])
+            except Exception as e:
+                raise VectorStoreError(f"cannot read collection: {type(e).__name__}") from e
+            self.records = {
+                i: {"chunk_id": i, "text": d, "metadata": _decode_meta(m)}
+                for i, d, m in zip(got["ids"], got["documents"], got["metadatas"])
             }
-            self._atomic_write(self.metadata_path, json.dumps(meta, ensure_ascii=False).encode("utf-8"))
-            tmp_idx = self.index_path.with_suffix(self.index_path.suffix + ".tmp")
-            faiss.write_index(self.index, str(tmp_idx))
-            os.replace(tmp_idx, self.index_path)
+            self._version += 1
+            return self.ready
 
-    @staticmethod
-    def _atomic_write(path: Path, data: bytes) -> None:
-        fd, tmp = tempfile.mkstemp(dir=path.parent, suffix=".tmp")
+    def reset(self) -> None:
+        """Drops and recreates the collection (used by a full rebuild)."""
+        with self._lock:
+            try:
+                self.client.delete_collection(self.collection_name)
+                self.collection = self._open_collection()
+            except Exception as e:
+                raise VectorStoreError(f"cannot reset collection: {type(e).__name__}") from e
+            self.records = {}
+            self._version += 1
+
+    def close(self) -> None:
         try:
-            with os.fdopen(fd, "wb") as f:
-                f.write(data)
-            os.replace(tmp, path)
-        except BaseException:
-            Path(tmp).unlink(missing_ok=True)
-            raise
+            from chromadb.api.shared_system_client import SharedSystemClient
+
+            SharedSystemClient.clear_system_cache()
+        except Exception:  # pragma: no cover - best effort
+            pass
+
+    def warmup(self) -> None:
+        """Forces ChromaDB to load its default embedding model so the first user query is fast."""
+        if self.ready:
+            self.collection.query(query_texts=["warmup"], n_results=1)
 
     # ---- mutation ------------------------------------------------------
-    def add_chunks(self, chunks: list[Chunk], vectors: np.ndarray) -> int:
-        if len(chunks) != len(vectors):
-            raise ValueError("chunks and vectors length mismatch")
-        if not chunks:
-            return 0
+    def replace_file(self, rel_path: str, chunks: list[Chunk], sha256: str) -> tuple[int, int]:
+        """Upserts `chunks` of one source file, then removes its stale chunks.
+
+        Upsert-then-prune means an embedding failure leaves the old chunks intact.
+        Returns (chunks written, stale chunks removed)."""
         with self._lock:
-            if self.index is None:
-                self.reset(int(vectors.shape[1]))
-            if vectors.shape[1] != self.dim:
-                raise ValueError("embedding dimension mismatch; rebuild the index")
-            ids = np.arange(self.next_id, self.next_id + len(chunks), dtype="int64")
-            self.index.add_with_ids(vectors, ids)
-            for vid, ch in zip(ids.tolist(), chunks):
-                self.records[vid] = {"chunk_id": ch.chunk_id, "text": ch.text, "metadata": ch.metadata}
-            self.next_id += len(chunks)
-        return len(chunks)
+            old_ids = {i for i, r in self.records.items() if r["metadata"].get("rel_path") == rel_path}
+            new_ids = {c.chunk_id for c in chunks}
+            try:
+                for i in range(0, len(chunks), UPSERT_BATCH):
+                    batch = chunks[i:i + UPSERT_BATCH]
+                    self.collection.upsert(
+                        ids=[c.chunk_id for c in batch],
+                        documents=[c.text for c in batch],
+                        metadatas=[_encode_meta({**c.metadata, HASH_KEY: sha256}) for c in batch],
+                    )
+                stale = sorted(old_ids - new_ids)
+                for i in range(0, len(stale), 200):
+                    self.collection.delete(ids=stale[i:i + 200])
+            except Exception as e:
+                raise VectorStoreError(f"upsert failed: {type(e).__name__}") from e
+            for i in stale:
+                self.records.pop(i, None)
+            for c in chunks:
+                self.records[c.chunk_id] = {
+                    "chunk_id": c.chunk_id, "text": c.text, "metadata": {**c.metadata, HASH_KEY: sha256},
+                }
+            self._version += 1
+            return len(chunks), len(old_ids)
 
     def remove_file(self, rel_path: str) -> int:
         with self._lock:
-            ids = [vid for vid, r in self.records.items() if r["metadata"].get("rel_path") == rel_path]
-            if ids and self.index is not None:
-                self.index.remove_ids(np.array(ids, dtype="int64"))
-                for vid in ids:
-                    self.records.pop(vid, None)
-            self.file_hashes.pop(rel_path, None)
+            ids = [i for i, r in self.records.items() if r["metadata"].get("rel_path") == rel_path]
+            try:
+                for i in range(0, len(ids), 200):
+                    self.collection.delete(ids=ids[i:i + 200])
+            except Exception as e:
+                raise VectorStoreError(f"delete failed: {type(e).__name__}") from e
+            for i in ids:
+                self.records.pop(i, None)
+            self._version += 1
             return len(ids)
 
     # ---- query ---------------------------------------------------------
-    def search(self, query_vec: np.ndarray, k: int) -> list[SearchHit]:
+    def search(self, query: str, k: int, where: dict[str, Any] | None = None) -> list[SearchHit]:
+        """Top-k chunks for `query` (Chroma embeds the query text itself). `where` filters on metadata."""
         with self._lock:
-            if self.index is None or self.index.ntotal == 0:
+            n = len(self.records)
+            if n == 0:
                 return []
-            k = max(1, min(k, self.index.ntotal))
-            scores, ids = self.index.search(np.ascontiguousarray(query_vec, dtype="float32"), k)
-            hits = []
-            for score, vid in zip(scores[0].tolist(), ids[0].tolist()):
-                if vid < 0:
+            try:
+                res = self.collection.query(
+                    query_texts=[query], n_results=max(1, min(k, n)), where=where, include=["distances"]
+                )
+            except Exception as e:
+                raise VectorStoreError(f"query failed: {type(e).__name__}") from e
+            hits: list[SearchHit] = []
+            for cid, dist in zip(res["ids"][0], res["distances"][0]):
+                rec = self.records.get(cid)
+                if rec is None:
                     continue
-                rec = self.records.get(vid)
-                if rec is None:  # should be impossible after load() validation
-                    continue
-                hits.append(SearchHit(vid, float(score), rec["text"], rec["metadata"]))
+                hits.append(SearchHit(cid, 1.0 - float(dist), rec["text"], rec["metadata"], float(dist)))
             return hits
 
     def documents(self) -> list[dict[str, Any]]:
@@ -181,7 +221,7 @@ class VectorStore:
     def vocabulary(self) -> frozenset[str]:
         """Lower-cased words appearing anywhere in the indexed knowledge (cached until the index changes)."""
         with self._lock:
-            key = self.next_id * 1_000_003 + len(self.records)
+            key = self._version * 1_000_003 + len(self.records)
             if self._vocab is None or self._vocab[0] != key:
                 words: set[str] = set()
                 for r in self.records.values():

@@ -5,5 +5,14 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+# Legacy FAISS index (kept until the ChromaDB migration is validated, then removable)
 vector_store/*
 !vector_store/.gitkeep
+
+# ChromaDB persistent storage + model caches
+chroma_data/
+data/chroma/
+chroma/
+.cache/
+onnx_models/
+*.tmp

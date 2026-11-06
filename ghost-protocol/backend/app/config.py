@@ -32,13 +32,10 @@ class Settings(BaseSettings):
     groq_timeout_seconds: float = Field(20.0, gt=0)
     groq_max_retries: int = Field(1, ge=0, le=5)
 
-    # --- Embeddings / FAISS ---
-    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
-    # Hugging Face Inference Providers token. When set, embeddings are computed remotely (low memory);
-    # when empty, the model runs locally via sentence-transformers.
-    hf_token: str = ""
-    faiss_index_path: str = "vector_store/faiss.index"
-    faiss_metadata_path: str = "vector_store/metadata.json"
+    # --- Vector database (ChromaDB; embeddings use ChromaDB's built-in default, no key/model needed) ---
+    vector_db: str = "chroma"
+    chroma_persist_directory: str = "chroma_data"
+    chroma_collection_name: str = "portfolio_knowledge"
     data_dir: str = "data"
 
     # --- API ---
@@ -78,7 +75,7 @@ class Settings(BaseSettings):
             return [o.strip().rstrip("/") for o in v.split(",") if o.strip()]
         return v
 
-    @field_validator("groq_api_key", "groq_model", "admin_token", "hf_token", mode="before")
+    @field_validator("groq_api_key", "groq_model", "admin_token", mode="before")
     @classmethod
     def _strip(cls, v):
         return v.strip() if isinstance(v, str) else v
@@ -93,12 +90,8 @@ class Settings(BaseSettings):
         return self._resolve(self.data_dir)
 
     @property
-    def index_path(self) -> Path:
-        return self._resolve(self.faiss_index_path)
-
-    @property
-    def metadata_path(self) -> Path:
-        return self._resolve(self.faiss_metadata_path)
+    def chroma_path(self) -> Path:
+        return self._resolve(self.chroma_persist_directory)
 
     @property
     def admin_enabled(self) -> bool:
@@ -117,6 +110,10 @@ class Settings(BaseSettings):
                 f"GROQ_MODEL '{self.groq_model}' is not a chat model (safety/speech models reject chat requests with HTTP 400). "
                 "Use a chat model such as openai/gpt-oss-120b."
             )
+        if self.vector_db != "chroma":
+            problems.append("VECTOR_DB must be 'chroma' (the only supported vector database).")
+        if not self.chroma_collection_name:
+            problems.append("CHROMA_COLLECTION_NAME is empty.")
         if not self.allowed_origins:
             problems.append("ALLOWED_ORIGINS is empty (comma-separated list of portfolio origins).")
         if "*" in self.allowed_origins:

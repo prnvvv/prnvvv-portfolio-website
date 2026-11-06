@@ -41,7 +41,7 @@ ghost-protocol/frontend/src/
 ## AI Assistant (RAG chatbot)
 
 A floating chat widget (bottom-right on every page) answers questions about the portfolio owner only. It is backed by
-`ghost-protocol/backend/`: FastAPI + FAISS + local Sentence-Transformers embeddings + Groq, with layered guardrails.
+`ghost-protocol/backend/`: FastAPI + ChromaDB (built-in local embeddings) + Groq, with layered guardrails.
 The knowledge base is `ghost-protocol/backend/data/*.json`; the widget takes its colours from the existing Commander / Noir
 theme tokens. Full documentation: [`ghost-protocol/backend/README.md`](ghost-protocol/backend/README.md).
 
@@ -51,7 +51,7 @@ cd ghost-protocol/backend
 python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scriptsctivate
 pip install -r requirements.txt
 cp .env.example .env                                   # set GROQ_API_KEY
-python scripts/ingest.py                               # build the FAISS index (also auto-built on first start)
+python scripts/ingest.py                               # build the ChromaDB collection (also auto-built on first start)
 uvicorn app.main:app --port 8000
 
 # 2. frontend (dev uses http://127.0.0.1:8000 automatically)

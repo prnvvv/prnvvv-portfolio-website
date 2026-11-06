@@ -12,7 +12,6 @@ from app.core.logging import log_event
 from app.core.security import SlidingWindowLimiter
 from app.llm.groq_client import ChatLLM, GroqClient
 from app.llm.response_generator import ResponseGenerator
-from app.rag.embeddings import Embedder
 from app.rag.pipeline import RAGPipeline
 from app.rag.retriever import Retriever
 from app.rag.vector_store import VectorStore
@@ -25,7 +24,6 @@ logger = logging.getLogger(__name__)
 @dataclass
 class Container:
     settings: Settings
-    embedder: Embedder
     store: VectorStore
     retriever: Retriever
     chat: ChatService
@@ -35,17 +33,16 @@ class Container:
     llm: ChatLLM | None = None
 
 
-def build_container(settings: Settings, llm: ChatLLM | None = None, embedder: Embedder | None = None) -> Container:
-    embedder = embedder or Embedder(settings.embedding_model, settings.hf_token)
-    store = VectorStore(settings.index_path, settings.metadata_path, settings.embedding_model)
-    ingestion = IngestionService(settings, embedder, store)
+def build_container(settings: Settings, llm: ChatLLM | None = None) -> Container:
+    store = VectorStore(settings.chroma_path, settings.chroma_collection_name)
+    ingestion = IngestionService(settings, store)
 
-    if not store.load():
-        # First start: build the index once. Later starts just load it from disk.
-        log_event(logger, "no vector store found - running initial ingestion")
+    if not store.ready:
+        # First start (or empty/lost volume): index once. Later starts reuse the persisted collection.
+        log_event(logger, "vector store empty - running initial ingestion")
         ingestion.ingest()
 
-    retriever = Retriever(store, embedder)
+    retriever = Retriever(store)
     llm = llm or GroqClient(
         api_key=settings.groq_api_key,
         model=settings.groq_model,
@@ -56,7 +53,7 @@ def build_container(settings: Settings, llm: ChatLLM | None = None, embedder: Em
     )
     chat = ChatService(settings, RAGPipeline(retriever, settings), ResponseGenerator(llm, store.vocabulary))
     return Container(
-        settings=settings, embedder=embedder, store=store, retriever=retriever, chat=chat, ingestion=ingestion,
+        settings=settings, store=store, retriever=retriever, chat=chat, ingestion=ingestion,
         ip_limiter=SlidingWindowLimiter(settings.rate_limit_per_minute),
         session_limiter=SlidingWindowLimiter(settings.session_rate_limit_per_minute),
         llm=llm,

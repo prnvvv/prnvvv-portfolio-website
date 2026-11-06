@@ -3,7 +3,7 @@
 A domain-restricted Retrieval-Augmented Generation chatbot that answers questions **only** about
 Prannavakhanth, using the portfolio's own content as its single source of truth.
 
-* **FastAPI** API · **FAISS** vector search · local **Sentence-Transformers** embeddings · **Groq** LLM
+* **FastAPI** API · **ChromaDB** vector search · ChromaDB's built-in local **ONNX MiniLM** embeddings · **Groq** LLM
 * Knowledge lives in `data/**/*.json` - nothing personal is hard-coded in prompts or code
 * Defence in depth: input guard → injection detector → intent classifier → context guard → output guard
 
@@ -21,7 +21,7 @@ Visitor ──► POST /api/chat ──► rate limit (IP + session) ──► b
    ┌────────────────────────────────────┴────────────────────────────────────┐
    │ 1 input_guard        length, control chars, floods, adversarial lock-out │
    │ 2 injection detector + intent classifier  (PROMPT_INJECTION / OUT_OF_SCOPE ... → canned refusal, NO LLM call)
-   │ 3 retriever          query → embedding → FAISS (all vectors) → rerank     │
+   │ 3 retriever          query → ChromaDB (embeds query, all chunks) → rerank│
    │ 4 context_guard      relevance + sufficiency + drops instruction-like chunks
    │ 5 Groq LLM           system policy + fenced context + server-side history │
    │ 6 output_guard       leaks, identity breaks, unsafe markup, grounding     │
@@ -44,26 +44,27 @@ backend/
 │   ├── main.py  config.py  dependencies.py
 │   ├── api/         chat.py  health.py  admin.py
 │   ├── core/        security.py (rate limit, body limit, headers, admin auth)  exceptions.py  logging.py
-│   ├── rag/         document_loader  data_validator  chunker  embeddings  vector_store  retriever  reranker  pipeline
+│   ├── rag/         document_loader  data_validator  chunker  vector_store  retriever  reranker  pipeline
 │   ├── guardrails/  input_guard  prompt_injection_detector  intent_classifier  context_guard  output_guard  system_policy
 │   ├── llm/         groq_client  prompt_templates  response_generator
 │   ├── schemas/     request.py  response.py
 │   └── services/    chat_service.py  ingestion_service.py
-├── scripts/         ingest.py  rebuild_index.py  validate_data.py  eval_retrieval.py  dev_stub_server.py
+├── scripts/         ingest.py  rebuild_index.py  migrate_faiss_to_chroma.py  validate_data.py  eval_retrieval.py  dev_stub_server.py
 ├── tests/           test_ingestion  test_retrieval  test_guardrails  test_chat  test_security
-├── vector_store/    generated FAISS index + metadata (git-ignored)
+├── chroma_data/     generated ChromaDB storage (git-ignored; see §6 for Render)
+├── vector_store/    legacy FAISS index, only read by the migration script (git-ignored)
 └── .env.example  requirements.txt
 ```
 
-Deviations from the original brief: `.env` holds no key until you add one; the FAISS sidecar is
-`metadata.json` rather than `metadata.pkl` (no pickle deserialisation); `personal/languages.json`,
+Deviations from the original brief: `.env` holds no key until you add one; `personal/languages.json`,
 `education/coursework.json`, `experience/extracurriculars.json` and `research/*` extras were **not**
 created where the portfolio has no such content (nothing is invented). See §4.
 
 ## 3. Technologies
 
-Python 3.10-3.13 (FAISS/PyTorch wheels are not yet published for 3.14+) · FastAPI/Starlette · Pydantic Settings ·
-`faiss-cpu` · `sentence-transformers` (`all-MiniLM-L6-v2`, 384-d, CPU) · official `groq` SDK · pytest.
+Python 3.10-3.13 (onnxruntime wheels are not yet published for 3.14+) · FastAPI/Starlette · Pydantic Settings ·
+`chromadb==1.5.9` (default embedding function: ONNX `all-MiniLM-L6-v2`, 384-d, CPU via onnxruntime) · official `groq` SDK · pytest.
+No PyTorch, FAISS, sentence-transformers, Hugging Face token or Gemini key is used or needed.
 
 ## 4. Data extraction and conventions
 
@@ -100,20 +101,42 @@ Project files live one-per-project in `data/projects/individual/` so retrieval c
 
 1. `document_loader` renders each JSON document to text starting with `[Category] Title` + `Subject: ...`.
 2. `chunker` splits documents (≤ `MAX_CHUNK_CHARS`, default 900) on paragraph → line → sentence boundaries, repeating the header on every chunk.
-3. `embeddings` encodes locally, L2-normalised (inner product = cosine).
-4. `retriever` embeds the query, scores **every** vector (the corpus is tiny, so scores are exact), finds project names
+3. `ingestion_service` upserts the chunks into ChromaDB, which embeds them itself (nothing in this project computes or passes embeddings).
+4. `retriever` asks ChromaDB for the closest chunks (`query_texts`, cosine; the corpus is tiny, so it requests every chunk and scores are exact), finds project names
    mentioned in the question (`SSL RUL` == `ssl-rul`), and `reranker` blends dense similarity + lexical title/text overlap +
    intent-category match + project-entity match.
 5. `context_guard` keeps relevant chunks only (see §8) and builds a size-bounded context block.
 
 Follow-up questions ("what technologies did it use?") borrow the previous *accepted* question for retrieval only.
 
-## 6. FAISS indexing
+## 6. ChromaDB storage
 
-`IndexIDMap2(IndexFlatIP)`; each vector id maps to a record `{chunk_id, text, metadata}` in `vector_store/metadata.json`
-together with the embedding model name, dimension and a SHA-256 per source file. Saves are atomic (temp file + replace).
-On load the index/metadata sizes and embedding model are cross-checked; a mismatch demands a rebuild instead of serving wrong answers.
-The index is loaded once at startup; nothing is re-embedded unless a file changed.
+* **Why ChromaDB:** one embedded, persistent store for vectors + text + metadata, with embedding built in - no separate model
+  code, no PyTorch, no sidecar files. Memory is ~130 MB with the collection loaded, so it fits Render's 512 MB instance.
+* **Embeddings:** the collection is created *without* an `embedding_function`, so ChromaDB's default applies to both
+  `upsert(documents=...)` and `query(query_texts=...)`: ONNX `all-MiniLM-L6-v2` (384-d) run locally by onnxruntime.
+  No `HF_TOKEN` or `GEMINI_API_KEY` is required. The model file (~80 MB) is downloaded once by ChromaDB into
+  `~/.cache/chroma/onnx_models` on first use. If a future ChromaDB release changes its default, `tests/test_ingestion.py::test_collection_uses_cosine_and_default_embedding`
+  fails instead of silently switching models; `chromadb` is pinned.
+* **Collection:** `CHROMA_COLLECTION_NAME` (default `portfolio_knowledge`), `hnsw:space=cosine`, similarity = `1 - distance`.
+  Chunk ids are deterministic (`<doc_id>#<chunk_index>`), so re-ingesting is an idempotent upsert. Metadata (source file, category,
+  title, `doc_id`, `chunk_index`, `chunk_total`, ...) plus the source file's SHA-256 live on each chunk; lists are stored as JSON strings.
+* **Ingestion:** per source file: upsert in batches of 64, then delete that file's stale chunks (an embedding failure leaves the old
+  chunks in place). Unchanged files are skipped by hash, deleted files are removed, `rebuild_index.py` drops and recreates the collection.
+  Ingestions are serialised with a lock. The server loads the persisted collection at start and only ingests when it is empty.
+* **Persistence / Render:** data is written to `CHROMA_PERSIST_DIRECTORY` (default `./chroma_data`, git-ignored). Render's default
+  filesystem is **ephemeral**: on every deploy/restart the collection would be rebuilt (a few seconds for 74 chunks, but it needs the
+  model download). Options: (a) accept the rebuild (the data is rebuilt from `data/*.json`, nothing is lost); (b) attach a Render
+  persistent disk (paid plans) mounted at e.g. `/var/data` and set `CHROMA_PERSIST_DIRECTORY=/var/data/chroma`. The repo has no
+  `render.yaml`, so this is configured in the Render dashboard. To avoid downloading the model at runtime, add to the build command:
+  `python -c "from chromadb.utils.embedding_functions import DefaultEmbeddingFunction as D; D()(['x'])"`.
+
+### Migrating from the old FAISS index
+
+`python scripts/migrate_faiss_to_chroma.py` is safe to re-run. It does **not** copy FAISS vectors (different embedding pipeline); it
+re-ingests the authoritative `data/*.json` into Chroma, then checks chunk counts/ids and metadata against the old
+`vector_store/metadata.json`, runs retrieval probes, and reopens the store to prove persistence. Add `--remove-old` to delete the
+old `vector_store/` files, only if every check passed. Fresh installs do not need it.
 
 ## 7. Groq integration
 
@@ -140,7 +163,7 @@ Fallback messages (exact wording from the brief) live in `system_policy.py`.
 Current result: recall@5 = 20/20 (19/20 before intent-aware ranking), in-scope best similarity min 0.27 / mean 0.48,
 unrelated max 0.44 (a general "what is machine learning?" - stopped by the classifier, not the threshold).
 `SIMILARITY_THRESHOLD=0.25` sits below the in-scope minimum and above the other unrelated queries; short keyword questions
-("Does he know PyTorch?") are rescued by lexical overlap. Re-run the script after changing data or the embedding model.
+("Does he know PyTorch?") are rescued by lexical overlap. Re-run the script after changing data.
 
 ## 9. Configuration (`backend/.env`)
 
@@ -153,8 +176,9 @@ cp .env.example .env      # then set GROQ_API_KEY
 | `GROQ_API_KEY` | - | **required**; never sent to the frontend or returned by any endpoint |
 | `GROQ_MODEL` | `openai/gpt-oss-120b` | any Groq chat model |
 | `GROQ_TEMPERATURE` / `GROQ_MAX_TOKENS` / `GROQ_TIMEOUT_SECONDS` | 0.1 / 1000 / 20 | |
-| `EMBEDDING_MODEL` | `sentence-transformers/all-MiniLM-L6-v2` | changing it requires `rebuild_index.py` |
-| `FAISS_INDEX_PATH` / `FAISS_METADATA_PATH` | `vector_store/faiss.index` / `vector_store/metadata.json` | relative to `backend/` |
+| `VECTOR_DB` | `chroma` | only supported value |
+| `CHROMA_PERSIST_DIRECTORY` | `./chroma_data` | relative to `backend/`; use a persistent-disk path on Render (§6) |
+| `CHROMA_COLLECTION_NAME` | `portfolio_knowledge` | |
 | `ALLOWED_ORIGINS` | - | **required**, comma-separated exact origins; `*` is refused |
 | `ALLOW_LOCALHOST_ORIGINS` | false (true in `.env.example`) | dev only: also allow `http://localhost:<any port>` / `127.0.0.1`; fixes `OPTIONS /api/chat 400` when Vite runs on 3001/5173 |
 | `API_HOST` / `API_PORT` | `127.0.0.1` / `8000` | |
@@ -182,11 +206,11 @@ cp .env.example .env                # add GROQ_API_KEY
 ```bash
 python scripts/validate_data.py     # schema + secret scan
 python scripts/ingest.py            # incremental: only new/changed/deleted files are (re)processed
-python scripts/rebuild_index.py     # full rebuild (also required after changing EMBEDDING_MODEL)
+python scripts/rebuild_index.py     # full rebuild (drops and recreates the collection)
 ```
 
-The server builds the index automatically on first start if none exists, and afterwards just loads it.
-The first run downloads the embedding model (~90 MB) from Hugging Face; set `HF_HUB_OFFLINE=1` afterwards to skip network checks.
+The server ingests automatically on first start if the collection is empty, and afterwards reuses the persisted one.
+The first embedding call makes ChromaDB download its ONNX model (~80 MB) into its own cache; no account or token is involved.
 
 ## 12. Run
 
@@ -221,11 +245,11 @@ token check, own rate limit. Prefer the CLI scripts.
 ## 15. Tests
 
 ```bash
-python -m pytest -q          # 172 tests, ~10 s once the embedding model is cached
+python -m pytest -q          # 184 tests, ~30 s once ChromaDB's model is cached
 python scripts/eval_retrieval.py
 ```
 
-Covers ingestion/chunking/embeddings/FAISS persistence/incremental update/rebuild, retrieval quality, the full legitimate /
+Covers ingestion/chunking/ChromaDB persistence/restart/upsert/batching/filtering/failure handling/incremental update/rebuild, retrieval quality, the full legitimate /
 out-of-scope / adversarial query matrix (including obfuscated payloads), output grounding, API behaviour with a fake LLM,
 CORS, admin auth, rate limits, size limits, log redaction, session isolation and retrieval-poisoning.
 Frontend browser tests: `frontend/e2e/chatbot.e2e.mjs`; bundle secret scan: `frontend/e2e/scan-bundle.mjs`.
@@ -244,5 +268,5 @@ Frontend browser tests: `frontend/e2e/chatbot.e2e.mjs`; bundle secret scan: `fro
 Run `uvicorn` (or `gunicorn -k uvicorn.workers.UvicornWorker`, **one worker** while limits/sessions are in-memory) behind HTTPS
 (Render, Railway, Fly.io, a VPS ...). Set the env vars on the host, `ALLOWED_ORIGINS=https://prnvvv-portfolio-website.vercel.app`,
 `TRUST_PROXY_HEADERS=true` if behind a proxy, and `VITE_CHATBOT_API_URL=https://<backend>` in the frontend build (Vercel).
-Commit data changes, then `python scripts/ingest.py` (or redeploy - the server indexes on first start). The FAISS index is a build
-artefact; it is not committed.
+Commit data changes, then `python scripts/ingest.py` (or redeploy - the server indexes on first start). The ChromaDB directory is a build
+artefact; it is not committed (see §6 for Render persistence).

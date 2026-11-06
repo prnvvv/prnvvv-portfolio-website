@@ -19,7 +19,7 @@ ADMIN = "a" * 32
 
 
 def make_client(container, **settings_kw):
-    s = make_settings(Path(container.settings.index_path).parent, container.settings.data_path, **settings_kw)
+    s = make_settings(Path(container.settings.chroma_path).parent, container.settings.data_path, **settings_kw)
     container.settings = s
     return TestClient(create_app(s, container))
 
