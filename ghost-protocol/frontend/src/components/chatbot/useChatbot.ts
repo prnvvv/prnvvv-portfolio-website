@@ -19,6 +19,10 @@ export interface ChatMessageData {
 export const GREETING =
   "Hey! I'm Prannavakhanth's AI assistant.\n\nCurious about his projects, technical skills, experience, or background? Ask me anything about his portfolio!"
 
+/** The backend answers a bare "hi" with the same canned text as GREETING, which the window already shows on top. */
+const GREETING_REPLY = 'Hi there! What would you like to know about his projects, skills, or background?'
+const sameText = (a: string, b: string) => a.replace(/\s+/g, ' ').trim() === b.replace(/\s+/g, ' ').trim()
+
 const MAX_MESSAGES = 60
 
 let counter = 0
@@ -55,7 +59,7 @@ export function useChatbot() {
       const reply = await sendChatMessage(text, sessionId.current, controller.current.signal)
       sessionId.current = reply.sessionId
       setMessages((m) =>
-        [...m, { id: nextId(), role: 'assistant' as const, content: reply.answer, sources: reply.sources }].slice(-MAX_MESSAGES),
+        [...m, { id: nextId(), role: 'assistant' as const, content: sameText(reply.answer, GREETING) ? GREETING_REPLY : reply.answer, sources: reply.sources }].slice(-MAX_MESSAGES),
       )
     } catch (err) {
       if (err instanceof ChatbotApiError && err.kind === 'aborted') return

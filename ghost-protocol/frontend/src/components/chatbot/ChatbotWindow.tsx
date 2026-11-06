@@ -25,6 +25,27 @@ export default function ChatbotWindow({ messages, loading, canRetry, onSend, onR
     input.current?.focus()
   }, [])
 
+  // Phones (esp. iOS Safari) keep the layout viewport full-height when the keyboard opens, hiding the
+  // input. Mirror the visual viewport into CSS variables; the stylesheet only uses them at <=640px.
+  useEffect(() => {
+    const vv = window.visualViewport
+    const root = document.documentElement
+    if (!vv) return
+    const sync = () => {
+      root.style.setProperty('--chatbot-vh', `${Math.round(vv.height)}px`)
+      root.style.setProperty('--chatbot-top', `${Math.round(vv.offsetTop)}px`)
+    }
+    sync()
+    vv.addEventListener('resize', sync)
+    vv.addEventListener('scroll', sync)
+    return () => {
+      vv.removeEventListener('resize', sync)
+      vv.removeEventListener('scroll', sync)
+      root.style.removeProperty('--chatbot-vh')
+      root.style.removeProperty('--chatbot-top')
+    }
+  }, [])
+
   useEffect(() => {
     const el = log.current
     if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' })
