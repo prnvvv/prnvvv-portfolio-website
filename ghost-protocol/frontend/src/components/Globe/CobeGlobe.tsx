@@ -23,6 +23,8 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
     phiOffsetVelocity: 0,
   })
 
+  const dragRef = useRef({ active: false, lastX: 0, lastY: 0, velPhi: 0 })
+
   useEffect(() => {
     const canvas = canvasRef.current
     const container = containerRef.current
@@ -53,6 +55,21 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
       onRender: (state) => {
         const rot = rotRef.current
         const mouse = mouseRef.current
+        const drag = dragRef.current
+
+        // Click-and-drag: the globe follows the pointer; auto-rotation and hover easing pause.
+        if (drag.active) {
+          rot.thetaVelocity = 0
+          state.phi = rot.phi + rot.phiOffset
+          state.theta = rot.theta
+          return
+        }
+        if (Math.abs(drag.velPhi) > 0.00005) {
+          rot.phi += drag.velPhi // release inertia
+          drag.velPhi *= 0.95
+        } else {
+          drag.velPhi = 0
+        }
         const isInteracting = interactive && !isMobile && mouse.active
 
         rot.phi += ROTATION_SPEED
@@ -87,6 +104,53 @@ export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGl
       globeRef.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // Drag to rotate (mouse, pen and touch)
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const drag = dragRef.current
+    const SENSITIVITY = 0.006 // radians per pixel
+
+    const onDown = (e: PointerEvent) => {
+      drag.active = true
+      drag.lastX = e.clientX
+      drag.lastY = e.clientY
+      drag.velPhi = 0
+      canvas.setPointerCapture(e.pointerId)
+      canvas.style.cursor = 'grabbing'
+    }
+    const onMove = (e: PointerEvent) => {
+      if (!drag.active) return
+      const dx = e.clientX - drag.lastX
+      const dy = e.clientY - drag.lastY
+      drag.lastX = e.clientX
+      drag.lastY = e.clientY
+      const rot = rotRef.current
+      rot.phi += dx * SENSITIVITY
+      rot.theta = Math.max(-0.9, Math.min(1.2, rot.theta + dy * SENSITIVITY))
+      drag.velPhi = dx * SENSITIVITY
+    }
+    const onUp = (e: PointerEvent) => {
+      if (!drag.active) return
+      drag.active = false
+      if (canvas.hasPointerCapture(e.pointerId)) canvas.releasePointerCapture(e.pointerId)
+      canvas.style.cursor = 'grab'
+    }
+
+    canvas.style.cursor = 'grab'
+    canvas.style.touchAction = 'pan-y'
+    canvas.addEventListener('pointerdown', onDown)
+    canvas.addEventListener('pointermove', onMove)
+    canvas.addEventListener('pointerup', onUp)
+    canvas.addEventListener('pointercancel', onUp)
+    return () => {
+      canvas.removeEventListener('pointerdown', onDown)
+      canvas.removeEventListener('pointermove', onMove)
+      canvas.removeEventListener('pointerup', onUp)
+      canvas.removeEventListener('pointercancel', onUp)
+    }
   }, [])
 
   useEffect(() => {
