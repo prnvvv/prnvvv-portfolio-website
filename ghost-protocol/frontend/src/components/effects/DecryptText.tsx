@@ -12,7 +12,6 @@ interface DecryptTextProps {
 
 export default function DecryptText({ texts, interval = 4000, className = '' }: DecryptTextProps) {
   const [displayText, setDisplayText] = useState(texts[0])
-  const indexRef = useState(0)
 
   const decrypt = useCallback(async (target: string) => {
     const targetLen = target.length
