@@ -16,7 +16,6 @@ function sendErrorLog(error: Error, component: string): void {
     try {
       const match = dsn.match(/^https:\/\/(.+)@(.+)\.ingest\.sentry\.io\/(\d+)$/)
       if (!match) return
-      const key = match[1]
       const host = match[2]
       const projectId = match[3]
       const url = `https://${host}.ingest.sentry.io/api/${projectId}/envelope/`

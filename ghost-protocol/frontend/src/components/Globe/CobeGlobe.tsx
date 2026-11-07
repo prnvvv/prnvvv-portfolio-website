@@ -9,7 +9,7 @@ interface CobeGlobeProps {
   containerRef: RefObject<HTMLDivElement | null>
 }
 
-export default function CobeGlobe({ reduced, interactive, containerRef }: CobeGlobeProps) {
+export default function CobeGlobe({ interactive, containerRef }: CobeGlobeProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const globeRef = useRef<ReturnType<typeof createGlobe> | null>(null)
   const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768

@@ -77,10 +77,6 @@ export interface PortfolioStats {
 
 export function getStats(): PortfolioStats {
   const hackathons = awardsData.filter((a) => a.category === 'Hackathon').length
-  const patentsPublished = missions.filter((m) => m.id === 'mission-1').length
-  const patentsFiled = missions.filter((m) =>
-    ['mission-5', 'mission-6', 'mission-7'].includes(m.id)
-  ).length
   const papersUnderReview = intelReports.filter((r) => r.status === 'Under Review').length
   const totalStars = githubReposData.reduce((sum, r) => sum + r.stars, 0)
 
