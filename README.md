@@ -1,4 +1,6 @@
-<!-- README HEADER IMAGE — Add assets/readme/readme_header.<extension> here (note: the screenshots folder in this repo is currently spelled `assests/readme/`) -->
+<p align="center">
+  <img src="assets/readme/readme_header.png" width="100%" alt="Prannavakhanth Portfolio Header"/>
+</p>
 
 <div align="center">
 
@@ -35,8 +37,8 @@ Two visual modes share the exact same pages and layout:
 
 <table>
   <tr>
-    <td width="50%"><img src="assests/readme/landing_page_commander.png" alt="Landing page in the Commander theme: name, role, terminal intro card, access button and a dotted green globe" width="100%"></td>
-    <td width="50%"><img src="assests/readme/landing_page_noir.png" alt="Landing page in the Noir theme: the same layout rendered in black and grayscale" width="100%"></td>
+    <td width="50%"><img src="assets/readme/landing_page_commander.png" alt="Landing page in the Commander theme: name, role, terminal intro card, access button and a dotted green globe" width="100%"></td>
+    <td width="50%"><img src="assets/readme/landing_page_noir.png" alt="Landing page in the Noir theme: the same layout rendered in black and grayscale" width="100%"></td>
   </tr>
   <tr>
     <td align="center"><sub><b>Landing page — Commander</b></sub></td>
@@ -57,8 +59,8 @@ The goal is for the site to show engineering ability through its implementation 
 
 <table>
   <tr>
-    <td width="50%"><img src="assests/readme/intro_commander.png" alt="Dashboard in the Commander theme showing the Operator Dossier, skill inventory, tech stack icons and the start of Academy Records" width="100%"></td>
-    <td width="50%"><img src="assests/readme/intro_noir.png" alt="Dashboard in the Noir theme" width="100%"></td>
+    <td width="50%"><img src="assets/readme/intro_commander.png" alt="Dashboard in the Commander theme showing the Operator Dossier, skill inventory, tech stack icons and the start of Academy Records" width="100%"></td>
+    <td width="50%"><img src="assets/readme/intro_noir.png" alt="Dashboard in the Noir theme" width="100%"></td>
   </tr>
   <tr>
     <td align="center"><sub><b>Dashboard: Operator Dossier and Skill Inventory — Commander</b></sub></td>
@@ -89,8 +91,8 @@ A floating chat widget (bottom-right on every page) lets visitors ask about the 
 
 <table>
   <tr>
-    <td width="50%"><img src="assests/readme/chatbot_commander.png" alt="AI assistant chat window open over the landing page in the Commander theme" width="100%"></td>
-    <td width="50%"><img src="assests/readme/chatbot_noir.png" alt="AI assistant chat window with suggested questions in the Noir theme" width="100%"></td>
+    <td width="50%"><img src="assets/readme/chatbot_commander.png" alt="AI assistant chat window open over the landing page in the Commander theme" width="100%"></td>
+    <td width="50%"><img src="assets/readme/chatbot_noir.png" alt="AI assistant chat window with suggested questions in the Noir theme" width="100%"></td>
   </tr>
   <tr>
     <td align="center"><sub><b>Assistant — Commander</b></sub></td>
