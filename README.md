@@ -110,3 +110,109 @@ A floating chat widget (bottom-right on every page) lets visitors ask about the 
 The API also applies per-IP and per-session rate limits and a CORS allow-list. Full details: [`ghost-protocol/backend/README.md`](ghost-protocol/backend/README.md).
 
 > No LLM guardrail is jailbreak-proof; the layered checks reduce risk rather than eliminate it.
+
+## Technology Stack
+
+| Category | Technologies |
+|---|---|
+| **Frontend** | React 19, TypeScript 5.7, Vite 6, Tailwind CSS 4, React Router 7, Zustand, `react-markdown` |
+| **Animation & 3D** | Framer Motion / `motion`, Three.js, React Three Fiber, `postprocessing`, `cobe` (globe), `canvas-confetti` |
+| **UI utilities** | `lucide-react`, `react-icons`, `clsx`, `tailwind-merge`, `usehooks-ts` |
+| **Backend** | Python 3.10–3.13, FastAPI, Uvicorn, Pydantic / pydantic-settings |
+| **Vector database** | ChromaDB (local, persisted) with built-in ONNX `all-MiniLM-L6-v2` embeddings |
+| **LLM** | Groq API (`groq` SDK) |
+| **Testing** | pytest, httpx (backend); Node-based e2e scripts in `frontend/e2e/` |
+| **Deployment** | Vercel (frontend), Render (backend) |
+| **CI / tooling** | GitHub Actions (frontend build + `npm audit`), `tsc` strict type-checking |
+
+## Architecture
+
+```mermaid
+flowchart LR
+    V["Visitor's browser"] -->|static site| FE["React + Vite frontend<br/>(Vercel)"]
+    FE -->|"POST /api/chat"| API["FastAPI backend<br/>(Render)"]
+    API --> G["Guardrails<br/>input, injection, intent"]
+    G --> R["Retriever + reranker"]
+    R <--> C[("ChromaDB<br/>embedded vector store")]
+    KB["data/**/*.json<br/>portfolio knowledge base"] -->|ingest + chunk| C
+    R --> CG["Context guard"]
+    CG --> L["Groq LLM"]
+    L --> O["Output guard"]
+    O -->|"answer + sources"| FE
+```
+
+- **Frontend** is a static, lazily-routed React app. Portfolio pages render from local data in `src/data/`; only the chat widget talks to the backend (`src/services/chatbotApi`).
+- **Backend** exposes `/api/chat`, `/api/health` and an optional token-protected admin ingest endpoint. Handlers stay thin; orchestration lives in `services/chat_service.py`.
+- **Data flow** for a question: guardrails → retrieval from ChromaDB → rerank → context guard → Groq → output guard → response.
+
+More detail: [`ARCHITECTURE.md`](ARCHITECTURE.md).
+
+## Responsive Design
+
+The layout adapts across desktop, tablet and mobile widths:
+
+- **Navigation** switches from a side dock on desktop to a fixed bottom dock on small screens (with safe-area padding for devices with a home indicator).
+- **Dashboard sections** reflow from multi-column grids into stacked cards, and shared content width and spacing come from `styles/mobile-fixes.css`.
+- **Theme switcher and social links** share one compact control in the top bar on narrow screens.
+- **Chat widget** is available on every page at every width.
+
+The screenshots above show the desktop (1920 × 1080) layout.
+
+## Getting Started
+
+**Prerequisites:** Node 20+, and Python 3.10–3.13 if you want to run the chatbot backend (3.12 recommended).
+
+### Frontend
+
+```bash
+cd ghost-protocol/frontend
+npm ci
+npm run dev          # http://localhost:3000
+```
+
+Other scripts: `npm run typecheck`, `npm run build` (typecheck + production build), `npm run preview`.
+The production build redirects HTTP to HTTPS, so test locally with `npm run dev`.
+
+### Backend (AI assistant)
+
+```bash
+cd ghost-protocol/backend
+python -m venv .venv && source .venv/bin/activate      # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env                                   # then set GROQ_API_KEY and ALLOWED_ORIGINS
+python scripts/ingest.py                               # build the ChromaDB collection
+uvicorn app.main:app --port 8000
+python -m pytest -q                                    # tests (no network or LLM needed)
+```
+
+In development the frontend talks to `http://127.0.0.1:8000` automatically. Without a Groq key, `python scripts/dev_stub_server.py` runs real retrieval with a canned LLM. The first run downloads ChromaDB's ONNX model (~80 MB).
+
+### Environment variables
+
+Never commit real values. See the example files for the full list:
+
+| File | Key variables |
+|---|---|
+| `ghost-protocol/backend/.env.example` | `GROQ_API_KEY`, `GROQ_MODEL`, `ALLOWED_ORIGINS`, `CHROMA_PERSIST_DIRECTORY`, `ADMIN_TOKEN` (optional) |
+| `ghost-protocol/frontend/.env.example` | `VITE_CHATBOT_API_URL` (the chat widget is hidden in production when unset), `VITE_SITE_URL`, `VITE_SENTRY_DSN` |
+
+More: [`DEVELOPMENT.md`](DEVELOPMENT.md), [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Deployment
+
+| Part | Platform | Notes |
+|---|---|---|
+| Frontend | **Vercel** | Configured in `ghost-protocol/frontend/vercel.json` (SPA rewrite, security headers, immutable asset caching). Set `VITE_CHATBOT_API_URL` at build time. |
+| Backend | **Render** | Build: `pip install -r requirements.txt && python scripts/ingest.py`. Start: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`. Health check: `/api/health`. Set `ALLOWED_ORIGINS` to the Vercel origin. |
+
+Live site: **https://folio-website.vercel.app/**
+
+## Contact
+
+- GitHub: [github.com/prnvvv](https://github.com/prnvvv)
+- LinkedIn: [linkedin.com/in/prannavakhanth](https://linkedin.com/in/prannavakhanth)
+- Email: [prannavakhanth12@gmail.com](mailto:prannavakhanth12@gmail.com)
+
+## License
+
+MIT — see [`ghost-protocol/LICENSE`](ghost-protocol/LICENSE).
